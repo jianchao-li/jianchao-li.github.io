@@ -23,7 +23,7 @@ date_format = "Jan 2006"
   company_url = "http://visenze.com/"
   location = "Singapore"
   date_start = "2019-06-03"
-  date_end = ""
+  date_end = "2020-12-18"
   description = """"""
 
 [[experience]]
