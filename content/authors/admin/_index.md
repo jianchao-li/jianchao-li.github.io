@@ -18,7 +18,7 @@ organizations:
   url: ""
 
 # Short bio (displayed in user profile at end of posts)
-bio: I love writing deep learning codes.
+# bio: I love writing deep learning codes.
 
 interests:
 - Deep Learning
@@ -65,4 +65,4 @@ user_groups:
 - Visitors
 ---
 
-Jianchao Li is a software engineer specialized in deep learning, machine learning and computer vision. He is honored to have been working as a software engineer and a site reliablity engineer at Indeed - the world's #1 job site in Tokyo, Japan and as an algorithm engineer at ByteDance AI Lab in Beijing, China.
+Jianchao Li is a software engineer specialized in deep learning, machine learning and computer vision. He is honored to have been working as a software engineer and a site reliablity engineer at Indeed - the world's #1 job site in Tokyo, Japan, as an algorithm engineer at ByteDance AI Lab in Beijing, China, and as a research engineer at ViSenze in Singapore.
