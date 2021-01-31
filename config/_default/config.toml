@@ -19,7 +19,7 @@ copyright = "&copy; {year}"
 googleAnalytics = "UA-149941944-1"
 
 # Enable comments by entering your Disqus shortname
-disqusShortname = "jianchaoli"
+# disqusShortname = "jianchaoli"
 
 ############################
 ## Advanced options below ##
