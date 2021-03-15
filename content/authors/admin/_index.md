@@ -65,4 +65,4 @@ user_groups:
 - Visitors
 ---
 
-Jianchao Li is a software engineer specialized in deep learning, machine learning and computer vision. He is honored to have been working as a software engineer and a site reliablity engineer at Indeed - the world's #1 job site in Tokyo, Japan, as an algorithm engineer at ByteDance AI Lab in Beijing, China, and as a research engineer at ViSenze in Singapore.
+Jianchao Li is a software engineer specialized in deep learning, machine learning and computer vision. He is working at Facebook in Zurich, Switzerland now. Previously, he has been working at Indeed in Tokyo, Japan, ByteDance AI Lab in Beijing, China, and ViSenze in Singapore.
