@@ -27,7 +27,7 @@ interests:
 
 education:
   courses:
-  - course: M.S. in Computer Application Technology
+  - course: M.S. in Computer Applied Technology
     institution: University of Chinese Academy of Sciences
     year: 2016
   - course: B.S. in Communication Engineering
@@ -65,4 +65,4 @@ user_groups:
 - Visitors
 ---
 
-Jianchao Li is a software engineer specialized in deep learning, machine learning and computer vision. He is working at Facebook in Zurich, Switzerland now. Previously, he has been working at Indeed in Tokyo, Japan, ByteDance AI Lab in Beijing, China, and ViSenze in Singapore.
+Jianchao Li is a software engineer specialized in deep learning, machine learning and computer vision. He is working at Meta in Zurich, Switzerland now. Previously, he has been working at Indeed in Tokyo, Japan, ByteDance in Beijing, China, and ViSenze in Singapore.

@@ -19,8 +19,8 @@ date_format = "Jan 2006"
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 [[experience]]
   title = "Software Engineer"
-  company = "Facebook"
-  company_url = "https://www.facebook.com/"
+  company = "Meta"
+  company_url = "https://about.facebook.com/"
   location = "Zurich, Switzerland"
   date_start = "2021-01-04"
   date_end = ""
@@ -37,7 +37,7 @@ date_format = "Jan 2006"
 
 [[experience]]
   title = "Algorithm Engineer"
-  company = "ByteDance AI Lab"
+  company = "ByteDance"
   company_url = "https://ailab.bytedance.com/"
   location = "Beijing, China"
   date_start = "2018-09-03"
