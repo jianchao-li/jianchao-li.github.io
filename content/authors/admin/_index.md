@@ -65,4 +65,4 @@ user_groups:
 - Visitors
 ---
 
-Jianchao Li is a software engineer specialized in deep learning, machine learning and computer vision. He is working at Meta in Zurich, Switzerland now. Previously, he has been working at Indeed in Tokyo, Japan, ByteDance in Beijing, China, and ViSenze in Singapore.
+Jianchao Li is a software engineer with expertise in deep learning, machine learning, and computer vision. He is currently based in Zurich, Switzerland and works at [Meta](https://about.meta.com/). Prior to joining Meta, he has held software engineering roles at leading technology companies such as [Indeed](http://www.indeed.com/), [ByteDance](https://www.bytedance.com/), and [ViSenze](https://visenze.com/).
