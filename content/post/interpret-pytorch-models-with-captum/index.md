@@ -83,7 +83,7 @@ plt.figure(figsize=(10, 10))
 plt.imshow(img)
 ```
 
-<div style="text-align:center"><img src="image.png"/></div>
+![](image.png)
 
 I also prepare the class names for the 1000 classes in ImageNet. This will let me know the specific class names instead of only the index of the predicted class. The class names are loaded from the following URL.
 
@@ -195,7 +195,7 @@ ax.set_title(class_names_map[str(out_index)], fontsize=30)
 plt.imshow(vis)
 ```
 
-<div style="text-align:center"><img src="visualization.png"/></div>
+![](visualization.png)
 
 We can see that the model makes a correct prediction. From the above visualization, we can also see that the red regions are mostly around the head and beak of the Hornbill, especiall its heavy bill. The red regions are the main regions that drive the model to generate its output. This makes great sense as those regions are just the distinctive features of a Hornbill.
 

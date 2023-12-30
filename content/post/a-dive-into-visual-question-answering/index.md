@@ -32,7 +32,7 @@ I have been very interested in the interplay between vision and natural language
 ## What is VQA?
 VQA is a task that involves understanding the semantic information of both an image and a natuarl language question and returning the answer also expressed in natural language. You may play with the [Visual Chatbot](http://demo.visualdialog.org/) to get a sense of VQA.
 
-<div style="text-align:center"><img src="vqabot.png" width="100%" /></div>
+![](vqabot.png)
 
 <br>As can be seen, this is a multi-modal task involving two modes of data (an image and a text). To answer the question, both the semantics of the image and the question should be well understood.
 
