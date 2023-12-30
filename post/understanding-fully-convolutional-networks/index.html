@@ -529,15 +529,15 @@
       <p>Fully convolutional networks, or FCNs, were proposed by <a href="http://people.eecs.berkeley.edu/~jonlong/">Jonathan Long</a>, <a href="http://imaginarynumber.net/">Evan Shelhamer</a> and <a href="https://people.eecs.berkeley.edu/~trevor/">Trevor Darrell</a> in CVPR 2015 as a framework for semantic segmentation.</p>
 <h2 id="semantic-segmentation">Semantic segmentation</h2>
 <p>Semantic segmentation is a task in which given an image, we need to assign a semantic label (like cat, dog, person, background etc.) to each of its pixels. The following are some examples taken from <a href="http://host.robots.ox.ac.uk/pascal/VOC/">The PASCAL VOC data sets</a> with different colors representing different semantic classes.</p>
-<!-- raw HTML omitted -->
+<p><img src="pascalvoc.png" alt=""></p>
 <p>The PASCAL VOC data sets define 20 semantic classes: aeroplane, bicycle, bird, boat, bottle, bus, car, cat, chair, cow, dining table, dog, horse, motorbike, person, potted plant, sheep, sofa, train, and tv/monitor. Actually these are all <em>object</em> classes. For pixels falling into non-object classes (which are called <em>stuff</em>) like sky, they will be labeled as &ldquo;background&rdquo;.</p>
 <p>Some later semantic segmentation data sets like <a href="https://www.cityscapes-dataset.com/">The Cityscapes Dataset</a> and <a href="https://github.com/nightrome/cocostuff">The COCO-Stuff dataset</a> account for both object and stuff classes. The following are some examples taken from the COCO-Stuff dataset, with class names also shown.</p>
-<!-- raw HTML omitted -->
+<p><img src="cocostuff.png" alt=""></p>
 <h2 id="how-to-use-cnns-for-segmentation">How to use CNNs for segmentation</h2>
 <p>Back in 2015, convolutional neural networks (CNNs) have achieved tremendous success in image classification (like <a href="https://www.nvidia.cn/content/tesla/pdf/machine-learning/imagenet-classification-with-deep-convolutional-nn.pdf">AlexNet</a> and <a href="https://www.cs.unc.edu/~wliu/papers/GoogLeNet.pdf">GoogLeNet</a>), doing extremely well in learning from a fixed-size image to a single category label. Generally, the image will go through several convolutional layers and then fully connected layers, giving a fixed-size (equal to the number of classes) output, whose softmax loss with respect to the ground truth label will be computed and back-propagated to update parameters.</p>
 <p>However, in semantic segmentation, we need pixel-wise dense predictions instead of just a single label. For example, for a 256x128 image, the segmentation mask is also of size 256x128. We need to use CNNs to generate a predicted mask and then compute the loss between it and the ground truth one.</p>
 <p>I was working on object segmentation at the end of 2014. Object segmentation is arguably much simpler than semantic segmentation in that it only classifies the pixels into two classes: the backround and the foreground (a specific object, like pedestrian, horse, bird etc.). The following are some examples taken from <a href="http://www.vision.caltech.edu/visipedia/CUB-200-2011.html">Caltech-UCSD Birds-200-2011</a> with the object masks shown below the images.</p>
-<!-- raw HTML omitted -->
+<p><img src="cub200.png" alt=""></p>
 <p>Since CNNs are good at handling fixed-size data, a simple idea is to fix both the sizes of the image and the object mask. Then we set the number of output units of the last fully connected layer to be equal to the number of mask elements.</p>
 <p>For loss computation, since I was working on object segmentation with only two values (0 for background and 1 for foreground) in the mask, I simply adopted the Euclidean loss. This extremely simple idea achieved state-of-the-art results in some object segmentation datasets and was publised in ICIP 2015 entitled <a href="http://ieeexplore.ieee.org/document/7351084/">Object segmentation with deep regression</a>.</p>
 <h2 id="changing-fully-connected-layers-to-convolutional-layers">Changing fully connected layers to convolutional layers</h2>
@@ -554,7 +554,7 @@
 <p>$H_{out}$, $H_{in}$, $W_{out}$, $W_{in}$, $P$, $K$, and $S$ represent the output height, input height, output width, input width, padding, kernel size and stride respectively. In this post, we assume that the same padding and stride is used in both the height and width dimensions.</p>
 <p>For example, if you are convolving a 4x4 input ($H_{in} = W_{in} = 4$) with a 3x3 kernel ($K = 3$) with stride 1 ($S = 1$) and no padding ($P = 0$), you will get an output of size 2x2 ($\frac{4 + 2 \times 0 - 3}{1} + 1 = 2$). So this is a convolution that transforms a 4x4 input to a 2x2 output with a 3x3 convolutional kernel.</p>
 <p>Now, in deconvolution, we would like to transform a 2x2 input to a 4x4 output using the same 3x3 convolutional kernel. Since deconvolution is still convolution, equations $\eqref{eq1}$ and $\eqref{eq2}$ still hold. Suppose we also use stride 1, then we need to solve $4 = \frac{2 + 2P - 3}{1} + 1$, which gives $P = 2$. So the corresponding deconvolution is just a convolution of a 2x2 input with the same 3x3 kernel, stride 1, and padding 2.</p>
-<!-- raw HTML omitted -->
+<p><img src="deconv.png" alt=""></p>
 <p>Now let&rsquo;s look at the relationship between the input size and output size in deconvolution. As mentioned above, deconvolution is a convolution with swapped input size and output size. So we can derive the relationship just by swapping $H_{in}$ with $H_{out}$ and $W_{in}$ with $W_{out}$ in equations $\eqref{eq1}$ and $\eqref{eq2}$, which gives</p>
 <p>$$H_{in} = \frac{H_{out} + 2P - K}{S} + 1 \tag{3}\label{eq3}$$</p>
 <p>$$W_{in} = \frac{W_{out} + 2P - K}{S} + 1 \tag{4}\label{eq4}$$</p>
@@ -815,7 +815,7 @@
 <p>There is a nice visualization of the 16-layer VGG in <a href="http://ethereon.github.io/netscope/#/preset/vgg-16">netscope</a>. By hovering your mouse over the layers, you will be able to see their parameters and output shapes, which should be the same to those in the above table. The <a href="http://cs231n.stanford.edu/slides/2018/cs231n_2018_lecture09.pdf">CS231n 2018 Lecture 9</a> also covers this popular network.</p>
 <h2 id="fully-convolutional-networks">Fully convolutional networks</h2>
 <p>Now you are ready to embrace the idea of FCNs. It is fairly simple: first downsample the image to smaller feature maps and then upsample them to the segmentation masks (of the same size as the image). <a href="http://cs231n.stanford.edu/slides/2018/cs231n_2018_lecture11.pdf">CS231n 2018 Lecture 11</a> has the following nice illustration which summarizes this process. Actually I think the $D_3 \times H/4 \times W/4$ of Low-res should be $D_3 \times H/8 \times W/8$. Anyway, you can just ignore the captions. The picture has reflected the core idea.</p>
-<!-- raw HTML omitted -->
+<p><img src="fcn.png" alt=""></p>
 <p>To gain more understanding, let&rsquo;s walk through a concrete example - <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn32s/val.prototxt">voc-fcn32s</a>, an adaptation of the 16-layer VGG into an FCN for semantic segmentation in the PASCAL VOC data sets. Since this dataset has 21 classes, we need to learn 21 segmentation masks.</p>
 <p>Let&rsquo;s also break the voc-fcn32s down layer by layer. Note that the size of <code>data</code> is now $3 \times H \times W$. In this way, we will show that FCN is able to handle input of any size! All default settings are the same to those in the above table.</p>
 <table>
@@ -1093,7 +1093,7 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  }<span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
 </span></span></span></code></pre></div><p>This Crop layer accepts <code>upscore</code> ($21 \times \left(H + 38\right) \times \left(W + 38\right)$) and <code>data</code> ($3 \times H \times W$) from the two <code>bottom</code> fields. It also has two parameters: <code>axis: 2</code> and <code>offset: 19</code>. In Caffe, a feature map (blob) is of size $N \times C \times H \times W$, with $N$, $C$, $H$ and $W$ being the 0th, 1st, 2nd and 3rd dimension. So <code>upscore</code> and <code>data</code> are actually of size $N \times 21 \times \left(H + 38\right) \times \left(W + 38\right)$ and $N \times 3 \times H \times W$ respectively. <code>axis: 2</code> means to crop from the 2nd dimension (inclusive). So only the dimension $H$ and $W$ of <code>upscore</code> ($\left(H + 38\right) \times \left(W + 38\right)$) will be cropped to be the same as <code>data</code> ($H \times W$). And <code>offset: 19</code> specifies the starting index of the cropping, which means that <code>upscore</code> will be cropped to be <code>upscore[19: 19 + H, 19: 19 + W]</code>, literally the central part of <code>upscore</code>. The following is an illustration of this process, with the green part being the cropped region <code>score</code>.</p>
-<!-- raw HTML omitted -->
+<p><img src="crop.png" alt=""></p>
 <h2 id="simplifying-fcn-to-a-stack-of-convolutional-layers">Simplifying FCN to a stack of convolutional layers</h2>
 <p>As shown in the above example, we use a Crop layer with <code>offset: 19</code> to crop the feature maps. This cropping layer comes into use since sometimes the deconvolutional (upsampling) layer may not precisely generate an $H \times W$ feature map. Instead, it may give us something like $\left(H + 2T\right) \times \left(W + 2T\right)$. In this case we need to determine the offset $T$ to do the cropping.</p>
 <p>In the previous section, we break down the network layer by layer and write down the output shape for each layer, based on which we compute the offset of the Crop layer. In the coming sections, we will look at a general case and derive the offset.</p>
@@ -1452,7 +1452,7 @@ $$</p>
 </span></span></code></pre></div><h2 id="finer-details">Finer Details</h2>
 <p>In the <code>upscore</code> layer of voc-fcn32s, the feature maps are directly upsampled by a large factor of 32 (this is why it is named voc-fcn32s), which will produce relatively coarse predictions due to missing finer detils from intermediate resolutions. So, in <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn16s/val.prototxt">voc-fcn16s</a> and <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn8s/val.prototxt">voc-fcn8s</a>, the shrinked feature maps are upsampled more than once before being recovered to the size of the image.</p>
 <p>For <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn16s/val.prototxt">voc-fcn16s</a>, the feature maps from <code>score_fr</code> will first be upsampled by a factor of 2 in <code>upscore2</code>. Then, we generate another set of outputs from <code>pool4</code> using convolution in <code>score_pool4</code> and crop it to be the same size as that of <code>upscore2</code> in <code>score_pool4c</code>. Finally, we combine <code>upscore2</code> and <code>score_pool4c</code> using element-wise summation in <code>fuse_pool4</code>, upsample it by a factor of 16 in <code>upscore16</code> and crop it in <code>score</code> to obtain the output. We show the network architecture for this process while omitting the previous layers in the following figure. Moreover, this process is broken down in the table below.</p>
-<!-- raw HTML omitted -->
+<p><img src="fcn-voc16s.png" alt=""></p>
 <table>
 <thead>
 <tr>
@@ -1515,7 +1515,7 @@ $$</p>
 </table>
 <p>As can be seen, the finer details from the intermediate resolution in <code>pool4</code> are incorporated into later feature maps, which will produce finer outputs than those of fcn-voc32s. Actually, fcn-voc16s utilizes two resolutions of a factor of 16 and a factor of 32.</p>
 <p>We may combine more resolutions in the same way. In fcn-voc8s, we generate one more set of outputs from <code>pool3</code> and combine it with later feature maps. The network architecture is similarly shown in the figure below with the process broken down in the following table.</p>
-<!-- raw HTML omitted -->
+<p><img src="fcn-voc8s.png" alt=""></p>
 <table>
 <thead>
 <tr>
@@ -1607,7 +1607,7 @@ $$</p>
 </tbody>
 </table>
 <p>In fcn-voc8s, one more intermediate resolution <code>pool3</code> are incorpoeated. From fcn-voc32s, fcn-voc16s to fcn-voc8s, more intermediate resolutions are incorporated and the results will contain more details, as shown below (taken from the <a href="https://arxiv.org/pdf/1411.4038.pdf">FCN paper</a>).</p>
-<!-- raw HTML omitted -->
+<p><img src="details.png" alt=""></p>
 <h2 id="conclusion">Conclusion</h2>
 <p>We cover fully convolutional networks in great detail. To summarize, we have learend:</p>
 <ul>
@@ -1811,7 +1811,7 @@ $$</p>
     
     
     
-    <script src="/js/academic.min.7720ca23a3e05277ade871a05f8331cb.js"></script>
+    <script src="/js/academic.min.2c0ed0f1c5e31a3ea5ad3cac8f66297e.js"></script>
 
     
 

@@ -533,21 +533,21 @@
 <h2 id="get-a-sense-first">Get a Sense First</h2>
 <p>Before diving into details, it is better to get a sense of what a Core ML model looks like. You may download the sample code in <a href="https://developer.apple.com/documentation/vision/classifying_images_with_vision_and_core_ml">Classifying Images with Vision and Core ML</a>. There is a <code>MobileNet.mlmodel</code> inside it. You can open it with Xcode to see what it looks like.</p>
 <p>The following is a screenshot of the model details. In the center area, there are 3 sections: Machine Learning Model, Model Class and Prediction.</p>
-<!-- raw HTML omitted -->
+<p><img src="model_details.png" alt=""></p>
 <p>The interesting part is the Prediction. It tells us that the input to the model is a color (RGB) image of size 224 x 224 and the outputs have two parts: top-1 category <code>classLabel</code> and the probabilities of all categories <code>classLabelProbs</code>. <strong>This will guide the model conversion later</strong>.</p>
 <p>Then ou can click the triangle in the following red rectangle to build the project. You can also select the device simulator that you want to run the project on in the blue rectangle.</p>
-<!-- raw HTML omitted -->
+<p><img src="xcode.png" alt=""></p>
 <p>You may need to configure the &ldquo;Signing &amp; Capabilities&rdquo; by clicking the <code>Vision+ML Example</code> folder (an Apple ID will be needed). After that, you should see an iPhone coming out in your screen and you can start to add a photo and play with it! If you want to try it on a real iPhone, just connect your iPhone to the computer (USB or Type-C) then you should be able to select your iPhone in the blue rectangle.</p>
-<!-- raw HTML omitted -->
+<p><img src="iphone.png" alt=""></p>
 <p>You can try more open source Core ML models <a href="https://developer.apple.com/machine-learning/models/">here</a>. To add a model to the project, you need to drag it to the project structure and set it up as follows. Some files will be generated automatically for you to use the model.</p>
-<!-- raw HTML omitted -->
+<p><img src="drag.png" alt=""></p>
 <p>You need to change the line <code>let model = try VNCoreMLModel(for: MobileNet().model)</code> in <code>ImageClassificationViewController.swift</code> to use the model. You may also need to update the target iOS version shown in the red rectangle of the following screenshot.</p>
-<!-- raw HTML omitted -->
+<p><img src="ios_version.png" alt=""></p>
 <h2 id="model-conversion">Model Conversion</h2>
 <p>Now we take a step back. We have just trained a model using PyTorch or MXNet and we wwant to run it on iOS. Obviously, we need to convert the <code>.pth</code> or <code>.params</code> to <code>.mlmodel</code>. This is model conversion.</p>
 <p>For Caffe and Keras, their models can be converted to Core ML models directly. However, such direct conversion is not supported for PyTorch. Fortunately, we have <a href="https://onnx.ai/">ONNX</a>, an excellent exchange format between models of various frameworks.</p>
 <p>The conversion flow from PyTorch to Core ML is as follows. I will use the <code>mobilenet_v2</code> of <code>torchvision</code> as an example to walk through the conversion process.</p>
-<!-- raw HTML omitted -->
+<p><img src="conversion.png" alt=""></p>
 <h3 id="loading-torchvision-model">Loading TorchVision Model</h3>
 <p>First I load a MobileNet v2 pretrained on ImageNet. Note that I add a Softmax layer to get the probabilities of all categories (remember by the output <code>classLabelProbs</code> of the Core ML model?).</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
@@ -771,7 +771,7 @@
     
     
     
-    <script src="/js/academic.min.7720ca23a3e05277ade871a05f8331cb.js"></script>
+    <script src="/js/academic.min.2c0ed0f1c5e31a3ea5ad3cac8f66297e.js"></script>
 
     
 

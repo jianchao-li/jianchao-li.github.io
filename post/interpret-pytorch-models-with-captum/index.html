@@ -562,7 +562,7 @@
 </span></span><span style="display:flex;"><span>img <span style="color:#f92672">=</span> Image<span style="color:#f92672">.</span>open(BytesIO(resp<span style="color:#f92672">.</span>content))
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>))
 </span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>imshow(img)
-</span></span></code></pre></div><!-- raw HTML omitted -->
+</span></span></code></pre></div><p><img src="image.png" alt=""></p>
 <p>I also prepare the class names for the 1000 classes in ImageNet. This will let me know the specific class names instead of only the index of the predicted class. The class names are loaded from the following URL.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://s3.amazonaws.com/deep-learning-models/image-models/imagenet_class_index.json&#39;</span>
 </span></span><span style="display:flex;"><span>resp <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url)
@@ -637,7 +637,7 @@ fig = plt.figure(figsize=(10, 10))
 ax = fig.add_subplot(111)
 ax.set_title(class_names_map[str(out_index)], fontsize=30)
 plt.imshow(vis)
-</code></pre><!-- raw HTML omitted -->
+</code></pre><p><img src="visualization.png" alt=""></p>
 <p>We can see that the model makes a correct prediction. From the above visualization, we can also see that the red regions are mostly around the head and beak of the Hornbill, especiall its heavy bill. The red regions are the main regions that drive the model to generate its output. This makes great sense as those regions are just the distinctive features of a Hornbill.</p>
 <p>Now you can also apply the above technique (and more from Captum) to interpret the output of your PyTorch model. Have fun!</p>
 <p><strong>Notes:</strong> This post is alao avaialble as a <a href="https://gist.github.com/jianchao-li/f7b507bc66b2215e15cc0135f03c3ff9">Jupyter notebook</a>.</p>
@@ -830,7 +830,7 @@ plt.imshow(vis)
     
     
     
-    <script src="/js/academic.min.7720ca23a3e05277ade871a05f8331cb.js"></script>
+    <script src="/js/academic.min.2c0ed0f1c5e31a3ea5ad3cac8f66297e.js"></script>
 
     
 
