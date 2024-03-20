@@ -8,103 +8,103 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 4.3.1">
 
-  
 
-  
-  
-  
-  
-  
-    
-    
-    
-  
-  
+
+
+
+
+
+
+
+
+
+
+
 
   <meta name="author" content="Jianchao Li">
 
-  
-  
-  
-    
-  
+
+
+
+
+
   <meta name="description" content="I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great details. Moreover, I will analyze the MXNet implementation of FCNs.">
 
-  
+
   <link rel="alternate" hreflang="en-us" href="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/">
 
-  
 
 
-  
 
-  
-  
-  
+
+
+
+
+
   <meta name="theme-color" content="#2962ff">
-  
 
-  
-  
-  
-  
-    
+
+
+
+
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
 
-    
-    
-    
-      
-    
-    
-      
-      
-        
+
+
+
+
+
+
+
+
+
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
-        
-      
-    
 
-    
 
-    
 
-  
 
-  
-  
+
+
+
+
+
+
+
+
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:400,400italic,700|Roboto+Mono">
-  
 
-  
-  
-  
+
+
+
+
   <link rel="stylesheet" href="/css/academic.min.aebf6ad474c2ff50ae0b78ca18c392cf.css">
 
-  
 
-  
-  
+
+
+
     <script>
       window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
       ga('create', 'UA-149941944-1', 'auto');
-      
+
       ga('require', 'eventTracker');
       ga('require', 'outboundLinkTracker');
       ga('require', 'urlChangeTracker');
       ga('send', 'pageview');
     </script>
     <script async src="//www.google-analytics.com/analytics.js"></script>
-    
-    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
-    
-  
-  
 
-  
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+
+
+
+
+
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
@@ -112,30 +112,30 @@
 
   <link rel="canonical" href="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/">
 
-  
-  
-  
-  
-    
-    
-  
+
+
+
+
+
+
+
   <meta property="twitter:card" content="summary">
-  
+
   <meta property="og:site_name" content="Jianchao Li">
   <meta property="og:url" content="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/">
   <meta property="og:title" content="Understanding Fully Convolutional Networks | Jianchao Li">
   <meta property="og:description" content="I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great details. Moreover, I will analyze the MXNet implementation of FCNs."><meta property="og:image" content="https://jianchao-li.github.io/img/icon-192.png">
   <meta property="og:locale" content="en-us">
-  
+
   <meta property="article:published_time" content="2018-09-15T19:29:22&#43;08:00">
-  
+
   <meta property="article:modified_time" content="2018-09-15T19:29:22&#43;08:00">
-  
-
-  
 
 
-  
+
+
+
+
 
 
 
@@ -162,17 +162,17 @@
       </div>
 
       <div id="search-box">
-        
+
         <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
         autocomplete="off" autocorrect="off" role="textbox" spellcheck="false" type="search">
-        
+
       </div>
 
     </section>
     <section class="section-search-results">
 
       <div id="search-hits">
-        
+
       </div>
 
     </section>
@@ -180,212 +180,212 @@
 </aside>
 
 
-  
+
 <nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
   <div class="container">
 
-    
+
       <a class="navbar-brand" href="/">Jianchao Li</a>
-      
+
       <button type="button" class="navbar-toggler" data-toggle="collapse"
               data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span><i class="fas fa-bars"></i></span>
       </button>
-      
 
-    
+
+
     <div class="collapse navbar-collapse" id="navbar">
 
-      
-      
+
+
       <ul class="navbar-nav mr-auto">
-        
 
-        
 
-        
-        
-        
-          
-        
 
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <li class="nav-item">
           <a class="nav-link " href="/#about">
-            
+
             <span>Home</span>
-            
+
           </a>
         </li>
 
-        
-        
 
-        
 
-        
-        
-        
-          
-        
 
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <li class="nav-item">
           <a class="nav-link " href="/#experience">
-            
+
             <span>Experience</span>
-            
+
           </a>
         </li>
 
-        
-        
 
-        
 
-        
-        
-        
-          
-        
 
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <li class="nav-item">
           <a class="nav-link " href="/#accomplishments">
-            
+
             <span>Accomplishments</span>
-            
+
           </a>
         </li>
 
-        
-        
 
-        
 
-        
-        
-        
-          
-        
 
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <li class="nav-item">
           <a class="nav-link " href="/#publications">
-            
+
             <span>Publications</span>
-            
+
           </a>
         </li>
 
-        
-        
 
-        
 
-        
-        
-        
-          
-        
 
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <li class="nav-item">
           <a class="nav-link " href="/#posts">
-            
+
             <span>Posts</span>
-            
+
           </a>
         </li>
 
-        
-        
 
-      
+
+
+
       </ul>
       <ul class="navbar-nav ml-auto">
-      
 
-        
 
-        
+
+
+
         <li class="nav-item">
           <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
         </li>
-        
 
-        
 
-        
+
+
+
         <li class="nav-item">
           <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
         </li>
-        
+
 
       </ul>
 
@@ -396,7 +396,6 @@
 
   <article class="article" itemscope itemtype="http://schema.org/Article">
 
-  
 
 
 
@@ -409,18 +408,19 @@
 
 
 
-  
 
-  
-  
-  
+
+
+
+
+
 <div class="article-container pt-3">
   <h1 itemprop="name">Understanding Fully Convolutional Networks</h1>
 
-  
 
-  
-    
+
+
+
 
 
 
@@ -429,36 +429,36 @@
 
 <div class="article-metadata">
 
-  
-  
 
-  
+
+
+
   <span class="article-date">
-    
-    
-      
-    
+
+
+
+
     <time>Sep 15, 2018</time>
   </span>
-  
 
-  
 
-  
+
+
+
   <span class="middot-divider"></span>
   <span class="article-reading-time">
     30 min read
   </span>
-  
 
-  
-  
 
-  
-  
 
-  
-    
+
+
+
+
+
+
+
 <div class="share-box" aria-hidden="true">
   <ul class="share">
     <li>
@@ -499,11 +499,10 @@
 </div>
 
 
-  
+
 
 </div>
 
-    
 
 
 
@@ -518,7 +517,8 @@
 
 
 
-  
+
+
 </div>
 
 
@@ -1620,12 +1620,6 @@ $$</p>
 
     </div>
 
-    
-
-
-
-    
-      
 
 
 
@@ -1634,126 +1628,132 @@ $$</p>
 
 
 
-  
 
 
 
 
 
-  
-  
-  
-    
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
   <div class="media author-card" itemscope itemtype="http://schema.org/Person">
-    
-      
-      <img class="portrait mr-3" src="/authors/admin/avatar_hu4bb88a0a1bb1760b1f60789d994d0945_297153_250x250_fill_q90_lanczos_center.jpg" itemprop="image" alt="Avatar">
-    
+
+
+      <img class="portrait mr-3" src="/authors/admin/avatar_hu4c498e1f166100fc2a364a22ed72f023_150438_250x250_fill_q90_lanczos_center.jpg" itemprop="image" alt="Avatar">
+
 
     <div class="media-body">
       <h5 class="card-title" itemprop="name"><a href="https://jianchao-li.github.io">Jianchao Li</a></h5>
       <h6 class="card-subtitle">Software Engineer</h6>
-      
+
       <ul class="network-icon" aria-hidden="true">
-        
-          
-          
-          
-            
-          
-          
-          
-          
-          
-            
-          
+
+
+
+
+
+
+
+
+
+
+
+
           <li>
             <a itemprop="sameAs" href="https://github.com/jianchao-li" target="_blank" rel="noopener">
               <i class="fab fa-github"></i>
             </a>
           </li>
-        
-          
-          
-          
-            
-          
-          
-          
-          
-          
-            
-          
+
+
+
+
+
+
+
+
+
+
+
+
           <li>
             <a itemprop="sameAs" href="https://www.linkedin.com/in/jianchao-li/" target="_blank" rel="noopener">
               <i class="fab fa-linkedin"></i>
             </a>
           </li>
-        
+
       </ul>
     </div>
   </div>
 
 
 
-      
-      
-    
 
-    
 
-    
+
+
+
+
+
 
 
   </div>
 </article>
 
-      
 
-    
-    
-    
+
+
+
+
     <script src="/js/mathjax-config.js"></script>
-    
 
-    
-    
-    
+
+
+
+
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
 
-      
 
-      
-        
+
+
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
-        
-      
 
-      
-      
+
+
+
+
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous" async></script>
-      
-    
 
-    
-    
 
-    
-    
-    
 
-    
-    
+
+
+
+
+
+
+
+
+
     <script>hljs.initHighlightingOnLoad();</script>
-    
 
-    
-    
+
+
+
     <script>
       const search_index_filename = "/index.json";
       const i18n = {
@@ -1768,13 +1768,13 @@ $$</p>
         'talk' : "Talks"
         };
     </script>
-    
 
-    
-    
 
-    
-    
+
+
+
+
+
     <script id="search-hit-fuse-template" type="text/x-template">
       <div class="search-hit" id="summary-{{key}}">
       <div class="search-hit-content">
@@ -1786,53 +1786,53 @@ $$</p>
       </div>
       </div>
     </script>
-    
 
-    
-    
+
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
-    
 
-    
-    
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-      
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <script src="/js/academic.min.2c0ed0f1c5e31a3ea5ad3cac8f66297e.js"></script>
 
-    
 
 
 
 
 
 
-  
+
+
   <div class="container">
     <footer class="site-footer">
-  
+
 
   <p class="powered-by">
-    © 2023 &middot; 
+    © 2023 &middot;
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
     <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
 
-    
+
     <span class="float-right" aria-hidden="true">
       <a href="#" id="back_to_top">
         <span class="button_icon">
@@ -1840,14 +1840,14 @@ $$</p>
         </span>
       </a>
     </span>
-    
+
   </p>
 </footer>
 
   </div>
-  
 
-  
+
+
 <div id="modal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
