@@ -1,141 +1,125 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 4.3.1">
 
+  
 
-
-
-
-
-
-
-
-
-
-
-
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
 
   <meta name="author" content="Jianchao Li">
 
-
-
-
-
-
+  
+  
+  
+    
+  
   <meta name="description" content="I combined my previous posts on image captioning and visual question answering and extended them to a wider topic - connecting computer vision and natural language.">
 
+  
+  <link rel="alternate" hreflang="en-us" href="http://localhost:1313/post/connecting-computer-vision-and-natural-language/">
 
-  <link rel="alternate" hreflang="en-us" href="https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/">
-
-
-
-
+  
 
 
+  
 
-
-
+  
+  
+  
   <meta name="theme-color" content="#2962ff">
+  
 
-
-
-
-
-
-
+  
+  
+  
+  
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
 
-
-
-
-
-
-
-
-
-
+    
+    
+    
+      
+    
+    
+      
+      
+        
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
 
+    
 
+    
 
+  
 
-
-
-
-
-
-
-
-
+  
+  
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:400,400italic,700|Roboto+Mono">
+  
 
-
-
-
-
+  
+  
+  
   <link rel="stylesheet" href="/css/academic.min.aebf6ad474c2ff50ae0b78ca18c392cf.css">
 
+  
 
+  
 
-
-
-    <script>
-      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-      ga('create', 'UA-149941944-1', 'auto');
-
-      ga('require', 'eventTracker');
-      ga('require', 'outboundLinkTracker');
-      ga('require', 'urlChangeTracker');
-      ga('send', 'pageview');
-    </script>
-    <script async src="//www.google-analytics.com/analytics.js"></script>
-
-    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
-
-
-
-
-
+  
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/">
+  <link rel="canonical" href="http://localhost:1313/post/connecting-computer-vision-and-natural-language/">
 
-
-
-
-
-
-
-
+  
+  
+  
+  
+    
+    
+  
   <meta property="twitter:card" content="summary">
-
+  
   <meta property="og:site_name" content="Jianchao Li">
-  <meta property="og:url" content="https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/">
+  <meta property="og:url" content="http://localhost:1313/post/connecting-computer-vision-and-natural-language/">
   <meta property="og:title" content="Connecting Computer Vision and Natural Language | Jianchao Li">
-  <meta property="og:description" content="I combined my previous posts on image captioning and visual question answering and extended them to a wider topic - connecting computer vision and natural language."><meta property="og:image" content="https://jianchao-li.github.io/img/icon-192.png">
+  <meta property="og:description" content="I combined my previous posts on image captioning and visual question answering and extended them to a wider topic - connecting computer vision and natural language."><meta property="og:image" content="http://localhost:1313/img/icon-192.png">
   <meta property="og:locale" content="en-us">
-
+  
   <meta property="article:published_time" content="2018-11-27T15:36:00&#43;08:00">
-
+  
   <meta property="article:modified_time" content="2018-11-27T15:36:00&#43;08:00">
+  
+
+  
 
 
-
-
-
-
+  
 
 
 
@@ -162,17 +146,17 @@
       </div>
 
       <div id="search-box">
-
+        
         <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
         autocomplete="off" autocorrect="off" role="textbox" spellcheck="false" type="search">
-
+        
       </div>
 
     </section>
     <section class="section-search-results">
 
       <div id="search-hits">
-
+        
       </div>
 
     </section>
@@ -180,212 +164,212 @@
 </aside>
 
 
-
+  
 <nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
   <div class="container">
 
-
+    
       <a class="navbar-brand" href="/">Jianchao Li</a>
-
+      
       <button type="button" class="navbar-toggler" data-toggle="collapse"
               data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span><i class="fas fa-bars"></i></span>
       </button>
+      
 
-
-
+    
     <div class="collapse navbar-collapse" id="navbar">
 
-
-
+      
+      
       <ul class="navbar-nav mr-auto">
+        
 
+        
 
+        
+        
+        
+          
+        
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
 
         <li class="nav-item">
           <a class="nav-link " href="/#about">
-
+            
             <span>Home</span>
-
+            
           </a>
         </li>
 
+        
+        
 
+        
 
+        
+        
+        
+          
+        
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
 
         <li class="nav-item">
           <a class="nav-link " href="/#experience">
-
+            
             <span>Experience</span>
-
+            
           </a>
         </li>
 
+        
+        
 
+        
 
+        
+        
+        
+          
+        
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
 
         <li class="nav-item">
           <a class="nav-link " href="/#accomplishments">
-
+            
             <span>Accomplishments</span>
-
+            
           </a>
         </li>
 
+        
+        
 
+        
 
+        
+        
+        
+          
+        
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
 
         <li class="nav-item">
           <a class="nav-link " href="/#publications">
-
+            
             <span>Publications</span>
-
+            
           </a>
         </li>
 
+        
+        
 
+        
 
+        
+        
+        
+          
+        
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
 
         <li class="nav-item">
           <a class="nav-link " href="/#posts">
-
+            
             <span>Posts</span>
-
+            
           </a>
         </li>
 
+        
+        
 
-
-
-
+      
       </ul>
       <ul class="navbar-nav ml-auto">
+      
 
+        
 
-
-
-
+        
         <li class="nav-item">
           <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
         </li>
+        
 
+        
 
-
-
-
+        
         <li class="nav-item">
           <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
         </li>
-
+        
 
       </ul>
 
@@ -396,6 +380,7 @@
 
   <article class="article" itemscope itemtype="http://schema.org/Article">
 
+  
 
 
 
@@ -408,19 +393,18 @@
 
 
 
+  
 
-
-
-
-
-
+  
+  
+  
 <div class="article-container pt-3">
   <h1 itemprop="name">Connecting Computer Vision and Natural Language</h1>
 
+  
 
-
-
-
+  
+    
 
 
 
@@ -429,69 +413,69 @@
 
 <div class="article-metadata">
 
+  
+  
 
-
-
-
+  
   <span class="article-date">
-
-
-
-
+    
+    
+      
+    
     <time>Nov 27, 2018</time>
   </span>
+  
 
+  
 
-
-
-
+  
   <span class="middot-divider"></span>
   <span class="article-reading-time">
     8 min read
   </span>
+  
 
+  
+  
 
+  
+  
 
-
-
-
-
-
-
-
+  
+    
 <div class="share-box" aria-hidden="true">
   <ul class="share">
     <li>
       <a class="twitter"
-         href="https://twitter.com/intent/tweet?text=Connecting%20Computer%20Vision%20and%20Natural%20Language&amp;url=https%3a%2f%2fjianchao-li.github.io%2fpost%2fconnecting-computer-vision-and-natural-language%2f"
+         href="https://twitter.com/intent/tweet?text=Connecting%20Computer%20Vision%20and%20Natural%20Language&amp;url=http%3a%2f%2flocalhost%3a1313%2fpost%2fconnecting-computer-vision-and-natural-language%2f"
          target="_blank" rel="noopener">
         <i class="fab fa-twitter"></i>
       </a>
     </li>
     <li>
       <a class="facebook"
-         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fjianchao-li.github.io%2fpost%2fconnecting-computer-vision-and-natural-language%2f"
+         href="https://www.facebook.com/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fconnecting-computer-vision-and-natural-language%2f"
          target="_blank" rel="noopener">
         <i class="fab fa-facebook-f"></i>
       </a>
     </li>
     <li>
       <a class="linkedin"
-         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fjianchao-li.github.io%2fpost%2fconnecting-computer-vision-and-natural-language%2f&amp;title=Connecting%20Computer%20Vision%20and%20Natural%20Language"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3a%2f%2flocalhost%3a1313%2fpost%2fconnecting-computer-vision-and-natural-language%2f&amp;title=Connecting%20Computer%20Vision%20and%20Natural%20Language"
          target="_blank" rel="noopener">
         <i class="fab fa-linkedin-in"></i>
       </a>
     </li>
     <li>
       <a class="weibo"
-         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fjianchao-li.github.io%2fpost%2fconnecting-computer-vision-and-natural-language%2f&amp;title=Connecting%20Computer%20Vision%20and%20Natural%20Language"
+         href="http://service.weibo.com/share/share.php?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fconnecting-computer-vision-and-natural-language%2f&amp;title=Connecting%20Computer%20Vision%20and%20Natural%20Language"
          target="_blank" rel="noopener">
         <i class="fab fa-weibo"></i>
       </a>
     </li>
     <li>
       <a class="email"
-         href="mailto:?subject=Connecting%20Computer%20Vision%20and%20Natural%20Language&amp;body=https%3a%2f%2fjianchao-li.github.io%2fpost%2fconnecting-computer-vision-and-natural-language%2f">
+         href="mailto:?subject=Connecting%20Computer%20Vision%20and%20Natural%20Language&amp;body=http%3a%2f%2flocalhost%3a1313%2fpost%2fconnecting-computer-vision-and-natural-language%2f">
         <i class="fas fa-envelope"></i>
       </a>
     </li>
@@ -499,10 +483,11 @@
 </div>
 
 
-
+  
 
 </div>
 
+    
 
 
 
@@ -517,8 +502,7 @@
 
 
 
-
-
+  
 </div>
 
 
@@ -538,27 +522,27 @@
 <p>Many researchers have been seeking to build the connection between computer vision and natural language, which poses a challenging modeling problem with two modalities of data (images and natural language). Nowadays, the research community has generally come to a consensus on modeling images with convolutional neural networks (CNNs) and natural language with recurrent neural networks (RNNs). Both of these architectures can be made deeper by adding layers with homogeneous computations for better performance. Specifically, researchers have tried to build the connection between vision and natural language in the following ways.</p>
 <h3 id="imagevideo-captioning">Image/Video Captioning</h3>
 <p>In image/video captioning, an image/video is given and a sentence describing its content is returned. In current research, the image/video is usually encoded into a feature vector by a CNN. Then an RNN generates the captions using this vector as the initial hidden state, as shown in the following two figures (taken from <a href="https://cs.stanford.edu/people/karpathy/deepimagesent/">Deep Visual-Semantic Alignments for Generating Image Descriptions</a> and <a href="https://arxiv.org/abs/1412.4729">Translating Videos to Natural Language Using Deep Recurrent Neural Networks</a>).</p>
-<p><img src="imagecap.png" alt=""></p>
-<p><img src="videocap.png" alt=""></p>
+<p><img src="/post/connecting-computer-vision-and-natural-language/imagecap.png"></p>
+<p><img src="/post/connecting-computer-vision-and-natural-language/videocap.png"></p>
 <h3 id="image-generation-from-text">Image Generation (from Text)</h3>
 <p>This is the inverse problem of image captioning: a sentence is given and an image matching the meaning of the sentence is returned. The recent advances of generative adversarial networks (GANs) have opened up tons of opportunities for generation tasks like this. Typically, image generation makes use of GANs with the text being encoded by an RNN and fed into the generator/discriminator networks, as shown below (taken from <a href="https://arxiv.org/abs/1605.05396">Generative Adversarial Text to Image Synthesis</a>).</p>
-<p><img src="text2im.png" alt=""></p>
+<p><img src="/post/connecting-computer-vision-and-natural-language/text2im.png"></p>
 <h3 id="visual-question-answering">Visual Question Answering</h3>
 <p>In visual question answering (VQA), an image and a question about it are given and the answer is returned. This is arguably a very natural way for humans to interact with computers. In recent years, computers have learned to answer questions like <em>is this a cat</em> (classification) or <em>where is the cat</em> (detection/segmentation). Now they are asked more questions like <a href="http://www.visualqa.org/">counting</a>, <a href="https://cs.stanford.edu/people/jcjohns/clevr/">spatial/logical reasoning</a>, and <a href="https://datasets.maluuba.com/FigureQA">analyzing graphical plots and figures</a>. In VQA, the visual content and the question content are often encoded by CNNs and RNNs respectively and then combined in some way to generate the answer, as shown below (taken from <a href="https://arxiv.org/abs/1707.07998">Bottom-Up and Top-Down Attention for Image Captioning and Visual Question Answering</a>).</p>
-<p><img src="butdvqa.png" alt=""></p>
+<p><img src="/post/connecting-computer-vision-and-natural-language/butdvqa.png"></p>
 <h2 id="future-opportunities">Future Opportunities</h2>
 <p>Current research in connecting computer vision and natural language has achieved great breakthroughs thanks to the success of CNNs and RNNs in the two areas respectively. However, there are still some limitations in current research that open up future opportunities.</p>
 <h3 id="fine-grained-image-captioning">Fine-grained Image Captioning</h3>
 <p>Current image captioning generates captions which give an overall description of images. The results of applying <a href="https://github.com/karpathy/neuraltalk2">a state-of-the-art image captioning algorithm</a> to images from the <a href="http://cocodataset.org/">COCO dataset</a> are shown below.</p>
-<p><img src="cococaps.png" alt=""></p>
+<p><img src="/post/connecting-computer-vision-and-natural-language/cococaps.png"></p>
 <p>In the COCO dataset, images are of various scenes and objects. And the captioning algorithm is able to capture the overall content of what is happening in the image, except for some mistakes like the cat is not sitting on the laptop. But, in general, the captions are very discriminative considering the large differences between images. Given images and captions, it is very easy to tell which image corresponds to which caption. Image captioning makes great sense in this case.</p>
 <p>Then I applied the same captioning algorithm to the <a href="https://github.com/bearpaw/clothing-co-parsing">Clothing Co-Parsing (CCP) dataset</a>, whose images are all clothing images. The captions are shown below.</p>
-<p><img src="ccpcaps.png" alt=""></p>
+<p><img src="/post/connecting-computer-vision-and-natural-language/ccpcaps.png"></p>
 <p>In the CCP dataset, images are all coming from the clothing domain and thus they are very similar to each other in the overall content. And the differences are mostly reflected in fine-grained details. In this case, the captions which only capture the overall content become meaningless and are not very helpful for distinguishing one image from others. Moreover, the captions make more mistakes, like a lot of false positives of cell phones.</p>
 <p>For classifying images in the same domain, researchers have come up with fine-grained image classification. Now to caption these images, whose fine-grained details are much more important than the overall content, it makes sense to state that we need <em>fine-grained image captioning</em>.</p>
 <p>Similar to fine-grained image classification, which finds many applications in online advertising (like searching by images), fine-grained image captioning also finds an important application in this area, that is, to write captions for goods.</p>
 <p>Actually, businesses are always trying to describe the attractive details of their goods to convince customers to make the buying decision. For example, the advertising captions of two clothing images in <a href="http://m.toutiao.com/profile/5569547953/">Toutiao</a> are shown below.</p>
-<p><img src="toutiaocaps.png" alt=""></p>
+<p><img src="/post/connecting-computer-vision-and-natural-language/toutiaocaps.png"></p>
 <p>The above captions are very different from those of the COCO and CCP datasets. Instead of merely focusing on the overall image content, they try to capture more fine-grained details of the clothes. They even go beyond those details to present customers a sense of how the clothes will look on him/her. These captions are also more flexible since they are manually written by businesses, though a mistake about the color of the dress is made in the right image. So a natural question is whether we can apply image captioning to write such captions for advertising. Obviously, general image captioning is still unable to perform well on it, as shown in the captions of the CCP dataset. So fine-grained image captioning comes into use. However, there are still very few works on it.</p>
 <p>It is worth noting that though I am using clothing as an example domain to present fine-grained image captioning, it is definitely not limited to clothing and can also be applied to many other domains like <a href="https://arxiv.org/abs/1512.02665">food</a> and <a href="http://mmlab.ie.cuhk.edu.hk/datasets/comp_cars/index.html">cars</a>.</p>
 <p>To solve the fine-grained image captioning problem, the considerable number of online advertising captions serve as a good basis. The pipeline of fine-grained image captioning may also be similar to that of general image captioning: a CNN learns a domain-specific representation of the image (maybe via fine-tuning the network in a fine-grained image classification task) and then an RNN generates a fine-grained caption conditioned on the representation. There should be many problems waiting to be discovered and solved in fine-grained image captioning.</p>
@@ -573,9 +557,12 @@
 
     </div>
 
+    
 
 
 
+    
+      
 
 
 
@@ -584,6 +571,7 @@
 
 
 
+  
 
 
 
@@ -591,117 +579,57 @@
 
 
 
+      
+      
+    
 
+    
 
-
-
-
-
-
-
-  <div class="media author-card" itemscope itemtype="http://schema.org/Person">
-
-
-      <img class="portrait mr-3" src="/authors/admin/avatar_hu4c498e1f166100fc2a364a22ed72f023_150438_250x250_fill_q90_lanczos_center.jpg" itemprop="image" alt="Avatar">
-
-
-    <div class="media-body">
-      <h5 class="card-title" itemprop="name"><a href="https://jianchao-li.github.io">Jianchao Li</a></h5>
-      <h6 class="card-subtitle">Software Engineer</h6>
-
-      <ul class="network-icon" aria-hidden="true">
-
-
-
-
-
-
-
-
-
-
-
-
-          <li>
-            <a itemprop="sameAs" href="https://github.com/jianchao-li" target="_blank" rel="noopener">
-              <i class="fab fa-github"></i>
-            </a>
-          </li>
-
-
-
-
-
-
-
-
-
-
-
-
-          <li>
-            <a itemprop="sameAs" href="https://www.linkedin.com/in/jianchao-li/" target="_blank" rel="noopener">
-              <i class="fab fa-linkedin"></i>
-            </a>
-          </li>
-
-      </ul>
-    </div>
-  </div>
-
-
-
-
-
-
-
-
-
-
+    
 
 
   </div>
 </article>
 
+      
 
+    
+    
 
-
-
-
-
-
-
+    
+    
+    
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
 
+      
 
-
-
-
+      
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+      
 
+      
+      
+    
 
+    
+    
 
+    
+    
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
     <script>hljs.initHighlightingOnLoad();</script>
+    
 
-
-
-
+    
+    
     <script>
       const search_index_filename = "/index.json";
       const i18n = {
@@ -716,13 +644,13 @@
         'talk' : "Talks"
         };
     </script>
+    
 
+    
+    
 
-
-
-
-
-
+    
+    
     <script id="search-hit-fuse-template" type="text/x-template">
       <div class="search-hit" id="summary-{{key}}">
       <div class="search-hit-content">
@@ -734,53 +662,53 @@
       </div>
       </div>
     </script>
+    
 
-
-
-
+    
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.7720ca23a3e05277ade871a05f8331cb.js"></script>
+
+    
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <script src="/js/academic.min.2c0ed0f1c5e31a3ea5ad3cac8f66297e.js"></script>
-
-
-
-
-
-
-
-
-
+  
   <div class="container">
     <footer class="site-footer">
-
+  
 
   <p class="powered-by">
-    © 2023 &middot;
+    © 2024 &middot; 
 
     Powered by the
     <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
     <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
 
-
+    
     <span class="float-right" aria-hidden="true">
       <a href="#" id="back_to_top">
         <span class="button_icon">
@@ -788,14 +716,14 @@
         </span>
       </a>
     </span>
-
+    
   </p>
 </footer>
 
   </div>
+  
 
-
-
+  
 <div id="modal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
