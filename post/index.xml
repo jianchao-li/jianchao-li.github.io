@@ -2,22 +2,445 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Jianchao Li</title>
-    <link>http://localhost:1313/post/</link>
+    <link>https://jianchao-li.github.io/post/</link>
     <description>Recent content in Posts on Jianchao Li</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; {year}</copyright>
-    <lastBuildDate>Sat, 29 Feb 2020 10:49:18 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 03 Jan 2025 22:08:00 +0100</lastBuildDate>
     
-	    <atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="https://jianchao-li.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>The Double-Edged Sword of Compounding</title>
+      <link>https://jianchao-li.github.io/post/the-double-edged-sword-of-compounding/</link>
+      <pubDate>Fri, 03 Jan 2025 22:08:00 +0100</pubDate>
+      
+      <guid>https://jianchao-li.github.io/post/the-double-edged-sword-of-compounding/</guid>
+      <description>&lt;p&gt;Starting with this post, I want to venture into a new area — investing — distinct from my usual topics of computer vision, deep learning, etc. Investing has become my latest hobby, and after diving into it, I have found it both fascinating and inspiring.&lt;/p&gt;
+&lt;p&gt;In this first post, I will explore a fundamental concept in the world of investing: &lt;a href=&#34;https://en.wikipedia.org/wiki/Compound_interest&#34;&gt;compound interest&lt;/a&gt;. To me, it represents the &lt;a href=&#34;https://en.wikipedia.org/wiki/First_principle&#34;&gt;&amp;ldquo;first principle&amp;rdquo;&lt;/a&gt; of investing.&lt;/p&gt;
+&lt;h2 id=&#34;what-is-compound-interest&#34;&gt;What is Compound Interest?&lt;/h2&gt;
+&lt;p&gt;Compound interest is a form of &lt;a href=&#34;https://en.wikipedia.org/wiki/Interest&#34;&gt;interest&lt;/a&gt;. When you deposit money into a bank account or lend it to someone, you typically earn interest. The amount you deposit or lend is called the &lt;em&gt;principal&lt;/em&gt;, and the interest is calculated as a percentage (&lt;em&gt;interest rate&lt;/em&gt;) of the principal. For example, if you have a principal of $100 and an interest rate of 10%, your interest would be $10 ($100 x 10% = $10).&lt;/p&gt;
+&lt;p&gt;Interest is typically paid at fixed intervals. In the example above, let&amp;rsquo;s assume the $10 is paid annually. After the first year, you would have $100 in principal and $10 in interest. Now, imagine that the $10 interest is added to the $100 principal. This means that, in the next period, interest will be calculated based on the new principal amount of $110. If the interest rate remains at 10%, your next interest payment will be $11 ($110 x 10% = $11).&lt;/p&gt;
+&lt;p&gt;Here, you may notice a &lt;a href=&#34;https://en.wikipedia.org/wiki/Snowball_effect&#34;&gt;snowball effect&lt;/a&gt;: as your interest payments are added to your principal (increasing it from $100 to $110), your interest payments also grow (from $10 to $11). This cycle continues, with the interest added to your principal, which increases the principal further, leading to higher interest payments and, in turn, an even higher principal, and so on.&lt;/p&gt;
+&lt;p&gt;If we continue the above calculations for 10 years, the principals and interest amounts would look as follows (with rounding errors). The principal represents the total amount (principal plus interest) at the beginning of each year, which is the same as the total at the end of the previous year. The interest is the amount earned at the end of each year. For year n + 1, the principal is simply the principal from year n plus the interest earned in year n.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Year&lt;/th&gt;
+&lt;th&gt;Principal ($)&lt;/th&gt;
+&lt;th&gt;Interest ($)&lt;/th&gt;
+&lt;th&gt;Total ($)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;100&lt;/td&gt;
+&lt;td&gt;10&lt;/td&gt;
+&lt;td&gt;110&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;110&lt;/td&gt;
+&lt;td&gt;11&lt;/td&gt;
+&lt;td&gt;121&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;121&lt;/td&gt;
+&lt;td&gt;12.1&lt;/td&gt;
+&lt;td&gt;133.1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;133.1&lt;/td&gt;
+&lt;td&gt;13.31&lt;/td&gt;
+&lt;td&gt;146.41&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;146.41&lt;/td&gt;
+&lt;td&gt;14.641&lt;/td&gt;
+&lt;td&gt;161.051&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;161.051&lt;/td&gt;
+&lt;td&gt;16.1051&lt;/td&gt;
+&lt;td&gt;177.1561&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;7&lt;/td&gt;
+&lt;td&gt;177.1561&lt;/td&gt;
+&lt;td&gt;17.7156&lt;/td&gt;
+&lt;td&gt;194.8717&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;td&gt;194.8717&lt;/td&gt;
+&lt;td&gt;19.4872&lt;/td&gt;
+&lt;td&gt;214.3589&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;td&gt;214.3589&lt;/td&gt;
+&lt;td&gt;21.4359&lt;/td&gt;
+&lt;td&gt;235.7948&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;10&lt;/td&gt;
+&lt;td&gt;235.7948&lt;/td&gt;
+&lt;td&gt;23.5795&lt;/td&gt;
+&lt;td&gt;259.3742&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;the-magic-of-compound-interest&#34;&gt;The magic of Compound Interest&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;Compound interest is the eighth wonder of the world. He who understands it, earns it&amp;hellip; he who doesn&amp;rsquo;t&amp;hellip; pays it.&amp;rdquo; - Albert Einstein&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Looking at the numbers in the table above, you might realize the magic of compound interest: starting with $100 in principal, earning 10% interests per year, by the beginning of the 9th year, you have doubled your money. If this doesn&amp;rsquo;t amaze you, let&amp;rsquo;s explore two more calculations to help you fully appreciate it.&lt;/p&gt;
+&lt;h3 id=&#34;compounding-for-another-10-years&#34;&gt;Compounding for Another 10 Years&lt;/h3&gt;
+&lt;p&gt;Let’s extend the calculations from the table above for another 10 years.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Year&lt;/th&gt;
+&lt;th&gt;Principal ($)&lt;/th&gt;
+&lt;th&gt;Interest ($)&lt;/th&gt;
+&lt;th&gt;Total ($)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;11&lt;/td&gt;
+&lt;td&gt;259.3742&lt;/td&gt;
+&lt;td&gt;25.9374&lt;/td&gt;
+&lt;td&gt;285.3117&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;12&lt;/td&gt;
+&lt;td&gt;285.3117&lt;/td&gt;
+&lt;td&gt;28.5312&lt;/td&gt;
+&lt;td&gt;313.8428&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;13&lt;/td&gt;
+&lt;td&gt;313.8428&lt;/td&gt;
+&lt;td&gt;31.3843&lt;/td&gt;
+&lt;td&gt;345.2271&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;14&lt;/td&gt;
+&lt;td&gt;345.2271&lt;/td&gt;
+&lt;td&gt;34.5227&lt;/td&gt;
+&lt;td&gt;379.7498&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;15&lt;/td&gt;
+&lt;td&gt;379.7498&lt;/td&gt;
+&lt;td&gt;37.9750&lt;/td&gt;
+&lt;td&gt;417.7248&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;16&lt;/td&gt;
+&lt;td&gt;417.7248&lt;/td&gt;
+&lt;td&gt;41.7725&lt;/td&gt;
+&lt;td&gt;459.4973&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;17&lt;/td&gt;
+&lt;td&gt;459.4973&lt;/td&gt;
+&lt;td&gt;45.9497&lt;/td&gt;
+&lt;td&gt;505.4470&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;18&lt;/td&gt;
+&lt;td&gt;505.4470&lt;/td&gt;
+&lt;td&gt;50.5447&lt;/td&gt;
+&lt;td&gt;555.9917&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;19&lt;/td&gt;
+&lt;td&gt;555.9917&lt;/td&gt;
+&lt;td&gt;55.5992&lt;/td&gt;
+&lt;td&gt;611.5909&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;611.5909&lt;/td&gt;
+&lt;td&gt;61.1591&lt;/td&gt;
+&lt;td&gt;672.7500&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;As you can see, at the beginning of the 10th year, your principal is around $236. By the start of the 20th year, it has grown (non-linearly) to approximately $612. Continuing the calculations, by the 26th year, you will receive an interest payment of $108.35, the first time your interest payment exceeds your initial $100 principal! The longer you continue the calculations, the wilder the numbers become.&lt;/p&gt;
+&lt;h3 id=&#34;the-case-of-non-compounding&#34;&gt;The Case of Non-Compounding&lt;/h3&gt;
+&lt;p&gt;Now, let&amp;rsquo;s consider the non-compounding case, where the annual interest payment is not added back to the principal. In this scenario, you receive interest based on the initial $100 principal, meaning you earn $10 in interest each year. After 10 years, your total amount would be $200 ($100 + $100 x 0.1 x 10). While this is not too far from the compounded case, where your total would be around $259, the gap widens significantly after another 10 years. In the non-compounding case, you would have $300 ($100 + $100 x 0.1 x 20), while in the compounding case, you would have approximately $673. As before, the longer you continue the calculations, the more drastic the gap becomes.&lt;/p&gt;
+&lt;h3 id=&#34;exponential-explosion&#34;&gt;Exponential Explosion&lt;/h3&gt;
+&lt;p&gt;The snowball effect of compound interest described above is known as &lt;a href=&#34;https://en.wikipedia.org/wiki/Exponential_growth&#34;&gt;exponential growth&lt;/a&gt;, or more dramatically, &lt;a href=&#34;https://www.stewartmath.com/dp_fops_samples/dp7.html&#34;&gt;exponential explosion&lt;/a&gt;. This is the essence of the magic of compound interest — over time, the amount of your money grows exponentially to a &amp;ldquo;formidable&amp;rdquo; sum (though not so dramatic in the example above, largely due to the small $100 principal).&lt;/p&gt;
+&lt;p&gt;If we plot the results of compounding versus non-compounding over 50 years, the &amp;ldquo;explosion&amp;rdquo; or magic of compound interest becomes much more evident. After 50 years, your initial $100 principal grows to around $11,739! And remember, this 117-fold growth comes from a &amp;ldquo;modest&amp;rdquo; 10% compound interest rate. Take a moment to think about it: a 117-times increase from just 0.1, and you will start to appreciate the magic of compound interest. By comparison, in the non-compounding case, it would take 1,164 years to grow to $11,739!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/the-double-edged-sword-of-compounding/compound.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;For what it&amp;rsquo;s worth, the non-compounding case is also known as &lt;a href=&#34;https://en.wikipedia.org/wiki/Interest#Simple_interest&#34;&gt;simple interest&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;why-care-about-compound-interest&#34;&gt;Why Care About Compound Interest&lt;/h2&gt;
+&lt;p&gt;Now that we understand compound interest, why is it important to investing? The answer is simple: it measures your return on investment. If you are familiar with investing, you have likely heard terms like &amp;ldquo;the annualized rate of return is X% over the past Y years&amp;rdquo;. This &amp;ldquo;annualized rate of return&amp;rdquo; is similar (but not identical) to the compound interest rate we discussed earlier. As we have seen, compound interest has the magic to grow your money into a formidable sum over time.&lt;/p&gt;
+&lt;h3 id=&#34;misconceptions&#34;&gt;Misconceptions&lt;/h3&gt;
+&lt;p&gt;While the &amp;ldquo;annualized rate of return&amp;rdquo; is similar to the compound interest rate in our example, there is a crucial difference that often leads to misconceptions. In our compound interest example, the 10% interest rate is fixed every year. However, in real-world investing, the rate is almost never fixed. For instance, an annualized rate of return of 10% does NOT mean you are guaranteed to earn 10% each year! Instead, the annualized rate of return is calculated by comparing the starting and ending values of an investment over a given time period and determining the &lt;em&gt;equivalent&lt;/em&gt; compound interest rate. If you are interested in how it is computated, you can play with it using &lt;a href=&#34;https://www.buyupside.com/calculators/annualizedreturn.htm&#34;&gt;this calculator&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;It is crucial for all investors to dispel this misconception and set realistic expectations.&lt;/p&gt;
+&lt;h2 id=&#34;why-compounding-is-a-double-edged-sword&#34;&gt;Why Compounding Is a Double-Edged Sword&lt;/h2&gt;
+&lt;p&gt;From the discussions above, I hope you now appreciate the magic of compounding in investing. However, it is equally important to understand why compounding can become a double-edged sword. The reason is simple: while compounding can work wonders, it can also work against you.&lt;/p&gt;
+&lt;p&gt;In the real world, investing is not free. While the market might generate an annualized return of 10%, you don&amp;rsquo;t get to keep all of it. A portion is deducted as investment costs. A common example of such costs is the &lt;a href=&#34;https://en.wikipedia.org/wiki/Total_expense_ratio&#34;&gt;total expense ratio&lt;/a&gt; (TER) of investment funds, where you pay a percentage of your money to the fund providers each year. When it comes to costs, compounding works against you.&lt;/p&gt;
+&lt;p&gt;Let’s revisit the compound interest example of 10% and consider a principal of $10,000. Suppose the TER is 1%. After one year, your gross amount would grow to $11,000 ($10,000 x 10%). However, you would pay $100 ($10,000 x 1%) in fees to the fund providers, leaving you with a net amount of $10,900. Effectively, your net compound interest rate is 9%. This leads to the following simple and clean formula:&lt;/p&gt;
+&lt;p&gt;Net annualized rate of return = Gross annualized rate of return - Total expense ratio&lt;/p&gt;
+&lt;p&gt;or&lt;/p&gt;
+&lt;p&gt;Investment return rate = Market return rate - Total expense ratio&lt;/p&gt;
+&lt;p&gt;Now, let’s perform similar calculations to compare a 10% market return with a 9% investment return. Specifically, we will calculate the total amount of money (with rounding errors) at 10-year intervals for both cases.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Years&lt;/th&gt;
+&lt;th&gt;Market Value (10%, $)&lt;/th&gt;
+&lt;th&gt;Investment Value (9%, $)&lt;/th&gt;
+&lt;th&gt;Percentage of Market Value Kept by Investment (%)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;10&lt;/td&gt;
+&lt;td&gt;25,937.42&lt;/td&gt;
+&lt;td&gt;23,673.64&lt;/td&gt;
+&lt;td&gt;91.27&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;67,275.00&lt;/td&gt;
+&lt;td&gt;56,044.11&lt;/td&gt;
+&lt;td&gt;83.31&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;30&lt;/td&gt;
+&lt;td&gt;174,494.02&lt;/td&gt;
+&lt;td&gt;132,676.78&lt;/td&gt;
+&lt;td&gt;76.04&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;40&lt;/td&gt;
+&lt;td&gt;452,592.56&lt;/td&gt;
+&lt;td&gt;314,094.20&lt;/td&gt;
+&lt;td&gt;69.40&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;50&lt;/td&gt;
+&lt;td&gt;1,173,908.53&lt;/td&gt;
+&lt;td&gt;743,575.20&lt;/td&gt;
+&lt;td&gt;63.34&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;From the table, it is clear that over time, you retain less and less of the market value. After 10 years, you keep over 91%, but after 50 years, this drops to just over 63%. In other words, after 10 years, you lose around 9% of the market value, and after 50 years, the loss grows to 37%. Where does this 37% go? You guessed it - it&amp;rsquo;s consumed by fees.&lt;/p&gt;
+&lt;p&gt;Now, consider this: the 37% loss stems from a seemingly &amp;ldquo;small&amp;rdquo; 1% annual fee. To better understand the impact, let’s look at the absolute dollar amounts lost due to these fees over time.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Years&lt;/th&gt;
+&lt;th&gt;Market Value (10%, $)&lt;/th&gt;
+&lt;th&gt;Investment Value (9%, $)&lt;/th&gt;
+&lt;th&gt;Value Lost to Fees ($)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;10&lt;/td&gt;
+&lt;td&gt;25,937.42&lt;/td&gt;
+&lt;td&gt;23,673.64&lt;/td&gt;
+&lt;td&gt;2,263.79&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;67,275.00&lt;/td&gt;
+&lt;td&gt;56,044.11&lt;/td&gt;
+&lt;td&gt;11,230.89&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;30&lt;/td&gt;
+&lt;td&gt;174,494.02&lt;/td&gt;
+&lt;td&gt;132,676.78&lt;/td&gt;
+&lt;td&gt;41,817.24&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;40&lt;/td&gt;
+&lt;td&gt;452,592.56&lt;/td&gt;
+&lt;td&gt;314,094.20&lt;/td&gt;
+&lt;td&gt;138,498.36&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;50&lt;/td&gt;
+&lt;td&gt;1,173,908.53&lt;/td&gt;
+&lt;td&gt;743,575.20&lt;/td&gt;
+&lt;td&gt;430,333.32&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;As shown, over 50 years, you lose a staggering $430,333 to fees — more than 43 times your initial $10,000 principal! Once again, this immense loss results from a seemingly &amp;ldquo;small&amp;rdquo; 1% annual fee.&lt;/p&gt;
+&lt;p&gt;By now, it should be clear: costs also compound, and over time, they can amount to a formidable loss. This is why compounding can be a double-edged sword.&lt;/p&gt;
+&lt;h3 id=&#34;caveat-1-losses-are-not-equal-to-fees&#34;&gt;Caveat 1: Losses Are Not Equal to Fees&lt;/h3&gt;
+&lt;p&gt;It is important to clarify that while the loss is caused by fees, the loss itself is not equal to the fees you pay. In the above example, although you lose $430,333 over 50 years, this doesn&amp;rsquo;t mean the fund providers receive fees totaling this amount. They actually collect a much smaller sum, around $81,508. This difference arises because the fees you pay stop compounding along with the rest of your investment. If those fees were not deducted, they would have compounded as well, resulting in a significantly higher total value.&lt;/p&gt;
+&lt;h3 id=&#34;caveat-2-variable-actual-returns&#34;&gt;Caveat 2: Variable Actual Returns&lt;/h3&gt;
+&lt;p&gt;It is important to note that, for simplicity, we use the annualized rate of return similar to a fixed compound interest rate to illustrate how costs impact returns. However, the math demonstrating the effect of costs remains valid even when applied to variable actual returns.&lt;/p&gt;
+&lt;p&gt;Let’s consider a simple example where the market drops by 10% in the first year and grows by 20% in the second year. This results in an annualized rate of return of approximately 3.92% over two years (you can verify it using &lt;a href=&#34;https://www.buyupside.com/calculators/annualizedreturn.htm&#34;&gt;this calculator&lt;/a&gt;). Assuming a TER of 1%, we will calculate the end value using both the variable actual returns and the annualized rate of return in the following tables.&lt;/p&gt;
+&lt;h4 id=&#34;using-variable-actual-returns&#34;&gt;Using Variable Actual Returns&lt;/h4&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Year&lt;/th&gt;
+&lt;th&gt;Market Value ($)&lt;/th&gt;
+&lt;th&gt;Investment Value ($)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;900&lt;/td&gt;
+&lt;td&gt;890&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;1,068&lt;/td&gt;
+&lt;td&gt;1,059.1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;In the first year, the market value drops by 10% ($1000 x (1 - 10%) = $900). And deducting a 1% fee ($1000 x 1% = $10), the investment value is $890 ($900 - $10).&lt;/li&gt;
+&lt;li&gt;In the second year, the market grows by 20% ($890 x (1 + 20%) = $1,068). And deducting a 1% fee on the initial investment value ($890 x 1% = $8.9) , the final investment value is $1,059.1 ($1,068 - $8.9).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;using-annualized-rate-of-return&#34;&gt;Using Annualized Rate of Return&lt;/h4&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Year&lt;/th&gt;
+&lt;th&gt;Market Value ($)&lt;/th&gt;
+&lt;th&gt;Investment Value ($)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;1039.2&lt;/td&gt;
+&lt;td&gt;1029.2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;1069.54&lt;/td&gt;
+&lt;td&gt;1059.25&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;Here, we apply the annualized rate of return (3.92%), reduced by the TER of 1%, resulting in a net return of 2.92%. The calculations follow the same logic as the fixed compound interest example.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As shown in the tables above, the final values are very similar (up to rounding differences), regardless of whether we use the variable actual returns and the fixed annualized rate of return. This demonstrates that using the annualized rate still accurately reflects the impact of costs while simplifying the calculations.&lt;/p&gt;
+&lt;h3 id=&#34;caveat-3-costs-based-on-final-value&#34;&gt;Caveat 3: Costs Based on Final Value&lt;/h3&gt;
+&lt;p&gt;In our examples, costs are calculated based on the initial value at the beginning of each year, which allows for the clean formulas presented above. However, if costs are instead calculated based on the final value at the end of each year, the results will differ, though the impact of costs would still be similar.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s revisit the example with fixed 10% annual rate of return and an initial principal of $10,000. This time, a 1% cost is deducted at the end of the year. The numbers would look as follows.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Years&lt;/th&gt;
+&lt;th&gt;Market Value ($)&lt;/th&gt;
+&lt;th&gt;Investment Value ($)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;10&lt;/td&gt;
+&lt;td&gt;23,694.28&lt;/td&gt;
+&lt;td&gt;23,457.34&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;55,580.49&lt;/td&gt;
+&lt;td&gt;55,024.69&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;30&lt;/td&gt;
+&lt;td&gt;130,377.06&lt;/td&gt;
+&lt;td&gt;129,073.29&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;40&lt;/td&gt;
+&lt;td&gt;305,829.94&lt;/td&gt;
+&lt;td&gt;302,771.64&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;50&lt;/td&gt;
+&lt;td&gt;717,395.74&lt;/td&gt;
+&lt;td&gt;710,221.78&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;In this scenario, the net rate of return drops to approximately 8.9% (you can verify it using &lt;a href=&#34;https://www.buyupside.com/calculators/annualizedreturn.htm&#34;&gt;this calculator&lt;/a&gt;), which is slightly lower than (but similar to) the 9% achieved when costs are calculated based on the initial value.&lt;/p&gt;
+&lt;h3 id=&#34;how-to-avoid-the-double-edged-sword&#34;&gt;How to Avoid the Double-Edged Sword&lt;/h3&gt;
+&lt;p&gt;The solution is simple: minimize investment costs, or at the very least, reduce them to a level you can accept. For instance, if the fund cost is reduced to a TER of 0.03% (and such low-cost funds do exist), you would still be able to retain over 98% of the market value after 50 years!&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Years&lt;/th&gt;
+&lt;th&gt;Market Value (10%, $)&lt;/th&gt;
+&lt;th&gt;Investment Value (9.97%, $)&lt;/th&gt;
+&lt;th&gt;Percentage of Market Value Kept by Investment (%)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;10&lt;/td&gt;
+&lt;td&gt;25,937.42&lt;/td&gt;
+&lt;td&gt;25,866.77&lt;/td&gt;
+&lt;td&gt;99.73&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;67,275.00&lt;/td&gt;
+&lt;td&gt;66,908.99&lt;/td&gt;
+&lt;td&gt;99.46&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;30&lt;/td&gt;
+&lt;td&gt;174,494.02&lt;/td&gt;
+&lt;td&gt;173,071.98&lt;/td&gt;
+&lt;td&gt;99.19&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;40&lt;/td&gt;
+&lt;td&gt;452,592.56&lt;/td&gt;
+&lt;td&gt;447,681.35&lt;/td&gt;
+&lt;td&gt;98.91&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;50&lt;/td&gt;
+&lt;td&gt;1,173,908.53&lt;/td&gt;
+&lt;td&gt;1,158,007.18&lt;/td&gt;
+&lt;td&gt;98.65&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;is-my-fund-cost-high&#34;&gt;Is My Fund Cost High?&lt;/h3&gt;
+&lt;p&gt;I have seen people ask this question when evaluating whether to select a fund: &amp;ldquo;Is this X% fund cost high?&amp;rdquo; To answer this question, you can simply repeat the calculations I provided earlier. Determine the percentage of money that you would lose to fees over your investment horizon and decide whether that percentage is acceptable to you. If you find it unacceptable, the fund cost might be considered high, and you may want to consider looking for one with lower fees.&lt;/p&gt;
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/John_C._Bogle&#34;&gt;John C. Bogle&lt;/a&gt; aptly summarized the concepts discussed in this post as &amp;ldquo;The magic of compounding investment returns&amp;rdquo; and &amp;ldquo;The tyranny of compounding investment costs&amp;rdquo; in his book, &lt;a href=&#34;https://en.wikipedia.org/wiki/The_Little_Book_of_Common_Sense_Investing&#34;&gt;The Little Book of Common Sense Investing&lt;/a&gt;. This post is heavily inspired by Mr. Bogle&amp;rsquo;s insights.&lt;/p&gt;
+&lt;h2 id=&#34;disclaimers&#34;&gt;Disclaimers&lt;/h2&gt;
+&lt;p&gt;I am not a professional investor or financial advisor, nor do I claim to be. You are solely responsible for your financial decisions. I do not accept responsibility for any inaccuracies in this blog post. The content reflects my personal research and understanding and should not be interpreted as professional advice.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Interpret PyTorch Models with Captum</title>
-      <link>http://localhost:1313/post/interpret-pytorch-models-with-captum/</link>
+      <link>https://jianchao-li.github.io/post/interpret-pytorch-models-with-captum/</link>
       <pubDate>Sat, 29 Feb 2020 10:49:18 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/interpret-pytorch-models-with-captum/</guid>
+      <guid>https://jianchao-li.github.io/post/interpret-pytorch-models-with-captum/</guid>
       <description>&lt;p&gt;While deep neural networks have achieved state-of-the-art performance in many problems(e.g., image classification, object detection, scene parsing etc.), it is always not trivial to intepret their outputs. Till now, the most common and useful way to interpret the output of a deep neural network is still by visualization. You may refer to this &lt;a href=&#34;http://cs231n.github.io/understanding-cnn/&#34;&gt;CS231n course note&lt;/a&gt; for some introduction.&lt;/p&gt;
 &lt;p&gt;In this post, I will describe how to interpret an image classification model using &lt;a href=&#34;https://captum.ai/&#34;&gt;Captum&lt;/a&gt;. Captum, which means &amp;ldquo;comprehension&amp;rdquo; in Latin, is a open-source project with many model interpretabiliy algorithms implemented in PyTorch. Specifically, I adopted &lt;a href=&#34;https://github.com/pytorch/captum/blob/master/captum/attr/_core/layer/grad_cam.py#L21&#34;&gt;&lt;code&gt;LayerGradCam&lt;/code&gt;&lt;/a&gt; for this post.&lt;/p&gt;
 &lt;h2 id=&#34;install-captum&#34;&gt;Install Captum&lt;/h2&gt;
@@ -55,7 +478,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;img &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Image&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;open(BytesIO(resp&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;content))
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;figure(figsize&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;))
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;imshow(img)
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/interpret-pytorch-models-with-captum/image.png&#34;&gt;&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/interpret-pytorch-models-with-captum/image.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;I also prepare the class names for the 1000 classes in ImageNet. This will let me know the specific class names instead of only the index of the predicted class. The class names are loaded from the following URL.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;url &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;https://s3.amazonaws.com/deep-learning-models/image-models/imagenet_class_index.json&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;resp &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; requests&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;get(url)
@@ -130,7 +553,7 @@ fig = plt.figure(figsize=(10, 10))
 ax = fig.add_subplot(111)
 ax.set_title(class_names_map[str(out_index)], fontsize=30)
 plt.imshow(vis)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/interpret-pytorch-models-with-captum/visualization.png&#34;&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/interpret-pytorch-models-with-captum/visualization.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;We can see that the model makes a correct prediction. From the above visualization, we can also see that the red regions are mostly around the head and beak of the Hornbill, especiall its heavy bill. The red regions are the main regions that drive the model to generate its output. This makes great sense as those regions are just the distinctive features of a Hornbill.&lt;/p&gt;
 &lt;p&gt;Now you can also apply the above technique (and more from Captum) to interpret the output of your PyTorch model. Have fun!&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Notes:&lt;/strong&gt; This post is alao avaialble as a &lt;a href=&#34;https://gist.github.com/jianchao-li/f7b507bc66b2215e15cc0135f03c3ff9&#34;&gt;Jupyter notebook&lt;/a&gt;.&lt;/p&gt;
@@ -139,10 +562,10 @@ plt.imshow(vis)
     
     <item>
       <title>From PyTorch to Core ML</title>
-      <link>http://localhost:1313/post/from-pytorch-to-coreml/</link>
+      <link>https://jianchao-li.github.io/post/from-pytorch-to-coreml/</link>
       <pubDate>Wed, 16 Oct 2019 01:00:18 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/from-pytorch-to-coreml/</guid>
+      <guid>https://jianchao-li.github.io/post/from-pytorch-to-coreml/</guid>
       <description>&lt;p&gt;After working with PyTorch in my daily work for some time, recently I got a chance to work on something completely new - &lt;a href=&#34;https://developer.apple.com/documentation/coreml&#34;&gt;Core ML&lt;/a&gt;. After converting a PyTorch model to the Core ML format and seeing it work in an iPhone 7, I believe this deserves a blog post.&lt;/p&gt;
 &lt;h2 id=&#34;what-is-core-ml&#34;&gt;What is Core ML?&lt;/h2&gt;
 &lt;p&gt;Core ML is a framework developed by Apple to integrate machine learning models into iOS applications. As like each other framework, Core ML has its own model format (&lt;code&gt;.mlmodel&lt;/code&gt;), like &lt;code&gt;.pth&lt;/code&gt; of PyTorch or &lt;code&gt;.params&lt;/code&gt; of MXNet.&lt;/p&gt;
@@ -150,21 +573,21 @@ plt.imshow(vis)
 &lt;h2 id=&#34;get-a-sense-first&#34;&gt;Get a Sense First&lt;/h2&gt;
 &lt;p&gt;Before diving into details, it is better to get a sense of what a Core ML model looks like. You may download the sample code in &lt;a href=&#34;https://developer.apple.com/documentation/vision/classifying_images_with_vision_and_core_ml&#34;&gt;Classifying Images with Vision and Core ML&lt;/a&gt;. There is a &lt;code&gt;MobileNet.mlmodel&lt;/code&gt; inside it. You can open it with Xcode to see what it looks like.&lt;/p&gt;
 &lt;p&gt;The following is a screenshot of the model details. In the center area, there are 3 sections: Machine Learning Model, Model Class and Prediction.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/from-pytorch-to-coreml/model_details.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/from-pytorch-to-coreml/model_details.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;The interesting part is the Prediction. It tells us that the input to the model is a color (RGB) image of size 224 x 224 and the outputs have two parts: top-1 category &lt;code&gt;classLabel&lt;/code&gt; and the probabilities of all categories &lt;code&gt;classLabelProbs&lt;/code&gt;. &lt;strong&gt;This will guide the model conversion later&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;Then ou can click the triangle in the following red rectangle to build the project. You can also select the device simulator that you want to run the project on in the blue rectangle.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/from-pytorch-to-coreml/xcode.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/from-pytorch-to-coreml/xcode.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;You may need to configure the &amp;ldquo;Signing &amp;amp; Capabilities&amp;rdquo; by clicking the &lt;code&gt;Vision+ML Example&lt;/code&gt; folder (an Apple ID will be needed). After that, you should see an iPhone coming out in your screen and you can start to add a photo and play with it! If you want to try it on a real iPhone, just connect your iPhone to the computer (USB or Type-C) then you should be able to select your iPhone in the blue rectangle.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/from-pytorch-to-coreml/iphone.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/from-pytorch-to-coreml/iphone.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;You can try more open source Core ML models &lt;a href=&#34;https://developer.apple.com/machine-learning/models/&#34;&gt;here&lt;/a&gt;. To add a model to the project, you need to drag it to the project structure and set it up as follows. Some files will be generated automatically for you to use the model.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/from-pytorch-to-coreml/drag.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/from-pytorch-to-coreml/drag.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;You need to change the line &lt;code&gt;let model = try VNCoreMLModel(for: MobileNet().model)&lt;/code&gt; in &lt;code&gt;ImageClassificationViewController.swift&lt;/code&gt; to use the model. You may also need to update the target iOS version shown in the red rectangle of the following screenshot.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/from-pytorch-to-coreml/ios_version.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/from-pytorch-to-coreml/ios_version.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;model-conversion&#34;&gt;Model Conversion&lt;/h2&gt;
 &lt;p&gt;Now we take a step back. We have just trained a model using PyTorch or MXNet and we wwant to run it on iOS. Obviously, we need to convert the &lt;code&gt;.pth&lt;/code&gt; or &lt;code&gt;.params&lt;/code&gt; to &lt;code&gt;.mlmodel&lt;/code&gt;. This is model conversion.&lt;/p&gt;
 &lt;p&gt;For Caffe and Keras, their models can be converted to Core ML models directly. However, such direct conversion is not supported for PyTorch. Fortunately, we have &lt;a href=&#34;https://onnx.ai/&#34;&gt;ONNX&lt;/a&gt;, an excellent exchange format between models of various frameworks.&lt;/p&gt;
 &lt;p&gt;The conversion flow from PyTorch to Core ML is as follows. I will use the &lt;code&gt;mobilenet_v2&lt;/code&gt; of &lt;code&gt;torchvision&lt;/code&gt; as an example to walk through the conversion process.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/from-pytorch-to-coreml/conversion.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/from-pytorch-to-coreml/conversion.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;loading-torchvision-model&#34;&gt;Loading TorchVision Model&lt;/h3&gt;
 &lt;p&gt;First I load a MobileNet v2 pretrained on ImageNet. Note that I add a Softmax layer to get the probabilities of all categories (remember by the output &lt;code&gt;classLabelProbs&lt;/code&gt; of the Core ML model?).&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; torch
@@ -204,10 +627,10 @@ plt.imshow(vis)
     
     <item>
       <title>Connecting Computer Vision and Natural Language</title>
-      <link>http://localhost:1313/post/connecting-computer-vision-and-natural-language/</link>
+      <link>https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/</link>
       <pubDate>Tue, 27 Nov 2018 15:36:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/connecting-computer-vision-and-natural-language/</guid>
+      <guid>https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;In recent years, computer vision has witnessed extremely rapid progress. Somewhat surprisingly, this thriving field was originated from &lt;a href=&#34;https://dspace.mit.edu/handle/1721.1/6125&#34;&gt;a summer project at MIT in 1966&lt;/a&gt;. Richard Szeliski wrote in &lt;a href=&#34;http://szeliski.org/Book/&#34;&gt;Computer Vision: Algorithms and Applications&lt;/a&gt;:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -220,27 +643,27 @@ plt.imshow(vis)
 &lt;p&gt;Many researchers have been seeking to build the connection between computer vision and natural language, which poses a challenging modeling problem with two modalities of data (images and natural language). Nowadays, the research community has generally come to a consensus on modeling images with convolutional neural networks (CNNs) and natural language with recurrent neural networks (RNNs). Both of these architectures can be made deeper by adding layers with homogeneous computations for better performance. Specifically, researchers have tried to build the connection between vision and natural language in the following ways.&lt;/p&gt;
 &lt;h3 id=&#34;imagevideo-captioning&#34;&gt;Image/Video Captioning&lt;/h3&gt;
 &lt;p&gt;In image/video captioning, an image/video is given and a sentence describing its content is returned. In current research, the image/video is usually encoded into a feature vector by a CNN. Then an RNN generates the captions using this vector as the initial hidden state, as shown in the following two figures (taken from &lt;a href=&#34;https://cs.stanford.edu/people/karpathy/deepimagesent/&#34;&gt;Deep Visual-Semantic Alignments for Generating Image Descriptions&lt;/a&gt; and &lt;a href=&#34;https://arxiv.org/abs/1412.4729&#34;&gt;Translating Videos to Natural Language Using Deep Recurrent Neural Networks&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/connecting-computer-vision-and-natural-language/imagecap.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/connecting-computer-vision-and-natural-language/videocap.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/imagecap.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/videocap.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;image-generation-from-text&#34;&gt;Image Generation (from Text)&lt;/h3&gt;
 &lt;p&gt;This is the inverse problem of image captioning: a sentence is given and an image matching the meaning of the sentence is returned. The recent advances of generative adversarial networks (GANs) have opened up tons of opportunities for generation tasks like this. Typically, image generation makes use of GANs with the text being encoded by an RNN and fed into the generator/discriminator networks, as shown below (taken from &lt;a href=&#34;https://arxiv.org/abs/1605.05396&#34;&gt;Generative Adversarial Text to Image Synthesis&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/connecting-computer-vision-and-natural-language/text2im.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/text2im.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;visual-question-answering&#34;&gt;Visual Question Answering&lt;/h3&gt;
 &lt;p&gt;In visual question answering (VQA), an image and a question about it are given and the answer is returned. This is arguably a very natural way for humans to interact with computers. In recent years, computers have learned to answer questions like &lt;em&gt;is this a cat&lt;/em&gt; (classification) or &lt;em&gt;where is the cat&lt;/em&gt; (detection/segmentation). Now they are asked more questions like &lt;a href=&#34;http://www.visualqa.org/&#34;&gt;counting&lt;/a&gt;, &lt;a href=&#34;https://cs.stanford.edu/people/jcjohns/clevr/&#34;&gt;spatial/logical reasoning&lt;/a&gt;, and &lt;a href=&#34;https://datasets.maluuba.com/FigureQA&#34;&gt;analyzing graphical plots and figures&lt;/a&gt;. In VQA, the visual content and the question content are often encoded by CNNs and RNNs respectively and then combined in some way to generate the answer, as shown below (taken from &lt;a href=&#34;https://arxiv.org/abs/1707.07998&#34;&gt;Bottom-Up and Top-Down Attention for Image Captioning and Visual Question Answering&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/connecting-computer-vision-and-natural-language/butdvqa.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/butdvqa.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;future-opportunities&#34;&gt;Future Opportunities&lt;/h2&gt;
 &lt;p&gt;Current research in connecting computer vision and natural language has achieved great breakthroughs thanks to the success of CNNs and RNNs in the two areas respectively. However, there are still some limitations in current research that open up future opportunities.&lt;/p&gt;
 &lt;h3 id=&#34;fine-grained-image-captioning&#34;&gt;Fine-grained Image Captioning&lt;/h3&gt;
 &lt;p&gt;Current image captioning generates captions which give an overall description of images. The results of applying &lt;a href=&#34;https://github.com/karpathy/neuraltalk2&#34;&gt;a state-of-the-art image captioning algorithm&lt;/a&gt; to images from the &lt;a href=&#34;http://cocodataset.org/&#34;&gt;COCO dataset&lt;/a&gt; are shown below.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/connecting-computer-vision-and-natural-language/cococaps.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/cococaps.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;In the COCO dataset, images are of various scenes and objects. And the captioning algorithm is able to capture the overall content of what is happening in the image, except for some mistakes like the cat is not sitting on the laptop. But, in general, the captions are very discriminative considering the large differences between images. Given images and captions, it is very easy to tell which image corresponds to which caption. Image captioning makes great sense in this case.&lt;/p&gt;
 &lt;p&gt;Then I applied the same captioning algorithm to the &lt;a href=&#34;https://github.com/bearpaw/clothing-co-parsing&#34;&gt;Clothing Co-Parsing (CCP) dataset&lt;/a&gt;, whose images are all clothing images. The captions are shown below.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/connecting-computer-vision-and-natural-language/ccpcaps.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/ccpcaps.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;In the CCP dataset, images are all coming from the clothing domain and thus they are very similar to each other in the overall content. And the differences are mostly reflected in fine-grained details. In this case, the captions which only capture the overall content become meaningless and are not very helpful for distinguishing one image from others. Moreover, the captions make more mistakes, like a lot of false positives of cell phones.&lt;/p&gt;
 &lt;p&gt;For classifying images in the same domain, researchers have come up with fine-grained image classification. Now to caption these images, whose fine-grained details are much more important than the overall content, it makes sense to state that we need &lt;em&gt;fine-grained image captioning&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Similar to fine-grained image classification, which finds many applications in online advertising (like searching by images), fine-grained image captioning also finds an important application in this area, that is, to write captions for goods.&lt;/p&gt;
 &lt;p&gt;Actually, businesses are always trying to describe the attractive details of their goods to convince customers to make the buying decision. For example, the advertising captions of two clothing images in &lt;a href=&#34;http://m.toutiao.com/profile/5569547953/&#34;&gt;Toutiao&lt;/a&gt; are shown below.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/connecting-computer-vision-and-natural-language/toutiaocaps.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/toutiaocaps.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;The above captions are very different from those of the COCO and CCP datasets. Instead of merely focusing on the overall image content, they try to capture more fine-grained details of the clothes. They even go beyond those details to present customers a sense of how the clothes will look on him/her. These captions are also more flexible since they are manually written by businesses, though a mistake about the color of the dress is made in the right image. So a natural question is whether we can apply image captioning to write such captions for advertising. Obviously, general image captioning is still unable to perform well on it, as shown in the captions of the CCP dataset. So fine-grained image captioning comes into use. However, there are still very few works on it.&lt;/p&gt;
 &lt;p&gt;It is worth noting that though I am using clothing as an example domain to present fine-grained image captioning, it is definitely not limited to clothing and can also be applied to many other domains like &lt;a href=&#34;https://arxiv.org/abs/1512.02665&#34;&gt;food&lt;/a&gt; and &lt;a href=&#34;http://mmlab.ie.cuhk.edu.hk/datasets/comp_cars/index.html&#34;&gt;cars&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;To solve the fine-grained image captioning problem, the considerable number of online advertising captions serve as a good basis. The pipeline of fine-grained image captioning may also be similar to that of general image captioning: a CNN learns a domain-specific representation of the image (maybe via fine-tuning the network in a fine-grained image classification task) and then an RNN generates a fine-grained caption conditioned on the representation. There should be many problems waiting to be discovered and solved in fine-grained image captioning.&lt;/p&gt;
@@ -257,10 +680,10 @@ plt.imshow(vis)
     
     <item>
       <title>Killing Pytorch Multi Gpu Training the Safe Way</title>
-      <link>http://localhost:1313/post/killing-pytorch-multi-gpu-training-the-safe-way/</link>
+      <link>https://jianchao-li.github.io/post/killing-pytorch-multi-gpu-training-the-safe-way/</link>
       <pubDate>Fri, 02 Nov 2018 14:58:10 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/killing-pytorch-multi-gpu-training-the-safe-way/</guid>
+      <guid>https://jianchao-li.github.io/post/killing-pytorch-multi-gpu-training-the-safe-way/</guid>
       <description>&lt;p&gt;As you may have noticed from the title, this post is somewhat different from my previous ones. I would like to talk about a PyTorch DataLoader issue I encountered recently. I feel like devoting a post to it because it has taken me long time to figure out how to fix it.&lt;/p&gt;
 &lt;h2 id=&#34;memory-consumption&#34;&gt;Memory consumption&lt;/h2&gt;
 &lt;p&gt;Since my last post on &lt;a href=&#34;https://jianchao-li.github.io/2018/09/15/understanding-fully-convolutional-networks/&#34;&gt;FCNs&lt;/a&gt;, I have been working on semantic segmentation. Nowadays, we have deep neural networks for it, like the state-of-the-art &lt;a href=&#34;https://arxiv.org/abs/1612.01105&#34;&gt;PSPNet&lt;/a&gt; from CVPR 2017.&lt;/p&gt;
@@ -617,22 +1040,22 @@ The solution is &lt;code&gt;killall python&lt;/code&gt; , or to &lt;code&gt;ps -
     
     <item>
       <title>Understanding Fully Convolutional Networks</title>
-      <link>http://localhost:1313/post/understanding-fully-convolutional-networks/</link>
+      <link>https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/</link>
       <pubDate>Sat, 15 Sep 2018 19:29:22 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/understanding-fully-convolutional-networks/</guid>
+      <guid>https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/</guid>
       <description>&lt;p&gt;Fully convolutional networks, or FCNs, were proposed by &lt;a href=&#34;http://people.eecs.berkeley.edu/~jonlong/&#34;&gt;Jonathan Long&lt;/a&gt;, &lt;a href=&#34;http://imaginarynumber.net/&#34;&gt;Evan Shelhamer&lt;/a&gt; and &lt;a href=&#34;https://people.eecs.berkeley.edu/~trevor/&#34;&gt;Trevor Darrell&lt;/a&gt; in CVPR 2015 as a framework for semantic segmentation.&lt;/p&gt;
 &lt;h2 id=&#34;semantic-segmentation&#34;&gt;Semantic segmentation&lt;/h2&gt;
 &lt;p&gt;Semantic segmentation is a task in which given an image, we need to assign a semantic label (like cat, dog, person, background etc.) to each of its pixels. The following are some examples taken from &lt;a href=&#34;http://host.robots.ox.ac.uk/pascal/VOC/&#34;&gt;The PASCAL VOC data sets&lt;/a&gt; with different colors representing different semantic classes.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/understanding-fully-convolutional-networks/pascalvoc.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/pascalvoc.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;The PASCAL VOC data sets define 20 semantic classes: aeroplane, bicycle, bird, boat, bottle, bus, car, cat, chair, cow, dining table, dog, horse, motorbike, person, potted plant, sheep, sofa, train, and tv/monitor. Actually these are all &lt;em&gt;object&lt;/em&gt; classes. For pixels falling into non-object classes (which are called &lt;em&gt;stuff&lt;/em&gt;) like sky, they will be labeled as &amp;ldquo;background&amp;rdquo;.&lt;/p&gt;
 &lt;p&gt;Some later semantic segmentation data sets like &lt;a href=&#34;https://www.cityscapes-dataset.com/&#34;&gt;The Cityscapes Dataset&lt;/a&gt; and &lt;a href=&#34;https://github.com/nightrome/cocostuff&#34;&gt;The COCO-Stuff dataset&lt;/a&gt; account for both object and stuff classes. The following are some examples taken from the COCO-Stuff dataset, with class names also shown.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/understanding-fully-convolutional-networks/cocostuff.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cocostuff.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;how-to-use-cnns-for-segmentation&#34;&gt;How to use CNNs for segmentation&lt;/h2&gt;
 &lt;p&gt;Back in 2015, convolutional neural networks (CNNs) have achieved tremendous success in image classification (like &lt;a href=&#34;https://www.nvidia.cn/content/tesla/pdf/machine-learning/imagenet-classification-with-deep-convolutional-nn.pdf&#34;&gt;AlexNet&lt;/a&gt; and &lt;a href=&#34;https://www.cs.unc.edu/~wliu/papers/GoogLeNet.pdf&#34;&gt;GoogLeNet&lt;/a&gt;), doing extremely well in learning from a fixed-size image to a single category label. Generally, the image will go through several convolutional layers and then fully connected layers, giving a fixed-size (equal to the number of classes) output, whose softmax loss with respect to the ground truth label will be computed and back-propagated to update parameters.&lt;/p&gt;
 &lt;p&gt;However, in semantic segmentation, we need pixel-wise dense predictions instead of just a single label. For example, for a 256x128 image, the segmentation mask is also of size 256x128. We need to use CNNs to generate a predicted mask and then compute the loss between it and the ground truth one.&lt;/p&gt;
 &lt;p&gt;I was working on object segmentation at the end of 2014. Object segmentation is arguably much simpler than semantic segmentation in that it only classifies the pixels into two classes: the backround and the foreground (a specific object, like pedestrian, horse, bird etc.). The following are some examples taken from &lt;a href=&#34;http://www.vision.caltech.edu/visipedia/CUB-200-2011.html&#34;&gt;Caltech-UCSD Birds-200-2011&lt;/a&gt; with the object masks shown below the images.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/understanding-fully-convolutional-networks/cub200.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cub200.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Since CNNs are good at handling fixed-size data, a simple idea is to fix both the sizes of the image and the object mask. Then we set the number of output units of the last fully connected layer to be equal to the number of mask elements.&lt;/p&gt;
 &lt;p&gt;For loss computation, since I was working on object segmentation with only two values (0 for background and 1 for foreground) in the mask, I simply adopted the Euclidean loss. This extremely simple idea achieved state-of-the-art results in some object segmentation datasets and was publised in ICIP 2015 entitled &lt;a href=&#34;http://ieeexplore.ieee.org/document/7351084/&#34;&gt;Object segmentation with deep regression&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;changing-fully-connected-layers-to-convolutional-layers&#34;&gt;Changing fully connected layers to convolutional layers&lt;/h2&gt;
@@ -649,7 +1072,7 @@ The solution is &lt;code&gt;killall python&lt;/code&gt; , or to &lt;code&gt;ps -
 &lt;p&gt;$H_{out}$, $H_{in}$, $W_{out}$, $W_{in}$, $P$, $K$, and $S$ represent the output height, input height, output width, input width, padding, kernel size and stride respectively. In this post, we assume that the same padding and stride is used in both the height and width dimensions.&lt;/p&gt;
 &lt;p&gt;For example, if you are convolving a 4x4 input ($H_{in} = W_{in} = 4$) with a 3x3 kernel ($K = 3$) with stride 1 ($S = 1$) and no padding ($P = 0$), you will get an output of size 2x2 ($\frac{4 + 2 \times 0 - 3}{1} + 1 = 2$). So this is a convolution that transforms a 4x4 input to a 2x2 output with a 3x3 convolutional kernel.&lt;/p&gt;
 &lt;p&gt;Now, in deconvolution, we would like to transform a 2x2 input to a 4x4 output using the same 3x3 convolutional kernel. Since deconvolution is still convolution, equations $\eqref{eq1}$ and $\eqref{eq2}$ still hold. Suppose we also use stride 1, then we need to solve $4 = \frac{2 + 2P - 3}{1} + 1$, which gives $P = 2$. So the corresponding deconvolution is just a convolution of a 2x2 input with the same 3x3 kernel, stride 1, and padding 2.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/understanding-fully-convolutional-networks/deconv.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/deconv.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Now let&amp;rsquo;s look at the relationship between the input size and output size in deconvolution. As mentioned above, deconvolution is a convolution with swapped input size and output size. So we can derive the relationship just by swapping $H_{in}$ with $H_{out}$ and $W_{in}$ with $W_{out}$ in equations $\eqref{eq1}$ and $\eqref{eq2}$, which gives&lt;/p&gt;
 &lt;p&gt;$$H_{in} = \frac{H_{out} + 2P - K}{S} + 1 \tag{3}\label{eq3}$$&lt;/p&gt;
 &lt;p&gt;$$W_{in} = \frac{W_{out} + 2P - K}{S} + 1 \tag{4}\label{eq4}$$&lt;/p&gt;
@@ -910,7 +1333,7 @@ The solution is &lt;code&gt;killall python&lt;/code&gt; , or to &lt;code&gt;ps -
 &lt;p&gt;There is a nice visualization of the 16-layer VGG in &lt;a href=&#34;http://ethereon.github.io/netscope/#/preset/vgg-16&#34;&gt;netscope&lt;/a&gt;. By hovering your mouse over the layers, you will be able to see their parameters and output shapes, which should be the same to those in the above table. The &lt;a href=&#34;http://cs231n.stanford.edu/slides/2018/cs231n_2018_lecture09.pdf&#34;&gt;CS231n 2018 Lecture 9&lt;/a&gt; also covers this popular network.&lt;/p&gt;
 &lt;h2 id=&#34;fully-convolutional-networks&#34;&gt;Fully convolutional networks&lt;/h2&gt;
 &lt;p&gt;Now you are ready to embrace the idea of FCNs. It is fairly simple: first downsample the image to smaller feature maps and then upsample them to the segmentation masks (of the same size as the image). &lt;a href=&#34;http://cs231n.stanford.edu/slides/2018/cs231n_2018_lecture11.pdf&#34;&gt;CS231n 2018 Lecture 11&lt;/a&gt; has the following nice illustration which summarizes this process. Actually I think the $D_3 \times H/4 \times W/4$ of Low-res should be $D_3 \times H/8 \times W/8$. Anyway, you can just ignore the captions. The picture has reflected the core idea.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/understanding-fully-convolutional-networks/fcn.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;To gain more understanding, let&amp;rsquo;s walk through a concrete example - &lt;a href=&#34;https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn32s/val.prototxt&#34;&gt;voc-fcn32s&lt;/a&gt;, an adaptation of the 16-layer VGG into an FCN for semantic segmentation in the PASCAL VOC data sets. Since this dataset has 21 classes, we need to learn 21 segmentation masks.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s also break the voc-fcn32s down layer by layer. Note that the size of &lt;code&gt;data&lt;/code&gt; is now $3 \times H \times W$. In this way, we will show that FCN is able to handle input of any size! All default settings are the same to those in the above table.&lt;/p&gt;
 &lt;table&gt;
@@ -1188,7 +1611,7 @@ The solution is &lt;code&gt;killall python&lt;/code&gt; , or to &lt;code&gt;ps -
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;  }&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;}&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This Crop layer accepts &lt;code&gt;upscore&lt;/code&gt; ($21 \times \left(H + 38\right) \times \left(W + 38\right)$) and &lt;code&gt;data&lt;/code&gt; ($3 \times H \times W$) from the two &lt;code&gt;bottom&lt;/code&gt; fields. It also has two parameters: &lt;code&gt;axis: 2&lt;/code&gt; and &lt;code&gt;offset: 19&lt;/code&gt;. In Caffe, a feature map (blob) is of size $N \times C \times H \times W$, with $N$, $C$, $H$ and $W$ being the 0th, 1st, 2nd and 3rd dimension. So &lt;code&gt;upscore&lt;/code&gt; and &lt;code&gt;data&lt;/code&gt; are actually of size $N \times 21 \times \left(H + 38\right) \times \left(W + 38\right)$ and $N \times 3 \times H \times W$ respectively. &lt;code&gt;axis: 2&lt;/code&gt; means to crop from the 2nd dimension (inclusive). So only the dimension $H$ and $W$ of &lt;code&gt;upscore&lt;/code&gt; ($\left(H + 38\right) \times \left(W + 38\right)$) will be cropped to be the same as &lt;code&gt;data&lt;/code&gt; ($H \times W$). And &lt;code&gt;offset: 19&lt;/code&gt; specifies the starting index of the cropping, which means that &lt;code&gt;upscore&lt;/code&gt; will be cropped to be &lt;code&gt;upscore[19: 19 + H, 19: 19 + W]&lt;/code&gt;, literally the central part of &lt;code&gt;upscore&lt;/code&gt;. The following is an illustration of this process, with the green part being the cropped region &lt;code&gt;score&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/understanding-fully-convolutional-networks/crop.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/crop.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;simplifying-fcn-to-a-stack-of-convolutional-layers&#34;&gt;Simplifying FCN to a stack of convolutional layers&lt;/h2&gt;
 &lt;p&gt;As shown in the above example, we use a Crop layer with &lt;code&gt;offset: 19&lt;/code&gt; to crop the feature maps. This cropping layer comes into use since sometimes the deconvolutional (upsampling) layer may not precisely generate an $H \times W$ feature map. Instead, it may give us something like $\left(H + 2T\right) \times \left(W + 2T\right)$. In this case we need to determine the offset $T$ to do the cropping.&lt;/p&gt;
 &lt;p&gt;In the previous section, we break down the network layer by layer and write down the output shape for each layer, based on which we compute the offset of the Crop layer. In the coming sections, we will look at a general case and derive the offset.&lt;/p&gt;
@@ -1547,7 +1970,7 @@ $$&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;finer-details&#34;&gt;Finer Details&lt;/h2&gt;
 &lt;p&gt;In the &lt;code&gt;upscore&lt;/code&gt; layer of voc-fcn32s, the feature maps are directly upsampled by a large factor of 32 (this is why it is named voc-fcn32s), which will produce relatively coarse predictions due to missing finer detils from intermediate resolutions. So, in &lt;a href=&#34;https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn16s/val.prototxt&#34;&gt;voc-fcn16s&lt;/a&gt; and &lt;a href=&#34;https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn8s/val.prototxt&#34;&gt;voc-fcn8s&lt;/a&gt;, the shrinked feature maps are upsampled more than once before being recovered to the size of the image.&lt;/p&gt;
 &lt;p&gt;For &lt;a href=&#34;https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn16s/val.prototxt&#34;&gt;voc-fcn16s&lt;/a&gt;, the feature maps from &lt;code&gt;score_fr&lt;/code&gt; will first be upsampled by a factor of 2 in &lt;code&gt;upscore2&lt;/code&gt;. Then, we generate another set of outputs from &lt;code&gt;pool4&lt;/code&gt; using convolution in &lt;code&gt;score_pool4&lt;/code&gt; and crop it to be the same size as that of &lt;code&gt;upscore2&lt;/code&gt; in &lt;code&gt;score_pool4c&lt;/code&gt;. Finally, we combine &lt;code&gt;upscore2&lt;/code&gt; and &lt;code&gt;score_pool4c&lt;/code&gt; using element-wise summation in &lt;code&gt;fuse_pool4&lt;/code&gt;, upsample it by a factor of 16 in &lt;code&gt;upscore16&lt;/code&gt; and crop it in &lt;code&gt;score&lt;/code&gt; to obtain the output. We show the network architecture for this process while omitting the previous layers in the following figure. Moreover, this process is broken down in the table below.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/understanding-fully-convolutional-networks/fcn-voc16s.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc16s.png&#34;&gt;&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -1610,7 +2033,7 @@ $$&lt;/p&gt;
 &lt;/table&gt;
 &lt;p&gt;As can be seen, the finer details from the intermediate resolution in &lt;code&gt;pool4&lt;/code&gt; are incorporated into later feature maps, which will produce finer outputs than those of fcn-voc32s. Actually, fcn-voc16s utilizes two resolutions of a factor of 16 and a factor of 32.&lt;/p&gt;
 &lt;p&gt;We may combine more resolutions in the same way. In fcn-voc8s, we generate one more set of outputs from &lt;code&gt;pool3&lt;/code&gt; and combine it with later feature maps. The network architecture is similarly shown in the figure below with the process broken down in the following table.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/understanding-fully-convolutional-networks/fcn-voc8s.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc8s.png&#34;&gt;&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -1702,7 +2125,7 @@ $$&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;In fcn-voc8s, one more intermediate resolution &lt;code&gt;pool3&lt;/code&gt; are incorpoeated. From fcn-voc32s, fcn-voc16s to fcn-voc8s, more intermediate resolutions are incorporated and the results will contain more details, as shown below (taken from the &lt;a href=&#34;https://arxiv.org/pdf/1411.4038.pdf&#34;&gt;FCN paper&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/understanding-fully-convolutional-networks/details.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/details.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;We cover fully convolutional networks in great detail. To summarize, we have learend:&lt;/p&gt;
 &lt;ul&gt;
@@ -1717,14 +2140,14 @@ $$&lt;/p&gt;
     
     <item>
       <title>A Dive Into Visual Question Answering</title>
-      <link>http://localhost:1313/post/a-dive-into-visual-question-answering/</link>
+      <link>https://jianchao-li.github.io/post/a-dive-into-visual-question-answering/</link>
       <pubDate>Mon, 27 Aug 2018 14:34:35 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/a-dive-into-visual-question-answering/</guid>
+      <guid>https://jianchao-li.github.io/post/a-dive-into-visual-question-answering/</guid>
       <description>&lt;p&gt;I have been very interested in the interplay between vision and natural language for some time. In these years, an emerging research topic combined these two areas. That is, visual question answering (VQA). Recently, I made a dive into this topic and wrote some notes as you are reading now.&lt;/p&gt;
 &lt;h2 id=&#34;what-is-vqa&#34;&gt;What is VQA?&lt;/h2&gt;
 &lt;p&gt;VQA is a task that involves understanding the semantic information of both an image and a natuarl language question and returning the answer also expressed in natural language. You may play with the &lt;a href=&#34;http://demo.visualdialog.org/&#34;&gt;Visual Chatbot&lt;/a&gt; to get a sense of VQA.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/a-dive-into-visual-question-answering/vqabot.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/a-dive-into-visual-question-answering/vqabot.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;!-- raw HTML omitted --&gt;As can be seen, this is a multi-modal task involving two modes of data (an image and a text). To answer the question, both the semantics of the image and the question should be well understood.&lt;/p&gt;
 &lt;h2 id=&#34;importance-of-vqa&#34;&gt;Importance of VQA&lt;/h2&gt;
 &lt;p&gt;VQA is an important research topic, mainly for three reasons. The first is a historical one, kind of relevant to the origin of computer vision, a summer project at MIT back in 1966 [1]. Richard Szeliski wrote about this in his famous book [2]:&lt;/p&gt;
@@ -1772,14 +2195,14 @@ $$&lt;/p&gt;
     
     <item>
       <title>Playing With Image Captioning</title>
-      <link>http://localhost:1313/post/playing-with-image-captioning/</link>
+      <link>https://jianchao-li.github.io/post/playing-with-image-captioning/</link>
       <pubDate>Wed, 08 Aug 2018 20:12:45 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/playing-with-image-captioning/</guid>
+      <guid>https://jianchao-li.github.io/post/playing-with-image-captioning/</guid>
       <description>&lt;p&gt;I have been fascinated by image captioning for some time but still have not played with it. I gave it a try today using the open source project &lt;a href=&#34;https://github.com/karpathy/neuraltalk2&#34;&gt;&lt;code&gt;neuraltalk2&lt;/code&gt;&lt;/a&gt; written by &lt;a href=&#34;https://cs.stanford.edu/people/karpathy/&#34;&gt;Andrej Karpathy&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;the-theory&#34;&gt;The theory&lt;/h2&gt;
 &lt;p&gt;The working mechanism of image captioning is shown in the following picture (taken from &lt;a href=&#34;https://cs.stanford.edu/people/karpathy/&#34;&gt;Andrej Karpathy&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/playing-with-image-captioning/rnn7.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/playing-with-image-captioning/rnn7.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;!-- raw HTML omitted --&gt;The image is encoded into a feature vector by a convolutional neural network (CNN) and then fed into a recurrent neural network (RNN) to generate the captions. The RNN works word by word. Each time it receives an input word and a hidden state and generates the next word, which is used as the input word in the next time. The CNN feature vector of the image is used as the initial hidden state, which is updated in each time step of the RNN.&lt;/p&gt;
 &lt;p&gt;In the above picture, the RNN receives the initial hidden state and &lt;code&gt;START&lt;/code&gt; (a special word incidating the RNN to start generation) and generates the first word &lt;code&gt;straw&lt;/code&gt;. Then &lt;code&gt;straw&lt;/code&gt; is fed into the RNN together with the updated hidden state to generate &lt;code&gt;hat&lt;/code&gt;. Finally, &lt;code&gt;hat&lt;/code&gt; is fed into the RNN with the latest hidden state to generate &lt;code&gt;END&lt;/code&gt; (a special word indicating the RNN to stop). So the caption of the image is &lt;em&gt;straw hat&lt;/em&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;the-experiment&#34;&gt;The experiment&lt;/h2&gt;
@@ -1793,8 +2216,8 @@ $$&lt;/p&gt;
 &lt;li&gt;Changed Boot disk to Ubuntu 16.04 LTS&lt;/li&gt;
 &lt;li&gt;Checked Allow HTTP traffic and Allow HTTPS traffic&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/playing-with-image-captioning/vm-up.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/playing-with-image-captioning/vm-down.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/playing-with-image-captioning/vm-up.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/playing-with-image-captioning/vm-down.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;installing-torch&#34;&gt;Installing Torch&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;neuraltalk2&lt;/code&gt; is written in Torch. So you need to install Torch first. You can simply follow the steps in &lt;a href=&#34;http://torch.ch/docs/getting-started.html#_&#34;&gt;Getting started with Torch&lt;/a&gt;:&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ git clone https://github.com/torch/distro.git ~/torch --recursive
@@ -1845,10 +2268,10 @@ $ unzip checkpoint_v1_cpu.zip
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;th eval.lua -model models/model_id1-501-1448236541.t7_cpu.t7 -image_folder images/ -num_images -1 -gpuid -1
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;results&#34;&gt;Results&lt;/h3&gt;
 &lt;h4 id=&#34;coco&#34;&gt;COCO&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/playing-with-image-captioning/cococaps.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/playing-with-image-captioning/cococaps.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;In the COCO dataset, images are of various scenes and objects. And &lt;code&gt;neuraltalk2&lt;/code&gt; is able to capture the overall content of what is happening in the image, except for some mistakes like the cat is not sitting on the laptop. But, in general, the captions are very discriminative considering the large differences between images. Given images and captions, it is very easy to tell which image corresponds to which caption. Image captioning makes great sense in this case.&lt;/p&gt;
 &lt;h4 id=&#34;ccp&#34;&gt;CCP&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/playing-with-image-captioning/ccpcaps.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://jianchao-li.github.io/post/playing-with-image-captioning/ccpcaps.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;In the CCP dataset, images are all coming from the clothing domain and thus they are very similar to each other in the overall content. And the differences are mostly reflected in fine-grained details. In this case, the captions of &lt;code&gt;neuraltalk2&lt;/code&gt; which only capture the overall content become meaningless and are not very helpful for distinguishing one image from others. Moreover, the captions make more mistakes, like a lot of false positives of cell phones.&lt;/p&gt;
 &lt;h3 id=&#34;thoughts&#34;&gt;Thoughts&lt;/h3&gt;
 &lt;p&gt;For classifying images in the same domain, researchers have come up with fine-grained image classification. Now to caption these images, whose fine-grained details are much more important than the overall content, it makes sense to state that we need &lt;em&gt;fine-grained image captioning&lt;/em&gt;.&lt;/p&gt;
