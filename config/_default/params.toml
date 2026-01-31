@@ -18,6 +18,7 @@ enableCodeCopy = true
   showTableOfContents = true
   showTaxonomies = true
   showWordCount = false
+  showComments = true
   sharingLinks = ["linkedin", "twitter", "facebook"]
 
 [list]
