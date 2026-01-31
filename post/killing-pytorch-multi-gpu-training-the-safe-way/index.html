@@ -926,7 +926,7 @@
 <p>Since my last post on <a href="https://jianchao-li.github.io/2018/09/15/understanding-fully-convolutional-networks/"  target="_blank" rel="noreferrer">FCNs</a>, I have been working on semantic segmentation. Nowadays, we have deep neural networks for it, like the state-of-the-art <a href="https://arxiv.org/abs/1612.01105"  target="_blank" rel="noreferrer">PSPNet</a> from CVPR 2017.</p>
 <p>In practice, segmentation networks are <strong>much more memory-intensive</strong> than recognition/classification networks. The reason is that semantic segmentation requires dense pixel-level predictions. For example, in the ImageNet classification task, you may use a neural network to transform a 224x224 image into 1000 real numbers (class probabilities). However, in semantic segmentation, suppose you have 20 semantic classes, you need to transform the 224x224 image into 20 224x224 probability maps, each representing probabilities of pixels belonging to one class. The output size changes from 1000 to 20x224x224=1003520, which is more than 1000 times!</p>
 <p>Besides the output, the intermediate feature maps in segmentation networks also consume more memory. In recognition networks, sizes of intermediate feature maps usually decrease monotically. However, since segmentation requires output of the same spatial dimension as the input, the feature maps will go through an extra process with their sizes increased (upsampled) back to the size of the input image. This extra upsample process further increases the memory consumption of segmentation networks.</p>
-<p>So, when we fit segmentation networks on a GPU, we need to reduce the batch size of the data. However, batch size is crucial to the performance of networks, especially those containing the batch normalization layer. Since no more data can be held in a single GPU, a natural soltuion is to use multiple GPUs and split the data across them (or more formally, <em>data parallelism</em>).</p>
+<p>So, when we fit segmentation networks on a GPU, we need to reduce the batch size of the data. However, batch size is crucial to the performance of networks, especially those containing the batch normalization layer. Since no more data can be held in a single GPU, a natural solution is to use multiple GPUs and split the data across them (or more formally, <em>data parallelism</em>).</p>
 
 <h2 class="relative group">Synchronized batch normalization
     <div id="synchronized-batch-normalization" class="anchor"></div>
@@ -1075,14 +1075,14 @@
 </span></span><span class="line"><span class="cl">GPU <span class="m">5</span> is good
 </span></span><span class="line"><span class="cl">GPU <span class="m">6</span> is good
 </span></span><span class="line"><span class="cl">GPU <span class="m">7</span> is good</span></span></code></pre></div></div>
-<p>So, my GPUs 2 and 3 should be magically occupied by some zombie process. And I had to restart the machine to fix it. I think the zombie process was generated due to my incorrect way of killing the training program. So I decided not to use the kill button in the cloud GUI but logged into the docker container to kill it in the terminal.</p>
+<p>So, my GPUs 1 and 2 should be magically occupied by some zombie process. And I had to restart the machine to fix it. I think the zombie process was generated due to my incorrect way of killing the training program. So I decided not to use the kill button in the cloud GUI but logged into the docker container to kill it in the terminal.</p>
 <p>I searched on Google for how to kill a PyTorch multi-GPU training program. And I found <a href="https://discuss.pytorch.org/u/smth/summary"  target="_blank" rel="noreferrer">@smth</a>&rsquo;s suggestion in <a href="https://discuss.pytorch.org/t/pytorch-doesnt-free-gpus-memory-of-it-gets-aborted-due-to-out-of-memory-error/13775/14?u=jianchao-li"  target="_blank" rel="noreferrer">this reply</a>.</p>
 <blockquote><p>@rabst
 so, I remember this issue. When investigating, we found that there’s actually a bug in python multiprocessing that might keep the child process hanging around, as zombie processes.
 It is not even visible to <code>nvidia-smi</code> .
 The solution is <code>killall python</code> , or to <code>ps -elf | grep python</code> and find them and <code>kill -9 [pid]</code> to them.</p>
 </blockquote><p>It explained why <code>nvidia-smi</code> failed to reveal the memory issue. Great! But, the above commands did not work for me&hellip;</p>
-<blockquote><p>Nothing is so fatiguing as the eternal haning on of an uncompleted task.</p>
+<blockquote><p>Nothing is so fatiguing as the eternal hanging on of an uncompleted task.</p>
 <div style="text-align: right;">--- William James</div>
 </blockquote>
 <h2 class="relative group">The Solution
@@ -1094,7 +1094,7 @@ The solution is <code>killall python</code> , or to <code>ps -elf | grep python<
     </span>
     
 </h2>
-<p>After several days of searching, failing, searching again, failing again etc., I finally found one solution. It is just to find out the processes that occupied the GPUs and kill them. To find out those processes, I ran <code>fuser -v /dev/nvidia*</code>, which listed all the processes that were occupying my NVIDIA GPUs. Since I have 8 GPUs, the output of this command is a bit log.</p>
+<p>After several days of searching, failing, searching again, failing again etc., I finally found one solution. It is just to find out the processes that occupied the GPUs and kill them. To find out those processes, I ran <code>fuser -v /dev/nvidia*</code>, which listed all the processes that were occupying my NVIDIA GPUs. Since I have 8 GPUs, the output of this command is a bit long.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ fuser -v /dev/nvidia*
 </span></span><span class="line"><span class="cl">                     USER        PID ACCESS COMMAND
 </span></span><span class="line"><span class="cl">/dev/nvidia0:        root       <span class="m">5284</span> F...m python3

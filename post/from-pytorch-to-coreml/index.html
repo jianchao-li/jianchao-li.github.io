@@ -220,7 +220,7 @@
     "keywords": ["deep-learning","pytorch","ios"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "793"
+    "wordCount": "791"
   }]
   </script>
 
@@ -940,7 +940,7 @@
     </span>
     
 </h2>
-<p>Core ML is a framework developed by Apple to integrate machine learning models into iOS applications. As like each other framework, Core ML has its own model format (<code>.mlmodel</code>), like <code>.pth</code> of PyTorch or <code>.params</code> of MXNet.</p>
+<p>Core ML is a framework developed by Apple to integrate machine learning models into iOS applications. Like other frameworks, Core ML has its own model format (<code>.mlmodel</code>), like <code>.pth</code> of PyTorch or <code>.params</code> of MXNet.</p>
 <p>Compared to PyTorch or MXNet, Core ML is mainly used as an inference engine in iOS. That means you will first train a model using PyTorch (<code>.pth</code>) or MXNet (<code>.params</code>) and then convert it to the Core ML format (<code>.mlmodel</code>) and deploy it to an iOS app.</p>
 
 <h2 class="relative group">Get a Sense First
@@ -968,7 +968,7 @@
     data-zoom-src="/post/from-pytorch-to-coreml/model_details.png"></figure>
 </p>
 <p>The interesting part is the Prediction. It tells us that the input to the model is a color (RGB) image of size 224 x 224 and the outputs have two parts: top-1 category <code>classLabel</code> and the probabilities of all categories <code>classLabelProbs</code>. <strong>This will guide the model conversion later</strong>.</p>
-<p>Then ou can click the triangle in the following red rectangle to build the project. You can also select the device simulator that you want to run the project on in the blue rectangle.</p>
+<p>Then you can click the triangle in the following red rectangle to build the project. You can also select the device simulator that you want to run the project on in the blue rectangle.</p>
 <p><figure><img
     class="my-0 rounded-md"
     loading="lazy"

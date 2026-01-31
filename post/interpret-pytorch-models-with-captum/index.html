@@ -21,7 +21,7 @@
 
   
   
-    <meta name="description" content="I used Captum to interpre the output of a MobileNetV2, which visualized the main regions in the input image that drove the model to generate its output.">
+    <meta name="description" content="I used Captum to interpret the output of a MobileNetV2, which visualized the main regions in the input image that drove the model to generate its output.">
   
   
     <meta name="keywords" content="deep-learning,pytorch,">
@@ -41,7 +41,7 @@
   <meta property="og:url" content="https://jianchao-li.github.io/post/interpret-pytorch-models-with-captum/">
   <meta property="og:site_name" content="Jianchao Li">
   <meta property="og:title" content="Interpret PyTorch Models with Captum">
-  <meta property="og:description" content="I used Captum to interpre the output of a MobileNetV2, which visualized the main regions in the input image that drove the model to generate its output.">
+  <meta property="og:description" content="I used Captum to interpret the output of a MobileNetV2, which visualized the main regions in the input image that drove the model to generate its output.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
@@ -55,7 +55,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://jianchao-li.github.io/post/interpret-pytorch-models-with-captum/featured.jpg">
   <meta name="twitter:title" content="Interpret PyTorch Models with Captum">
-  <meta name="twitter:description" content="I used Captum to interpre the output of a MobileNetV2, which visualized the main regions in the input image that drove the model to generate its output.">
+  <meta name="twitter:description" content="I used Captum to interpret the output of a MobileNetV2, which visualized the main regions in the input image that drove the model to generate its output.">
 
   
   
@@ -908,7 +908,7 @@
         
 
         <div class="article-content max-w-prose mb-20">
-          <p>While deep neural networks have achieved state-of-the-art performance in many problems(e.g., image classification, object detection, scene parsing etc.), it is always not trivial to intepret their outputs. Till now, the most common and useful way to interpret the output of a deep neural network is still by visualization. You may refer to this <a href="http://cs231n.github.io/understanding-cnn/"  target="_blank" rel="noreferrer">CS231n course note</a> for some introduction.</p>
+          <p>While deep neural networks have achieved state-of-the-art performance in many problems(e.g., image classification, object detection, scene parsing etc.), it is always not trivial to interpret their outputs. Till now, the most common and useful way to interpret the output of a deep neural network is still by visualization. You may refer to this <a href="http://cs231n.github.io/understanding-cnn/"  target="_blank" rel="noreferrer">CS231n course note</a> for some introduction.</p>
 <p>In this post, I will describe how to interpret an image classification model using <a href="https://captum.ai/"  target="_blank" rel="noreferrer">Captum</a>. Captum, which means &ldquo;comprehension&rdquo; in Latin, is a open-source project with many model interpretabiliy algorithms implemented in PyTorch. Specifically, I adopted <a href="https://github.com/pytorch/captum/blob/master/captum/attr/_core/layer/grad_cam.py#L21"  target="_blank" rel="noreferrer"><code>LayerGradCam</code></a> for this post.</p>
 
 <h2 class="relative group">Install Captum
@@ -952,7 +952,7 @@
     </span>
     
 </h2>
-<p>I use the <a href="https://github.com/pytorch/vision/blob/master/torchvision/models/mobilenet.py#L72"  target="_blank" rel="noreferrer"><code>MobileNetV2</code></a> pretrained on ImageNet from <code>torchvision</code> and an image of a Hornbill from <a href="https://upload.wikimedia.org/wikipedia/commons/8/8f/Buceros_bicornis_%28female%29_-feeding_in_tree-8.jpg"  target="_blank" rel="noreferrer">Wikipedia</a>. Later I will use <code>LayerGradCam</code> to intepret and visualize why the model gives the specific output for this image.</p>
+<p>I use the <a href="https://github.com/pytorch/vision/blob/master/torchvision/models/mobilenet.py#L72"  target="_blank" rel="noreferrer"><code>MobileNetV2</code></a> pretrained on ImageNet from <code>torchvision</code> and an image of a Hornbill from <a href="https://upload.wikimedia.org/wikipedia/commons/8/8f/Buceros_bicornis_%28female%29_-feeding_in_tree-8.jpg"  target="_blank" rel="noreferrer">Wikipedia</a>. Later I will use <code>LayerGradCam</code> to interpret and visualize why the model gives the specific output for this image.</p>
 <p>Note that the model needs to be set to the test mode.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># use MobileNetV2</span>
 </span></span><span class="line"><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">mobilenet_v2</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
