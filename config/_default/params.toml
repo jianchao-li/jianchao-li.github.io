@@ -20,13 +20,15 @@ showScrollToTop = true
 
 [article]
   showDate = true
-  showDateUpdated = false
+  showDateUpdated = true
   showAuthor = true
   showReadingTime = true
   showTableOfContents = true
   showTaxonomies = true
   showWordCount = false
   showComments = true
+  showRelatedContent = true
+  relatedContentLimit = 3
   sharingLinks = ["linkedin", "twitter", "facebook"]
 
 [list]

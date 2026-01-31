@@ -3,6 +3,7 @@ title: "Playing With Image Captioning"
 summary: "I played with image captioning using neuraltalk2 written by Andrej Karpathy."
 tags: ["deep-learning", "computer-vision", "nlp"]
 date: 2018-08-08T20:12:45+08:00
+lastmod: 2025-01-31
 draft: false
 ---
 > **Disclaimer:** This post was written in 2018. The AI/ML field has evolved significantly since then, and the techniques, tools, and state-of-the-art methods described here are now considered outdated. Modern approaches like Vision Transformers and large multimodal models (GPT-4V, Claude, Gemini) have largely superseded the methods discussed.

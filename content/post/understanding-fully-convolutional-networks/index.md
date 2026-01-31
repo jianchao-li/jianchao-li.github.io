@@ -3,6 +3,7 @@ title: "Understanding Fully Convolutional Networks"
 summary: "I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great details. Moreover, I will analyze the MXNet implementation of FCNs."
 tags: ["deep-learning", "computer-vision"]
 date: 2018-09-15T19:29:22+08:00
+lastmod: 2025-01-31
 draft: false
 ---
 > **Disclaimer:** This post was written in 2018. While the fundamental concepts remain educational, some tools and approaches described here have been superseded by newer alternatives.

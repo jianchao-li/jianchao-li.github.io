@@ -3,6 +3,7 @@ title: "A Dive Into Visual Question Answering"
 summary: "I read some papers on VQA and summarized its state-of-the-art, bottlenecks and possible solutions."
 tags: ["deep-learning", "computer-vision", "nlp"]
 date: 2018-08-27T14:34:35+08:00
+lastmod: 2025-01-31
 draft: false
 ---
 > **Disclaimer:** This post was written in 2018. The AI/ML field has evolved significantly since then, and the techniques, tools, and state-of-the-art methods described here are now considered outdated. Modern approaches like Vision Transformers and large multimodal models (GPT-4V, Claude, Gemini) have largely superseded the methods discussed.

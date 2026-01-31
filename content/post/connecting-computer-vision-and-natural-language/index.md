@@ -3,6 +3,7 @@ title: "Connecting Computer Vision and Natural Language"
 summary: "I combined my previous posts on image captioning and visual question answering and extended them to a wider topic - connecting computer vision and natural language."
 tags: ["deep-learning", "computer-vision", "nlp"]
 date: 2018-11-27T15:36:00+08:00
+lastmod: 2025-01-31
 draft: false
 ---
 > **Disclaimer:** This post was written in 2018. The AI/ML field has evolved significantly since then, and the techniques, tools, and state-of-the-art methods described here are now considered outdated. Modern approaches like Vision Transformers and large multimodal models (GPT-4V, Claude, Gemini) have largely superseded the methods discussed.

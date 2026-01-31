@@ -3,6 +3,7 @@ title: "Killing Pytorch Multi Gpu Training the Safe Way"
 summary: "Recently I was working with PyTorch multi-GPU training and I came across a nightmare GPU memory problem. After some expensive trial and error, I finally found a solution for it."
 tags: ["deep-learning", "pytorch"]
 date: 2018-11-02T14:58:10+08:00
+lastmod: 2025-01-31
 draft: false
 ---
 As you may have noticed from the title, this post is somewhat different from my previous ones. I would like to talk about a PyTorch DataLoader issue I encountered recently. I feel like devoting a post to it because it has taken me long time to figure out how to fix it.
