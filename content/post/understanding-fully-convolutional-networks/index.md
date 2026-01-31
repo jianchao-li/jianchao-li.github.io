@@ -5,6 +5,8 @@ tags: ["deep-learning", "computer-vision"]
 date: 2018-09-15T19:29:22+08:00
 draft: false
 ---
+> **Disclaimer:** This post was written in 2018. While the fundamental concepts remain educational, some tools and approaches described here have been superseded by newer alternatives.
+
 Fully convolutional networks, or FCNs, were proposed by [Jonathan Long](http://people.eecs.berkeley.edu/~jonlong/), [Evan Shelhamer](http://imaginarynumber.net/) and [Trevor Darrell](https://people.eecs.berkeley.edu/~trevor/) in CVPR 2015 as a framework for semantic segmentation.
 
 ## Semantic segmentation

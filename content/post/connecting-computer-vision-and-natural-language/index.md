@@ -5,6 +5,8 @@ tags: ["deep-learning", "computer-vision", "nlp"]
 date: 2018-11-27T15:36:00+08:00
 draft: false
 ---
+> **Disclaimer:** This post was written in 2018. The AI/ML field has evolved significantly since then, and the techniques, tools, and state-of-the-art methods described here are now considered outdated. Modern approaches like Vision Transformers and large multimodal models (GPT-4V, Claude, Gemini) have largely superseded the methods discussed.
+
 ## Introduction
 
 In recent years, computer vision has witnessed extremely rapid progress. Somewhat surprisingly, this thriving field was originated from [a summer project at MIT in 1966](https://dspace.mit.edu/handle/1721.1/6125). Richard Szeliski wrote in [Computer Vision: Algorithms and Applications](http://szeliski.org/Book/):

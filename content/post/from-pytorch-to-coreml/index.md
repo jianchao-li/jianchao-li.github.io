@@ -5,6 +5,8 @@ tags: ["deep-learning", "pytorch", "ios"]
 date: 2019-10-16T01:00:18+08:00
 draft: false
 ---
+> **Disclaimer:** This post was written in 2019. While the fundamental concepts remain educational, some tools and approaches described here have been superseded by newer alternatives. Notably, `coremltools` now supports direct PyTorch to Core ML conversion without the ONNX intermediate step.
+
 After working with PyTorch in my daily work for some time, recently I got a chance to work on something completely new - [Core ML](https://developer.apple.com/documentation/coreml). After converting a PyTorch model to the Core ML format and seeing it work in an iPhone 7, I believe this deserves a blog post.
 
 ## What is Core ML?

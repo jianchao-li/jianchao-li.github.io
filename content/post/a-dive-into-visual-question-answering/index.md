@@ -5,6 +5,8 @@ tags: ["deep-learning", "computer-vision", "nlp"]
 date: 2018-08-27T14:34:35+08:00
 draft: false
 ---
+> **Disclaimer:** This post was written in 2018. The AI/ML field has evolved significantly since then, and the techniques, tools, and state-of-the-art methods described here are now considered outdated. Modern approaches like Vision Transformers and large multimodal models (GPT-4V, Claude, Gemini) have largely superseded the methods discussed.
+
 I have been very interested in the interplay between vision and natural language for some time. In these years, an emerging research topic combined these two areas. That is, visual question answering (VQA). Recently, I made a dive into this topic and wrote some notes as you are reading now.
 
 ## What is VQA?
