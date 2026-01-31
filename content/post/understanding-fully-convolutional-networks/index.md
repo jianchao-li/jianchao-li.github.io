@@ -31,7 +31,7 @@ I was working on object segmentation at the end of 2014. Object segmentation is 
 
 Since CNNs are good at handling fixed-size data, a simple idea is to fix both the sizes of the image and the object mask. Then we set the number of output units of the last fully connected layer to be equal to the number of mask elements.
 
-For loss computation, since I was working on object segmentation with only two values (0 for background and 1 for foreground) in the mask, I simply adopted the Euclidean loss. This extremely simple idea achieved state-of-the-art results in some object segmentation datasets and was publised in ICIP 2015 entitled [Object segmentation with deep regression](http://ieeexplore.ieee.org/document/7351084/).
+For loss computation, since I was working on object segmentation with only two values (0 for background and 1 for foreground) in the mask, I simply adopted the Euclidean loss. This extremely simple idea achieved state-of-the-art results in some object segmentation datasets and was published in ICIP 2015 entitled [Object segmentation with deep regression](http://ieeexplore.ieee.org/document/7351084/).
 
 ## Changing fully connected layers to convolutional layers
 
@@ -577,7 +577,7 @@ In fcn-voc8s, one more intermediate resolution `pool3` are incorpoeated. From fc
 ![](details.png)
 
 ## Conclusion
-We cover fully convolutional networks in great detail. To summarize, we have learend:
+We cover fully convolutional networks in great detail. To summarize, we have learned:
 
 * Semantic segmentation requires dense pixel-level classification while image classification is only in image-level. 
 * Fully convolutional networks (FCNs) are a general framework to solve semantic segmentation.

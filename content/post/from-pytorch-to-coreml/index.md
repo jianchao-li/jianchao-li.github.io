@@ -8,7 +8,7 @@ draft: false
 After working with PyTorch in my daily work for some time, recently I got a chance to work on something completely new - [Core ML](https://developer.apple.com/documentation/coreml). After converting a PyTorch model to the Core ML format and seeing it work in an iPhone 7, I believe this deserves a blog post.
 
 ## What is Core ML?
-Core ML is a framework developed by Apple to integrate machine learning models into iOS applications. As like each other framework, Core ML has its own model format (`.mlmodel`), like `.pth` of PyTorch or `.params` of MXNet.
+Core ML is a framework developed by Apple to integrate machine learning models into iOS applications. Like other frameworks, Core ML has its own model format (`.mlmodel`), like `.pth` of PyTorch or `.params` of MXNet.
 
 Compared to PyTorch or MXNet, Core ML is mainly used as an inference engine in iOS. That means you will first train a model using PyTorch (`.pth`) or MXNet (`.params`) and then convert it to the Core ML format (`.mlmodel`) and deploy it to an iOS app.
 
@@ -21,7 +21,7 @@ The following is a screenshot of the model details. In the center area, there ar
 
 The interesting part is the Prediction. It tells us that the input to the model is a color (RGB) image of size 224 x 224 and the outputs have two parts: top-1 category `classLabel` and the probabilities of all categories `classLabelProbs`. **This will guide the model conversion later**.
 
-Then ou can click the triangle in the following red rectangle to build the project. You can also select the device simulator that you want to run the project on in the blue rectangle. 
+Then you can click the triangle in the following red rectangle to build the project. You can also select the device simulator that you want to run the project on in the blue rectangle. 
 
 ![](xcode.png)
 

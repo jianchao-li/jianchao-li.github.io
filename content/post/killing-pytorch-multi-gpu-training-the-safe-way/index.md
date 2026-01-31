@@ -15,7 +15,7 @@ In practice, segmentation networks are **much more memory-intensive** than recog
 
 Besides the output, the intermediate feature maps in segmentation networks also consume more memory. In recognition networks, sizes of intermediate feature maps usually decrease monotically. However, since segmentation requires output of the same spatial dimension as the input, the feature maps will go through an extra process with their sizes increased (upsampled) back to the size of the input image. This extra upsample process further increases the memory consumption of segmentation networks.
 
-So, when we fit segmentation networks on a GPU, we need to reduce the batch size of the data. However, batch size is crucial to the performance of networks, especially those containing the batch normalization layer. Since no more data can be held in a single GPU, a natural soltuion is to use multiple GPUs and split the data across them (or more formally, *data parallelism*).
+So, when we fit segmentation networks on a GPU, we need to reduce the batch size of the data. However, batch size is crucial to the performance of networks, especially those containing the batch normalization layer. Since no more data can be held in a single GPU, a natural solution is to use multiple GPUs and split the data across them (or more formally, *data parallelism*).
 
 ## Synchronized batch normalization
 
@@ -178,7 +178,7 @@ GPU 6 is good
 GPU 7 is good
 ```
 
-So, my GPUs 2 and 3 should be magically occupied by some zombie process. And I had to restart the machine to fix it. I think the zombie process was generated due to my incorrect way of killing the training program. So I decided not to use the kill button in the cloud GUI but logged into the docker container to kill it in the terminal.
+So, my GPUs 1 and 2 should be magically occupied by some zombie process. And I had to restart the machine to fix it. I think the zombie process was generated due to my incorrect way of killing the training program. So I decided not to use the kill button in the cloud GUI but logged into the docker container to kill it in the terminal.
 
 I searched on Google for how to kill a PyTorch multi-GPU training program. And I found [@smth](https://discuss.pytorch.org/u/smth/summary)'s suggestion in [this reply](https://discuss.pytorch.org/t/pytorch-doesnt-free-gpus-memory-of-it-gets-aborted-due-to-out-of-memory-error/13775/14?u=jianchao-li).
 
@@ -189,12 +189,12 @@ It is not even visible to `nvidia-smi` .
 
 It explained why `nvidia-smi` failed to reveal the memory issue. Great! But, the above commands did not work for me...
 
-> Nothing is so fatiguing as the eternal haning on of an uncompleted task.
+> Nothing is so fatiguing as the eternal hanging on of an uncompleted task.
 > <div style="text-align: right;">--- William James</div>
 
 ## The Solution
 
-After several days of searching, failing, searching again, failing again etc., I finally found one solution. It is just to find out the processes that occupied the GPUs and kill them. To find out those processes, I ran `fuser -v /dev/nvidia*`, which listed all the processes that were occupying my NVIDIA GPUs. Since I have 8 GPUs, the output of this command is a bit log.
+After several days of searching, failing, searching again, failing again etc., I finally found one solution. It is just to find out the processes that occupied the GPUs and kill them. To find out those processes, I ran `fuser -v /dev/nvidia*`, which listed all the processes that were occupying my NVIDIA GPUs. Since I have 8 GPUs, the output of this command is a bit long.
 
 ```bash
 $ fuser -v /dev/nvidia*

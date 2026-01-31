@@ -1,11 +1,11 @@
 ---
 title: "Interpret PyTorch Models with Captum"
-summary: "I used Captum to interpre the output of a MobileNetV2, which visualized the main regions in the input image that drove the model to generate its output."
+summary: "I used Captum to interpret the output of a MobileNetV2, which visualized the main regions in the input image that drove the model to generate its output."
 tags: ["deep-learning", "pytorch"]
 date: 2020-02-29T10:49:18+08:00
 draft: false
 ---
-While deep neural networks have achieved state-of-the-art performance in many problems(e.g., image classification, object detection, scene parsing etc.), it is always not trivial to intepret their outputs. Till now, the most common and useful way to interpret the output of a deep neural network is still by visualization. You may refer to this [CS231n course note](http://cs231n.github.io/understanding-cnn/) for some introduction.
+While deep neural networks have achieved state-of-the-art performance in many problems(e.g., image classification, object detection, scene parsing etc.), it is always not trivial to interpret their outputs. Till now, the most common and useful way to interpret the output of a deep neural network is still by visualization. You may refer to this [CS231n course note](http://cs231n.github.io/understanding-cnn/) for some introduction.
 
 In this post, I will describe how to interpret an image classification model using [Captum](https://captum.ai/). Captum, which means "comprehension" in Latin, is a open-source project with many model interpretabiliy algorithms implemented in PyTorch. Specifically, I adopted [`LayerGradCam`](https://github.com/pytorch/captum/blob/master/captum/attr/_core/layer/grad_cam.py#L21) for this post.
 
@@ -41,7 +41,7 @@ from captum.attr import LayerAttribution, LayerGradCam
 ```
 
 ## Prepare a Model and an Image
-I use the [`MobileNetV2`](https://github.com/pytorch/vision/blob/master/torchvision/models/mobilenet.py#L72) pretrained on ImageNet from `torchvision` and an image of a Hornbill from [Wikipedia](https://upload.wikimedia.org/wikipedia/commons/8/8f/Buceros_bicornis_%28female%29_-feeding_in_tree-8.jpg). Later I will use `LayerGradCam` to intepret and visualize why the model gives the specific output for this image.
+I use the [`MobileNetV2`](https://github.com/pytorch/vision/blob/master/torchvision/models/mobilenet.py#L72) pretrained on ImageNet from `torchvision` and an image of a Hornbill from [Wikipedia](https://upload.wikimedia.org/wikipedia/commons/8/8f/Buceros_bicornis_%28female%29_-feeding_in_tree-8.jpg). Later I will use `LayerGradCam` to interpret and visualize why the model gives the specific output for this image.
 
 Note that the model needs to be set to the test mode.
 
