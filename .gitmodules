@@ -1,7 +1,8 @@
-[submodule "themes/academic"]
-	path = themes/academic
-	url = https://github.com/gcushen/hugo-academic.git
+[submodule "themes/congo"]
+	path = themes/congo
+	url = https://github.com/jpanther/congo.git
+	branch = stable
 [submodule "public"]
 	path = public
-	url = https://github.com/jianchao-li/jianchao-li.github.io.git
+	url = git@github.com:jianchao-li/jianchao-li.github.io.git
 	branch = master

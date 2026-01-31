@@ -1,31 +1,9 @@
 ---
-# Documentation: https://sourcethemes.com/academic/docs/managing-content/
-
 title: "Killing Pytorch Multi Gpu Training the Safe Way"
-subtitle: ""
 summary: "Recently I was working with PyTorch multi-GPU training and I came across a nightmare GPU memory problem. After some expensive trial and error, I finally found a solution for it."
-authors: []
-tags: []
-categories: []
+tags: ["deep-learning", "pytorch"]
 date: 2018-11-02T14:58:10+08:00
-lastmod: 2018-11-02T14:58:10+08:00
-featured: false
 draft: false
-
-# Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder.
-# Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
-image:
-  caption: ""
-  focal_point: ""
-  preview_only: false
-
-# Projects (optional).
-#   Associate this post with one or more of your projects.
-#   Simply enter your project's folder or file name without extension.
-#   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
-#   Otherwise, set `projects = []`.
-projects: []
 ---
 As you may have noticed from the title, this post is somewhat different from my previous ones. I would like to talk about a PyTorch DataLoader issue I encountered recently. I feel like devoting a post to it because it has taken me long time to figure out how to fix it.
 

@@ -1,31 +1,9 @@
 ---
-# Documentation: https://sourcethemes.com/academic/docs/managing-content/
-
 title: "The Double-Edged Sword of Compounding"
-subtitle: ""
 summary: "While many investors understand the power of compound returns, they may not fully grasp that compounding can also result in a significant downside. This post explores this double-edged sword."
-authors: []
-tags: []
-categories: []
+tags: ["investing", "finance"]
 date: 2025-01-03T22:08:00+01:00
-lastmod: 2025-01-04T01:53:00+01:00
-featured: false
 draft: false
-
-# Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder.
-# Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
-image:
-  caption: ""
-  focal_point: ""
-  preview_only: false
-
-# Projects (optional).
-#   Associate this post with one or more of your projects.
-#   Simply enter your project's folder or file name without extension.
-#   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
-#   Otherwise, set `projects = []`.
-projects: []
 ---
 Starting with this post, I want to venture into a new area — investing — distinct from my usual topics of computer vision, deep learning, etc. Investing has become my latest hobby, and after diving into it, I have found it both fascinating and inspiring.
 

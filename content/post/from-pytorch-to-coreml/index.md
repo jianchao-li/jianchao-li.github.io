@@ -1,31 +1,9 @@
 ---
-# Documentation: https://sourcethemes.com/academic/docs/managing-content/
-
 title: "From PyTorch to Core ML"
-subtitle: ""
 summary: "I converted a PyTorch model to Core ML and ran it on an iPhone."
-authors: []
-tags: []
-categories: []
+tags: ["deep-learning", "pytorch", "ios"]
 date: 2019-10-16T01:00:18+08:00
-lastmod: 2019-10-16T01:00:18+08:00
-featured: false
 draft: false
-
-# Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder.
-# Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
-image:
-  caption: ""
-  focal_point: ""
-  preview_only: false
-
-# Projects (optional).
-#   Associate this post with one or more of your projects.
-#   Simply enter your project's folder or file name without extension.
-#   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
-#   Otherwise, set `projects = []`.
-projects: []
 ---
 After working with PyTorch in my daily work for some time, recently I got a chance to work on something completely new - [Core ML](https://developer.apple.com/documentation/coreml). After converting a PyTorch model to the Core ML format and seeing it work in an iPhone 7, I believe this deserves a blog post.
 

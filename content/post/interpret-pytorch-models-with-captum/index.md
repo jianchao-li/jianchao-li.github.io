@@ -1,31 +1,9 @@
 ---
-# Documentation: https://sourcethemes.com/academic/docs/managing-content/
-
 title: "Interpret PyTorch Models with Captum"
-subtitle: ""
 summary: "I used Captum to interpre the output of a MobileNetV2, which visualized the main regions in the input image that drove the model to generate its output."
-authors: []
-tags: []
-categories: []
-date: 2020-0229T10:49:18+08:00
-lastmod: 2020-02-29T10:49:18+08:00
-featured: false
+tags: ["deep-learning", "pytorch"]
+date: 2020-02-29T10:49:18+08:00
 draft: false
-
-# Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder.
-# Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
-image:
-  caption: ""
-  focal_point: ""
-  preview_only: false
-
-# Projects (optional).
-#   Associate this post with one or more of your projects.
-#   Simply enter your project's folder or file name without extension.
-#   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
-#   Otherwise, set `projects = []`.
-projects: []
 ---
 While deep neural networks have achieved state-of-the-art performance in many problems(e.g., image classification, object detection, scene parsing etc.), it is always not trivial to intepret their outputs. Till now, the most common and useful way to interpret the output of a deep neural network is still by visualization. You may refer to this [CS231n course note](http://cs231n.github.io/understanding-cnn/) for some introduction.
 

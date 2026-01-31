@@ -1,32 +1,9 @@
 ---
-# Documentation: https://sourcethemes.com/academic/docs/managing-content/
-
 title: "Understanding Fully Convolutional Networks"
-subtitle: ""
 summary: "I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great details. Moreover, I will analyze the MXNet implementation of FCNs."
-authors: []
-tags: []
-categories: []
+tags: ["deep-learning", "computer-vision"]
 date: 2018-09-15T19:29:22+08:00
-lastmod: 2018-09-15T19:29:22+08:00
-featured: false
 draft: false
-math: true
-
-# Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder.
-# Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
-image:
-  caption: ""
-  focal_point: ""
-  preview_only: false
-
-# Projects (optional).
-#   Associate this post with one or more of your projects.
-#   Simply enter your project's folder or file name without extension.
-#   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
-#   Otherwise, set `projects = []`.
-projects: []
 ---
 Fully convolutional networks, or FCNs, were proposed by [Jonathan Long](http://people.eecs.berkeley.edu/~jonlong/), [Evan Shelhamer](http://imaginarynumber.net/) and [Trevor Darrell](https://people.eecs.berkeley.edu/~trevor/) in CVPR 2015 as a framework for semantic segmentation.
 

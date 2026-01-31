@@ -1,31 +1,9 @@
 ---
-# Documentation: https://sourcethemes.com/academic/docs/managing-content/
-
 title: "Playing With Image Captioning"
-subtitle: ""
-summary: ""
-authors: []
-tags: []
-categories: []
+summary: "I played with image captioning using neuraltalk2 written by Andrej Karpathy."
+tags: ["deep-learning", "computer-vision", "nlp"]
 date: 2018-08-08T20:12:45+08:00
-lastmod: 2018-08-08T20:12:45+08:00
-featured: false
 draft: false
-
-# Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder.
-# Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
-image:
-  caption: ""
-  focal_point: ""
-  preview_only: false
-
-# Projects (optional).
-#   Associate this post with one or more of your projects.
-#   Simply enter your project's folder or file name without extension.
-#   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
-#   Otherwise, set `projects = []`.
-projects: []
 ---
 I have been fascinated by image captioning for some time but still have not played with it. I gave it a try today using the open source project [`neuraltalk2`](https://github.com/karpathy/neuraltalk2) written by [Andrej Karpathy](https://cs.stanford.edu/people/karpathy/).
 
