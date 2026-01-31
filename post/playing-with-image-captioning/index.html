@@ -220,7 +220,7 @@
     "keywords": ["deep-learning","computer-vision","nlp"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "1056"
+    "wordCount": "1053"
   }]
   </script>
 
@@ -1088,7 +1088,7 @@
 </span></span><span class="line"><span class="cl">$ cd models
 </span></span><span class="line"><span class="cl">$ wget --no-check-certificate https://cs.stanford.edu/people/karpathy/neuraltalk2/checkpoint_v1_cpu.zip
 </span></span><span class="line"><span class="cl">$ unzip checkpoint_v1_cpu.zip</span></span></code></pre></div></div>
-<p>I created another folder <code>images</code> in the root directory of <code>neuraltalk2</code> to store the test images. I downloaded two datasets for the experiment: the [2017 Val Images of COCO](2017 Val images [5K/1GB]) and the <a href="https://github.com/bearpaw/clothing-co-parsing"  target="_blank" rel="noreferrer">Clothing Co-Parsing (CCP) Dataset</a>.</p>
+<p>I created another folder <code>images</code> in the root directory of <code>neuraltalk2</code> to store the test images. I downloaded two datasets for the experiment: the <a href="https://cocodataset.org/#download"  target="_blank" rel="noreferrer">2017 Val Images of COCO</a> and the <a href="https://github.com/bearpaw/clothing-co-parsing"  target="_blank" rel="noreferrer">Clothing Co-Parsing (CCP) Dataset</a>.</p>
 <p>After everything is ready, just run the following command to apply <code>neuraltalk2</code> to caption the images. Since I used CPU, I set <code>-gpuid -1</code>.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">th eval.lua -model models/model_id1-501-1448236541.t7_cpu.t7 -image_folder images/ -num_images -1 -gpuid -1</span></span></code></pre></div></div>
 
