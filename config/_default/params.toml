@@ -5,10 +5,18 @@ autoSwitchAppearance = true
 enableSearch = true
 enableCodeCopy = true
 
+# Blowfish enhancements
+showScrollToTop = true
+
+[header]
+  layout = "fixed"
+
 [homepage]
   layout = "profile"
   showRecent = true
   recentLimit = 5
+  cardView = true
+  cardViewScreenWidth = false
 
 [article]
   showDate = true
@@ -25,3 +33,4 @@ enableCodeCopy = true
   showTableOfContents = false
   showSummary = true
   groupByYear = true
+  cardView = true

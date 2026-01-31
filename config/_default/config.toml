@@ -2,7 +2,7 @@ baseURL = "https://jianchao-li.github.io/"
 title = "Jianchao Li"
 languageCode = "en"
 defaultContentLanguage = "en"
-theme = "congo"
+theme = "blowfish"
 
 enableEmoji = true
 enableRobotsTXT = true
