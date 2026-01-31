@@ -179,4 +179,4 @@ We can see that the model makes a correct prediction. From the above visualizati
 
 Now you can also apply the above technique (and more from Captum) to interpret the output of your PyTorch model. Have fun!
 
-**Notes:** This post is alao avaialble as a [Jupyter notebook](https://gist.github.com/jianchao-li/f7b507bc66b2215e15cc0135f03c3ff9).
+**Notes:** This post is also available as a [Jupyter notebook](https://gist.github.com/jianchao-li/f7b507bc66b2215e15cc0135f03c3ff9).

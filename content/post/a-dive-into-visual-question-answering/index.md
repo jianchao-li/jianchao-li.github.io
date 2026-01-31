@@ -8,7 +8,7 @@ draft: false
 I have been very interested in the interplay between vision and natural language for some time. In these years, an emerging research topic combined these two areas. That is, visual question answering (VQA). Recently, I made a dive into this topic and wrote some notes as you are reading now.
 
 ## What is VQA?
-VQA is a task that involves understanding the semantic information of both an image and a natuarl language question and returning the answer also expressed in natural language. You may play with the [Visual Chatbot](http://demo.visualdialog.org/) to get a sense of VQA.
+VQA is a task that involves understanding the semantic information of both an image and a natural language question and returning the answer also expressed in natural language. You may play with the [Visual Chatbot](http://demo.visualdialog.org/) to get a sense of VQA.
 
 ![](vqabot.png)
 
@@ -23,7 +23,7 @@ This *see-and-describe* summarizes the original goal of the pioneers of computer
 
 The second reason that accounts for the significance of VQA is its potential to become an *AI-complete* task [3]. Most tasks in artificial intelligence, especially computer vision, can be kind of boiled down to answering questions over images. For example, image classification is to answer a multiple-choice question of the category of an image.
 
-The last but ont least reason is that VQA has many promising applications. The most evident one is human-computer interaction, which benefits from VQA since it teaches a computer both to see and to speak. In the future, a human may be able to talk to an intelligent agent about a scene in natural language. This can further find many applications like navigation for the blind people (asking the navigation agent about what it sees to help the blind people know where to go) and video processing (asking an VQA agent to find out someone or something of interests in a large number of surveillance videos).
+The last but not least reason is that VQA has many promising applications. The most evident one is human-computer interaction, which benefits from VQA since it teaches a computer both to see and to speak. In the future, a human may be able to talk to an intelligent agent about a scene in natural language. This can further find many applications like navigation for the blind people (asking the navigation agent about what it sees to help the blind people know where to go) and video processing (asking an VQA agent to find out someone or something of interests in a large number of surveillance videos).
 
 ## Breaking down VQA
 Currently, researchers generally break the VQA problem down to four subproblems.
@@ -51,7 +51,7 @@ The first one is on the side of algorithms, specifically, the features of images
 
 The second one is on the side of datasets, specifically, the lack of datasets that ask questions which require external knowledge to answer. Incorporating external knowledge (like common sense or those from the encyclopedia) into VQA will push it to be an AI-complete task [3].
 
-## Thoughts about the bottlnecks
+## Thoughts about the bottlenecks
 
 For the first bottleneck that features are not learned, one difficulty of learning those features for the image/question is that the pipeline includes some non-differentiable operations and thus back-propagation cannot be applied. An idea to overcome this difficulty is to use policy gradient [6].
 

@@ -86,4 +86,4 @@ Computer vision has been expected to be connected with natural language since bo
 
 ## Further Reading
 
-If you find this topic (connecting computer vision and natural image) interesting to you, I strongly recommend you to read Andrej Karpathy's PhD thesis - [Connecting Images and Natural Language](https://cs.stanford.edu/people/karpathy/main.pdf). Actually the title of this blog post is inspired by his thesis.
+If you find this topic (connecting computer vision and natural language) interesting to you, I strongly recommend you to read Andrej Karpathy's PhD thesis - [Connecting Images and Natural Language](https://cs.stanford.edu/people/karpathy/main.pdf). Actually the title of this blog post is inspired by his thesis.

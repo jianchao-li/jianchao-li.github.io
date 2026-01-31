@@ -38,7 +38,7 @@ You need to change the line `let model = try VNCoreMLModel(for: MobileNet().mode
 ![](ios_version.png)
 
 ## Model Conversion
-Now we take a step back. We have just trained a model using PyTorch or MXNet and we wwant to run it on iOS. Obviously, we need to convert the `.pth` or `.params` to `.mlmodel`. This is model conversion.
+Now we take a step back. We have just trained a model using PyTorch or MXNet and we want to run it on iOS. Obviously, we need to convert the `.pth` or `.params` to `.mlmodel`. This is model conversion.
 
 For Caffe and Keras, their models can be converted to Core ML models directly. However, such direct conversion is not supported for PyTorch. Fortunately, we have [ONNX](https://onnx.ai/), an excellent exchange format between models of various frameworks.
 

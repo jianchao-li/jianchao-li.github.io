@@ -77,7 +77,7 @@ $ cd torch-hdf5
 $ luarocks make hdf5-0-0.rockspec LIBHDF5_LIBDIR="/usr/lib/x86_64-linux-gnu/"
 $ cd # go back $HOME
 ```
-Notice that Andrej listed `loadcaffe` and `torch-hdf5` under **For training**, but they are actually also required for inference. And if you woud like to run `neuraltalk2` on a GPU, please follow the `README.md` to install those additional dependencies.
+Notice that Andrej listed `loadcaffe` and `torch-hdf5` under **For training**, but they are actually also required for inference. And if you would like to run `neuraltalk2` on a GPU, please follow the `README.md` to install those additional dependencies.
 
 ### Captioning images
 Now we can use `neuraltalk2` to caption images. Just clone the repository and download the pretrained model. Since I ran it on CPU, I downloaded the [CPU model](https://cs.stanford.edu/people/karpathy/neuraltalk2/checkpoint_v1_cpu.zip). You may need to download the [GPU model](http://cs.stanford.edu/people/karpathy/neuraltalk2/checkpoint_v1.zip) to run it on GPU.
