@@ -4,8 +4,10 @@
     <title>Authors on Jianchao Li</title>
     <link>https://jianchao-li.github.io/authors/</link>
     <description>Recent content in Authors on Jianchao Li</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
+    <copyright>© 2026 Jianchao Li</copyright>
     <atom:link href="https://jianchao-li.github.io/authors/index.xml" rel="self" type="application/rss+xml" />
+    
   </channel>
 </rss>
