@@ -1,7 +1,7 @@
 ---
 title: "A Dive Into Visual Question Answering"
 summary: "I read some papers on VQA and summarized its state-of-the-art, bottlenecks and possible solutions."
-tags: ["deep-learning", "computer-vision", "nlp"]
+tags: ["deep-learning", "computer-vision", "NLP"]
 date: 2018-08-27T14:34:35+08:00
 lastmod: 2025-01-31
 draft: false

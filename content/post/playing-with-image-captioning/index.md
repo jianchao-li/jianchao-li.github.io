@@ -1,7 +1,7 @@
 ---
 title: "Playing With Image Captioning"
 summary: "I played with image captioning using neuraltalk2 written by Andrej Karpathy."
-tags: ["deep-learning", "computer-vision", "nlp"]
+tags: ["deep-learning", "computer-vision", "NLP"]
 date: 2018-08-08T20:12:45+08:00
 lastmod: 2025-01-31
 draft: false

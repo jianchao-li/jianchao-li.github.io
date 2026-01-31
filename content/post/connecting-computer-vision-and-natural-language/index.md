@@ -1,7 +1,7 @@
 ---
 title: "Connecting Computer Vision and Natural Language"
 summary: "I combined my previous posts on image captioning and visual question answering and extended them to a wider topic - connecting computer vision and natural language."
-tags: ["deep-learning", "computer-vision", "nlp"]
+tags: ["deep-learning", "computer-vision", "NLP"]
 date: 2018-11-27T15:36:00+08:00
 lastmod: 2025-01-31
 draft: false

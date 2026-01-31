@@ -89,6 +89,7 @@ Jianchao Li is a software engineer based in Zurich, Switzerland, currently worki
 - Deep Learning
 - Computer Vision
 - Software Engineering
+- Investing
 
 <style>
 .timeline {
