@@ -748,7 +748,7 @@
 
 </figure>
 </p>
-<h2 id="model-conversion" class="relative group">Model Conversion <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#model-conversion" aria-label="Anchor">#</a></span></h2><p>Now we take a step back. We have just trained a model using PyTorch or MXNet and we wwant to run it on iOS. Obviously, we need to convert the <code>.pth</code> or <code>.params</code> to <code>.mlmodel</code>. This is model conversion.</p>
+<h2 id="model-conversion" class="relative group">Model Conversion <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#model-conversion" aria-label="Anchor">#</a></span></h2><p>Now we take a step back. We have just trained a model using PyTorch or MXNet and we want to run it on iOS. Obviously, we need to convert the <code>.pth</code> or <code>.params</code> to <code>.mlmodel</code>. This is model conversion.</p>
 <p>For Caffe and Keras, their models can be converted to Core ML models directly. However, such direct conversion is not supported for PyTorch. Fortunately, we have <a href="https://onnx.ai/" target="_blank" rel="noreferrer">ONNX</a>, an excellent exchange format between models of various frameworks.</p>
 <p>The conversion flow from PyTorch to Core ML is as follows. I will use the <code>mobilenet_v2</code> of <code>torchvision</code> as an example to walk through the conversion process.</p>
 <p>

@@ -638,7 +638,7 @@ $ git clone https://github.com/deepmind/torch-hdf5
 $ cd torch-hdf5
 $ luarocks make hdf5-0-0.rockspec LIBHDF5_LIBDIR=&#34;/usr/lib/x86_64-linux-gnu/&#34;
 $ cd # go back $HOME
-</code></pre><p>Notice that Andrej listed <code>loadcaffe</code> and <code>torch-hdf5</code> under <strong>For training</strong>, but they are actually also required for inference. And if you woud like to run <code>neuraltalk2</code> on a GPU, please follow the <code>README.md</code> to install those additional dependencies.</p>
+</code></pre><p>Notice that Andrej listed <code>loadcaffe</code> and <code>torch-hdf5</code> under <strong>For training</strong>, but they are actually also required for inference. And if you would like to run <code>neuraltalk2</code> on a GPU, please follow the <code>README.md</code> to install those additional dependencies.</p>
 <h3 id="captioning-images" class="relative group">Captioning images <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#captioning-images" aria-label="Anchor">#</a></span></h3><p>Now we can use <code>neuraltalk2</code> to caption images. Just clone the repository and download the pretrained model. Since I ran it on CPU, I downloaded the <a href="https://cs.stanford.edu/people/karpathy/neuraltalk2/checkpoint_v1_cpu.zip" target="_blank" rel="noreferrer">CPU model</a>. You may need to download the <a href="http://cs.stanford.edu/people/karpathy/neuraltalk2/checkpoint_v1.zip" target="_blank" rel="noreferrer">GPU model</a> to run it on GPU.</p>
 <pre tabindex="0"><code>$ git clone https://github.com/karpathy/neuraltalk2.git
 $ cd neuraltalk2
