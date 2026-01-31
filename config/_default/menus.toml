@@ -7,3 +7,36 @@
   name = "About"
   pageRef = "about"
   weight = 20
+
+[[main]]
+  name = "GitHub"
+  url = "https://github.com/jianchao-li"
+  weight = 30
+  [main.params]
+    icon = "github"
+    showName = false
+    target = "_blank"
+
+[[main]]
+  name = "LinkedIn"
+  url = "https://www.linkedin.com/in/jianchao-li/"
+  weight = 35
+  [main.params]
+    icon = "linkedin"
+    showName = false
+    target = "_blank"
+
+[[main]]
+  name = "Twitter"
+  url = "https://x.com/jianchao2017"
+  weight = 36
+  [main.params]
+    icon = "x-twitter"
+    showName = false
+    target = "_blank"
+
+[[main]]
+  identifier = "appearance"
+  weight = 40
+  [main.params]
+    action = "appearance"

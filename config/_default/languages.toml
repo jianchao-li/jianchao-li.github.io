@@ -12,7 +12,3 @@
     image = "img/author.jpg"
     headline = "Software Engineer at Meta"
     bio = "I build intelligent systems with deep learning and computer vision."
-    links = [
-      { github = "https://github.com/jianchao-li" },
-      { linkedin = "https://www.linkedin.com/in/jianchao-li/" },
-    ]
