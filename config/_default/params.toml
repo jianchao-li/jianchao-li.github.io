@@ -33,4 +33,4 @@ showScrollToTop = true
   showTableOfContents = false
   showSummary = true
   groupByYear = true
-  cardView = true
+  cardView = false
