@@ -91,7 +91,7 @@ $ cd models
 $ wget --no-check-certificate https://cs.stanford.edu/people/karpathy/neuraltalk2/checkpoint_v1_cpu.zip
 $ unzip checkpoint_v1_cpu.zip
 ```
-I created another folder `images` in the root directory of `neuraltalk2` to store the test images. I downloaded two datasets for the experiment: the [2017 Val Images of COCO](2017 Val images [5K/1GB]) and the [Clothing Co-Parsing (CCP) Dataset](https://github.com/bearpaw/clothing-co-parsing).
+I created another folder `images` in the root directory of `neuraltalk2` to store the test images. I downloaded two datasets for the experiment: the [2017 Val Images of COCO](https://cocodataset.org/#download) and the [Clothing Co-Parsing (CCP) Dataset](https://github.com/bearpaw/clothing-co-parsing).
 
 After everything is ready, just run the following command to apply `neuraltalk2` to caption the images. Since I used CPU, I set `-gpuid -1`.
 ```

@@ -21,7 +21,7 @@ VQA is an important research topic, mainly for three reasons. The first is a his
 
 > in 1966, Marvin Minsky at MIT asked his undergraduate student Gerald Jay Sussman to spend the summer linking a camera to a computer and getting the computer to describe what it saw
 
-This *see-and-describe* summarizes the original goal of the pioneers of computer vision: let the computer see the world around it (expressed in images) and describe it. In terms of this goal, a highly related task is image captioning, which I played with in [this post](https://jianchao-li.github.io/2018/08/08/playing-with-image-captioning.html). However, image captioning typically gives a general description of the image. If we would like the computer to describe some specific details, a natural way is to ask it to do so explicitly, which is what we do in VQA.
+This *see-and-describe* summarizes the original goal of the pioneers of computer vision: let the computer see the world around it (expressed in images) and describe it. In terms of this goal, a highly related task is image captioning, which I played with in [this post](/post/playing-with-image-captioning/). However, image captioning typically gives a general description of the image. If we would like the computer to describe some specific details, a natural way is to ask it to do so explicitly, which is what we do in VQA.
 
 The second reason that accounts for the significance of VQA is its potential to become an *AI-complete* task [3]. Most tasks in artificial intelligence, especially computer vision, can be kind of boiled down to answering questions over images. For example, image classification is to answer a multiple-choice question of the category of an image.
 
