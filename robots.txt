@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jianchao-li.github.io/sitemap.xml

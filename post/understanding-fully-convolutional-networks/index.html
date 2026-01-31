@@ -1,508 +1,422 @@
-<!DOCTYPE html>
-<html lang="en-us">
 
-<head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Source Themes Academic 4.3.1">
 
-  
 
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FFFFFF" />
+  
+  <title>Understanding Fully Convolutional Networks &middot; Jianchao Li</title>
+    <meta name="title" content="Understanding Fully Convolutional Networks &middot; Jianchao Li" />
   
   
   
   
+  
+  <script
+    type="text/javascript"
+    src="https://jianchao-li.github.io/js/appearance.min.8a082f81b27f3cb2ee528df0b0bdc39787034cf2cc34d4669fbc9977c929023c.js"
+    integrity="sha256-iggvgbJ/PLLuUo3wsL3Dl4cDTPLMNNRmn7yZd8kpAjw="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="https://jianchao-li.github.io/css/main.bundle.min.0f028ba75a858b9f7c1d3385287158ddfd26a57d8a4e9a83fd33b7d30d8fb2ae.css"
+    integrity="sha256-DwKLp1qFi598HTOFKHFY3f0mpX2KTpqD/TO30w2Psq4="
+  />
   
     
     
     
   
   
-
-  <meta name="author" content="Jianchao Li">
-
-  
-  
   
     
-  
-  <meta name="description" content="I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great details. Moreover, I will analyze the MXNet implementation of FCNs.">
-
-  
-  <link rel="alternate" hreflang="en-us" href="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/">
-
-  
-
-
-  
-
-  
-  
-  
-  <meta name="theme-color" content="#2962ff">
-  
-
+    
   
   
   
   
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
-
-    
-    
-    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="https://jianchao-li.github.io/js/main.bundle.min.167efd96c29259046e711c52c0db66536f497aad73a774cd6f28fc408f2d2688.js"
+      integrity="sha256-Fn79lsKSWQRucRxSwNtmU29Jeq1zp3TNbyj8QI8tJog="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
       
-    
-    
+        I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great details. Moreover, I will analyze the MXNet implementation of FCNs.
       
-      
-        
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
-        
-      
-    
-
-    
-
-    
-
-  
-
-  
-  
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:400,400italic,700|Roboto+Mono">
-  
-
-  
-  
-  
-  <link rel="stylesheet" href="/css/academic.min.aebf6ad474c2ff50ae0b78ca18c392cf.css">
-
-  
-
-  
-  
-    <script>
-      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-      ga('create', 'UA-149941944-1', 'auto');
-      
-      ga('require', 'eventTracker');
-      ga('require', 'outboundLinkTracker');
-      ga('require', 'urlChangeTracker');
-      ga('send', 'pageview');
-    </script>
-    <script async src="//www.google-analytics.com/analytics.js"></script>
-    
-    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
-    
-  
-  
-
-  
-
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="icon" type="image/png" href="/img/icon.png">
-  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
-
-  <link rel="canonical" href="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/">
-
+    "
+  />
   
   
   
   
-    
-    
+    <link rel="canonical" href="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/" />
   
-  <meta property="twitter:card" content="summary">
   
-  <meta property="og:site_name" content="Jianchao Li">
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
   <meta property="og:url" content="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/">
-  <meta property="og:title" content="Understanding Fully Convolutional Networks | Jianchao Li">
-  <meta property="og:description" content="I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great details. Moreover, I will analyze the MXNet implementation of FCNs."><meta property="og:image" content="https://jianchao-li.github.io/img/icon-192.png">
-  <meta property="og:locale" content="en-us">
-  
-  <meta property="article:published_time" content="2018-09-15T19:29:22&#43;08:00">
-  
-  <meta property="article:modified_time" content="2018-09-15T19:29:22&#43;08:00">
-  
+  <meta property="og:site_name" content="Jianchao Li">
+  <meta property="og:title" content="Understanding Fully Convolutional Networks">
+  <meta property="og:description" content="I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great details. Moreover, I will analyze the MXNet implementation of FCNs.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2018-09-15T19:29:22+08:00">
+    <meta property="article:modified_time" content="2018-09-15T19:29:22+08:00">
+    <meta property="article:tag" content="Deep-Learning">
+    <meta property="article:tag" content="Computer-Vision">
 
   
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Understanding Fully Convolutional Networks">
+  <meta name="twitter:description" content="I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great details. Moreover, I will analyze the MXNet implementation of FCNs.">
 
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Understanding Fully Convolutional Networks",
+    "headline": "Understanding Fully Convolutional Networks",
+    
+    "abstract": "I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great details. Moreover, I will analyze the MXNet implementation of FCNs.",
+    "inLanguage": "en",
+    "url" : "https:\/\/jianchao-li.github.io\/post\/understanding-fully-convolutional-networks\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Jianchao Li"
+    },
+    "copyrightYear": "2018",
+    "dateCreated": "2018-09-15T19:29:22\u002b08:00",
+    "datePublished": "2018-09-15T19:29:22\u002b08:00",
+    
+    "dateModified": "2018-09-15T19:29:22\u002b08:00",
+    
+    "keywords": ["deep-learning","computer-vision"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "6354"
+  }
+  </script>
+    
+    <script type="application/ld+json">
+    {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+     {
+       "@type": "ListItem",
+       "item": "https://jianchao-li.github.io/",
+       "name": "Home",
+       "position": 1
+     },
+     {
+       "@type": "ListItem",
+       "item": "https://jianchao-li.github.io/post/",
+       "name": "Posts",
+       "position": 2
+     },
+     {
+       "@type": "ListItem",
+       "name": "Understanding Fully Convolutional Networks",
+       "position": 3
+     }
+   ]
+ }
+  </script>
 
+  
+  
+    <meta name="author" content="Jianchao Li" />
+  
+  
+    
+      <link href="https://github.com/jianchao-li" rel="me" />
+    
+      <link href="https://www.linkedin.com/in/jianchao-li/" rel="me" />
+    
+  
+  
   
 
 
 
 
 
-  <title>Understanding Fully Convolutional Networks | Jianchao Li</title>
 
+
+  
+  
+  
+  
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-385978860"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-385978860');
+</script>
+
+
+
+  
+  
 </head>
-
-
-<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
-
-  <aside class="search-results" id="search">
-  <div class="container">
-    <section class="search-header">
-
-      <div class="row no-gutters justify-content-between mb-3">
-        <div class="col-6">
-          <h1>Search</h1>
-        </div>
-        <div class="col-6 col-search-close">
-          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
-        </div>
-      </div>
-
-      <div id="search-box">
-        
-        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
-        autocomplete="off" autocorrect="off" role="textbox" spellcheck="false" type="search">
-        
-      </div>
-
-    </section>
-    <section class="section-search-results">
-
-      <div id="search-hits">
-        
-      </div>
-
-    </section>
-  </div>
-</aside>
-
-
-  
-<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
-  <div class="container">
-
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
     
-      <a class="navbar-brand" href="/">Jianchao Li</a>
-      
-      <button type="button" class="navbar-toggler" data-toggle="collapse"
-              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span><i class="fas fa-bars"></i></span>
-      </button>
-      
-
     
-    <div class="collapse navbar-collapse" id="navbar">
-
+      <header class="py-6 font-semibold text-neutral-900 dark:text-neutral sm:py-10 print:hidden">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="flex flex-row items-center">
       
-      
-      <ul class="navbar-nav mr-auto">
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#about">
-            
-            <span>Home</span>
-            
-          </a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#experience">
-            
-            <span>Experience</span>
-            
-          </a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#accomplishments">
-            
-            <span>Accomplishments</span>
-            
-          </a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#publications">
-            
-            <span>Publications</span>
-            
-          </a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#posts">
-            
-            <span>Posts</span>
-            
-          </a>
-        </li>
-
-        
-        
-
-      
-      </ul>
-      <ul class="navbar-nav ml-auto">
-      
-
-        
-
-        
-        <li class="nav-item">
-          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
-        </li>
-        
-
-        
-
-        
-        <li class="nav-item">
-          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
-        </li>
-        
-
-      </ul>
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >Jianchao Li</a
+  >
 
     </div>
-  </div>
-</nav>
-
-
-  <article class="article" itemscope itemtype="http://schema.org/Article">
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-  
-  
-<div class="article-container pt-3">
-  <h1 itemprop="name">Understanding Fully Convolutional Networks</h1>
-
-  
-
-  
-    
-
-
-
-<meta content="2018-09-15 19:29:22 &#43;0800 &#43;0800" itemprop="datePublished">
-<meta content="2018-09-15 19:29:22 &#43;0800 &#43;0800" itemprop="dateModified">
-
-<div class="article-metadata">
-
-  
-  
-
-  
-  <span class="article-date">
     
     
+      <ul class="flex list-none flex-col text-end sm:flex-row">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="/post/"
+                  title="Posts"
+                  
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Posts</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="/about/"
+                  title="About"
+                  
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >About</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+          
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              <button id="search-button-m0" title="Search (/)">
+                <span
+                  class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                >
+                  <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+                </span>
+              </button>
+            </li>
+          
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
       
+      <h1 class="mb-8 mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        Understanding Fully Convolutional Networks
+      </h1>
+      
+        <div class="mb-10 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
     
-    <time>Sep 15, 2018</time>
-  </span>
   
 
   
 
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    30 min read
-  </span>
-  
-
-  
-  
-
-  
   
 
   
     
-<div class="share-box" aria-hidden="true">
-  <ul class="share">
-    <li>
-      <a class="twitter"
-         href="https://twitter.com/intent/tweet?text=Understanding%20Fully%20Convolutional%20Networks&amp;url=https%3a%2f%2fjianchao-li.github.io%2fpost%2funderstanding-fully-convolutional-networks%2f"
-         target="_blank" rel="noopener">
-        <i class="fab fa-twitter"></i>
-      </a>
-    </li>
-    <li>
-      <a class="facebook"
-         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fjianchao-li.github.io%2fpost%2funderstanding-fully-convolutional-networks%2f"
-         target="_blank" rel="noopener">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-    </li>
-    <li>
-      <a class="linkedin"
-         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fjianchao-li.github.io%2fpost%2funderstanding-fully-convolutional-networks%2f&amp;title=Understanding%20Fully%20Convolutional%20Networks"
-         target="_blank" rel="noopener">
-        <i class="fab fa-linkedin-in"></i>
-      </a>
-    </li>
-    <li>
-      <a class="weibo"
-         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fjianchao-li.github.io%2fpost%2funderstanding-fully-convolutional-networks%2f&amp;title=Understanding%20Fully%20Convolutional%20Networks"
-         target="_blank" rel="noopener">
-        <i class="fab fa-weibo"></i>
-      </a>
-    </li>
-    <li>
-      <a class="email"
-         href="mailto:?subject=Understanding%20Fully%20Convolutional%20Networks&amp;body=https%3a%2f%2fjianchao-li.github.io%2fpost%2funderstanding-fully-convolutional-networks%2f">
-        <i class="fas fa-envelope"></i>
-      </a>
-    </li>
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2018-09-15 19:29:22 &#43;0800 &#43;0800">15 September 2018</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">30 mins</span>
+    
+
+    
+    
+  </div>
+
+  
+  
+    <div class="my-1 flex flex-wrap text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">
+      
+        
+      
+        
+      
+        
+          
+            <a
+              href="https://jianchao-li.github.io/tags/deep-learning/"
+              class="mx-1 my-1 rounded-md border border-neutral-200 px-1 py-[1px] hover:border-primary-300 hover:text-primary-700 dark:border-neutral-600 dark:hover:border-primary-600 dark:hover:text-primary-400"
+              >Deep-Learning</a
+            >
+          
+            <a
+              href="https://jianchao-li.github.io/tags/computer-vision/"
+              class="mx-1 my-1 rounded-md border border-neutral-200 px-1 py-[1px] hover:border-primary-300 hover:text-primary-700 dark:border-neutral-600 dark:hover:border-primary-600 dark:hover:text-primary-400"
+              >Computer-Vision</a
+            >
+          
+        
+      
+    </div>
+  
+
+
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 lg:sticky lg:top-10 print:hidden">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div class="border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#semantic-segmentation">Semantic segmentation</a></li>
+    <li><a href="#how-to-use-cnns-for-segmentation">How to use CNNs for segmentation</a></li>
+    <li><a href="#changing-fully-connected-layers-to-convolutional-layers">Changing fully connected layers to convolutional layers</a></li>
+    <li><a href="#deconvolutional-layers">Deconvolutional layers</a></li>
+    <li><a href="#vgg">VGG</a></li>
+    <li><a href="#fully-convolutional-networks">Fully convolutional networks</a></li>
+    <li><a href="#simplifying-fcn-to-a-stack-of-convolutional-layers">Simplifying FCN to a stack of convolutional layers</a></li>
+    <li><a href="#reparameterizing-convolutional-layers">Reparameterizing convolutional layers</a></li>
+    <li><a href="#computing-the-offset">Computing the offset</a></li>
+    <li><a href="#how-mxnet-computes-the-offset">How MXNet computes the offset</a></li>
+    <li><a href="#finer-details">Finer Details</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
   </ul>
-</div>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <p>Fully convolutional networks, or FCNs, were proposed by <a href="http://people.eecs.berkeley.edu/~jonlong/" target="_blank" rel="noreferrer">Jonathan Long</a>, <a href="http://imaginarynumber.net/" target="_blank" rel="noreferrer">Evan Shelhamer</a> and <a href="https://people.eecs.berkeley.edu/~trevor/" target="_blank" rel="noreferrer">Trevor Darrell</a> in CVPR 2015 as a framework for semantic segmentation.</p>
+<h2 id="semantic-segmentation" class="relative group">Semantic segmentation <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#semantic-segmentation" aria-label="Anchor">#</a></span></h2><p>Semantic segmentation is a task in which given an image, we need to assign a semantic label (like cat, dog, person, background etc.) to each of its pixels. The following are some examples taken from <a href="http://host.robots.ox.ac.uk/pascal/VOC/" target="_blank" rel="noreferrer">The PASCAL VOC data sets</a> with different colors representing different semantic classes.</p>
+<p>
 
 
-  
 
-</div>
 
+
+<figure>
+    
     
 
 
@@ -512,6 +426,54 @@
 
 
 
+  
+    <picture
+      class="mx-auto my-0 rounded-md"
+      
+    >
+      
+      
+      
+      
+        <source
+          
+            
+              srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/pascalvoc_hu_2875a9a4debe295a.webp"
+            
+          
+          sizes="100vw"
+          type="image/webp"
+        />
+      
+      <img
+        width="552"
+        height="204"
+        class="mx-auto my-0 rounded-md"
+        
+        loading="lazy" decoding="async"
+        
+          src="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/pascalvoc.png"
+        
+      />
+    </picture>
+  
+
+
+</figure>
+</p>
+<p>The PASCAL VOC data sets define 20 semantic classes: aeroplane, bicycle, bird, boat, bottle, bus, car, cat, chair, cow, dining table, dog, horse, motorbike, person, potted plant, sheep, sofa, train, and tv/monitor. Actually these are all <em>object</em> classes. For pixels falling into non-object classes (which are called <em>stuff</em>) like sky, they will be labeled as &ldquo;background&rdquo;.</p>
+<p>Some later semantic segmentation data sets like <a href="https://www.cityscapes-dataset.com/" target="_blank" rel="noreferrer">The Cityscapes Dataset</a> and <a href="https://github.com/nightrome/cocostuff" target="_blank" rel="noreferrer">The COCO-Stuff dataset</a> account for both object and stuff classes. The following are some examples taken from the COCO-Stuff dataset, with class names also shown.</p>
+<p>
+
+
+
+
+
+<figure>
+    
+    
+
+
 
 
 
@@ -519,583 +481,870 @@
 
 
   
-</div>
+    <picture
+      class="mx-auto my-0 rounded-md"
+      
+    >
+      
+      
+      
+      
+        <source
+          
+            srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cocostuff_hu_1d72632aba67d1c2.webp 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cocostuff_hu_6280d4355bb319dc.webp 660w
+            
+              ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cocostuff_hu_3b528033c0e0a5d0.webp 1024w
+            
+            
+              ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cocostuff_hu_72d2e540d8eb7662.webp 1320w
+            "
+          
+          sizes="100vw"
+          type="image/webp"
+        />
+      
+      <img
+        width="2007"
+        height="730"
+        class="mx-auto my-0 rounded-md"
+        
+        loading="lazy" decoding="async"
+        
+          src="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cocostuff_hu_5ac7cc15cfb397b9.png" srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cocostuff_hu_e9bdbf48881b88c4.png 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cocostuff_hu_5ac7cc15cfb397b9.png 660w
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cocostuff_hu_d683f870972ed2ef.png 1024w
+          
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cocostuff_hu_2786e407083689d4.png 1320w
+          "
+          sizes="100vw"
+        
+      />
+    </picture>
+  
 
 
-
-  <div class="article-container">
-
-    <div class="article-style" itemprop="articleBody">
-      <p>Fully convolutional networks, or FCNs, were proposed by <a href="http://people.eecs.berkeley.edu/~jonlong/">Jonathan Long</a>, <a href="http://imaginarynumber.net/">Evan Shelhamer</a> and <a href="https://people.eecs.berkeley.edu/~trevor/">Trevor Darrell</a> in CVPR 2015 as a framework for semantic segmentation.</p>
-<h2 id="semantic-segmentation">Semantic segmentation</h2>
-<p>Semantic segmentation is a task in which given an image, we need to assign a semantic label (like cat, dog, person, background etc.) to each of its pixels. The following are some examples taken from <a href="http://host.robots.ox.ac.uk/pascal/VOC/">The PASCAL VOC data sets</a> with different colors representing different semantic classes.</p>
-<p><img src="/post/understanding-fully-convolutional-networks/pascalvoc.png"></p>
-<p>The PASCAL VOC data sets define 20 semantic classes: aeroplane, bicycle, bird, boat, bottle, bus, car, cat, chair, cow, dining table, dog, horse, motorbike, person, potted plant, sheep, sofa, train, and tv/monitor. Actually these are all <em>object</em> classes. For pixels falling into non-object classes (which are called <em>stuff</em>) like sky, they will be labeled as &ldquo;background&rdquo;.</p>
-<p>Some later semantic segmentation data sets like <a href="https://www.cityscapes-dataset.com/">The Cityscapes Dataset</a> and <a href="https://github.com/nightrome/cocostuff">The COCO-Stuff dataset</a> account for both object and stuff classes. The following are some examples taken from the COCO-Stuff dataset, with class names also shown.</p>
-<p><img src="/post/understanding-fully-convolutional-networks/cocostuff.png"></p>
-<h2 id="how-to-use-cnns-for-segmentation">How to use CNNs for segmentation</h2>
-<p>Back in 2015, convolutional neural networks (CNNs) have achieved tremendous success in image classification (like <a href="https://www.nvidia.cn/content/tesla/pdf/machine-learning/imagenet-classification-with-deep-convolutional-nn.pdf">AlexNet</a> and <a href="https://www.cs.unc.edu/~wliu/papers/GoogLeNet.pdf">GoogLeNet</a>), doing extremely well in learning from a fixed-size image to a single category label. Generally, the image will go through several convolutional layers and then fully connected layers, giving a fixed-size (equal to the number of classes) output, whose softmax loss with respect to the ground truth label will be computed and back-propagated to update parameters.</p>
+</figure>
+</p>
+<h2 id="how-to-use-cnns-for-segmentation" class="relative group">How to use CNNs for segmentation <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#how-to-use-cnns-for-segmentation" aria-label="Anchor">#</a></span></h2><p>Back in 2015, convolutional neural networks (CNNs) have achieved tremendous success in image classification (like <a href="https://www.nvidia.cn/content/tesla/pdf/machine-learning/imagenet-classification-with-deep-convolutional-nn.pdf" target="_blank" rel="noreferrer">AlexNet</a> and <a href="https://www.cs.unc.edu/~wliu/papers/GoogLeNet.pdf" target="_blank" rel="noreferrer">GoogLeNet</a>), doing extremely well in learning from a fixed-size image to a single category label. Generally, the image will go through several convolutional layers and then fully connected layers, giving a fixed-size (equal to the number of classes) output, whose softmax loss with respect to the ground truth label will be computed and back-propagated to update parameters.</p>
 <p>However, in semantic segmentation, we need pixel-wise dense predictions instead of just a single label. For example, for a 256x128 image, the segmentation mask is also of size 256x128. We need to use CNNs to generate a predicted mask and then compute the loss between it and the ground truth one.</p>
-<p>I was working on object segmentation at the end of 2014. Object segmentation is arguably much simpler than semantic segmentation in that it only classifies the pixels into two classes: the backround and the foreground (a specific object, like pedestrian, horse, bird etc.). The following are some examples taken from <a href="http://www.vision.caltech.edu/visipedia/CUB-200-2011.html">Caltech-UCSD Birds-200-2011</a> with the object masks shown below the images.</p>
-<p><img src="/post/understanding-fully-convolutional-networks/cub200.png"></p>
+<p>I was working on object segmentation at the end of 2014. Object segmentation is arguably much simpler than semantic segmentation in that it only classifies the pixels into two classes: the backround and the foreground (a specific object, like pedestrian, horse, bird etc.). The following are some examples taken from <a href="http://www.vision.caltech.edu/visipedia/CUB-200-2011.html" target="_blank" rel="noreferrer">Caltech-UCSD Birds-200-2011</a> with the object masks shown below the images.</p>
+<p>
+
+
+
+
+
+<figure>
+    
+    
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="mx-auto my-0 rounded-md"
+      
+    >
+      
+      
+      
+      
+        <source
+          
+            srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cub200_hu_2d484d842de25c8e.webp 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cub200_hu_64bf0117b86c4554.webp 660w
+            
+              ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cub200_hu_26366e4f7504feb.webp 1024w
+            
+            
+              
+                ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cub200_hu_fe7908ed500d39d6.webp 1073w
+              
+            "
+          
+          sizes="100vw"
+          type="image/webp"
+        />
+      
+      <img
+        width="1073"
+        height="380"
+        class="mx-auto my-0 rounded-md"
+        
+        loading="lazy" decoding="async"
+        
+          src="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cub200_hu_87437ff80550e475.png" srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cub200_hu_c399e713dd19693f.png 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cub200_hu_87437ff80550e475.png 660w
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cub200_hu_3113e8a5394c6996.png 1024w
+          
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/cub200.png 1073w
+          "
+          sizes="100vw"
+        
+      />
+    </picture>
+  
+
+
+</figure>
+</p>
 <p>Since CNNs are good at handling fixed-size data, a simple idea is to fix both the sizes of the image and the object mask. Then we set the number of output units of the last fully connected layer to be equal to the number of mask elements.</p>
-<p>For loss computation, since I was working on object segmentation with only two values (0 for background and 1 for foreground) in the mask, I simply adopted the Euclidean loss. This extremely simple idea achieved state-of-the-art results in some object segmentation datasets and was publised in ICIP 2015 entitled <a href="http://ieeexplore.ieee.org/document/7351084/">Object segmentation with deep regression</a>.</p>
-<h2 id="changing-fully-connected-layers-to-convolutional-layers">Changing fully connected layers to convolutional layers</h2>
-<p>However, the above idea is just not elegant. It mechanically resizes the object mask to the designated size and flattens it into a vector as the regression target. For semantic segmentation, we will have one mask for each class. If we still would like to use the same idea, we need to flatten all the masks into vectors and concatenate them to be a giant vector for regression. For example, in PASCAL VOC, there are 21 classes. Suppose we set the mask size to be 64x64, then we need to regress a vector with 64x64x21=86016 elements using a fully connected layer. If the input to this layer is 512x14x14 (you will come across this size in the section of VGG), the weight matrix will have 512x14x14x86016=8631877632 (over 8.6 billion) elements! If represented using the 4-byte <code>float</code>, this matrix alone will occupy more than 34 gigabytes! Well, let&rsquo;s try to save some space of the parameters.</p>
+<p>For loss computation, since I was working on object segmentation with only two values (0 for background and 1 for foreground) in the mask, I simply adopted the Euclidean loss. This extremely simple idea achieved state-of-the-art results in some object segmentation datasets and was publised in ICIP 2015 entitled <a href="http://ieeexplore.ieee.org/document/7351084/" target="_blank" rel="noreferrer">Object segmentation with deep regression</a>.</p>
+<h2 id="changing-fully-connected-layers-to-convolutional-layers" class="relative group">Changing fully connected layers to convolutional layers <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#changing-fully-connected-layers-to-convolutional-layers" aria-label="Anchor">#</a></span></h2><p>However, the above idea is just not elegant. It mechanically resizes the object mask to the designated size and flattens it into a vector as the regression target. For semantic segmentation, we will have one mask for each class. If we still would like to use the same idea, we need to flatten all the masks into vectors and concatenate them to be a giant vector for regression. For example, in PASCAL VOC, there are 21 classes. Suppose we set the mask size to be 64x64, then we need to regress a vector with 64x64x21=86016 elements using a fully connected layer. If the input to this layer is 512x14x14 (you will come across this size in the section of VGG), the weight matrix will have 512x14x14x86016=8631877632 (over 8.6 billion) elements! If represented using the 4-byte <code>float</code>, this matrix alone will occupy more than 34 gigabytes! Well, let&rsquo;s try to save some space of the parameters.</p>
 <p>A common idea to avoid the large number of parameters consumed by fully connected layers is to use convolutional layers. For example, we may use a convolutional layer to generate a 21x64x64 output feature map (we no longer need to flatten the masks into vectors). In this way, we only need 21 convolutional kernels, which will use considerably fewer number of parameters. Actually, each of the 64x64 positions in the 21 maps represent the probabilities of that location being each of the 21 classes. So we may compute a softmax loss for each of the position and take an average over all the positions as the final loss. Semantic segmentation actually can be treated as a pixel-wise classification task. Therefore, computing a softmax loss makes more sense than using the Euclidean loss.</p>
 <p>Let&rsquo;s summarize the above idea. Given an image, we resize it to be, say, 224x224. And we resize the segmentation masks (suppose there are 21 of them) to be 64x64. Then we carefully design a convolutional network to transform the 3x224x224 image (3 represents the R, G, B channels) to a 21x64x64 feature map and compute softmax loss over it with which we can use back-propagation to learn the network parameters.</p>
 <p>I am not sure how you would perceive this idea. From my perspective, a natural question to task is, <em>why not just set the masks to be of the same size as the image</em>. Well, we can actually make this happen by using same padding in all the convolutional layers and discarding all the pooling layers.</p>
 <p>However, CNNs typically include pooling layers to downsample the feature maps, which have shown the effectiveness in image classification and have become a must-do. So it is not a good idea to discard the pooling layers. Now, since pooling layers will reduce the size of feature maps, how can we enlarge them to be of the same size as the input image? In fully convolutional networks, the authors proposed to use <em>deconvolutional layers</em> to <strong>upsample</strong> the feature maps.</p>
-<h2 id="deconvolutional-layers">Deconvolutional layers</h2>
-<p>Actually deconvolution is a bad name as suggested by <a href="https://arxiv.org/abs/1603.07285">A guide to convolution arithmetic for deep learning</a> and it suggests to use <em>transpose convolution</em>. There are also other names for your choice: <em>upconvolution</em>, <em>fractionally strided convolution</em>, and <em>backward strided convolution</em>, as mentioned in <a href="http://cs231n.stanford.edu/slides/2018/cs231n_2018_lecture11.pdf">CS231n 2018 Lecture 11</a>.</p>
+<h2 id="deconvolutional-layers" class="relative group">Deconvolutional layers <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#deconvolutional-layers" aria-label="Anchor">#</a></span></h2><p>Actually deconvolution is a bad name as suggested by <a href="https://arxiv.org/abs/1603.07285" target="_blank" rel="noreferrer">A guide to convolution arithmetic for deep learning</a> and it suggests to use <em>transpose convolution</em>. There are also other names for your choice: <em>upconvolution</em>, <em>fractionally strided convolution</em>, and <em>backward strided convolution</em>, as mentioned in <a href="http://cs231n.stanford.edu/slides/2018/cs231n_2018_lecture11.pdf" target="_blank" rel="noreferrer">CS231n 2018 Lecture 11</a>.</p>
 <p>In deep learning, deconvolution is just a convolution with the input size and output size swapped. In convolution, the relationship between the input size and the output size can be expressed as follows.</p>
 <p>$H_{out} = \frac{H_{in} + 2P - K}{S} + 1 \tag{1}\label{eq1}$</p>
 <p>$W_{out} = \frac{W_{in} + 2P - K}{S} + 1 \tag{2}\label{eq2}$</p>
 <p>$H_{out}$, $H_{in}$, $W_{out}$, $W_{in}$, $P$, $K$, and $S$ represent the output height, input height, output width, input width, padding, kernel size and stride respectively. In this post, we assume that the same padding and stride is used in both the height and width dimensions.</p>
 <p>For example, if you are convolving a 4x4 input ($H_{in} = W_{in} = 4$) with a 3x3 kernel ($K = 3$) with stride 1 ($S = 1$) and no padding ($P = 0$), you will get an output of size 2x2 ($\frac{4 + 2 \times 0 - 3}{1} + 1 = 2$). So this is a convolution that transforms a 4x4 input to a 2x2 output with a 3x3 convolutional kernel.</p>
 <p>Now, in deconvolution, we would like to transform a 2x2 input to a 4x4 output using the same 3x3 convolutional kernel. Since deconvolution is still convolution, equations $\eqref{eq1}$ and $\eqref{eq2}$ still hold. Suppose we also use stride 1, then we need to solve $4 = \frac{2 + 2P - 3}{1} + 1$, which gives $P = 2$. So the corresponding deconvolution is just a convolution of a 2x2 input with the same 3x3 kernel, stride 1, and padding 2.</p>
-<p><img src="/post/understanding-fully-convolutional-networks/deconv.png"></p>
+<p>
+
+
+
+
+
+<figure>
+    
+    
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="mx-auto my-0 rounded-md"
+      
+    >
+      
+      
+      
+      
+        <source
+          
+            srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/deconv_hu_e420d726b92c93f6.webp 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/deconv_hu_702313d35a87ab8a.webp 660w
+            
+              
+                ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/deconv_hu_aa46cde7bc594b64.webp 870w
+              
+            
+            
+              
+                ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/deconv_hu_aa46cde7bc594b64.webp 870w
+              
+            "
+          
+          sizes="100vw"
+          type="image/webp"
+        />
+      
+      <img
+        width="870"
+        height="642"
+        class="mx-auto my-0 rounded-md"
+        
+        loading="lazy" decoding="async"
+        
+          src="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/deconv_hu_c7d72006ff834019.png" srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/deconv_hu_5e616d851ba1207a.png 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/deconv_hu_c7d72006ff834019.png 660w
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/deconv.png 870w
+          
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/deconv.png 870w
+          "
+          sizes="100vw"
+        
+      />
+    </picture>
+  
+
+
+</figure>
+</p>
 <p>Now let&rsquo;s look at the relationship between the input size and output size in deconvolution. As mentioned above, deconvolution is a convolution with swapped input size and output size. So we can derive the relationship just by swapping $H_{in}$ with $H_{out}$ and $W_{in}$ with $W_{out}$ in equations $\eqref{eq1}$ and $\eqref{eq2}$, which gives</p>
 <p>$$H_{in} = \frac{H_{out} + 2P - K}{S} + 1 \tag{3}\label{eq3}$$</p>
 <p>$$W_{in} = \frac{W_{out} + 2P - K}{S} + 1 \tag{4}\label{eq4}$$</p>
 <p>By moving $H_{out}$ and $W_{out}$ to the left-hand side, we finally get</p>
 <p>$$H_{out} = SH_{in} + K - S - 2P \tag{5}\label{eq5}$$</p>
 <p>$$W_{out} = SW_{in} + K - S - 2P \tag{6}\label{eq6}$$</p>
-<p>Now you know how to design a deconvolutional layer to upsample an input size to a specific output size. With deconvolution, we can upsample downsampled feature maps back to the same size as the input image. I think deconvolution is indeed the key to FCNs. For more details of deconvolution, please refer to <a href="https://arxiv.org/abs/1603.07285">A guide to convolution arithmetic for deep learning</a>.</p>
-<h2 id="vgg">VGG</h2>
-<p>Before introducing FCNs, I would like to talk about <a href="https://arxiv.org/pdf/1409.1556.pdf">VGG</a>, which is the backbone network for the FCN example that will be presented in the next section. It was used by <a href="http://www.robots.ox.ac.uk/~karen/">Karen Simonyan</a> and <a href="https://www.robots.ox.ac.uk/~az/">Andrew Zisserman</a> in ILSVRC 2015 and won the second-place in the image classification task.</p>
-<p>Specifically, I will use the <a href="https://gist.github.com/ksimonyan/211839e770f7b538e2d8#file-vgg_ilsvrc_16_layers_deploy-prototxt">16-layer VGG</a> as an example. The following table is a breakdown of the network layer by layer. Note that the stride and padding is 1 and 0 by default if not specified. And the last softmax layer for loss computation is ignored. By <strong>Size</strong>, we mean the shape of the output blobs, which is computed using equations $\eqref{eq1}$ and $\eqref{eq2}$.</p>
+<p>Now you know how to design a deconvolutional layer to upsample an input size to a specific output size. With deconvolution, we can upsample downsampled feature maps back to the same size as the input image. I think deconvolution is indeed the key to FCNs. For more details of deconvolution, please refer to <a href="https://arxiv.org/abs/1603.07285" target="_blank" rel="noreferrer">A guide to convolution arithmetic for deep learning</a>.</p>
+<h2 id="vgg" class="relative group">VGG <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#vgg" aria-label="Anchor">#</a></span></h2><p>Before introducing FCNs, I would like to talk about <a href="https://arxiv.org/pdf/1409.1556.pdf" target="_blank" rel="noreferrer">VGG</a>, which is the backbone network for the FCN example that will be presented in the next section. It was used by <a href="http://www.robots.ox.ac.uk/~karen/" target="_blank" rel="noreferrer">Karen Simonyan</a> and <a href="https://www.robots.ox.ac.uk/~az/" target="_blank" rel="noreferrer">Andrew Zisserman</a> in ILSVRC 2015 and won the second-place in the image classification task.</p>
+<p>Specifically, I will use the <a href="https://gist.github.com/ksimonyan/211839e770f7b538e2d8#file-vgg_ilsvrc_16_layers_deploy-prototxt" target="_blank" rel="noreferrer">16-layer VGG</a> as an example. The following table is a breakdown of the network layer by layer. Note that the stride and padding is 1 and 0 by default if not specified. And the last softmax layer for loss computation is ignored. By <strong>Size</strong>, we mean the shape of the output blobs, which is computed using equations $\eqref{eq1}$ and $\eqref{eq2}$.</p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Params</th>
-<th style="text-align:right">Size</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>data</code></td>
-<td>Data</td>
-<td></td>
-<td style="text-align:right">3x224x224</td>
-</tr>
-<tr>
-<td><code>conv1_1</code></td>
-<td>Convolution</td>
-<td>64 3x3 kernels, padding 1</td>
-<td style="text-align:right">64x224x224</td>
-</tr>
-<tr>
-<td><code>relu1_1</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">64x224x224</td>
-</tr>
-<tr>
-<td><code>conv1_2</code></td>
-<td>Convolution</td>
-<td>64 3x3 kernels, padding 1</td>
-<td style="text-align:right">64x224x224</td>
-</tr>
-<tr>
-<td><code>relu1_2</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">64x224x224</td>
-</tr>
-<tr>
-<td><code>pool1</code></td>
-<td>Pooling</td>
-<td>max 2x2, stride 2</td>
-<td style="text-align:right">64x112x112</td>
-</tr>
-<tr>
-<td><code>conv2_1</code></td>
-<td>Convolution</td>
-<td>128 3x3 kernels, padding 1</td>
-<td style="text-align:right">128x112x112</td>
-</tr>
-<tr>
-<td><code>relu2_1</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">128x112x112</td>
-</tr>
-<tr>
-<td><code>conv2_2</code></td>
-<td>Convolution</td>
-<td>128 3x3 kernels, padding 1</td>
-<td style="text-align:right">128x112x112</td>
-</tr>
-<tr>
-<td><code>relu2_2</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">128x112x112</td>
-</tr>
-<tr>
-<td><code>pool2</code></td>
-<td>Pooling</td>
-<td>max 2x2, stride 2</td>
-<td style="text-align:right">128x56x56</td>
-</tr>
-<tr>
-<td><code>conv3_1</code></td>
-<td>Convolution</td>
-<td>256 3x3 kernels, padding 1</td>
-<td style="text-align:right">256x56x56</td>
-</tr>
-<tr>
-<td><code>relu3_1</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">256x56x56</td>
-</tr>
-<tr>
-<td><code>conv3_2</code></td>
-<td>Convolution</td>
-<td>256 3x3 kernels, padding 1</td>
-<td style="text-align:right">256x56x56</td>
-</tr>
-<tr>
-<td><code>relu3_2</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">256x56x56</td>
-</tr>
-<tr>
-<td><code>conv3_3</code></td>
-<td>Convolution</td>
-<td>256 3x3 kernels, padding 1</td>
-<td style="text-align:right">256x56x56</td>
-</tr>
-<tr>
-<td><code>relu3_3</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">256x56x56</td>
-</tr>
-<tr>
-<td><code>pool3</code></td>
-<td>Pooling</td>
-<td>max 2x2, stride 2</td>
-<td style="text-align:right">256x28x28</td>
-</tr>
-<tr>
-<td><code>conv4_1</code></td>
-<td>Convolution</td>
-<td>512 3x3 kernels, padding 1</td>
-<td style="text-align:right">512x28x28</td>
-</tr>
-<tr>
-<td><code>relu4_1</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">512x28x28</td>
-</tr>
-<tr>
-<td><code>conv4_2</code></td>
-<td>Convolution</td>
-<td>512 3x3 kernels, padding 1</td>
-<td style="text-align:right">512x28x28</td>
-</tr>
-<tr>
-<td><code>relu4_2</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">512x28x28</td>
-</tr>
-<tr>
-<td><code>conv4_3</code></td>
-<td>Convolution</td>
-<td>512 3x3 kernels, padding 1</td>
-<td style="text-align:right">512x28x28</td>
-</tr>
-<tr>
-<td><code>relu4_3</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">512x28x28</td>
-</tr>
-<tr>
-<td><code>pool4</code></td>
-<td>Pooling</td>
-<td>max 2x2, stride 2</td>
-<td style="text-align:right">512x14x14</td>
-</tr>
-<tr>
-<td><code>conv5_1</code></td>
-<td>Convolution</td>
-<td>512 3x3 kernels, padding 1</td>
-<td style="text-align:right">512x14x14</td>
-</tr>
-<tr>
-<td><code>relu5_1</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">512x14x14</td>
-</tr>
-<tr>
-<td><code>conv5_2</code></td>
-<td>Convolution</td>
-<td>512 3x3 kernels, padding 1</td>
-<td style="text-align:right">512x14x14</td>
-</tr>
-<tr>
-<td><code>relu5_2</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">512x14x14</td>
-</tr>
-<tr>
-<td><code>conv5_3</code></td>
-<td>Convolution</td>
-<td>512 3x3 kernels, padding 1</td>
-<td style="text-align:right">512x14x14</td>
-</tr>
-<tr>
-<td><code>relu5_3</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">512x14x14</td>
-</tr>
-<tr>
-<td><code>pool5</code></td>
-<td>Pooling</td>
-<td>max 2x2, stride 2</td>
-<td style="text-align:right">512x7x7</td>
-</tr>
-<tr>
-<td><code>fc6</code></td>
-<td>InnerProduct</td>
-<td>25088x4096 weight, 1x4096 bias</td>
-<td style="text-align:right">4096</td>
-</tr>
-<tr>
-<td><code>relu6</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">4096</td>
-</tr>
-<tr>
-<td><code>drop6</code></td>
-<td>Dropout</td>
-<td>p=0.5</td>
-<td style="text-align:right">4096</td>
-</tr>
-<tr>
-<td><code>fc7</code></td>
-<td>InnerProduct</td>
-<td>4096x4096 weight, 1x4096 bias</td>
-<td style="text-align:right">4096</td>
-</tr>
-<tr>
-<td><code>relu7</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">4096</td>
-</tr>
-<tr>
-<td><code>drop7</code></td>
-<td>Dropout</td>
-<td>p=0.5</td>
-<td style="text-align:right">4096</td>
-</tr>
-<tr>
-<td><code>fc8</code></td>
-<td>InnerProduct</td>
-<td>4096x1000 weight, 1x1000 bias</td>
-<td style="text-align:right">1000</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Params</th>
+          <th style="text-align: right">Size</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>data</code></td>
+          <td>Data</td>
+          <td></td>
+          <td style="text-align: right">3x224x224</td>
+      </tr>
+      <tr>
+          <td><code>conv1_1</code></td>
+          <td>Convolution</td>
+          <td>64 3x3 kernels, padding 1</td>
+          <td style="text-align: right">64x224x224</td>
+      </tr>
+      <tr>
+          <td><code>relu1_1</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">64x224x224</td>
+      </tr>
+      <tr>
+          <td><code>conv1_2</code></td>
+          <td>Convolution</td>
+          <td>64 3x3 kernels, padding 1</td>
+          <td style="text-align: right">64x224x224</td>
+      </tr>
+      <tr>
+          <td><code>relu1_2</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">64x224x224</td>
+      </tr>
+      <tr>
+          <td><code>pool1</code></td>
+          <td>Pooling</td>
+          <td>max 2x2, stride 2</td>
+          <td style="text-align: right">64x112x112</td>
+      </tr>
+      <tr>
+          <td><code>conv2_1</code></td>
+          <td>Convolution</td>
+          <td>128 3x3 kernels, padding 1</td>
+          <td style="text-align: right">128x112x112</td>
+      </tr>
+      <tr>
+          <td><code>relu2_1</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">128x112x112</td>
+      </tr>
+      <tr>
+          <td><code>conv2_2</code></td>
+          <td>Convolution</td>
+          <td>128 3x3 kernels, padding 1</td>
+          <td style="text-align: right">128x112x112</td>
+      </tr>
+      <tr>
+          <td><code>relu2_2</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">128x112x112</td>
+      </tr>
+      <tr>
+          <td><code>pool2</code></td>
+          <td>Pooling</td>
+          <td>max 2x2, stride 2</td>
+          <td style="text-align: right">128x56x56</td>
+      </tr>
+      <tr>
+          <td><code>conv3_1</code></td>
+          <td>Convolution</td>
+          <td>256 3x3 kernels, padding 1</td>
+          <td style="text-align: right">256x56x56</td>
+      </tr>
+      <tr>
+          <td><code>relu3_1</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">256x56x56</td>
+      </tr>
+      <tr>
+          <td><code>conv3_2</code></td>
+          <td>Convolution</td>
+          <td>256 3x3 kernels, padding 1</td>
+          <td style="text-align: right">256x56x56</td>
+      </tr>
+      <tr>
+          <td><code>relu3_2</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">256x56x56</td>
+      </tr>
+      <tr>
+          <td><code>conv3_3</code></td>
+          <td>Convolution</td>
+          <td>256 3x3 kernels, padding 1</td>
+          <td style="text-align: right">256x56x56</td>
+      </tr>
+      <tr>
+          <td><code>relu3_3</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">256x56x56</td>
+      </tr>
+      <tr>
+          <td><code>pool3</code></td>
+          <td>Pooling</td>
+          <td>max 2x2, stride 2</td>
+          <td style="text-align: right">256x28x28</td>
+      </tr>
+      <tr>
+          <td><code>conv4_1</code></td>
+          <td>Convolution</td>
+          <td>512 3x3 kernels, padding 1</td>
+          <td style="text-align: right">512x28x28</td>
+      </tr>
+      <tr>
+          <td><code>relu4_1</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">512x28x28</td>
+      </tr>
+      <tr>
+          <td><code>conv4_2</code></td>
+          <td>Convolution</td>
+          <td>512 3x3 kernels, padding 1</td>
+          <td style="text-align: right">512x28x28</td>
+      </tr>
+      <tr>
+          <td><code>relu4_2</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">512x28x28</td>
+      </tr>
+      <tr>
+          <td><code>conv4_3</code></td>
+          <td>Convolution</td>
+          <td>512 3x3 kernels, padding 1</td>
+          <td style="text-align: right">512x28x28</td>
+      </tr>
+      <tr>
+          <td><code>relu4_3</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">512x28x28</td>
+      </tr>
+      <tr>
+          <td><code>pool4</code></td>
+          <td>Pooling</td>
+          <td>max 2x2, stride 2</td>
+          <td style="text-align: right">512x14x14</td>
+      </tr>
+      <tr>
+          <td><code>conv5_1</code></td>
+          <td>Convolution</td>
+          <td>512 3x3 kernels, padding 1</td>
+          <td style="text-align: right">512x14x14</td>
+      </tr>
+      <tr>
+          <td><code>relu5_1</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">512x14x14</td>
+      </tr>
+      <tr>
+          <td><code>conv5_2</code></td>
+          <td>Convolution</td>
+          <td>512 3x3 kernels, padding 1</td>
+          <td style="text-align: right">512x14x14</td>
+      </tr>
+      <tr>
+          <td><code>relu5_2</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">512x14x14</td>
+      </tr>
+      <tr>
+          <td><code>conv5_3</code></td>
+          <td>Convolution</td>
+          <td>512 3x3 kernels, padding 1</td>
+          <td style="text-align: right">512x14x14</td>
+      </tr>
+      <tr>
+          <td><code>relu5_3</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">512x14x14</td>
+      </tr>
+      <tr>
+          <td><code>pool5</code></td>
+          <td>Pooling</td>
+          <td>max 2x2, stride 2</td>
+          <td style="text-align: right">512x7x7</td>
+      </tr>
+      <tr>
+          <td><code>fc6</code></td>
+          <td>InnerProduct</td>
+          <td>25088x4096 weight, 1x4096 bias</td>
+          <td style="text-align: right">4096</td>
+      </tr>
+      <tr>
+          <td><code>relu6</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">4096</td>
+      </tr>
+      <tr>
+          <td><code>drop6</code></td>
+          <td>Dropout</td>
+          <td>p=0.5</td>
+          <td style="text-align: right">4096</td>
+      </tr>
+      <tr>
+          <td><code>fc7</code></td>
+          <td>InnerProduct</td>
+          <td>4096x4096 weight, 1x4096 bias</td>
+          <td style="text-align: right">4096</td>
+      </tr>
+      <tr>
+          <td><code>relu7</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">4096</td>
+      </tr>
+      <tr>
+          <td><code>drop7</code></td>
+          <td>Dropout</td>
+          <td>p=0.5</td>
+          <td style="text-align: right">4096</td>
+      </tr>
+      <tr>
+          <td><code>fc8</code></td>
+          <td>InnerProduct</td>
+          <td>4096x1000 weight, 1x1000 bias</td>
+          <td style="text-align: right">1000</td>
+      </tr>
+  </tbody>
 </table>
 <p>As can be seen, VGG only uses 3x3 convolutional kernels and 2x2 pooling kernels with stride 2. This simple and homogeneous structure accounts for its popularity to some degree.</p>
-<p>There is a nice visualization of the 16-layer VGG in <a href="http://ethereon.github.io/netscope/#/preset/vgg-16">netscope</a>. By hovering your mouse over the layers, you will be able to see their parameters and output shapes, which should be the same to those in the above table. The <a href="http://cs231n.stanford.edu/slides/2018/cs231n_2018_lecture09.pdf">CS231n 2018 Lecture 9</a> also covers this popular network.</p>
-<h2 id="fully-convolutional-networks">Fully convolutional networks</h2>
-<p>Now you are ready to embrace the idea of FCNs. It is fairly simple: first downsample the image to smaller feature maps and then upsample them to the segmentation masks (of the same size as the image). <a href="http://cs231n.stanford.edu/slides/2018/cs231n_2018_lecture11.pdf">CS231n 2018 Lecture 11</a> has the following nice illustration which summarizes this process. Actually I think the $D_3 \times H/4 \times W/4$ of Low-res should be $D_3 \times H/8 \times W/8$. Anyway, you can just ignore the captions. The picture has reflected the core idea.</p>
-<p><img src="/post/understanding-fully-convolutional-networks/fcn.png"></p>
-<p>To gain more understanding, let&rsquo;s walk through a concrete example - <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn32s/val.prototxt">voc-fcn32s</a>, an adaptation of the 16-layer VGG into an FCN for semantic segmentation in the PASCAL VOC data sets. Since this dataset has 21 classes, we need to learn 21 segmentation masks.</p>
+<p>There is a nice visualization of the 16-layer VGG in <a href="http://ethereon.github.io/netscope/#/preset/vgg-16" target="_blank" rel="noreferrer">netscope</a>. By hovering your mouse over the layers, you will be able to see their parameters and output shapes, which should be the same to those in the above table. The <a href="http://cs231n.stanford.edu/slides/2018/cs231n_2018_lecture09.pdf" target="_blank" rel="noreferrer">CS231n 2018 Lecture 9</a> also covers this popular network.</p>
+<h2 id="fully-convolutional-networks" class="relative group">Fully convolutional networks <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#fully-convolutional-networks" aria-label="Anchor">#</a></span></h2><p>Now you are ready to embrace the idea of FCNs. It is fairly simple: first downsample the image to smaller feature maps and then upsample them to the segmentation masks (of the same size as the image). <a href="http://cs231n.stanford.edu/slides/2018/cs231n_2018_lecture11.pdf" target="_blank" rel="noreferrer">CS231n 2018 Lecture 11</a> has the following nice illustration which summarizes this process. Actually I think the $D_3 \times H/4 \times W/4$ of Low-res should be $D_3 \times H/8 \times W/8$. Anyway, you can just ignore the captions. The picture has reflected the core idea.</p>
+<p>
+
+
+
+
+
+<figure>
+    
+    
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="mx-auto my-0 rounded-md"
+      
+    >
+      
+      
+      
+      
+        <source
+          
+            srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn_hu_169601b92f782851.webp 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn_hu_56576df210548cd1.webp 660w
+            
+              
+                ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn_hu_47792b0931a16a98.webp 946w
+              
+            
+            
+              
+                ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn_hu_47792b0931a16a98.webp 946w
+              
+            "
+          
+          sizes="100vw"
+          type="image/webp"
+        />
+      
+      <img
+        width="946"
+        height="246"
+        class="mx-auto my-0 rounded-md"
+        
+        loading="lazy" decoding="async"
+        
+          src="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn_hu_23e068bfc624ee8d.png" srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn_hu_a308b392c27072e3.png 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn_hu_23e068bfc624ee8d.png 660w
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn.png 946w
+          
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn.png 946w
+          "
+          sizes="100vw"
+        
+      />
+    </picture>
+  
+
+
+</figure>
+</p>
+<p>To gain more understanding, let&rsquo;s walk through a concrete example - <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn32s/val.prototxt" target="_blank" rel="noreferrer">voc-fcn32s</a>, an adaptation of the 16-layer VGG into an FCN for semantic segmentation in the PASCAL VOC data sets. Since this dataset has 21 classes, we need to learn 21 segmentation masks.</p>
 <p>Let&rsquo;s also break the voc-fcn32s down layer by layer. Note that the size of <code>data</code> is now $3 \times H \times W$. In this way, we will show that FCN is able to handle input of any size! All default settings are the same to those in the above table.</p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Params</th>
-<th style="text-align:right">Size</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>data</code></td>
-<td>Data</td>
-<td></td>
-<td style="text-align:right"><!-- raw HTML omitted -->$3 \times H \times W$<!-- raw HTML omitted --></td>
-</tr>
-<tr>
-<td><code>conv1_1</code></td>
-<td>Convolution</td>
-<td>64 3x3 kernels, <!-- raw HTML omitted -->padding 100<!-- raw HTML omitted --></td>
-<td style="text-align:right">$64 \times \left(H + 198\right) \times \left(W + 198\right)$</td>
-</tr>
-<tr>
-<td><code>relu1_1</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">$64 \times \left(H + 198\right) \times \left(W + 198\right)$</td>
-</tr>
-<tr>
-<td><code>conv1_2</code></td>
-<td>Convolution</td>
-<td>64 3x3 kernels, padding 1</td>
-<td style="text-align:right">$64 \times \left(H + 198\right) \times \left(W + 198\right)$</td>
-</tr>
-<tr>
-<td><code>relu1_2</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">$64 \times \left(H + 198\right) \times \left(W + 198\right)$</td>
-</tr>
-<tr>
-<td><code>pool1</code></td>
-<td>Pooling</td>
-<td>max 2x2, stride 2</td>
-<td style="text-align:right">$64 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)$</td>
-</tr>
-<tr>
-<td><code>conv2_1</code></td>
-<td>Convolution</td>
-<td>128 3x3 kernels, padding 1</td>
-<td style="text-align:right">$128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)$</td>
-</tr>
-<tr>
-<td><code>relu2_1</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">$128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)$</td>
-</tr>
-<tr>
-<td><code>conv2_2</code></td>
-<td>Convolution</td>
-<td>128 3x3 kernels, padding 1</td>
-<td style="text-align:right">$128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)$</td>
-</tr>
-<tr>
-<td><code>relu2_2</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">$128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)$</td>
-</tr>
-<tr>
-<td><code>pool2</code></td>
-<td>Pooling</td>
-<td>max 2x2, stride 2</td>
-<td style="text-align:right">$128 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$</td>
-</tr>
-<tr>
-<td><code>conv3_1</code></td>
-<td>Convolution</td>
-<td>256 3x3 kernels, padding 1</td>
-<td style="text-align:right">$256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$</td>
-</tr>
-<tr>
-<td><code>relu3_1</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">$256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$</td>
-</tr>
-<tr>
-<td><code>conv3_2</code></td>
-<td>Convolution</td>
-<td>256 3x3 kernels, padding 1</td>
-<td style="text-align:right">$256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$</td>
-</tr>
-<tr>
-<td><code>relu3_2</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">$256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$</td>
-</tr>
-<tr>
-<td><code>conv3_3</code></td>
-<td>Convolution</td>
-<td>256 3x3 kernels, padding 1</td>
-<td style="text-align:right">$256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$</td>
-</tr>
-<tr>
-<td><code>relu3_3</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">$256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$</td>
-</tr>
-<tr>
-<td><code>pool3</code></td>
-<td>Pooling</td>
-<td>max 2x2, stride 2</td>
-<td style="text-align:right">$256 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
-</tr>
-<tr>
-<td><code>conv4_1</code></td>
-<td>Convolution</td>
-<td>512 3x3 kernels, padding 1</td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
-</tr>
-<tr>
-<td><code>relu4_1</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
-</tr>
-<tr>
-<td><code>conv4_2</code></td>
-<td>Convolution</td>
-<td>512 3x3 kernels, padding 1</td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
-</tr>
-<tr>
-<td><code>relu4_2</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
-</tr>
-<tr>
-<td><code>conv4_3</code></td>
-<td>Convolution</td>
-<td>512 3x3 kernels, padding 1</td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
-</tr>
-<tr>
-<td><code>relu4_3</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
-</tr>
-<tr>
-<td><code>pool4</code></td>
-<td>Pooling</td>
-<td>max 2x2, stride 2</td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
-</tr>
-<tr>
-<td><code>conv5_1</code></td>
-<td>Convolution</td>
-<td>512 3x3 kernels, padding 1</td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
-</tr>
-<tr>
-<td><code>relu5_1</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
-</tr>
-<tr>
-<td><code>conv5_2</code></td>
-<td>Convolution</td>
-<td>512 3x3 kernels, padding 1</td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
-</tr>
-<tr>
-<td><code>relu5_2</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
-</tr>
-<tr>
-<td><code>conv5_3</code></td>
-<td>Convolution</td>
-<td>512 3x3 kernels, padding 1</td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
-</tr>
-<tr>
-<td><code>relu5_3</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
-</tr>
-<tr>
-<td><code>pool5</code></td>
-<td>Pooling</td>
-<td>max 2x2, stride 2</td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{32} + 6\right) \times \left(\frac{W + 6}{32} + 6\right)$</td>
-</tr>
-<tr>
-<td><code>fc6</code></td>
-<td><!-- raw HTML omitted -->Convolution<!-- raw HTML omitted --></td>
-<td>4096 7x7 kernels</td>
-<td style="text-align:right">$4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
-</tr>
-<tr>
-<td><code>relu6</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">$4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
-</tr>
-<tr>
-<td><code>drop6</code></td>
-<td>Dropout</td>
-<td>p=0.5</td>
-<td style="text-align:right">$4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
-</tr>
-<tr>
-<td><code>fc7</code></td>
-<td><!-- raw HTML omitted -->Convolution<!-- raw HTML omitted --></td>
-<td>4096 1x1 kernels</td>
-<td style="text-align:right">$4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
-</tr>
-<tr>
-<td><code>relu7</code></td>
-<td>ReLU</td>
-<td></td>
-<td style="text-align:right">$4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
-</tr>
-<tr>
-<td><code>drop7</code></td>
-<td>Dropout</td>
-<td></td>
-<td style="text-align:right">$4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
-</tr>
-<tr>
-<td><code>score_fr</code></td>
-<td>Convolution</td>
-<td>21 1x1 kernels</td>
-<td style="text-align:right">$21 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
-</tr>
-<tr>
-<td><code>upscore</code></td>
-<td><!-- raw HTML omitted -->Deconvolution<!-- raw HTML omitted --></td>
-<td>21 64x64 kernels, stride 32</td>
-<td style="text-align:right"><!-- raw HTML omitted -->$21 \times \left(H + 38\right) \times \left(W + 38\right)$<!-- raw HTML omitted --></td>
-</tr>
-<tr>
-<td><code>score</code></td>
-<td><!-- raw HTML omitted -->Crop<!-- raw HTML omitted --></td>
-<td>Explained below</td>
-<td style="text-align:right">$21 \times H \times W$</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Params</th>
+          <th style="text-align: right">Size</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>data</code></td>
+          <td>Data</td>
+          <td></td>
+          <td style="text-align: right"><span style="color:red">$3 \times H \times W$</span></td>
+      </tr>
+      <tr>
+          <td><code>conv1_1</code></td>
+          <td>Convolution</td>
+          <td>64 3x3 kernels, <span style="color:red">padding 100</span></td>
+          <td style="text-align: right">$64 \times \left(H + 198\right) \times \left(W + 198\right)$</td>
+      </tr>
+      <tr>
+          <td><code>relu1_1</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">$64 \times \left(H + 198\right) \times \left(W + 198\right)$</td>
+      </tr>
+      <tr>
+          <td><code>conv1_2</code></td>
+          <td>Convolution</td>
+          <td>64 3x3 kernels, padding 1</td>
+          <td style="text-align: right">$64 \times \left(H + 198\right) \times \left(W + 198\right)$</td>
+      </tr>
+      <tr>
+          <td><code>relu1_2</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">$64 \times \left(H + 198\right) \times \left(W + 198\right)$</td>
+      </tr>
+      <tr>
+          <td><code>pool1</code></td>
+          <td>Pooling</td>
+          <td>max 2x2, stride 2</td>
+          <td style="text-align: right">$64 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)$</td>
+      </tr>
+      <tr>
+          <td><code>conv2_1</code></td>
+          <td>Convolution</td>
+          <td>128 3x3 kernels, padding 1</td>
+          <td style="text-align: right">$128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)$</td>
+      </tr>
+      <tr>
+          <td><code>relu2_1</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">$128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)$</td>
+      </tr>
+      <tr>
+          <td><code>conv2_2</code></td>
+          <td>Convolution</td>
+          <td>128 3x3 kernels, padding 1</td>
+          <td style="text-align: right">$128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)$</td>
+      </tr>
+      <tr>
+          <td><code>relu2_2</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">$128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)$</td>
+      </tr>
+      <tr>
+          <td><code>pool2</code></td>
+          <td>Pooling</td>
+          <td>max 2x2, stride 2</td>
+          <td style="text-align: right">$128 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$</td>
+      </tr>
+      <tr>
+          <td><code>conv3_1</code></td>
+          <td>Convolution</td>
+          <td>256 3x3 kernels, padding 1</td>
+          <td style="text-align: right">$256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$</td>
+      </tr>
+      <tr>
+          <td><code>relu3_1</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">$256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$</td>
+      </tr>
+      <tr>
+          <td><code>conv3_2</code></td>
+          <td>Convolution</td>
+          <td>256 3x3 kernels, padding 1</td>
+          <td style="text-align: right">$256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$</td>
+      </tr>
+      <tr>
+          <td><code>relu3_2</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">$256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$</td>
+      </tr>
+      <tr>
+          <td><code>conv3_3</code></td>
+          <td>Convolution</td>
+          <td>256 3x3 kernels, padding 1</td>
+          <td style="text-align: right">$256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$</td>
+      </tr>
+      <tr>
+          <td><code>relu3_3</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">$256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$</td>
+      </tr>
+      <tr>
+          <td><code>pool3</code></td>
+          <td>Pooling</td>
+          <td>max 2x2, stride 2</td>
+          <td style="text-align: right">$256 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
+      </tr>
+      <tr>
+          <td><code>conv4_1</code></td>
+          <td>Convolution</td>
+          <td>512 3x3 kernels, padding 1</td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
+      </tr>
+      <tr>
+          <td><code>relu4_1</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
+      </tr>
+      <tr>
+          <td><code>conv4_2</code></td>
+          <td>Convolution</td>
+          <td>512 3x3 kernels, padding 1</td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
+      </tr>
+      <tr>
+          <td><code>relu4_2</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
+      </tr>
+      <tr>
+          <td><code>conv4_3</code></td>
+          <td>Convolution</td>
+          <td>512 3x3 kernels, padding 1</td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
+      </tr>
+      <tr>
+          <td><code>relu4_3</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
+      </tr>
+      <tr>
+          <td><code>pool4</code></td>
+          <td>Pooling</td>
+          <td>max 2x2, stride 2</td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
+      </tr>
+      <tr>
+          <td><code>conv5_1</code></td>
+          <td>Convolution</td>
+          <td>512 3x3 kernels, padding 1</td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
+      </tr>
+      <tr>
+          <td><code>relu5_1</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
+      </tr>
+      <tr>
+          <td><code>conv5_2</code></td>
+          <td>Convolution</td>
+          <td>512 3x3 kernels, padding 1</td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
+      </tr>
+      <tr>
+          <td><code>relu5_2</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
+      </tr>
+      <tr>
+          <td><code>conv5_3</code></td>
+          <td>Convolution</td>
+          <td>512 3x3 kernels, padding 1</td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
+      </tr>
+      <tr>
+          <td><code>relu5_3</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
+      </tr>
+      <tr>
+          <td><code>pool5</code></td>
+          <td>Pooling</td>
+          <td>max 2x2, stride 2</td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{32} + 6\right) \times \left(\frac{W + 6}{32} + 6\right)$</td>
+      </tr>
+      <tr>
+          <td><code>fc6</code></td>
+          <td><span style="color:red">Convolution</span></td>
+          <td>4096 7x7 kernels</td>
+          <td style="text-align: right">$4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
+      </tr>
+      <tr>
+          <td><code>relu6</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">$4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
+      </tr>
+      <tr>
+          <td><code>drop6</code></td>
+          <td>Dropout</td>
+          <td>p=0.5</td>
+          <td style="text-align: right">$4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
+      </tr>
+      <tr>
+          <td><code>fc7</code></td>
+          <td><span style="color:red">Convolution</span></td>
+          <td>4096 1x1 kernels</td>
+          <td style="text-align: right">$4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
+      </tr>
+      <tr>
+          <td><code>relu7</code></td>
+          <td>ReLU</td>
+          <td></td>
+          <td style="text-align: right">$4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
+      </tr>
+      <tr>
+          <td><code>drop7</code></td>
+          <td>Dropout</td>
+          <td></td>
+          <td style="text-align: right">$4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
+      </tr>
+      <tr>
+          <td><code>score_fr</code></td>
+          <td>Convolution</td>
+          <td>21 1x1 kernels</td>
+          <td style="text-align: right">$21 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
+      </tr>
+      <tr>
+          <td><code>upscore</code></td>
+          <td><span style="color:red">Deconvolution</span></td>
+          <td>21 64x64 kernels, stride 32</td>
+          <td style="text-align: right"><span style="color:red">$21 \times \left(H + 38\right) \times \left(W + 38\right)$</span></td>
+      </tr>
+      <tr>
+          <td><code>score</code></td>
+          <td><span style="color:red">Crop</span></td>
+          <td>Explained below</td>
+          <td style="text-align: right">$21 \times H \times W$</td>
+      </tr>
+  </tbody>
 </table>
 <p>Several interesting facts worth notice have been highlighted in red. Let&rsquo;s go over them one by one.</p>
 <p>The most interesting and confusing one is probably the padding 100 in <code>conv1_1</code>. Why do FCNs use padding 100 instead of just 1 as does VGG? Well, let&rsquo;s try to use padding 1 and see what will happen. Using equations $\eqref{eq1}$ and $\eqref{eq2}$ repeatedly, we can compute that the corresponding output size of <code>pool5</code> will be $512 \times \frac{H}{32} \times \frac{W}{32}$.</p>
 <p>So far so good. But now comes <code>fc6</code> with 4096 7x7 kernels. By plugging the variables into $\eqref{eq1}$ and $\eqref{eq2}$, the output size of <code>fc6</code> will be $4096 \times \frac{H - 192}{32} \times \frac{W - 192}{32}$. To make $\frac{H - 192}{32}$ and $\frac{W - 192}{32}$ positive (at least 1), both $H$ and $W$ should be greater than or equal to 224. This means that if we use padding 1 in <code>conv1_1</code>, the FCN will only be able to handle images not smaller than 224x224. However, we would like FCN to be able to handle input of any size, which is one of its main advantages. So we need to add more padding in <code>conv1_1</code> and 100 is a sensible value.</p>
 <p>We also see that both <code>fc6</code> and <code>fc7</code> are now convolutional layers, fitting the name <em>fully convolutional networks</em>. In the deconvolutional layer <code>upscore</code>, the feature maps of <code>score_fr</code>with size $\frac{H + 6}{32}$x$\frac{W + 6}{32}$ are upsampled to $\left(H + 38\right) \times \left(W + 38\right)$. You may try to verify the correctness of this output size using equations $\eqref{eq5}$ and $\eqref{eq6}$.</p>
 <p>After <code>upscore</code>, we have an output feature map of $21 \times \left(H + 38\right) \times \left(W + 38\right)$. However, what we want is $21 \times H \times W$. So here comes the last but not least Crop layer, which is used to <em>crop</em> the input and defined as follows in Caffe.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span>layer {<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  name<span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;score&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  type<span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Crop&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  bottom<span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;upscore&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  bottom<span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;data&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  top<span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;score&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  crop_param {<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    axis<span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    offset<span style="color:#f92672">:</span> <span style="color:#ae81ff">19</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  }<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-protobuf" data-lang="protobuf"><span class="line"><span class="cl"><span class="n">layer</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl">  <span class="n">name</span><span class="o">:</span> <span class="s">&#34;score&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl">  <span class="n">type</span><span class="o">:</span> <span class="s">&#34;Crop&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl">  <span class="n">bottom</span><span class="o">:</span> <span class="s">&#34;upscore&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl">  <span class="n">bottom</span><span class="o">:</span> <span class="s">&#34;data&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl">  <span class="n">top</span><span class="o">:</span> <span class="s">&#34;score&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="cl">  <span class="n">crop_param</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl">    <span class="n">axis</span><span class="o">:</span> <span class="mi">2</span><span class="err">
+</span></span></span><span class="line"><span class="cl">    <span class="n">offset</span><span class="o">:</span> <span class="mi">19</span><span class="err">
+</span></span></span><span class="line"><span class="cl">  <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="err">
 </span></span></span></code></pre></div><p>This Crop layer accepts <code>upscore</code> ($21 \times \left(H + 38\right) \times \left(W + 38\right)$) and <code>data</code> ($3 \times H \times W$) from the two <code>bottom</code> fields. It also has two parameters: <code>axis: 2</code> and <code>offset: 19</code>. In Caffe, a feature map (blob) is of size $N \times C \times H \times W$, with $N$, $C$, $H$ and $W$ being the 0th, 1st, 2nd and 3rd dimension. So <code>upscore</code> and <code>data</code> are actually of size $N \times 21 \times \left(H + 38\right) \times \left(W + 38\right)$ and $N \times 3 \times H \times W$ respectively. <code>axis: 2</code> means to crop from the 2nd dimension (inclusive). So only the dimension $H$ and $W$ of <code>upscore</code> ($\left(H + 38\right) \times \left(W + 38\right)$) will be cropped to be the same as <code>data</code> ($H \times W$). And <code>offset: 19</code> specifies the starting index of the cropping, which means that <code>upscore</code> will be cropped to be <code>upscore[19: 19 + H, 19: 19 + W]</code>, literally the central part of <code>upscore</code>. The following is an illustration of this process, with the green part being the cropped region <code>score</code>.</p>
-<p><img src="/post/understanding-fully-convolutional-networks/crop.png"></p>
-<h2 id="simplifying-fcn-to-a-stack-of-convolutional-layers">Simplifying FCN to a stack of convolutional layers</h2>
-<p>As shown in the above example, we use a Crop layer with <code>offset: 19</code> to crop the feature maps. This cropping layer comes into use since sometimes the deconvolutional (upsampling) layer may not precisely generate an $H \times W$ feature map. Instead, it may give us something like $\left(H + 2T\right) \times \left(W + 2T\right)$. In this case we need to determine the offset $T$ to do the cropping.</p>
+<p>
+
+
+
+
+
+<figure>
+    
+    
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="mx-auto my-0 rounded-md"
+      
+    >
+      
+      
+      
+      
+        <source
+          
+            srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/crop_hu_c65fe42373e0238a.webp 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/crop_hu_4a0886cfdcd999ab.webp 660w
+            
+              
+                ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/crop_hu_e71ff86862ab4560.webp 726w
+              
+            
+            
+              
+                ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/crop_hu_e71ff86862ab4560.webp 726w
+              
+            "
+          
+          sizes="100vw"
+          type="image/webp"
+        />
+      
+      <img
+        width="726"
+        height="386"
+        class="mx-auto my-0 rounded-md"
+        
+        loading="lazy" decoding="async"
+        
+          src="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/crop_hu_f390df1e2bc1164c.png" srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/crop_hu_1c32204d94d00409.png 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/crop_hu_f390df1e2bc1164c.png 660w
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/crop.png 726w
+          
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/crop.png 726w
+          "
+          sizes="100vw"
+        
+      />
+    </picture>
+  
+
+
+</figure>
+</p>
+<h2 id="simplifying-fcn-to-a-stack-of-convolutional-layers" class="relative group">Simplifying FCN to a stack of convolutional layers <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#simplifying-fcn-to-a-stack-of-convolutional-layers" aria-label="Anchor">#</a></span></h2><p>As shown in the above example, we use a Crop layer with <code>offset: 19</code> to crop the feature maps. This cropping layer comes into use since sometimes the deconvolutional (upsampling) layer may not precisely generate an $H \times W$ feature map. Instead, it may give us something like $\left(H + 2T\right) \times \left(W + 2T\right)$. In this case we need to determine the offset $T$ to do the cropping.</p>
 <p>In the previous section, we break down the network layer by layer and write down the output shape for each layer, based on which we compute the offset of the Crop layer. In the coming sections, we will look at a general case and derive the offset.</p>
 <p>In this section, we first simplify an FCN into a stack of $n$ convolutional layers, as shown below. This will make later derivation easier.</p>
 <p>$$
@@ -1125,8 +1374,7 @@ W_{out} &amp;= \frac{W_{in} + 2 \times 0 - 2}{2} + 1 \\\
 $$</p>
 <p>which match our expectation to downsample the input by a factor of 2.</p>
 <p>So it makes sense to simplify an FCN to be a stack of convolutional layers since we only care about the size of the feature maps.</p>
-<h2 id="reparameterizing-convolutional-layers">Reparameterizing convolutional layers</h2>
-<p>Now, we only need to deal with convolutional layers. But, before diving into the derivation, let&rsquo;s further simplify it by reparameterizing convolution. Specifically, we rewrite equations $\eqref{eq1}$ and $\eqref{eq2}$ by moving $H_{in}$ and $W_{in}$ to the left-hand side.</p>
+<h2 id="reparameterizing-convolutional-layers" class="relative group">Reparameterizing convolutional layers <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#reparameterizing-convolutional-layers" aria-label="Anchor">#</a></span></h2><p>Now, we only need to deal with convolutional layers. But, before diving into the derivation, let&rsquo;s further simplify it by reparameterizing convolution. Specifically, we rewrite equations $\eqref{eq1}$ and $\eqref{eq2}$ by moving $H_{in}$ and $W_{in}$ to the left-hand side.</p>
 <p>$$
 \begin{equation}
 \begin{aligned}
@@ -1176,8 +1424,7 @@ $$</p>
 <blockquote>
 <p><strong>Theorem</strong> A deconvolution with stride $S$ and offset $P^\prime$ is equavilent to a convolution with stride $\frac{1}{S}$ and offset $-\frac{P^\prime}{S}$.</p>
 </blockquote>
-<h2 id="computing-the-offset">Computing the offset</h2>
-<p>Based on the above reparameterization of convolutional layers, the simplified FCN stack of convolutional layers can be represented as follows.</p>
+<h2 id="computing-the-offset" class="relative group">Computing the offset <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#computing-the-offset" aria-label="Anchor">#</a></span></h2><p>Based on the above reparameterization of convolutional layers, the simplified FCN stack of convolutional layers can be represented as follows.</p>
 <p>$$
 \begin{align}
 \underset{H_0, W_0}{\overset{L_0}{\longrightarrow}}\underset{\text{conv-1}}{\boxed{S_1, P^\prime_1}}\underset{H_1, W_1}{\overset{L_1}{\longrightarrow}}\underset{\text{conv-2}}{\boxed{S_2, P^\prime_2}}\underset{H_2, W_2}{\overset{L_2}{\longrightarrow}}\dots\underset{H_{n - 1}, W_{n - 1}}{\overset{L_{n - 1}}{\longrightarrow}}\underset{\text{conv-n}}{\boxed{S_n, P^\prime_n}}\underset{H_n, W_n}{\overset{L_n}{\longrightarrow}}
@@ -1224,148 +1471,148 @@ H_0 &amp;= \left(S_1S_2 \dots S_n\right)\left(H_0 + 2T\right) + 2\left(S_1S_2 \d
 $$</p>
 <p>Typically we design the network to make $S_1S_2 \dots S_n = 1$. Let&rsquo;s take voc-fcn8s as an example to verify this point. In this network, we have the following general convolutional layers (both pooling and deconvolutional layers are also counted as convolutional layers).</p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th style="text-align:right">Old parameterization ($K, S, P$)</th>
-<th style="text-align:right">Reparameterization ($S, P^\prime$)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>conv1_1</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_1 = 3, S_1 = 1, P_1 = 100$</td>
-<td style="text-align:right">$S_1 = 1, P^\prime_1 = -99$</td>
-</tr>
-<tr>
-<td><code>conv1_2</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_2 = 3, S_2= 1, P_2 = 1$</td>
-<td style="text-align:right">$S_2 = 1, P^\prime_2 = 0$</td>
-</tr>
-<tr>
-<td><code>pool1</code></td>
-<td>Pooling</td>
-<td style="text-align:right">$K_3 = 2, S_3 = 2, P_3 = 0$</td>
-<td style="text-align:right">$S_3 = 2, P^\prime_3 = 0$</td>
-</tr>
-<tr>
-<td><code>conv2_1</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_4 = 3, S_4 = 1, P_4 = 1$</td>
-<td style="text-align:right">$S_4 = 1, P^\prime_4 = 0$</td>
-</tr>
-<tr>
-<td><code>conv2_2</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_5 = 3, S_5 = 1, P_5 = 1$</td>
-<td style="text-align:right">$S_5 = 1, P^\prime_5 = 0$</td>
-</tr>
-<tr>
-<td><code>pool2</code></td>
-<td>Pooling</td>
-<td style="text-align:right">$K_6 = 2, S_6 = 2, P_6 = 0$</td>
-<td style="text-align:right">$S_6 = 2, P^\prime_6 = 0$</td>
-</tr>
-<tr>
-<td><code>conv3_1</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_7 = 3, S_7 = 1, P_7 = 1$</td>
-<td style="text-align:right">$S_7 = 1, P^\prime_7 = 0$</td>
-</tr>
-<tr>
-<td><code>conv3_2</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_8 = 3, S_8 = 1, P_8 = 1$</td>
-<td style="text-align:right">$S_8 = 1, P^\prime_8 = 0$</td>
-</tr>
-<tr>
-<td><code>conv3_3</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_9 = 3, S_9 = 1, P_9 = 1$</td>
-<td style="text-align:right">$S_9 = 1, P^\prime_9 = 0$</td>
-</tr>
-<tr>
-<td><code>pool3</code></td>
-<td>Pooling</td>
-<td style="text-align:right">$K_{10} = 2, S_{10} = 2, P_{10} = 0$</td>
-<td style="text-align:right">$S_{10} = 2, P^\prime_{10} = 0$</td>
-</tr>
-<tr>
-<td><code>conv4_1</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_{11} = 3, S_{11} = 1, P_{11} = 1$</td>
-<td style="text-align:right">$S_{11} = 1, P^\prime_{11} = 0$</td>
-</tr>
-<tr>
-<td><code>conv4_2</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_{12} = 3, S_{12} = 1, P_{12} = 1$</td>
-<td style="text-align:right">$S_{12} = 1, P^\prime_{12} = 0$</td>
-</tr>
-<tr>
-<td><code>conv4_3</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_{13} = 3, S_{13} = 1, P_{13} = 1$</td>
-<td style="text-align:right">$S_{13} = 1, P^\prime_{13} = 0$</td>
-</tr>
-<tr>
-<td><code>pool4</code></td>
-<td>Pooling</td>
-<td style="text-align:right">$K_{14} = 2, S_{14} = 2, P_{14} = 0$</td>
-<td style="text-align:right">$S_{14} = 2, , P^\prime_{14} = 0$</td>
-</tr>
-<tr>
-<td><code>conv5_1</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_{15} = 3, S_{15} = 1, P_{15} = 1$</td>
-<td style="text-align:right">$S_{15} = 1, P^\prime_{15} = 0$</td>
-</tr>
-<tr>
-<td><code>conv5_2</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_{16} = 3, S_{16} = 1, P_{16} = 1$</td>
-<td style="text-align:right">$S_{16} = 1, P^\prime_{16} = 0$</td>
-</tr>
-<tr>
-<td><code>conv5_3</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_{17} = 3, S_{17} = 1, P_{17} = 1$</td>
-<td style="text-align:right">$S_{17} = 1, P^\prime_{17} = 0$</td>
-</tr>
-<tr>
-<td><code>pool5</code></td>
-<td>Pooling</td>
-<td style="text-align:right">$K_{18} = 2, S_{18} = 2, P_{18} = 0$</td>
-<td style="text-align:right">$S_{18} = 2, P^\prime_{18} = 0$</td>
-</tr>
-<tr>
-<td><code>fc6</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_{19} = 7, S_{19} = 1, P_{19} = 0$</td>
-<td style="text-align:right">$S_{19} = 1, P^\prime_{19} = 3$</td>
-</tr>
-<tr>
-<td><code>fc7</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_{20} = 1, S_{20} = 1, P_{20} = 0$</td>
-<td style="text-align:right">$S_{20} = 1, P^\prime_{20} = 0$</td>
-</tr>
-<tr>
-<td><code>score_fr</code></td>
-<td>Convolution</td>
-<td style="text-align:right">$K_{21} = 1, S_{21} = 1, P_{21} = 0$</td>
-<td style="text-align:right">$S_{21} = 1, P^\prime_{21} = 0$</td>
-</tr>
-<tr>
-<td><code>upscore</code></td>
-<td>Deconvolution</td>
-<td style="text-align:right">$K_{22} = 64, S_{22} = 32, P_{22} = 0$</td>
-<td style="text-align:right">$S_{22} = \frac{1}{32}, P^\prime_{22} = -\frac{1}{2}$</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th style="text-align: right">Old parameterization ($K, S, P$)</th>
+          <th style="text-align: right">Reparameterization ($S, P^\prime$)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>conv1_1</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_1 = 3, S_1 = 1, P_1 = 100$</td>
+          <td style="text-align: right">$S_1 = 1, P^\prime_1 = -99$</td>
+      </tr>
+      <tr>
+          <td><code>conv1_2</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_2 = 3, S_2= 1, P_2 = 1$</td>
+          <td style="text-align: right">$S_2 = 1, P^\prime_2 = 0$</td>
+      </tr>
+      <tr>
+          <td><code>pool1</code></td>
+          <td>Pooling</td>
+          <td style="text-align: right">$K_3 = 2, S_3 = 2, P_3 = 0$</td>
+          <td style="text-align: right">$S_3 = 2, P^\prime_3 = 0$</td>
+      </tr>
+      <tr>
+          <td><code>conv2_1</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_4 = 3, S_4 = 1, P_4 = 1$</td>
+          <td style="text-align: right">$S_4 = 1, P^\prime_4 = 0$</td>
+      </tr>
+      <tr>
+          <td><code>conv2_2</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_5 = 3, S_5 = 1, P_5 = 1$</td>
+          <td style="text-align: right">$S_5 = 1, P^\prime_5 = 0$</td>
+      </tr>
+      <tr>
+          <td><code>pool2</code></td>
+          <td>Pooling</td>
+          <td style="text-align: right">$K_6 = 2, S_6 = 2, P_6 = 0$</td>
+          <td style="text-align: right">$S_6 = 2, P^\prime_6 = 0$</td>
+      </tr>
+      <tr>
+          <td><code>conv3_1</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_7 = 3, S_7 = 1, P_7 = 1$</td>
+          <td style="text-align: right">$S_7 = 1, P^\prime_7 = 0$</td>
+      </tr>
+      <tr>
+          <td><code>conv3_2</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_8 = 3, S_8 = 1, P_8 = 1$</td>
+          <td style="text-align: right">$S_8 = 1, P^\prime_8 = 0$</td>
+      </tr>
+      <tr>
+          <td><code>conv3_3</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_9 = 3, S_9 = 1, P_9 = 1$</td>
+          <td style="text-align: right">$S_9 = 1, P^\prime_9 = 0$</td>
+      </tr>
+      <tr>
+          <td><code>pool3</code></td>
+          <td>Pooling</td>
+          <td style="text-align: right">$K_{10} = 2, S_{10} = 2, P_{10} = 0$</td>
+          <td style="text-align: right">$S_{10} = 2, P^\prime_{10} = 0$</td>
+      </tr>
+      <tr>
+          <td><code>conv4_1</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_{11} = 3, S_{11} = 1, P_{11} = 1$</td>
+          <td style="text-align: right">$S_{11} = 1, P^\prime_{11} = 0$</td>
+      </tr>
+      <tr>
+          <td><code>conv4_2</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_{12} = 3, S_{12} = 1, P_{12} = 1$</td>
+          <td style="text-align: right">$S_{12} = 1, P^\prime_{12} = 0$</td>
+      </tr>
+      <tr>
+          <td><code>conv4_3</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_{13} = 3, S_{13} = 1, P_{13} = 1$</td>
+          <td style="text-align: right">$S_{13} = 1, P^\prime_{13} = 0$</td>
+      </tr>
+      <tr>
+          <td><code>pool4</code></td>
+          <td>Pooling</td>
+          <td style="text-align: right">$K_{14} = 2, S_{14} = 2, P_{14} = 0$</td>
+          <td style="text-align: right">$S_{14} = 2, , P^\prime_{14} = 0$</td>
+      </tr>
+      <tr>
+          <td><code>conv5_1</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_{15} = 3, S_{15} = 1, P_{15} = 1$</td>
+          <td style="text-align: right">$S_{15} = 1, P^\prime_{15} = 0$</td>
+      </tr>
+      <tr>
+          <td><code>conv5_2</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_{16} = 3, S_{16} = 1, P_{16} = 1$</td>
+          <td style="text-align: right">$S_{16} = 1, P^\prime_{16} = 0$</td>
+      </tr>
+      <tr>
+          <td><code>conv5_3</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_{17} = 3, S_{17} = 1, P_{17} = 1$</td>
+          <td style="text-align: right">$S_{17} = 1, P^\prime_{17} = 0$</td>
+      </tr>
+      <tr>
+          <td><code>pool5</code></td>
+          <td>Pooling</td>
+          <td style="text-align: right">$K_{18} = 2, S_{18} = 2, P_{18} = 0$</td>
+          <td style="text-align: right">$S_{18} = 2, P^\prime_{18} = 0$</td>
+      </tr>
+      <tr>
+          <td><code>fc6</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_{19} = 7, S_{19} = 1, P_{19} = 0$</td>
+          <td style="text-align: right">$S_{19} = 1, P^\prime_{19} = 3$</td>
+      </tr>
+      <tr>
+          <td><code>fc7</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_{20} = 1, S_{20} = 1, P_{20} = 0$</td>
+          <td style="text-align: right">$S_{20} = 1, P^\prime_{20} = 0$</td>
+      </tr>
+      <tr>
+          <td><code>score_fr</code></td>
+          <td>Convolution</td>
+          <td style="text-align: right">$K_{21} = 1, S_{21} = 1, P_{21} = 0$</td>
+          <td style="text-align: right">$S_{21} = 1, P^\prime_{21} = 0$</td>
+      </tr>
+      <tr>
+          <td><code>upscore</code></td>
+          <td>Deconvolution</td>
+          <td style="text-align: right">$K_{22} = 64, S_{22} = 32, P_{22} = 0$</td>
+          <td style="text-align: right">$S_{22} = \frac{1}{32}, P^\prime_{22} = -\frac{1}{2}$</td>
+      </tr>
+  </tbody>
 </table>
 <p>For <code>upscore</code>, it is a deconvolutional layer and so we make use of <strong>Theorem</strong> to compute its reparameterization parameters. Multiplying the above $S_1S_2 \dots S_{22}$ will give us $2 ^ 5 \times 1 ^ {16} \times \frac{1}{32} = 1$.</p>
 <p>Given $S_1S_2 \dots S_n = 1$, equation $\eqref{eq22}$ will be simplified into</p>
@@ -1373,21 +1620,20 @@ $$</p>
 <p>Now we can derive the equation for computing the offset $T$.</p>
 <p>$$T=-\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{24}\label{eq24}$$</p>
 <p>I computed $T$ for voc-fcn32s using the following Python codes according to equation $\eqref{eq24}$ and the result is 19.0, which is exactly the offset of the Crop layer.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> S <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>]
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> P <span style="color:#f92672">=</span> [<span style="color:#f92672">-</span><span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span>]
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">22</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(N):
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>     prod <span style="color:#f92672">=</span> p[i]
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>     <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(i):
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>         prod <span style="color:#f92672">*=</span> s[j]
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>     sum <span style="color:#f92672">+=</span> prod
-</span></span><span style="display:flex;"><span><span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> T <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>sum
-</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;&gt;&gt;</span> print(T)
-</span></span><span style="display:flex;"><span><span style="color:#ae81ff">19.0</span>
-</span></span></code></pre></div><h2 id="how-mxnet-computes-the-offset">How MXNet computes the offset</h2>
-<p>Now you know one way to compute $T$. I would like to tell you one more, which is used in <a href="https://github.com/apache/incubator-mxnet/blob/master/example/fcn-xs/symbol_fcnxs.py">MXNet</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">S</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">P</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">99</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">22</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="n">prod</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>         <span class="n">prod</span> <span class="o">*=</span> <span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>     <span class="nb">sum</span> <span class="o">+=</span> <span class="n">prod</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">T</span> <span class="o">=</span> <span class="o">-</span><span class="nb">sum</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mf">19.0</span>
+</span></span></code></pre></div><h2 id="how-mxnet-computes-the-offset" class="relative group">How MXNet computes the offset <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#how-mxnet-computes-the-offset" aria-label="Anchor">#</a></span></h2><p>Now you know one way to compute $T$. I would like to tell you one more, which is used in <a href="https://github.com/apache/incubator-mxnet/blob/master/example/fcn-xs/symbol_fcnxs.py" target="_blank" rel="noreferrer">MXNet</a>.</p>
 <p>From equation $\eqref{eq19}$, we can write down the equations of $H_0$ expressed in $H_i$ for all $i = 1, 2, \dots, n$.</p>
 <p>$$
 \begin{align}
@@ -1433,183 +1679,379 @@ P_{i}^{\text{compound}} &amp;= S_1S_2 \dots S_{i - 1}P^\prime_i + S_1S_2 \dots S
 \end{aligned}
 \end{equation}\tag{31}\label{eq31}
 $$</p>
-<p>Equations $\eqref{eq30}$ and $\eqref{eq31}$ are actually how <a href="https://github.com/apache/incubator-mxnet/blob/master/example/fcn-xs/symbol_fcnxs.py">MXNet</a> compute the compound stride and compound offset. Let&rsquo;s dive into the codes to see how it is implemented.</p>
+<p>Equations $\eqref{eq30}$ and $\eqref{eq31}$ are actually how <a href="https://github.com/apache/incubator-mxnet/blob/master/example/fcn-xs/symbol_fcnxs.py" target="_blank" rel="noreferrer">MXNet</a> compute the compound stride and compound offset. Let&rsquo;s dive into the codes to see how it is implemented.</p>
 <p>In function <code>filter_map</code>, a convolution with parameters $K$ (<code>kernel</code>), $S$ (<code>stride</code>) and $P$ (<code>pad</code>) is reparameterized to $S$ (<code>stride</code>) and $P^\prime_i$. <code>(kernel-stride)/2-pad</code> is just $P^\prime_i$ according to equation $\eqref{eq11}$.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">filter_map</span>(kernel<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, stride<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, pad<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (stride, (kernel<span style="color:#f92672">-</span>stride)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span>pad)
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">filter_map</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">stride</span><span class="p">,</span> <span class="p">(</span><span class="n">kernel</span><span class="o">-</span><span class="n">stride</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">pad</span><span class="p">)</span>
 </span></span></code></pre></div><p>In function <code>inv_fp</code>, a deconvolutional layer is transformed to an equivalent convolutional layer according to <strong>Theorem</strong>. <code>fp_in</code> just stores $\left(S, P^\prime\right)$.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">inv_fp</span>(fp_in):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (<span style="color:#ae81ff">1.0</span><span style="color:#f92672">/</span>fp_in[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span><span style="color:#f92672">*</span>fp_in[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">/</span>fp_in[<span style="color:#ae81ff">0</span>])
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">inv_fp</span><span class="p">(</span><span class="n">fp_in</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">fp_in</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mf">1.0</span><span class="o">*</span><span class="n">fp_in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">fp_in</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </span></span></code></pre></div><p>In <code>compose_fp</code>, equations $\eqref{eq30}$ and $\eqref{eq31}$ are implemented. <code>fp_first</code> represents $\left(S_{i - 1}^{\text{compound}}, P_{i - 1}^{\text{compound}}\right)$ and <code>fp_second</code> represents $\left(S_i, P^\prime_i\right)$. The returned result is $\left(S_i^{\text{compound}}, P_i^{\text{compound}}\right)$.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">compose_fp</span>(fp_first, fp_second):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (fp_first[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span>fp_second[<span style="color:#ae81ff">0</span>], fp_first[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span>fp_second[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span>fp_first[<span style="color:#ae81ff">1</span>])
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">compose_fp</span><span class="p">(</span><span class="n">fp_first</span><span class="p">,</span> <span class="n">fp_second</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">fp_first</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">fp_second</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fp_first</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">fp_second</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">fp_first</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </span></span></code></pre></div><p>Finally, in <code>compose_fp_list</code>, $\left(S_{n}^{\text{compound}}, P_{n}^{\text{compound}}\right)$ are computed iteratively using $\left(S_1, P^\prime_1\right), \left(S_2, P^\prime_2\right), \dots, \left(S_n, P^\prime_n\right)$ (stored in <code>fp_list</code>) and $\left(S_0^{\text{compound}}, P_0^{\text{compound}}\right)$ (<code>fp_out</code>) by repeatedly calling <code>compose_fp</code>. You may convince yourself of this point by manually running several steps of the <code>for</code> loop.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">compose_fp_list</span>(fp_list):
-</span></span><span style="display:flex;"><span>    fp_out <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">0.0</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> fp <span style="color:#f92672">in</span> fp_list:
-</span></span><span style="display:flex;"><span>        fp_out <span style="color:#f92672">=</span> compose_fp(fp_out, fp)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> fp_out
-</span></span></code></pre></div><h2 id="finer-details">Finer Details</h2>
-<p>In the <code>upscore</code> layer of voc-fcn32s, the feature maps are directly upsampled by a large factor of 32 (this is why it is named voc-fcn32s), which will produce relatively coarse predictions due to missing finer detils from intermediate resolutions. So, in <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn16s/val.prototxt">voc-fcn16s</a> and <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn8s/val.prototxt">voc-fcn8s</a>, the shrinked feature maps are upsampled more than once before being recovered to the size of the image.</p>
-<p>For <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn16s/val.prototxt">voc-fcn16s</a>, the feature maps from <code>score_fr</code> will first be upsampled by a factor of 2 in <code>upscore2</code>. Then, we generate another set of outputs from <code>pool4</code> using convolution in <code>score_pool4</code> and crop it to be the same size as that of <code>upscore2</code> in <code>score_pool4c</code>. Finally, we combine <code>upscore2</code> and <code>score_pool4c</code> using element-wise summation in <code>fuse_pool4</code>, upsample it by a factor of 16 in <code>upscore16</code> and crop it in <code>score</code> to obtain the output. We show the network architecture for this process while omitting the previous layers in the following figure. Moreover, this process is broken down in the table below.</p>
-<p><img src="/post/understanding-fully-convolutional-networks/fcn-voc16s.png"></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">compose_fp_list</span><span class="p">(</span><span class="n">fp_list</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fp_out</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">fp</span> <span class="ow">in</span> <span class="n">fp_list</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fp_out</span> <span class="o">=</span> <span class="n">compose_fp</span><span class="p">(</span><span class="n">fp_out</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">fp_out</span>
+</span></span></code></pre></div><h2 id="finer-details" class="relative group">Finer Details <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#finer-details" aria-label="Anchor">#</a></span></h2><p>In the <code>upscore</code> layer of voc-fcn32s, the feature maps are directly upsampled by a large factor of 32 (this is why it is named voc-fcn32s), which will produce relatively coarse predictions due to missing finer detils from intermediate resolutions. So, in <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn16s/val.prototxt" target="_blank" rel="noreferrer">voc-fcn16s</a> and <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn8s/val.prototxt" target="_blank" rel="noreferrer">voc-fcn8s</a>, the shrinked feature maps are upsampled more than once before being recovered to the size of the image.</p>
+<p>For <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn16s/val.prototxt" target="_blank" rel="noreferrer">voc-fcn16s</a>, the feature maps from <code>score_fr</code> will first be upsampled by a factor of 2 in <code>upscore2</code>. Then, we generate another set of outputs from <code>pool4</code> using convolution in <code>score_pool4</code> and crop it to be the same size as that of <code>upscore2</code> in <code>score_pool4c</code>. Finally, we combine <code>upscore2</code> and <code>score_pool4c</code> using element-wise summation in <code>fuse_pool4</code>, upsample it by a factor of 16 in <code>upscore16</code> and crop it in <code>score</code> to obtain the output. We show the network architecture for this process while omitting the previous layers in the following figure. Moreover, this process is broken down in the table below.</p>
+<p>
+
+
+
+
+
+<figure>
+    
+    
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="mx-auto my-0 rounded-md"
+      
+    >
+      
+      
+      
+      
+        <source
+          
+            srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc16s_hu_30b68bc7d3fa57e6.webp 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc16s_hu_7e00dd85c6f388d9.webp 660w
+            
+              
+                ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc16s_hu_8087471b8827e172.webp 1024w
+              
+            
+            
+              
+                ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc16s_hu_8087471b8827e172.webp 1024w
+              
+            "
+          
+          sizes="100vw"
+          type="image/webp"
+        />
+      
+      <img
+        width="1024"
+        height="119"
+        class="mx-auto my-0 rounded-md"
+        
+        loading="lazy" decoding="async"
+        
+          src="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc16s_hu_5715ee813fa51b03.png" srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc16s_hu_f176369bfed91176.png 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc16s_hu_5715ee813fa51b03.png 660w
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc16s.png 1024w
+          
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc16s.png 1024w
+          "
+          sizes="100vw"
+        
+      />
+    </picture>
+  
+
+
+</figure>
+</p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Params</th>
-<th style="text-align:right">Size</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>pool4</code></td>
-<td>Pooling</td>
-<td>max 2x2, stride 2</td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
-</tr>
-<tr>
-<td><code>score_pool4</code></td>
-<td>Convolution</td>
-<td>21 1x1 kernels</td>
-<td style="text-align:right">$21 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
-</tr>
-<tr>
-<td><code>score_fr</code></td>
-<td>Convolution</td>
-<td>21 1x1 kernels</td>
-<td style="text-align:right">$21 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
-</tr>
-<tr>
-<td><code>upscore2</code></td>
-<td>Deconvolution</td>
-<td>21 4x4 kernels, stride 2</td>
-<td style="text-align:right">$21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$</td>
-</tr>
-<tr>
-<td><code>score_pool4c</code></td>
-<td>Crop</td>
-<td>axis 2, offset 5</td>
-<td style="text-align:right">$21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$</td>
-</tr>
-<tr>
-<td><code>fuse_pool4</code></td>
-<td>Eltwise</td>
-<td>sum</td>
-<td style="text-align:right">$21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$</td>
-</tr>
-<tr>
-<td><code>upscore16</code></td>
-<td>Deconvolution</td>
-<td>21 32x32 kernels, stride 16</td>
-<td style="text-align:right">$21 \times \left(H + 54\right) \times \left(W + 54\right)$</td>
-</tr>
-<tr>
-<td><code>score</code></td>
-<td>Crop</td>
-<td>axis 2, offset 27</td>
-<td style="text-align:right">$21 \times H \times W$</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Params</th>
+          <th style="text-align: right">Size</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>pool4</code></td>
+          <td>Pooling</td>
+          <td>max 2x2, stride 2</td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
+      </tr>
+      <tr>
+          <td><code>score_pool4</code></td>
+          <td>Convolution</td>
+          <td>21 1x1 kernels</td>
+          <td style="text-align: right">$21 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
+      </tr>
+      <tr>
+          <td><code>score_fr</code></td>
+          <td>Convolution</td>
+          <td>21 1x1 kernels</td>
+          <td style="text-align: right">$21 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
+      </tr>
+      <tr>
+          <td><code>upscore2</code></td>
+          <td>Deconvolution</td>
+          <td>21 4x4 kernels, stride 2</td>
+          <td style="text-align: right">$21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$</td>
+      </tr>
+      <tr>
+          <td><code>score_pool4c</code></td>
+          <td>Crop</td>
+          <td>axis 2, offset 5</td>
+          <td style="text-align: right">$21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$</td>
+      </tr>
+      <tr>
+          <td><code>fuse_pool4</code></td>
+          <td>Eltwise</td>
+          <td>sum</td>
+          <td style="text-align: right">$21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$</td>
+      </tr>
+      <tr>
+          <td><code>upscore16</code></td>
+          <td>Deconvolution</td>
+          <td>21 32x32 kernels, stride 16</td>
+          <td style="text-align: right">$21 \times \left(H + 54\right) \times \left(W + 54\right)$</td>
+      </tr>
+      <tr>
+          <td><code>score</code></td>
+          <td>Crop</td>
+          <td>axis 2, offset 27</td>
+          <td style="text-align: right">$21 \times H \times W$</td>
+      </tr>
+  </tbody>
 </table>
 <p>As can be seen, the finer details from the intermediate resolution in <code>pool4</code> are incorporated into later feature maps, which will produce finer outputs than those of fcn-voc32s. Actually, fcn-voc16s utilizes two resolutions of a factor of 16 and a factor of 32.</p>
 <p>We may combine more resolutions in the same way. In fcn-voc8s, we generate one more set of outputs from <code>pool3</code> and combine it with later feature maps. The network architecture is similarly shown in the figure below with the process broken down in the following table.</p>
-<p><img src="/post/understanding-fully-convolutional-networks/fcn-voc8s.png"></p>
+<p>
+
+
+
+
+
+<figure>
+    
+    
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="mx-auto my-0 rounded-md"
+      
+    >
+      
+      
+      
+      
+        <source
+          
+            srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc8s_hu_648b340251939491.webp 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc8s_hu_6f0b6b30fb7c8ba7.webp 660w
+            
+              
+                ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc8s_hu_1902e3b86c6dfb4c.webp 1024w
+              
+            
+            
+              
+                ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc8s_hu_1902e3b86c6dfb4c.webp 1024w
+              
+            "
+          
+          sizes="100vw"
+          type="image/webp"
+        />
+      
+      <img
+        width="1024"
+        height="129"
+        class="mx-auto my-0 rounded-md"
+        
+        loading="lazy" decoding="async"
+        
+          src="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc8s_hu_794dc2648abba543.png" srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc8s_hu_79ca16b9afa32584.png 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc8s_hu_794dc2648abba543.png 660w
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc8s.png 1024w
+          
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/fcn-voc8s.png 1024w
+          "
+          sizes="100vw"
+        
+      />
+    </picture>
+  
+
+
+</figure>
+</p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Params</th>
-<th style="text-align:right">Size</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>pool3</code></td>
-<td>Pooling</td>
-<td>max 2x2, stride 2</td>
-<td style="text-align:right">$256 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
-</tr>
-<tr>
-<td><code>score_pool3</code></td>
-<td>Convolution</td>
-<td>21 1x1 kernels</td>
-<td style="text-align:right">$21 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
-</tr>
-<tr>
-<td><code>pool4</code></td>
-<td>Pooling</td>
-<td>max 2x2, stride 2</td>
-<td style="text-align:right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
-</tr>
-<tr>
-<td><code>score_pool4</code></td>
-<td>Convolution</td>
-<td>21 1x1 kernels</td>
-<td style="text-align:right">$21 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
-</tr>
-<tr>
-<td><code>score_fr</code></td>
-<td>Convolution</td>
-<td>21 1x1 kernels</td>
-<td style="text-align:right">$21 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
-</tr>
-<tr>
-<td><code>upscore2</code></td>
-<td>Deconvolution</td>
-<td>21 4x4 kernels, stride 2</td>
-<td style="text-align:right">$21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$</td>
-</tr>
-<tr>
-<td><code>score_pool4c</code></td>
-<td>Crop</td>
-<td>axis 2, offset 5</td>
-<td style="text-align:right">$21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$</td>
-</tr>
-<tr>
-<td><code>fuse_pool4</code></td>
-<td>Eltwise</td>
-<td>sum</td>
-<td style="text-align:right">$21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$</td>
-</tr>
-<tr>
-<td><code>upscore_pool4</code></td>
-<td>Deconvolution</td>
-<td>21 4x4 kernels, stride 2</td>
-<td style="text-align:right">$21 \times \left(\frac{H + 6}{8} + 6\right) \times \left(\frac{W + 6}{8} + 6\right)$</td>
-</tr>
-<tr>
-<td><code>score_pool3c</code></td>
-<td>Crop</td>
-<td>axis 2, offset 9</td>
-<td style="text-align:right">$21 \times \left(\frac{H + 6}{8} + 6\right) \times \left(\frac{W + 6}{8} + 6\right)$</td>
-</tr>
-<tr>
-<td><code>fuse_pool3</code></td>
-<td>Eltwise</td>
-<td>sum</td>
-<td style="text-align:right">$21 \times \left(\frac{H + 6}{8} + 6\right) \times \left(\frac{W + 6}{8} + 6\right)$</td>
-</tr>
-<tr>
-<td><code>upscore8</code></td>
-<td>Deconvolution</td>
-<td>21 16x16 kernels, stride 8</td>
-<td style="text-align:right">$21 \times \left(H + 62\right) \times \left(W + 62\right)$</td>
-</tr>
-<tr>
-<td><code>score</code></td>
-<td>Crop</td>
-<td>axis 2, offset 31</td>
-<td style="text-align:right">$21 \times H \times W$</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Params</th>
+          <th style="text-align: right">Size</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>pool3</code></td>
+          <td>Pooling</td>
+          <td>max 2x2, stride 2</td>
+          <td style="text-align: right">$256 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
+      </tr>
+      <tr>
+          <td><code>score_pool3</code></td>
+          <td>Convolution</td>
+          <td>21 1x1 kernels</td>
+          <td style="text-align: right">$21 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$</td>
+      </tr>
+      <tr>
+          <td><code>pool4</code></td>
+          <td>Pooling</td>
+          <td>max 2x2, stride 2</td>
+          <td style="text-align: right">$512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
+      </tr>
+      <tr>
+          <td><code>score_pool4</code></td>
+          <td>Convolution</td>
+          <td>21 1x1 kernels</td>
+          <td style="text-align: right">$21 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$</td>
+      </tr>
+      <tr>
+          <td><code>score_fr</code></td>
+          <td>Convolution</td>
+          <td>21 1x1 kernels</td>
+          <td style="text-align: right">$21 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$</td>
+      </tr>
+      <tr>
+          <td><code>upscore2</code></td>
+          <td>Deconvolution</td>
+          <td>21 4x4 kernels, stride 2</td>
+          <td style="text-align: right">$21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$</td>
+      </tr>
+      <tr>
+          <td><code>score_pool4c</code></td>
+          <td>Crop</td>
+          <td>axis 2, offset 5</td>
+          <td style="text-align: right">$21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$</td>
+      </tr>
+      <tr>
+          <td><code>fuse_pool4</code></td>
+          <td>Eltwise</td>
+          <td>sum</td>
+          <td style="text-align: right">$21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$</td>
+      </tr>
+      <tr>
+          <td><code>upscore_pool4</code></td>
+          <td>Deconvolution</td>
+          <td>21 4x4 kernels, stride 2</td>
+          <td style="text-align: right">$21 \times \left(\frac{H + 6}{8} + 6\right) \times \left(\frac{W + 6}{8} + 6\right)$</td>
+      </tr>
+      <tr>
+          <td><code>score_pool3c</code></td>
+          <td>Crop</td>
+          <td>axis 2, offset 9</td>
+          <td style="text-align: right">$21 \times \left(\frac{H + 6}{8} + 6\right) \times \left(\frac{W + 6}{8} + 6\right)$</td>
+      </tr>
+      <tr>
+          <td><code>fuse_pool3</code></td>
+          <td>Eltwise</td>
+          <td>sum</td>
+          <td style="text-align: right">$21 \times \left(\frac{H + 6}{8} + 6\right) \times \left(\frac{W + 6}{8} + 6\right)$</td>
+      </tr>
+      <tr>
+          <td><code>upscore8</code></td>
+          <td>Deconvolution</td>
+          <td>21 16x16 kernels, stride 8</td>
+          <td style="text-align: right">$21 \times \left(H + 62\right) \times \left(W + 62\right)$</td>
+      </tr>
+      <tr>
+          <td><code>score</code></td>
+          <td>Crop</td>
+          <td>axis 2, offset 31</td>
+          <td style="text-align: right">$21 \times H \times W$</td>
+      </tr>
+  </tbody>
 </table>
-<p>In fcn-voc8s, one more intermediate resolution <code>pool3</code> are incorpoeated. From fcn-voc32s, fcn-voc16s to fcn-voc8s, more intermediate resolutions are incorporated and the results will contain more details, as shown below (taken from the <a href="https://arxiv.org/pdf/1411.4038.pdf">FCN paper</a>).</p>
-<p><img src="/post/understanding-fully-convolutional-networks/details.png"></p>
-<h2 id="conclusion">Conclusion</h2>
-<p>We cover fully convolutional networks in great detail. To summarize, we have learend:</p>
+<p>In fcn-voc8s, one more intermediate resolution <code>pool3</code> are incorpoeated. From fcn-voc32s, fcn-voc16s to fcn-voc8s, more intermediate resolutions are incorporated and the results will contain more details, as shown below (taken from the <a href="https://arxiv.org/pdf/1411.4038.pdf" target="_blank" rel="noreferrer">FCN paper</a>).</p>
+<p>
+
+
+
+
+
+<figure>
+    
+    
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="mx-auto my-0 rounded-md"
+      
+    >
+      
+      
+      
+      
+        <source
+          
+            srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/details_hu_c8cbf70f538747c6.webp 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/details_hu_fe16aa788fb9fede.webp 660w
+            
+              
+                ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/details_hu_959d6a1d88fbc830.webp 732w
+              
+            
+            
+              
+                ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/details_hu_959d6a1d88fbc830.webp 732w
+              
+            "
+          
+          sizes="100vw"
+          type="image/webp"
+        />
+      
+      <img
+        width="732"
+        height="300"
+        class="mx-auto my-0 rounded-md"
+        
+        loading="lazy" decoding="async"
+        
+          src="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/details_hu_b2d57e798e9bc9a4.png" srcset="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/details_hu_5f695718a78d628e.png 330w,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/details_hu_b2d57e798e9bc9a4.png 660w
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/details.png 732w
+          
+          
+            ,https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/details.png 732w
+          "
+          sizes="100vw"
+        
+      />
+    </picture>
+  
+
+
+</figure>
+</p>
+<h2 id="conclusion" class="relative group">Conclusion <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#conclusion" aria-label="Anchor">#</a></span></h2><p>We cover fully convolutional networks in great detail. To summarize, we have learend:</p>
 <ul>
 <li>Semantic segmentation requires dense pixel-level classification while image classification is only in image-level.</li>
 <li>Fully convolutional networks (FCNs) are a general framework to solve semantic segmentation.</li>
@@ -1618,14 +2060,18 @@ $$</p>
 <li>Outputs with higher resolutions from intermediate layers of the network can be incorporated to enhance the details in the segmentation results.</li>
 </ul>
 
-    </div>
-
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
     
-
-
-
+    
     
       
+      
+        
+        
 
 
 
@@ -1635,187 +2081,281 @@ $$</p>
 
 
   
-
-
-
-
-
-
-
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
       
       
-    
-
-    
-
-    
-
-
-  </div>
-</article>
-
       
-
-    
-    
-    
-    <script src="/js/mathjax-config.js"></script>
-    
-
-    
-    
-    
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
-
       
-
-      
+      <img
+        width="1078"
+        height="1079"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Jianchao Li"
+        loading="lazy" decoding="async"
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+          src="https://jianchao-li.github.io/img/author_hu_d9d9723b649bf296.jpg" srcset="https://jianchao-li.github.io/img/author_hu_db5460d9544fb39e.jpg 330w,https://jianchao-li.github.io/img/author_hu_d9d9723b649bf296.jpg 660w
+          
+            ,https://jianchao-li.github.io/img/author_hu_b9631b132ce23f71.jpg 1024w
+          
+          
+            ,https://jianchao-li.github.io/img/author.jpg 1078w
+          "
+          sizes="100vw"
         
-      
+      />
+    </picture>
+  
+
 
       
+    
+    <div class="place-self-center">
       
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous" async></script>
-      
-    
-
-    
-    
-
-    
-    
-    
-
-    
-    
-    <script>hljs.initHighlightingOnLoad();</script>
-    
-
-    
-    
-    <script>
-      const search_index_filename = "/index.json";
-      const i18n = {
-        'placeholder': "Search...",
-        'results': "results found",
-        'no_results': "No results found"
-      };
-      const content_type = {
-        'post': "Posts",
-        'project': "Projects",
-        'publication' : "Publications",
-        'talk' : "Talks"
-        };
-    </script>
-    
-
-    
-    
-
-    
-    
-    <script id="search-hit-fuse-template" type="text/x-template">
-      <div class="search-hit" id="summary-{{key}}">
-      <div class="search-hit-content">
-        <div class="search-hit-name">
-          <a href="{{relpermalink}}">{{title}}</a>
-          <div class="article-metadata search-hit-type">{{type}}</div>
-          <p class="search-hit-description">{{snippet}}</p>
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
         </div>
-      </div>
-      </div>
-    </script>
-    
-
-    
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
-    
-
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Jianchao Li
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">I build intelligent systems with deep learning and computer vision.</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
     
       
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="https://github.com/jianchao-li"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></a
+        >
+      
     
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="https://www.linkedin.com/in/jianchao-li/"
+          target="_blank"
+          aria-label="Linkedin"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+</span></a
+        >
+      
     
-    
-    
-    <script src="/js/academic.min.7720ca23a3e05277ade871a05f8331cb.js"></script>
-
-    
-
-
-
-
-
-
-  
-  <div class="container">
-    <footer class="site-footer">
-  
-
-  <p class="powered-by">
-    © 2025 &middot; 
-
-    Powered by the
-    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
-    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
-
-    
-    <span class="float-right" aria-hidden="true">
-      <a href="#" id="back_to_top">
-        <span class="button_icon">
-          <i class="fas fa-chevron-up fa-2x"></i>
-        </span>
-      </a>
-    </span>
-    
-  </p>
-</footer>
-
   </div>
-  
 
+</div>
+    </div>
+  </div>
+
+
+      
   
-<div id="modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Cite</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <pre><code class="tex hljs"></code></pre>
-      </div>
-      <div class="modal-footer">
-        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
-          <i class="fas fa-copy"></i> Copy
-        </a>
-        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
-          <i class="fas fa-download"></i> Download
-        </a>
-        <div id="modal-error"></div>
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/&amp;title=Understanding%20Fully%20Convolutional%20Networks"
+          title="Share on LinkedIn"
+          aria-label="Share on LinkedIn"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+</span></a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://twitter.com/intent/tweet/?url=https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/&amp;text=Understanding%20Fully%20Convolutional%20Networks"
+          title="Tweet on Twitter"
+          aria-label="Tweet on Twitter"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+</span></a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/&amp;quote=Understanding%20Fully%20Convolutional%20Networks"
+          title="Share on Facebook"
+          aria-label="Share on Facebook"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+</span></a
+        >
+      
+    
+  </section>
+
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="https://jianchao-li.github.io/post/a-dive-into-visual-question-answering/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >A Dive Into Visual Question Answering</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2018-08-27 14:34:35 &#43;0800 &#43;0800">27 August 2018</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="https://jianchao-li.github.io/post/killing-pytorch-multi-gpu-training-the-safe-way/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Killing Pytorch Multi Gpu Training the Safe Way</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2018-11-02 14:58:10 &#43;0800 &#43;0800">2 November 2018</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[-2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
       </div>
     </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+      </main>
+      
+        <div
+          class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12"
+          id="to-top"
+          hidden="true"
+        >
+          <a
+            href="#the-top"
+            class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+            aria-label="Scroll to top"
+            title="Scroll to top"
+          >
+            &uarr;
+          </a>
+        </div>
+      <footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            &copy;
+            2026
+            Jianchao Li
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://jianchao-li.github.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
   </div>
 </div>
 
-</body>
+    </div>
+  </body>
 </html>

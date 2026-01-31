@@ -1,13 +1,21 @@
 {
-    "icons": [{
-      "src": "img/icon.png",
-      "sizes": "32x32",
-      "type": "image/png"
-    },{
-        "src": "img/icon-192.png",
-        "sizes": "192x192",
-        "type": "image/png"
-    }],
-    "display": "standalone",
-    "start_url": "./?utm_source=web_app_manifest"
+  "name": "Congo",
+  "short_name": "Congo",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#7c3aed",
+  "display": "standalone"
 }

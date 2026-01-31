@@ -1,956 +1,885 @@
-<!DOCTYPE html>
-<html lang="en-us">
 
-<head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Source Themes Academic 4.3.1">
 
-  
 
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FFFFFF" />
+  
+  <title>The Double-Edged Sword of Compounding &middot; Jianchao Li</title>
+    <meta name="title" content="The Double-Edged Sword of Compounding &middot; Jianchao Li" />
   
   
   
   
+  
+  <script
+    type="text/javascript"
+    src="https://jianchao-li.github.io/js/appearance.min.8a082f81b27f3cb2ee528df0b0bdc39787034cf2cc34d4669fbc9977c929023c.js"
+    integrity="sha256-iggvgbJ/PLLuUo3wsL3Dl4cDTPLMNNRmn7yZd8kpAjw="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="https://jianchao-li.github.io/css/main.bundle.min.0f028ba75a858b9f7c1d3385287158ddfd26a57d8a4e9a83fd33b7d30d8fb2ae.css"
+    integrity="sha256-DwKLp1qFi598HTOFKHFY3f0mpX2KTpqD/TO30w2Psq4="
+  />
   
     
     
     
   
   
-
-  <meta name="author" content="Jianchao Li">
-
-  
-  
   
     
-  
-  <meta name="description" content="While many investors understand the power of compound returns, they may not fully grasp that compounding can also result in a significant downside. This post explores this double-edged sword.">
-
-  
-  <link rel="alternate" hreflang="en-us" href="https://jianchao-li.github.io/post/the-double-edged-sword-of-compounding/">
-
-  
-
-
-  
-
-  
-  
-  
-  <meta name="theme-color" content="#2962ff">
-  
-
+    
   
   
   
   
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
-
-    
-    
-    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="https://jianchao-li.github.io/js/main.bundle.min.167efd96c29259046e711c52c0db66536f497aad73a774cd6f28fc408f2d2688.js"
+      integrity="sha256-Fn79lsKSWQRucRxSwNtmU29Jeq1zp3TNbyj8QI8tJog="
+      data-copy="Copy"
+      data-copied="Copied"
+    ></script>
+  
+  
+  <meta
+    name="description"
+    content="
       
-    
-    
+        While many investors understand the power of compound returns, they may not fully grasp that compounding can also result in a significant downside. This post explores this double-edged sword.
       
-      
-        
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
-        
-      
-    
-
-    
-
-    
-
-  
-
-  
-  
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:400,400italic,700|Roboto+Mono">
-  
-
-  
-  
-  
-  <link rel="stylesheet" href="/css/academic.min.aebf6ad474c2ff50ae0b78ca18c392cf.css">
-
-  
-
-  
-  
-    <script>
-      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-      ga('create', 'UA-149941944-1', 'auto');
-      
-      ga('require', 'eventTracker');
-      ga('require', 'outboundLinkTracker');
-      ga('require', 'urlChangeTracker');
-      ga('send', 'pageview');
-    </script>
-    <script async src="//www.google-analytics.com/analytics.js"></script>
-    
-    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
-    
-  
-  
-
-  
-
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="icon" type="image/png" href="/img/icon.png">
-  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
-
-  <link rel="canonical" href="https://jianchao-li.github.io/post/the-double-edged-sword-of-compounding/">
-
+    "
+  />
   
   
   
   
-    
-    
+    <link rel="canonical" href="https://jianchao-li.github.io/post/the-double-edged-sword-of-compounding/" />
   
-  <meta property="twitter:card" content="summary">
   
-  <meta property="og:site_name" content="Jianchao Li">
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
   <meta property="og:url" content="https://jianchao-li.github.io/post/the-double-edged-sword-of-compounding/">
-  <meta property="og:title" content="The Double-Edged Sword of Compounding | Jianchao Li">
-  <meta property="og:description" content="While many investors understand the power of compound returns, they may not fully grasp that compounding can also result in a significant downside. This post explores this double-edged sword."><meta property="og:image" content="https://jianchao-li.github.io/img/icon-192.png">
-  <meta property="og:locale" content="en-us">
-  
-  <meta property="article:published_time" content="2025-01-03T22:08:00&#43;01:00">
-  
-  <meta property="article:modified_time" content="2025-01-04T01:53:00&#43;01:00">
-  
+  <meta property="og:site_name" content="Jianchao Li">
+  <meta property="og:title" content="The Double-Edged Sword of Compounding">
+  <meta property="og:description" content="While many investors understand the power of compound returns, they may not fully grasp that compounding can also result in a significant downside. This post explores this double-edged sword.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-01-03T22:08:00+01:00">
+    <meta property="article:modified_time" content="2025-01-03T22:08:00+01:00">
+    <meta property="article:tag" content="Investing">
+    <meta property="article:tag" content="Finance">
 
   
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="The Double-Edged Sword of Compounding">
+  <meta name="twitter:description" content="While many investors understand the power of compound returns, they may not fully grasp that compounding can also result in a significant downside. This post explores this double-edged sword.">
 
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "The Double-Edged Sword of Compounding",
+    "headline": "The Double-Edged Sword of Compounding",
+    
+    "abstract": "While many investors understand the power of compound returns, they may not fully grasp that compounding can also result in a significant downside. This post explores this double-edged sword.",
+    "inLanguage": "en",
+    "url" : "https:\/\/jianchao-li.github.io\/post\/the-double-edged-sword-of-compounding\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Jianchao Li"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-01-03T22:08:00\u002b01:00",
+    "datePublished": "2025-01-03T22:08:00\u002b01:00",
+    
+    "dateModified": "2025-01-03T22:08:00\u002b01:00",
+    
+    "keywords": ["investing","finance"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2480"
+  }
+  </script>
+    
+    <script type="application/ld+json">
+    {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+     {
+       "@type": "ListItem",
+       "item": "https://jianchao-li.github.io/",
+       "name": "Home",
+       "position": 1
+     },
+     {
+       "@type": "ListItem",
+       "item": "https://jianchao-li.github.io/post/",
+       "name": "Posts",
+       "position": 2
+     },
+     {
+       "@type": "ListItem",
+       "name": "The Double Edged Sword of Compounding",
+       "position": 3
+     }
+   ]
+ }
+  </script>
 
+  
+  
+    <meta name="author" content="Jianchao Li" />
+  
+  
+    
+      <link href="https://github.com/jianchao-li" rel="me" />
+    
+      <link href="https://www.linkedin.com/in/jianchao-li/" rel="me" />
+    
+  
+  
   
 
 
 
 
 
-  <title>The Double-Edged Sword of Compounding | Jianchao Li</title>
 
+
+  
+  
+  
+  
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-385978860"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-385978860');
+</script>
+
+
+
+  
+  
 </head>
-
-
-<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
-
-  <aside class="search-results" id="search">
-  <div class="container">
-    <section class="search-header">
-
-      <div class="row no-gutters justify-content-between mb-3">
-        <div class="col-6">
-          <h1>Search</h1>
-        </div>
-        <div class="col-6 col-search-close">
-          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
-        </div>
-      </div>
-
-      <div id="search-box">
-        
-        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
-        autocomplete="off" autocorrect="off" role="textbox" spellcheck="false" type="search">
-        
-      </div>
-
-    </section>
-    <section class="section-search-results">
-
-      <div id="search-hits">
-        
-      </div>
-
-    </section>
-  </div>
-</aside>
-
-
-  
-<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
-  <div class="container">
-
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
     
-      <a class="navbar-brand" href="/">Jianchao Li</a>
-      
-      <button type="button" class="navbar-toggler" data-toggle="collapse"
-              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span><i class="fas fa-bars"></i></span>
-      </button>
-      
-
     
-    <div class="collapse navbar-collapse" id="navbar">
-
+      <header class="py-6 font-semibold text-neutral-900 dark:text-neutral sm:py-10 print:hidden">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="flex flex-row items-center">
       
-      
-      <ul class="navbar-nav mr-auto">
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#about">
-            
-            <span>Home</span>
-            
-          </a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#experience">
-            
-            <span>Experience</span>
-            
-          </a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#accomplishments">
-            
-            <span>Accomplishments</span>
-            
-          </a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#publications">
-            
-            <span>Publications</span>
-            
-          </a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#posts">
-            
-            <span>Posts</span>
-            
-          </a>
-        </li>
-
-        
-        
-
-      
-      </ul>
-      <ul class="navbar-nav ml-auto">
-      
-
-        
-
-        
-        <li class="nav-item">
-          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
-        </li>
-        
-
-        
-
-        
-        <li class="nav-item">
-          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
-        </li>
-        
-
-      </ul>
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >Jianchao Li</a
+  >
 
     </div>
+    
+    
+      <ul class="flex list-none flex-col text-end sm:flex-row">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="/post/"
+                  title="Posts"
+                  
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Posts</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="/about/"
+                  title="About"
+                  
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >About</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+          
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0">
+              <button id="search-button-m0" title="Search (/)">
+                <span
+                  class="group-dark:hover:text-primary-400 transition-colors group-hover:text-primary-600"
+                >
+                  <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+                </span>
+              </button>
+            </li>
+          
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mb-8 mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        The Double-Edged Sword of Compounding
+      </h1>
+      
+        <div class="mb-10 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2025-01-03 22:08:00 &#43;0100 CET">3 January 2025</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">12 mins</span>
+    
+
+    
+    
   </div>
-</nav>
-
-
-  <article class="article" itemscope itemtype="http://schema.org/Article">
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
 
   
   
-  
-<div class="article-container pt-3">
-  <h1 itemprop="name">The Double-Edged Sword of Compounding</h1>
-
-  
-
-  
-    
-
-
-
-<meta content="2025-01-03 22:08:00 &#43;0100 CET" itemprop="datePublished">
-<meta content="2025-01-04 01:53:00 &#43;0100 CET" itemprop="dateModified">
-
-<div class="article-metadata">
-
-  
-  
-
-  
-  <span class="article-date">
-    
-    
+    <div class="my-1 flex flex-wrap text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">
       
-          Last updated on
+        
       
-    
-    <time>Jan 4, 2025</time>
-  </span>
+        
+      
+        
+          
+            <a
+              href="https://jianchao-li.github.io/tags/investing/"
+              class="mx-1 my-1 rounded-md border border-neutral-200 px-1 py-[1px] hover:border-primary-300 hover:text-primary-700 dark:border-neutral-600 dark:hover:border-primary-600 dark:hover:text-primary-400"
+              >Investing</a
+            >
+          
+            <a
+              href="https://jianchao-li.github.io/tags/finance/"
+              class="mx-1 my-1 rounded-md border border-neutral-200 px-1 py-[1px] hover:border-primary-300 hover:text-primary-700 dark:border-neutral-600 dark:hover:border-primary-600 dark:hover:text-primary-400"
+              >Finance</a
+            >
+          
+        
+      
+    </div>
   
 
-  
 
-  
-  <span class="middot-divider"></span>
-  <span class="article-reading-time">
-    12 min read
-  </span>
-  
-
-  
-  
-
-  
-  
-
-  
-    
-<div class="share-box" aria-hidden="true">
-  <ul class="share">
-    <li>
-      <a class="twitter"
-         href="https://twitter.com/intent/tweet?text=The%20Double-Edged%20Sword%20of%20Compounding&amp;url=https%3a%2f%2fjianchao-li.github.io%2fpost%2fthe-double-edged-sword-of-compounding%2f"
-         target="_blank" rel="noopener">
-        <i class="fab fa-twitter"></i>
-      </a>
+        </div>
+      
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+        <div class="order-first px-0 lg:order-last lg:max-w-xs lg:ps-8">
+          <div class="toc pe-5 lg:sticky lg:top-10 print:hidden">
+            <details open class="-ms-5 mt-0 overflow-hidden rounded-lg ps-5">
+  <summary
+    class="block cursor-pointer bg-neutral-100 py-1 ps-5 text-lg font-semibold text-neutral-800 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div class="border-s border-dotted border-neutral-300 py-2 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-compound-interest">What is Compound Interest?</a></li>
+    <li><a href="#the-magic-of-compound-interest">The magic of Compound Interest</a>
+      <ul>
+        <li><a href="#compounding-for-another-10-years">Compounding for Another 10 Years</a></li>
+        <li><a href="#the-case-of-non-compounding">The Case of Non-Compounding</a></li>
+        <li><a href="#exponential-explosion">Exponential Explosion</a></li>
+      </ul>
     </li>
-    <li>
-      <a class="facebook"
-         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fjianchao-li.github.io%2fpost%2fthe-double-edged-sword-of-compounding%2f"
-         target="_blank" rel="noopener">
-        <i class="fab fa-facebook-f"></i>
-      </a>
+    <li><a href="#why-care-about-compound-interest">Why Care About Compound Interest</a>
+      <ul>
+        <li><a href="#misconceptions">Misconceptions</a></li>
+      </ul>
     </li>
-    <li>
-      <a class="linkedin"
-         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fjianchao-li.github.io%2fpost%2fthe-double-edged-sword-of-compounding%2f&amp;title=The%20Double-Edged%20Sword%20of%20Compounding"
-         target="_blank" rel="noopener">
-        <i class="fab fa-linkedin-in"></i>
-      </a>
+    <li><a href="#why-compounding-is-a-double-edged-sword">Why Compounding Is a Double-Edged Sword</a>
+      <ul>
+        <li><a href="#caveat-1-losses-are-not-equal-to-fees">Caveat 1: Losses Are Not Equal to Fees</a></li>
+        <li><a href="#caveat-2-variable-actual-returns">Caveat 2: Variable Actual Returns</a></li>
+        <li><a href="#caveat-3-costs-based-on-final-value">Caveat 3: Costs Based on Final Value</a></li>
+        <li><a href="#how-to-avoid-the-double-edged-sword">How to Avoid the Double-Edged Sword</a></li>
+        <li><a href="#is-my-fund-cost-high">Is My Fund Cost High?</a></li>
+      </ul>
     </li>
-    <li>
-      <a class="weibo"
-         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fjianchao-li.github.io%2fpost%2fthe-double-edged-sword-of-compounding%2f&amp;title=The%20Double-Edged%20Sword%20of%20Compounding"
-         target="_blank" rel="noopener">
-        <i class="fab fa-weibo"></i>
-      </a>
-    </li>
-    <li>
-      <a class="email"
-         href="mailto:?subject=The%20Double-Edged%20Sword%20of%20Compounding&amp;body=https%3a%2f%2fjianchao-li.github.io%2fpost%2fthe-double-edged-sword-of-compounding%2f">
-        <i class="fas fa-envelope"></i>
-      </a>
-    </li>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#disclaimers">Disclaimers</a></li>
   </ul>
-</div>
+</nav>
+  </div>
+</details>
 
-
-  
-
-</div>
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-</div>
-
-
-
-  <div class="article-container">
-
-    <div class="article-style" itemprop="articleBody">
-      <p>Starting with this post, I want to venture into a new area — investing — distinct from my usual topics of computer vision, deep learning, etc. Investing has become my latest hobby, and after diving into it, I have found it both fascinating and inspiring.</p>
-<p>In this first post, I will explore a fundamental concept in the world of investing: <a href="https://en.wikipedia.org/wiki/Compound_interest">compound interest</a>. To me, it represents the <a href="https://en.wikipedia.org/wiki/First_principle">&ldquo;first principle&rdquo;</a> of investing.</p>
-<h2 id="what-is-compound-interest">What is Compound Interest?</h2>
-<p>Compound interest is a form of <a href="https://en.wikipedia.org/wiki/Interest">interest</a>. When you deposit money into a bank account or lend it to someone, you typically earn interest. The amount you deposit or lend is called the <em>principal</em>, and the interest is calculated as a percentage (<em>interest rate</em>) of the principal. For example, if you have a principal of $100 and an interest rate of 10%, your interest would be $10 ($100 x 10% = $10).</p>
+          </div>
+        </div>
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <p>Starting with this post, I want to venture into a new area — investing — distinct from my usual topics of computer vision, deep learning, etc. Investing has become my latest hobby, and after diving into it, I have found it both fascinating and inspiring.</p>
+<p>In this first post, I will explore a fundamental concept in the world of investing: <a href="https://en.wikipedia.org/wiki/Compound_interest" target="_blank" rel="noreferrer">compound interest</a>. To me, it represents the <a href="https://en.wikipedia.org/wiki/First_principle" target="_blank" rel="noreferrer">&ldquo;first principle&rdquo;</a> of investing.</p>
+<h2 id="what-is-compound-interest" class="relative group">What is Compound Interest? <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#what-is-compound-interest" aria-label="Anchor">#</a></span></h2><p>Compound interest is a form of <a href="https://en.wikipedia.org/wiki/Interest" target="_blank" rel="noreferrer">interest</a>. When you deposit money into a bank account or lend it to someone, you typically earn interest. The amount you deposit or lend is called the <em>principal</em>, and the interest is calculated as a percentage (<em>interest rate</em>) of the principal. For example, if you have a principal of $100 and an interest rate of 10%, your interest would be $10 ($100 x 10% = $10).</p>
 <p>Interest is typically paid at fixed intervals. In the example above, let&rsquo;s assume the $10 is paid annually. After the first year, you would have $100 in principal and $10 in interest. Now, imagine that the $10 interest is added to the $100 principal. This means that, in the next period, interest will be calculated based on the new principal amount of $110. If the interest rate remains at 10%, your next interest payment will be $11 ($110 x 10% = $11).</p>
-<p>Here, you may notice a <a href="https://en.wikipedia.org/wiki/Snowball_effect">snowball effect</a>: as your interest payments are added to your principal (increasing it from $100 to $110), your interest payments also grow (from $10 to $11). This cycle continues, with the interest added to your principal, which increases the principal further, leading to higher interest payments and, in turn, an even higher principal, and so on.</p>
+<p>Here, you may notice a <a href="https://en.wikipedia.org/wiki/Snowball_effect" target="_blank" rel="noreferrer">snowball effect</a>: as your interest payments are added to your principal (increasing it from $100 to $110), your interest payments also grow (from $10 to $11). This cycle continues, with the interest added to your principal, which increases the principal further, leading to higher interest payments and, in turn, an even higher principal, and so on.</p>
 <p>If we continue the above calculations for 10 years, the principals and interest amounts would look as follows (with rounding errors). The principal represents the total amount (principal plus interest) at the beginning of each year, which is the same as the total at the end of the previous year. The interest is the amount earned at the end of each year. For year n + 1, the principal is simply the principal from year n plus the interest earned in year n.</p>
 <table>
-<thead>
-<tr>
-<th>Year</th>
-<th>Principal ($)</th>
-<th>Interest ($)</th>
-<th>Total ($)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>100</td>
-<td>10</td>
-<td>110</td>
-</tr>
-<tr>
-<td>2</td>
-<td>110</td>
-<td>11</td>
-<td>121</td>
-</tr>
-<tr>
-<td>3</td>
-<td>121</td>
-<td>12.1</td>
-<td>133.1</td>
-</tr>
-<tr>
-<td>4</td>
-<td>133.1</td>
-<td>13.31</td>
-<td>146.41</td>
-</tr>
-<tr>
-<td>5</td>
-<td>146.41</td>
-<td>14.641</td>
-<td>161.051</td>
-</tr>
-<tr>
-<td>6</td>
-<td>161.051</td>
-<td>16.1051</td>
-<td>177.1561</td>
-</tr>
-<tr>
-<td>7</td>
-<td>177.1561</td>
-<td>17.7156</td>
-<td>194.8717</td>
-</tr>
-<tr>
-<td>8</td>
-<td>194.8717</td>
-<td>19.4872</td>
-<td>214.3589</td>
-</tr>
-<tr>
-<td>9</td>
-<td>214.3589</td>
-<td>21.4359</td>
-<td>235.7948</td>
-</tr>
-<tr>
-<td>10</td>
-<td>235.7948</td>
-<td>23.5795</td>
-<td>259.3742</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Year</th>
+          <th>Principal ($)</th>
+          <th>Interest ($)</th>
+          <th>Total ($)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>100</td>
+          <td>10</td>
+          <td>110</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>110</td>
+          <td>11</td>
+          <td>121</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>121</td>
+          <td>12.1</td>
+          <td>133.1</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>133.1</td>
+          <td>13.31</td>
+          <td>146.41</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>146.41</td>
+          <td>14.641</td>
+          <td>161.051</td>
+      </tr>
+      <tr>
+          <td>6</td>
+          <td>161.051</td>
+          <td>16.1051</td>
+          <td>177.1561</td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>177.1561</td>
+          <td>17.7156</td>
+          <td>194.8717</td>
+      </tr>
+      <tr>
+          <td>8</td>
+          <td>194.8717</td>
+          <td>19.4872</td>
+          <td>214.3589</td>
+      </tr>
+      <tr>
+          <td>9</td>
+          <td>214.3589</td>
+          <td>21.4359</td>
+          <td>235.7948</td>
+      </tr>
+      <tr>
+          <td>10</td>
+          <td>235.7948</td>
+          <td>23.5795</td>
+          <td>259.3742</td>
+      </tr>
+  </tbody>
 </table>
-<h2 id="the-magic-of-compound-interest">The magic of Compound Interest</h2>
-<blockquote>
+<h2 id="the-magic-of-compound-interest" class="relative group">The magic of Compound Interest <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#the-magic-of-compound-interest" aria-label="Anchor">#</a></span></h2><blockquote>
 <p>&ldquo;Compound interest is the eighth wonder of the world. He who understands it, earns it&hellip; he who doesn&rsquo;t&hellip; pays it.&rdquo; - Albert Einstein</p>
 </blockquote>
 <p>Looking at the numbers in the table above, you might realize the magic of compound interest: starting with $100 in principal, earning 10% interests per year, by the beginning of the 9th year, you have doubled your money. If this doesn&rsquo;t amaze you, let&rsquo;s explore two more calculations to help you fully appreciate it.</p>
-<h3 id="compounding-for-another-10-years">Compounding for Another 10 Years</h3>
-<p>Let’s extend the calculations from the table above for another 10 years.</p>
+<h3 id="compounding-for-another-10-years" class="relative group">Compounding for Another 10 Years <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#compounding-for-another-10-years" aria-label="Anchor">#</a></span></h3><p>Let’s extend the calculations from the table above for another 10 years.</p>
 <table>
-<thead>
-<tr>
-<th>Year</th>
-<th>Principal ($)</th>
-<th>Interest ($)</th>
-<th>Total ($)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>11</td>
-<td>259.3742</td>
-<td>25.9374</td>
-<td>285.3117</td>
-</tr>
-<tr>
-<td>12</td>
-<td>285.3117</td>
-<td>28.5312</td>
-<td>313.8428</td>
-</tr>
-<tr>
-<td>13</td>
-<td>313.8428</td>
-<td>31.3843</td>
-<td>345.2271</td>
-</tr>
-<tr>
-<td>14</td>
-<td>345.2271</td>
-<td>34.5227</td>
-<td>379.7498</td>
-</tr>
-<tr>
-<td>15</td>
-<td>379.7498</td>
-<td>37.9750</td>
-<td>417.7248</td>
-</tr>
-<tr>
-<td>16</td>
-<td>417.7248</td>
-<td>41.7725</td>
-<td>459.4973</td>
-</tr>
-<tr>
-<td>17</td>
-<td>459.4973</td>
-<td>45.9497</td>
-<td>505.4470</td>
-</tr>
-<tr>
-<td>18</td>
-<td>505.4470</td>
-<td>50.5447</td>
-<td>555.9917</td>
-</tr>
-<tr>
-<td>19</td>
-<td>555.9917</td>
-<td>55.5992</td>
-<td>611.5909</td>
-</tr>
-<tr>
-<td>20</td>
-<td>611.5909</td>
-<td>61.1591</td>
-<td>672.7500</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Year</th>
+          <th>Principal ($)</th>
+          <th>Interest ($)</th>
+          <th>Total ($)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>11</td>
+          <td>259.3742</td>
+          <td>25.9374</td>
+          <td>285.3117</td>
+      </tr>
+      <tr>
+          <td>12</td>
+          <td>285.3117</td>
+          <td>28.5312</td>
+          <td>313.8428</td>
+      </tr>
+      <tr>
+          <td>13</td>
+          <td>313.8428</td>
+          <td>31.3843</td>
+          <td>345.2271</td>
+      </tr>
+      <tr>
+          <td>14</td>
+          <td>345.2271</td>
+          <td>34.5227</td>
+          <td>379.7498</td>
+      </tr>
+      <tr>
+          <td>15</td>
+          <td>379.7498</td>
+          <td>37.9750</td>
+          <td>417.7248</td>
+      </tr>
+      <tr>
+          <td>16</td>
+          <td>417.7248</td>
+          <td>41.7725</td>
+          <td>459.4973</td>
+      </tr>
+      <tr>
+          <td>17</td>
+          <td>459.4973</td>
+          <td>45.9497</td>
+          <td>505.4470</td>
+      </tr>
+      <tr>
+          <td>18</td>
+          <td>505.4470</td>
+          <td>50.5447</td>
+          <td>555.9917</td>
+      </tr>
+      <tr>
+          <td>19</td>
+          <td>555.9917</td>
+          <td>55.5992</td>
+          <td>611.5909</td>
+      </tr>
+      <tr>
+          <td>20</td>
+          <td>611.5909</td>
+          <td>61.1591</td>
+          <td>672.7500</td>
+      </tr>
+  </tbody>
 </table>
 <p>As you can see, at the beginning of the 10th year, your principal is around $236. By the start of the 20th year, it has grown (non-linearly) to approximately $612. Continuing the calculations, by the 26th year, you will receive an interest payment of $108.35, the first time your interest payment exceeds your initial $100 principal! The longer you continue the calculations, the wilder the numbers become.</p>
-<h3 id="the-case-of-non-compounding">The Case of Non-Compounding</h3>
-<p>Now, let&rsquo;s consider the non-compounding case, where the annual interest payment is not added back to the principal. In this scenario, you receive interest based on the initial $100 principal, meaning you earn $10 in interest each year. After 10 years, your total amount would be $200 ($100 + $100 x 0.1 x 10). While this is not too far from the compounded case, where your total would be around $259, the gap widens significantly after another 10 years. In the non-compounding case, you would have $300 ($100 + $100 x 0.1 x 20), while in the compounding case, you would have approximately $673. As before, the longer you continue the calculations, the more drastic the gap becomes.</p>
-<h3 id="exponential-explosion">Exponential Explosion</h3>
-<p>The snowball effect of compound interest described above is known as <a href="https://en.wikipedia.org/wiki/Exponential_growth">exponential growth</a>, or more dramatically, <a href="https://www.stewartmath.com/dp_fops_samples/dp7.html">exponential explosion</a>. This is the essence of the magic of compound interest — over time, the amount of your money grows exponentially to a &ldquo;formidable&rdquo; sum (though not so dramatic in the example above, largely due to the small $100 principal).</p>
+<h3 id="the-case-of-non-compounding" class="relative group">The Case of Non-Compounding <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#the-case-of-non-compounding" aria-label="Anchor">#</a></span></h3><p>Now, let&rsquo;s consider the non-compounding case, where the annual interest payment is not added back to the principal. In this scenario, you receive interest based on the initial $100 principal, meaning you earn $10 in interest each year. After 10 years, your total amount would be $200 ($100 + $100 x 0.1 x 10). While this is not too far from the compounded case, where your total would be around $259, the gap widens significantly after another 10 years. In the non-compounding case, you would have $300 ($100 + $100 x 0.1 x 20), while in the compounding case, you would have approximately $673. As before, the longer you continue the calculations, the more drastic the gap becomes.</p>
+<h3 id="exponential-explosion" class="relative group">Exponential Explosion <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#exponential-explosion" aria-label="Anchor">#</a></span></h3><p>The snowball effect of compound interest described above is known as <a href="https://en.wikipedia.org/wiki/Exponential_growth" target="_blank" rel="noreferrer">exponential growth</a>, or more dramatically, <a href="https://www.stewartmath.com/dp_fops_samples/dp7.html" target="_blank" rel="noreferrer">exponential explosion</a>. This is the essence of the magic of compound interest — over time, the amount of your money grows exponentially to a &ldquo;formidable&rdquo; sum (though not so dramatic in the example above, largely due to the small $100 principal).</p>
 <p>If we plot the results of compounding versus non-compounding over 50 years, the &ldquo;explosion&rdquo; or magic of compound interest becomes much more evident. After 50 years, your initial $100 principal grows to around $11,739! And remember, this 117-fold growth comes from a &ldquo;modest&rdquo; 10% compound interest rate. Take a moment to think about it: a 117-times increase from just 0.1, and you will start to appreciate the magic of compound interest. By comparison, in the non-compounding case, it would take 1,164 years to grow to $11,739!</p>
-<p><img src="/post/the-double-edged-sword-of-compounding/compound.png"></p>
-<p>For what it&rsquo;s worth, the non-compounding case is also known as <a href="https://en.wikipedia.org/wiki/Interest#Simple_interest">simple interest</a>.</p>
-<h2 id="why-care-about-compound-interest">Why Care About Compound Interest</h2>
-<p>Now that we understand compound interest, why is it important to investing? The answer is simple: it measures your return on investment. If you are familiar with investing, you have likely heard terms like &ldquo;the annualized rate of return is X% over the past Y years&rdquo;. This &ldquo;annualized rate of return&rdquo; is similar (but not identical) to the compound interest rate we discussed earlier. As we have seen, compound interest has the magic to grow your money into a formidable sum over time.</p>
-<h3 id="misconceptions">Misconceptions</h3>
-<p>While the &ldquo;annualized rate of return&rdquo; is similar to the compound interest rate in our example, there is a crucial difference that often leads to misconceptions. In our compound interest example, the 10% interest rate is fixed every year. However, in real-world investing, the rate is almost never fixed. For instance, an annualized rate of return of 10% does NOT mean you are guaranteed to earn 10% each year! Instead, the annualized rate of return is calculated by comparing the starting and ending values of an investment over a given time period and determining the <em>equivalent</em> compound interest rate. If you are interested in how it is computated, you can play with it using <a href="https://www.buyupside.com/calculators/annualizedreturn.htm">this calculator</a>.</p>
+<p>
+
+
+
+
+
+<figure>
+    
+    
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="mx-auto my-0 rounded-md"
+      
+    >
+      
+      
+      
+      
+        <source
+          
+            
+              srcset="https://jianchao-li.github.io/post/the-double-edged-sword-of-compounding/compound_hu_c5a73ec90d5474b6.webp"
+            
+          
+          sizes="100vw"
+          type="image/webp"
+        />
+      
+      <img
+        width="640"
+        height="480"
+        class="mx-auto my-0 rounded-md"
+        
+        loading="lazy" decoding="async"
+        
+          src="https://jianchao-li.github.io/post/the-double-edged-sword-of-compounding/compound.png"
+        
+      />
+    </picture>
+  
+
+
+</figure>
+</p>
+<p>For what it&rsquo;s worth, the non-compounding case is also known as <a href="https://en.wikipedia.org/wiki/Interest#Simple_interest" target="_blank" rel="noreferrer">simple interest</a>.</p>
+<h2 id="why-care-about-compound-interest" class="relative group">Why Care About Compound Interest <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#why-care-about-compound-interest" aria-label="Anchor">#</a></span></h2><p>Now that we understand compound interest, why is it important to investing? The answer is simple: it measures your return on investment. If you are familiar with investing, you have likely heard terms like &ldquo;the annualized rate of return is X% over the past Y years&rdquo;. This &ldquo;annualized rate of return&rdquo; is similar (but not identical) to the compound interest rate we discussed earlier. As we have seen, compound interest has the magic to grow your money into a formidable sum over time.</p>
+<h3 id="misconceptions" class="relative group">Misconceptions <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#misconceptions" aria-label="Anchor">#</a></span></h3><p>While the &ldquo;annualized rate of return&rdquo; is similar to the compound interest rate in our example, there is a crucial difference that often leads to misconceptions. In our compound interest example, the 10% interest rate is fixed every year. However, in real-world investing, the rate is almost never fixed. For instance, an annualized rate of return of 10% does NOT mean you are guaranteed to earn 10% each year! Instead, the annualized rate of return is calculated by comparing the starting and ending values of an investment over a given time period and determining the <em>equivalent</em> compound interest rate. If you are interested in how it is computated, you can play with it using <a href="https://www.buyupside.com/calculators/annualizedreturn.htm" target="_blank" rel="noreferrer">this calculator</a>.</p>
 <p>It is crucial for all investors to dispel this misconception and set realistic expectations.</p>
-<h2 id="why-compounding-is-a-double-edged-sword">Why Compounding Is a Double-Edged Sword</h2>
-<p>From the discussions above, I hope you now appreciate the magic of compounding in investing. However, it is equally important to understand why compounding can become a double-edged sword. The reason is simple: while compounding can work wonders, it can also work against you.</p>
-<p>In the real world, investing is not free. While the market might generate an annualized return of 10%, you don&rsquo;t get to keep all of it. A portion is deducted as investment costs. A common example of such costs is the <a href="https://en.wikipedia.org/wiki/Total_expense_ratio">total expense ratio</a> (TER) of investment funds, where you pay a percentage of your money to the fund providers each year. When it comes to costs, compounding works against you.</p>
+<h2 id="why-compounding-is-a-double-edged-sword" class="relative group">Why Compounding Is a Double-Edged Sword <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#why-compounding-is-a-double-edged-sword" aria-label="Anchor">#</a></span></h2><p>From the discussions above, I hope you now appreciate the magic of compounding in investing. However, it is equally important to understand why compounding can become a double-edged sword. The reason is simple: while compounding can work wonders, it can also work against you.</p>
+<p>In the real world, investing is not free. While the market might generate an annualized return of 10%, you don&rsquo;t get to keep all of it. A portion is deducted as investment costs. A common example of such costs is the <a href="https://en.wikipedia.org/wiki/Total_expense_ratio" target="_blank" rel="noreferrer">total expense ratio</a> (TER) of investment funds, where you pay a percentage of your money to the fund providers each year. When it comes to costs, compounding works against you.</p>
 <p>Let’s revisit the compound interest example of 10% and consider a principal of $10,000. Suppose the TER is 1%. After one year, your gross amount would grow to $11,000 ($10,000 x 10%). However, you would pay $100 ($10,000 x 1%) in fees to the fund providers, leaving you with a net amount of $10,900. Effectively, your net compound interest rate is 9%. This leads to the following simple and clean formula:</p>
 <p>Net annualized rate of return = Gross annualized rate of return - Total expense ratio</p>
 <p>or</p>
 <p>Investment return rate = Market return rate - Total expense ratio</p>
 <p>Now, let’s perform similar calculations to compare a 10% market return with a 9% investment return. Specifically, we will calculate the total amount of money (with rounding errors) at 10-year intervals for both cases.</p>
 <table>
-<thead>
-<tr>
-<th>Years</th>
-<th>Market Value (10%, $)</th>
-<th>Investment Value (9%, $)</th>
-<th>Percentage of Market Value Kept by Investment (%)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>10</td>
-<td>25,937.42</td>
-<td>23,673.64</td>
-<td>91.27</td>
-</tr>
-<tr>
-<td>20</td>
-<td>67,275.00</td>
-<td>56,044.11</td>
-<td>83.31</td>
-</tr>
-<tr>
-<td>30</td>
-<td>174,494.02</td>
-<td>132,676.78</td>
-<td>76.04</td>
-</tr>
-<tr>
-<td>40</td>
-<td>452,592.56</td>
-<td>314,094.20</td>
-<td>69.40</td>
-</tr>
-<tr>
-<td>50</td>
-<td>1,173,908.53</td>
-<td>743,575.20</td>
-<td>63.34</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Years</th>
+          <th>Market Value (10%, $)</th>
+          <th>Investment Value (9%, $)</th>
+          <th>Percentage of Market Value Kept by Investment (%)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>10</td>
+          <td>25,937.42</td>
+          <td>23,673.64</td>
+          <td>91.27</td>
+      </tr>
+      <tr>
+          <td>20</td>
+          <td>67,275.00</td>
+          <td>56,044.11</td>
+          <td>83.31</td>
+      </tr>
+      <tr>
+          <td>30</td>
+          <td>174,494.02</td>
+          <td>132,676.78</td>
+          <td>76.04</td>
+      </tr>
+      <tr>
+          <td>40</td>
+          <td>452,592.56</td>
+          <td>314,094.20</td>
+          <td>69.40</td>
+      </tr>
+      <tr>
+          <td>50</td>
+          <td>1,173,908.53</td>
+          <td>743,575.20</td>
+          <td>63.34</td>
+      </tr>
+  </tbody>
 </table>
 <p>From the table, it is clear that over time, you retain less and less of the market value. After 10 years, you keep over 91%, but after 50 years, this drops to just over 63%. In other words, after 10 years, you lose around 9% of the market value, and after 50 years, the loss grows to 37%. Where does this 37% go? You guessed it - it&rsquo;s consumed by fees.</p>
 <p>Now, consider this: the 37% loss stems from a seemingly &ldquo;small&rdquo; 1% annual fee. To better understand the impact, let’s look at the absolute dollar amounts lost due to these fees over time.</p>
 <table>
-<thead>
-<tr>
-<th>Years</th>
-<th>Market Value (10%, $)</th>
-<th>Investment Value (9%, $)</th>
-<th>Value Lost to Fees ($)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>10</td>
-<td>25,937.42</td>
-<td>23,673.64</td>
-<td>2,263.79</td>
-</tr>
-<tr>
-<td>20</td>
-<td>67,275.00</td>
-<td>56,044.11</td>
-<td>11,230.89</td>
-</tr>
-<tr>
-<td>30</td>
-<td>174,494.02</td>
-<td>132,676.78</td>
-<td>41,817.24</td>
-</tr>
-<tr>
-<td>40</td>
-<td>452,592.56</td>
-<td>314,094.20</td>
-<td>138,498.36</td>
-</tr>
-<tr>
-<td>50</td>
-<td>1,173,908.53</td>
-<td>743,575.20</td>
-<td>430,333.32</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Years</th>
+          <th>Market Value (10%, $)</th>
+          <th>Investment Value (9%, $)</th>
+          <th>Value Lost to Fees ($)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>10</td>
+          <td>25,937.42</td>
+          <td>23,673.64</td>
+          <td>2,263.79</td>
+      </tr>
+      <tr>
+          <td>20</td>
+          <td>67,275.00</td>
+          <td>56,044.11</td>
+          <td>11,230.89</td>
+      </tr>
+      <tr>
+          <td>30</td>
+          <td>174,494.02</td>
+          <td>132,676.78</td>
+          <td>41,817.24</td>
+      </tr>
+      <tr>
+          <td>40</td>
+          <td>452,592.56</td>
+          <td>314,094.20</td>
+          <td>138,498.36</td>
+      </tr>
+      <tr>
+          <td>50</td>
+          <td>1,173,908.53</td>
+          <td>743,575.20</td>
+          <td>430,333.32</td>
+      </tr>
+  </tbody>
 </table>
 <p>As shown, over 50 years, you lose a staggering $430,333 to fees — more than 43 times your initial $10,000 principal! Once again, this immense loss results from a seemingly &ldquo;small&rdquo; 1% annual fee.</p>
 <p>By now, it should be clear: costs also compound, and over time, they can amount to a formidable loss. This is why compounding can be a double-edged sword.</p>
-<h3 id="caveat-1-losses-are-not-equal-to-fees">Caveat 1: Losses Are Not Equal to Fees</h3>
-<p>It is important to clarify that while the loss is caused by fees, the loss itself is not equal to the fees you pay. In the above example, although you lose $430,333 over 50 years, this doesn&rsquo;t mean the fund providers receive fees totaling this amount. They actually collect a much smaller sum, around $81,508. This difference arises because the fees you pay stop compounding along with the rest of your investment. If those fees were not deducted, they would have compounded as well, resulting in a significantly higher total value.</p>
-<h3 id="caveat-2-variable-actual-returns">Caveat 2: Variable Actual Returns</h3>
-<p>It is important to note that, for simplicity, we use the annualized rate of return similar to a fixed compound interest rate to illustrate how costs impact returns. However, the math demonstrating the effect of costs remains valid even when applied to variable actual returns.</p>
-<p>Let’s consider a simple example where the market drops by 10% in the first year and grows by 20% in the second year. This results in an annualized rate of return of approximately 3.92% over two years (you can verify it using <a href="https://www.buyupside.com/calculators/annualizedreturn.htm">this calculator</a>). Assuming a TER of 1%, we will calculate the end value using both the variable actual returns and the annualized rate of return in the following tables.</p>
-<h4 id="using-variable-actual-returns">Using Variable Actual Returns</h4>
-<table>
-<thead>
-<tr>
-<th>Year</th>
-<th>Market Value ($)</th>
-<th>Investment Value ($)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>900</td>
-<td>890</td>
-</tr>
-<tr>
-<td>2</td>
-<td>1,068</td>
-<td>1,059.1</td>
-</tr>
-</tbody>
+<h3 id="caveat-1-losses-are-not-equal-to-fees" class="relative group">Caveat 1: Losses Are Not Equal to Fees <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#caveat-1-losses-are-not-equal-to-fees" aria-label="Anchor">#</a></span></h3><p>It is important to clarify that while the loss is caused by fees, the loss itself is not equal to the fees you pay. In the above example, although you lose $430,333 over 50 years, this doesn&rsquo;t mean the fund providers receive fees totaling this amount. They actually collect a much smaller sum, around $81,508. This difference arises because the fees you pay stop compounding along with the rest of your investment. If those fees were not deducted, they would have compounded as well, resulting in a significantly higher total value.</p>
+<h3 id="caveat-2-variable-actual-returns" class="relative group">Caveat 2: Variable Actual Returns <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#caveat-2-variable-actual-returns" aria-label="Anchor">#</a></span></h3><p>It is important to note that, for simplicity, we use the annualized rate of return similar to a fixed compound interest rate to illustrate how costs impact returns. However, the math demonstrating the effect of costs remains valid even when applied to variable actual returns.</p>
+<p>Let’s consider a simple example where the market drops by 10% in the first year and grows by 20% in the second year. This results in an annualized rate of return of approximately 3.92% over two years (you can verify it using <a href="https://www.buyupside.com/calculators/annualizedreturn.htm" target="_blank" rel="noreferrer">this calculator</a>). Assuming a TER of 1%, we will calculate the end value using both the variable actual returns and the annualized rate of return in the following tables.</p>
+<h4 id="using-variable-actual-returns" class="relative group">Using Variable Actual Returns <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#using-variable-actual-returns" aria-label="Anchor">#</a></span></h4><table>
+  <thead>
+      <tr>
+          <th>Year</th>
+          <th>Market Value ($)</th>
+          <th>Investment Value ($)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>900</td>
+          <td>890</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>1,068</td>
+          <td>1,059.1</td>
+      </tr>
+  </tbody>
 </table>
 <ul>
 <li>In the first year, the market value drops by 10% ($1000 x (1 - 10%) = $900). And deducting a 1% fee ($1000 x 1% = $10), the investment value is $890 ($900 - $10).</li>
 <li>In the second year, the market grows by 20% ($890 x (1 + 20%) = $1,068). And deducting a 1% fee on the initial investment value ($890 x 1% = $8.9) , the final investment value is $1,059.1 ($1,068 - $8.9).</li>
 </ul>
-<h4 id="using-annualized-rate-of-return">Using Annualized Rate of Return</h4>
-<table>
-<thead>
-<tr>
-<th>Year</th>
-<th>Market Value ($)</th>
-<th>Investment Value ($)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>1039.2</td>
-<td>1029.2</td>
-</tr>
-<tr>
-<td>2</td>
-<td>1069.54</td>
-<td>1059.25</td>
-</tr>
-</tbody>
+<h4 id="using-annualized-rate-of-return" class="relative group">Using Annualized Rate of Return <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#using-annualized-rate-of-return" aria-label="Anchor">#</a></span></h4><table>
+  <thead>
+      <tr>
+          <th>Year</th>
+          <th>Market Value ($)</th>
+          <th>Investment Value ($)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>1039.2</td>
+          <td>1029.2</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>1069.54</td>
+          <td>1059.25</td>
+      </tr>
+  </tbody>
 </table>
 <ul>
 <li>Here, we apply the annualized rate of return (3.92%), reduced by the TER of 1%, resulting in a net return of 2.92%. The calculations follow the same logic as the fixed compound interest example.</li>
 </ul>
 <p>As shown in the tables above, the final values are very similar (up to rounding differences), regardless of whether we use the variable actual returns and the fixed annualized rate of return. This demonstrates that using the annualized rate still accurately reflects the impact of costs while simplifying the calculations.</p>
-<h3 id="caveat-3-costs-based-on-final-value">Caveat 3: Costs Based on Final Value</h3>
-<p>In our examples, costs are calculated based on the initial value at the beginning of each year, which allows for the clean formulas presented above. However, if costs are instead calculated based on the final value at the end of each year, the results will differ, though the impact of costs would still be similar.</p>
+<h3 id="caveat-3-costs-based-on-final-value" class="relative group">Caveat 3: Costs Based on Final Value <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#caveat-3-costs-based-on-final-value" aria-label="Anchor">#</a></span></h3><p>In our examples, costs are calculated based on the initial value at the beginning of each year, which allows for the clean formulas presented above. However, if costs are instead calculated based on the final value at the end of each year, the results will differ, though the impact of costs would still be similar.</p>
 <p>Let&rsquo;s revisit the example with fixed 10% annual rate of return and an initial principal of $10,000. This time, a 1% cost is deducted at the end of the year. The numbers would look as follows.</p>
 <table>
-<thead>
-<tr>
-<th>Years</th>
-<th>Market Value ($)</th>
-<th>Investment Value ($)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>10</td>
-<td>23,694.28</td>
-<td>23,457.34</td>
-</tr>
-<tr>
-<td>20</td>
-<td>55,580.49</td>
-<td>55,024.69</td>
-</tr>
-<tr>
-<td>30</td>
-<td>130,377.06</td>
-<td>129,073.29</td>
-</tr>
-<tr>
-<td>40</td>
-<td>305,829.94</td>
-<td>302,771.64</td>
-</tr>
-<tr>
-<td>50</td>
-<td>717,395.74</td>
-<td>710,221.78</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Years</th>
+          <th>Market Value ($)</th>
+          <th>Investment Value ($)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>10</td>
+          <td>23,694.28</td>
+          <td>23,457.34</td>
+      </tr>
+      <tr>
+          <td>20</td>
+          <td>55,580.49</td>
+          <td>55,024.69</td>
+      </tr>
+      <tr>
+          <td>30</td>
+          <td>130,377.06</td>
+          <td>129,073.29</td>
+      </tr>
+      <tr>
+          <td>40</td>
+          <td>305,829.94</td>
+          <td>302,771.64</td>
+      </tr>
+      <tr>
+          <td>50</td>
+          <td>717,395.74</td>
+          <td>710,221.78</td>
+      </tr>
+  </tbody>
 </table>
-<p>In this scenario, the net rate of return drops to approximately 8.9% (you can verify it using <a href="https://www.buyupside.com/calculators/annualizedreturn.htm">this calculator</a>), which is slightly lower than (but similar to) the 9% achieved when costs are calculated based on the initial value.</p>
-<h3 id="how-to-avoid-the-double-edged-sword">How to Avoid the Double-Edged Sword</h3>
-<p>The solution is simple: minimize investment costs, or at the very least, reduce them to a level you can accept. For instance, if the fund cost is reduced to a TER of 0.03% (and such low-cost funds do exist), you would still be able to retain over 98% of the market value after 50 years!</p>
+<p>In this scenario, the net rate of return drops to approximately 8.9% (you can verify it using <a href="https://www.buyupside.com/calculators/annualizedreturn.htm" target="_blank" rel="noreferrer">this calculator</a>), which is slightly lower than (but similar to) the 9% achieved when costs are calculated based on the initial value.</p>
+<h3 id="how-to-avoid-the-double-edged-sword" class="relative group">How to Avoid the Double-Edged Sword <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#how-to-avoid-the-double-edged-sword" aria-label="Anchor">#</a></span></h3><p>The solution is simple: minimize investment costs, or at the very least, reduce them to a level you can accept. For instance, if the fund cost is reduced to a TER of 0.03% (and such low-cost funds do exist), you would still be able to retain over 98% of the market value after 50 years!</p>
 <table>
-<thead>
-<tr>
-<th>Years</th>
-<th>Market Value (10%, $)</th>
-<th>Investment Value (9.97%, $)</th>
-<th>Percentage of Market Value Kept by Investment (%)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>10</td>
-<td>25,937.42</td>
-<td>25,866.77</td>
-<td>99.73</td>
-</tr>
-<tr>
-<td>20</td>
-<td>67,275.00</td>
-<td>66,908.99</td>
-<td>99.46</td>
-</tr>
-<tr>
-<td>30</td>
-<td>174,494.02</td>
-<td>173,071.98</td>
-<td>99.19</td>
-</tr>
-<tr>
-<td>40</td>
-<td>452,592.56</td>
-<td>447,681.35</td>
-<td>98.91</td>
-</tr>
-<tr>
-<td>50</td>
-<td>1,173,908.53</td>
-<td>1,158,007.18</td>
-<td>98.65</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Years</th>
+          <th>Market Value (10%, $)</th>
+          <th>Investment Value (9.97%, $)</th>
+          <th>Percentage of Market Value Kept by Investment (%)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>10</td>
+          <td>25,937.42</td>
+          <td>25,866.77</td>
+          <td>99.73</td>
+      </tr>
+      <tr>
+          <td>20</td>
+          <td>67,275.00</td>
+          <td>66,908.99</td>
+          <td>99.46</td>
+      </tr>
+      <tr>
+          <td>30</td>
+          <td>174,494.02</td>
+          <td>173,071.98</td>
+          <td>99.19</td>
+      </tr>
+      <tr>
+          <td>40</td>
+          <td>452,592.56</td>
+          <td>447,681.35</td>
+          <td>98.91</td>
+      </tr>
+      <tr>
+          <td>50</td>
+          <td>1,173,908.53</td>
+          <td>1,158,007.18</td>
+          <td>98.65</td>
+      </tr>
+  </tbody>
 </table>
-<h3 id="is-my-fund-cost-high">Is My Fund Cost High?</h3>
-<p>I have seen people ask this question when evaluating whether to select a fund: &ldquo;Is this X% fund cost high?&rdquo; To answer this question, you can simply repeat the calculations I provided earlier. Determine the percentage of money that you would lose to fees over your investment horizon and decide whether that percentage is acceptable to you. If you find it unacceptable, the fund cost might be considered high, and you may want to consider looking for one with lower fees.</p>
-<h2 id="summary">Summary</h2>
-<p><a href="https://en.wikipedia.org/wiki/John_C._Bogle">John C. Bogle</a> aptly summarized the concepts discussed in this post as &ldquo;The magic of compounding investment returns&rdquo; and &ldquo;The tyranny of compounding investment costs&rdquo; in his book, <a href="https://en.wikipedia.org/wiki/The_Little_Book_of_Common_Sense_Investing">The Little Book of Common Sense Investing</a>. This post is heavily inspired by Mr. Bogle&rsquo;s insights.</p>
-<h2 id="disclaimers">Disclaimers</h2>
-<p>I am not a professional investor or financial advisor, nor do I claim to be. You are solely responsible for your financial decisions. I do not accept responsibility for any inaccuracies in this blog post. The content reflects my personal research and understanding and should not be interpreted as professional advice.</p>
+<h3 id="is-my-fund-cost-high" class="relative group">Is My Fund Cost High? <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#is-my-fund-cost-high" aria-label="Anchor">#</a></span></h3><p>I have seen people ask this question when evaluating whether to select a fund: &ldquo;Is this X% fund cost high?&rdquo; To answer this question, you can simply repeat the calculations I provided earlier. Determine the percentage of money that you would lose to fees over your investment horizon and decide whether that percentage is acceptable to you. If you find it unacceptable, the fund cost might be considered high, and you may want to consider looking for one with lower fees.</p>
+<h2 id="summary" class="relative group">Summary <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#summary" aria-label="Anchor">#</a></span></h2><p><a href="https://en.wikipedia.org/wiki/John_C._Bogle" target="_blank" rel="noreferrer">John C. Bogle</a> aptly summarized the concepts discussed in this post as &ldquo;The magic of compounding investment returns&rdquo; and &ldquo;The tyranny of compounding investment costs&rdquo; in his book, <a href="https://en.wikipedia.org/wiki/The_Little_Book_of_Common_Sense_Investing" target="_blank" rel="noreferrer">The Little Book of Common Sense Investing</a>. This post is heavily inspired by Mr. Bogle&rsquo;s insights.</p>
+<h2 id="disclaimers" class="relative group">Disclaimers <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#disclaimers" aria-label="Anchor">#</a></span></h2><p>I am not a professional investor or financial advisor, nor do I claim to be. You are solely responsible for your financial decisions. I do not accept responsibility for any inaccuracies in this blog post. The content reflects my personal research and understanding and should not be interpreted as professional advice.</p>
 
-    </div>
-
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
     
-
-
-
+    
     
       
+      
+        
+        
 
 
 
@@ -960,182 +889,262 @@
 
 
   
-
-
-
-
-
-
-
+    <picture
+      class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+      
+    >
       
       
-    
-
-    
-
-    
-
-
-  </div>
-</article>
-
       
-
-    
-    
-
-    
-    
-    
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
-
       
-
-      
+      <img
+        width="1078"
+        height="1079"
+        class="!mb-0 !mt-0 me-4 w-24 h-auto rounded-full"
+        alt="Jianchao Li"
+        loading="lazy" decoding="async"
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+          src="https://jianchao-li.github.io/img/author_hu_d9d9723b649bf296.jpg" srcset="https://jianchao-li.github.io/img/author_hu_db5460d9544fb39e.jpg 330w,https://jianchao-li.github.io/img/author_hu_d9d9723b649bf296.jpg 660w
+          
+            ,https://jianchao-li.github.io/img/author_hu_b9631b132ce23f71.jpg 1024w
+          
+          
+            ,https://jianchao-li.github.io/img/author.jpg 1078w
+          "
+          sizes="100vw"
         
-      
+      />
+    </picture>
+  
+
 
       
+    
+    <div class="place-self-center">
       
-    
-
-    
-    
-
-    
-    
-    
-
-    
-    
-    <script>hljs.initHighlightingOnLoad();</script>
-    
-
-    
-    
-    <script>
-      const search_index_filename = "/index.json";
-      const i18n = {
-        'placeholder': "Search...",
-        'results': "results found",
-        'no_results': "No results found"
-      };
-      const content_type = {
-        'post': "Posts",
-        'project': "Projects",
-        'publication' : "Publications",
-        'talk' : "Talks"
-        };
-    </script>
-    
-
-    
-    
-
-    
-    
-    <script id="search-hit-fuse-template" type="text/x-template">
-      <div class="search-hit" id="summary-{{key}}">
-      <div class="search-hit-content">
-        <div class="search-hit-name">
-          <a href="{{relpermalink}}">{{title}}</a>
-          <div class="article-metadata search-hit-type">{{type}}</div>
-          <p class="search-hit-description">{{snippet}}</p>
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
         </div>
-      </div>
-      </div>
-    </script>
-    
-
-    
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
-    
-
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Jianchao Li
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">I build intelligent systems with deep learning and computer vision.</div>
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
     
       
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="https://github.com/jianchao-li"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></a
+        >
+      
     
+      
+        <a
+          class="px-1 transition-transform hover:scale-125 hover:text-primary-700 dark:hover:text-primary-400"
+          style="will-change:transform;"
+          href="https://www.linkedin.com/in/jianchao-li/"
+          target="_blank"
+          aria-label="Linkedin"
+          rel="me noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+</span></a
+        >
+      
     
-    
-    
-    <script src="/js/academic.min.7720ca23a3e05277ade871a05f8331cb.js"></script>
-
-    
-
-
-
-
-
-
-  
-  <div class="container">
-    <footer class="site-footer">
-  
-
-  <p class="powered-by">
-    © 2025 &middot; 
-
-    Powered by the
-    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
-    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
-
-    
-    <span class="float-right" aria-hidden="true">
-      <a href="#" id="back_to_top">
-        <span class="button_icon">
-          <i class="fas fa-chevron-up fa-2x"></i>
-        </span>
-      </a>
-    </span>
-    
-  </p>
-</footer>
-
   </div>
-  
 
+</div>
+    </div>
+  </div>
+
+
+      
   
-<div id="modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Cite</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <pre><code class="tex hljs"></code></pre>
-      </div>
-      <div class="modal-footer">
-        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
-          <i class="fas fa-copy"></i> Copy
-        </a>
-        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
-          <i class="fas fa-download"></i> Download
-        </a>
-        <div id="modal-error"></div>
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://jianchao-li.github.io/post/the-double-edged-sword-of-compounding/&amp;title=The%20Double-Edged%20Sword%20of%20Compounding"
+          title="Share on LinkedIn"
+          aria-label="Share on LinkedIn"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+</span></a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://twitter.com/intent/tweet/?url=https://jianchao-li.github.io/post/the-double-edged-sword-of-compounding/&amp;text=The%20Double-Edged%20Sword%20of%20Compounding"
+          title="Tweet on Twitter"
+          aria-label="Tweet on Twitter"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+</span></a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://jianchao-li.github.io/post/the-double-edged-sword-of-compounding/&amp;quote=The%20Double-Edged%20Sword%20of%20Compounding"
+          title="Share on Facebook"
+          aria-label="Share on Facebook"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+</span></a
+        >
+      
+    
+  </section>
+
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="https://jianchao-li.github.io/post/interpret-pytorch-models-with-captum/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Interpret PyTorch Models with Captum</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2020-02-29 10:49:18 &#43;0800 &#43;0800">29 February 2020</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+        </span>
       </div>
     </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+      </main>
+      
+        <div
+          class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12"
+          id="to-top"
+          hidden="true"
+        >
+          <a
+            href="#the-top"
+            class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+            aria-label="Scroll to top"
+            title="Scroll to top"
+          >
+            &uarr;
+          </a>
+        </div>
+      <footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            &copy;
+            2026
+            Jianchao Li
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://jianchao-li.github.io/"
+>
+  <div
+    id="search-modal"
+    class="top-20 mx-auto flex min-h-0 w-full max-w-3xl flex-col rounded-md border border-neutral-200 bg-neutral shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex flex-none items-center justify-between px-2">
+      <form class="flex min-w-0 flex-auto items-center">
+        <div class="flex h-8 w-8 items-center justify-center text-neutral-400">
+          <span class="icon relative inline-block px-1 align-text-bottom"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="mx-1 flex h-12 flex-auto appearance-none bg-transparent focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex h-8 w-8 items-center justify-center text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        <span class="icon relative inline-block px-1 align-text-bottom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto overflow-auto px-2">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
   </div>
 </div>
 
-</body>
+    </div>
+  </body>
 </html>

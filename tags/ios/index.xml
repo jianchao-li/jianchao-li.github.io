@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ios on Jianchao Li</title>
+    <link>https://jianchao-li.github.io/tags/ios/</link>
+    <description>Recent content in Ios on Jianchao Li</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 16 Oct 2019 01:00:18 +0800</lastBuildDate>
+    <atom:link href="https://jianchao-li.github.io/tags/ios/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>From PyTorch to Core ML</title>
+      <link>https://jianchao-li.github.io/post/from-pytorch-to-coreml/</link>
+      <pubDate>Wed, 16 Oct 2019 01:00:18 +0800</pubDate>
+      <guid>https://jianchao-li.github.io/post/from-pytorch-to-coreml/</guid>
+      <description>I converted a PyTorch model to Core ML and ran it on an iPhone.</description>
+    </item>
+  </channel>
+</rss>
