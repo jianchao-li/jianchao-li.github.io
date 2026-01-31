@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Personal website for **Jianchao Li** hosted at https://jianchao-li.github.io.
 
 - **Static Site Generator**: Hugo v0.155.1
-- **Theme**: Congo (git submodule at `themes/congo`, stable branch)
+- **Theme**: Blowfish (git submodule at `themes/blowfish`, main branch)
 - **Color Scheme**: Ocean (blue tones)
 - **Deployment**: GitHub Pages via `public/` submodule
 
@@ -38,16 +38,17 @@ config/_default/           # Hugo configuration
 
 content/
 ├── _index.md              # Homepage
-├── about.md               # About page (experience, education)
+├── about/                 # About page (experience, education)
+│   └── index.md
 └── post/                  # Blog posts as page bundles
     └── [post-slug]/
         ├── index.md       # Post content with front matter
-        ├── thumb.jpg      # Thumbnail image
+        ├── featured.jpg   # Thumbnail image
         └── *.png          # Post images
 
 assets/img/author.jpg      # Profile picture
 static/                    # Favicon files
-themes/congo/              # Theme submodule (DO NOT modify)
+themes/blowfish/            # Theme submodule (DO NOT modify)
 public/                    # Built site submodule → jianchao-li.github.io
 ```
 
@@ -70,7 +71,7 @@ draft: false
 
 | Submodule | Branch | Purpose |
 |-----------|--------|---------|
-| themes/congo | stable | Hugo theme (upstream: jpanther/congo) |
+| themes/blowfish | main | Hugo theme (upstream: nunocoracao/blowfish) |
 | public | master | Deployment repo (jianchao-li.github.io) |
 
 After cloning, initialize submodules: `git submodule update --init --recursive`

@@ -5,7 +5,7 @@ Source repository for [jianchao-li.github.io](https://jianchao-li.github.io) - t
 ## Tech Stack
 
 - **Static Site Generator**: [Hugo](https://gohugo.io/) v0.155.1
-- **Theme**: [Congo](https://github.com/jpanther/congo)
+- **Theme**: [Blowfish](https://github.com/nunocoracao/blowfish)
 - **Deployment**: GitHub Pages
 
 ## Local Development
@@ -14,7 +14,7 @@ Source repository for [jianchao-li.github.io](https://jianchao-li.github.io) - t
 # Start development server
 ./view.sh
 # Or manually:
-hugo server --printI18nWarnings
+hugo server -D
 
 # Visit http://localhost:1313
 ```
@@ -44,13 +44,13 @@ git push origin master
 website-builder/
 ├── config/_default/     # Hugo configuration
 ├── content/
-│   ├── post/            # Blog posts
-│   └── publication/     # Academic publications
+│   ├── about/           # About page
+│   └── post/            # Blog posts
 ├── static/              # Static assets (favicon)
-├── themes/congo/        # Theme (git submodule)
+├── themes/blowfish/     # Theme (git submodule)
 └── public/              # Built site (git submodule → GitHub Pages)
 ```
 
 ## License
 
-Content is copyright Jianchao Li. The [Congo theme](https://github.com/jpanther/congo) is MIT licensed.
+Content is copyright Jianchao Li. The [Blowfish theme](https://github.com/nunocoracao/blowfish) is MIT licensed.
