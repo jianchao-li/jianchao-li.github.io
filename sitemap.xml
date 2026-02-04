@@ -1,48 +1,77 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-
   <url>
+    <loc>https://jianchao-li.github.io/tags/ai/</loc>
+    <lastmod>2026-02-04T10:00:00+01:00</lastmod>
+  </url><url>
     <loc>https://jianchao-li.github.io/</loc>
-    <lastmod>2025-01-31T00:00:00+00:00</lastmod>
-  </url>
-  <url>
+    <lastmod>2026-02-04T10:00:00+01:00</lastmod>
+  </url><url>
     <loc>https://jianchao-li.github.io/post/</loc>
-    <lastmod>2025-01-31T00:00:00+00:00</lastmod>
-  </url>
-  <url>
+    <lastmod>2026-02-04T10:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://jianchao-li.github.io/tags/productivity/</loc>
+    <lastmod>2026-02-04T10:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://jianchao-li.github.io/tags/software-engineering/</loc>
+    <lastmod>2026-02-04T10:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://jianchao-li.github.io/tags/</loc>
+    <lastmod>2026-02-04T10:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://jianchao-li.github.io/post/why-every-software-engineer-should-use-ai/</loc>
+    <lastmod>2026-02-04T10:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://jianchao-li.github.io/tags/finance/</loc>
+    <lastmod>2025-01-03T22:08:00+01:00</lastmod>
+  </url><url>
+    <loc>https://jianchao-li.github.io/tags/investing/</loc>
+    <lastmod>2025-01-03T22:08:00+01:00</lastmod>
+  </url><url>
     <loc>https://jianchao-li.github.io/post/the-double-edged-sword-of-compounding/</loc>
     <lastmod>2025-01-03T22:08:00+01:00</lastmod>
-  </url>
-  <url>
+  </url><url>
+    <loc>https://jianchao-li.github.io/tags/deep-learning/</loc>
+    <lastmod>2025-01-31T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://jianchao-li.github.io/post/interpret-pytorch-models-with-captum/</loc>
     <lastmod>2020-02-29T10:49:18+08:00</lastmod>
-  </url>
-  <url>
+  </url><url>
+    <loc>https://jianchao-li.github.io/tags/pytorch/</loc>
+    <lastmod>2025-01-31T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://jianchao-li.github.io/post/from-pytorch-to-coreml/</loc>
     <lastmod>2025-01-31T00:00:00+00:00</lastmod>
-  </url>
-  <url>
+  </url><url>
+    <loc>https://jianchao-li.github.io/tags/ios/</loc>
+    <lastmod>2025-01-31T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://jianchao-li.github.io/tags/computer-vision/</loc>
+    <lastmod>2025-01-31T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/</loc>
     <lastmod>2025-01-31T00:00:00+00:00</lastmod>
-  </url>
-  <url>
+  </url><url>
+    <loc>https://jianchao-li.github.io/tags/nlp/</loc>
+    <lastmod>2025-01-31T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://jianchao-li.github.io/post/killing-pytorch-multi-gpu-training-the-safe-way/</loc>
     <lastmod>2025-01-31T00:00:00+00:00</lastmod>
-  </url>
-  <url>
+  </url><url>
     <loc>https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/</loc>
     <lastmod>2025-01-31T00:00:00+00:00</lastmod>
-  </url>
-  <url>
+  </url><url>
     <loc>https://jianchao-li.github.io/post/a-dive-into-visual-question-answering/</loc>
     <lastmod>2025-01-31T00:00:00+00:00</lastmod>
-  </url>
-  <url>
+  </url><url>
     <loc>https://jianchao-li.github.io/post/playing-with-image-captioning/</loc>
     <lastmod>2025-01-31T00:00:00+00:00</lastmod>
-  </url>
-  <url>
+  </url><url>
     <loc>https://jianchao-li.github.io/about/</loc>
+  </url><url>
+    <loc>https://jianchao-li.github.io/authors/</loc>
+  </url><url>
+    <loc>https://jianchao-li.github.io/categories/</loc>
   </url>
 </urlset>

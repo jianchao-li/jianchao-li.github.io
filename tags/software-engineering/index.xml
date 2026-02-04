@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Software Engineering on Jianchao Li</title>
+    <link>https://jianchao-li.github.io/tags/software-engineering/</link>
+    <description>Recent content in Software Engineering on Jianchao Li</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 04 Feb 2026 10:00:00 +0100</lastBuildDate>
+    <atom:link href="https://jianchao-li.github.io/tags/software-engineering/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why Every Software Engineer Should Use AI</title>
+      <link>https://jianchao-li.github.io/post/why-every-software-engineer-should-use-ai/</link>
+      <pubDate>Wed, 04 Feb 2026 10:00:00 +0100</pubDate>
+      <guid>https://jianchao-li.github.io/post/why-every-software-engineer-should-use-ai/</guid>
+      <description>This post shares my perspectives on why every software engineer should use AI — a cultural shift as significant as any we&amp;rsquo;ve experienced.</description>
+    </item>
+  </channel>
+</rss>
