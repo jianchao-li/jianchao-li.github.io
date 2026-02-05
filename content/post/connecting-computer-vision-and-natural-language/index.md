@@ -2,6 +2,7 @@
 title: "Connecting Computer Vision and Natural Language"
 summary: "I combined my previous posts on image captioning and visual question answering and extended them to a wider topic - connecting computer vision and natural language."
 tags: ["deep-learning", "computer-vision", "NLP"]
+description: "An overview of research connecting computer vision and natural language processing, covering image captioning, video captioning, visual question answering, and text-to-image generation."
 date: 2018-11-27T15:36:00+08:00
 lastmod: 2025-01-31
 draft: false
@@ -28,21 +29,21 @@ Many researchers have been seeking to build the connection between computer visi
 
 In image/video captioning, an image/video is given and a sentence describing its content is returned. In current research, the image/video is usually encoded into a feature vector by a CNN. Then an RNN generates the captions using this vector as the initial hidden state, as shown in the following two figures (taken from [Deep Visual-Semantic Alignments for Generating Image Descriptions](https://cs.stanford.edu/people/karpathy/deepimagesent/) and [Translating Videos to Natural Language Using Deep Recurrent Neural Networks](https://arxiv.org/abs/1412.4729)).
 
-![](imagecap.png)
+![Image captioning architecture showing a CNN encoding a photo of a man wearing a straw hat into a feature vector, which initializes an RNN that sequentially generates the caption words "straw hat"](imagecap.png)
 
-![](videocap.png)
+![Video captioning architecture showing frames of a boy playing golf processed by a convolutional network, with frame features averaged and fed into a two-layer LSTM recurrent network that generates the caption "A boy is playing golf"](videocap.png)
 
 ### Image Generation (from Text)
 
 This is the inverse problem of image captioning: a sentence is given and an image matching the meaning of the sentence is returned. The recent advances of generative adversarial networks (GANs) have opened up tons of opportunities for generation tasks like this. Typically, image generation makes use of GANs with the text being encoded by an RNN and fed into the generator/discriminator networks, as shown below (taken from [Generative Adversarial Text to Image Synthesis](https://arxiv.org/abs/1605.05396)).
 
-![](text2im.png)
+![GAN architecture for text-to-image synthesis showing a generator network that takes a text encoding of "this flower has small, round violet petals with a dark purple center" combined with random noise to produce a flower image, and a discriminator network that evaluates the generated image against the text description](text2im.png)
 
 ### Visual Question Answering
 
 In visual question answering (VQA), an image and a question about it are given and the answer is returned. This is arguably a very natural way for humans to interact with computers. In recent years, computers have learned to answer questions like *is this a cat* (classification) or *where is the cat* (detection/segmentation). Now they are asked more questions like [counting](http://www.visualqa.org/), [spatial/logical reasoning](https://cs.stanford.edu/people/jcjohns/clevr/), and [analyzing graphical plots and figures](https://datasets.maluuba.com/FigureQA). In VQA, the visual content and the question content are often encoded by CNNs and RNNs respectively and then combined in some way to generate the answer, as shown below (taken from [Bottom-Up and Top-Down Attention for Image Captioning and Visual Question Answering](https://arxiv.org/abs/1707.07998)).
 
-![](butdvqa.png)
+![Bottom-up and top-down attention model for VQA showing a question encoded via word embeddings and a GRU, combined with image features through top-down attention weights and element-wise product to predict scores over candidate answers](butdvqa.png)
 
 ## Future Opportunities
 
@@ -51,13 +52,13 @@ Current research in connecting computer vision and natural language has achieved
 ### Fine-grained Image Captioning
 Current image captioning generates captions which give an overall description of images. The results of applying [a state-of-the-art image captioning algorithm](https://github.com/karpathy/neuraltalk2) to images from the [COCO dataset](http://cocodataset.org/) are shown below.
 
-![](cococaps.png)
+![Seven COCO dataset images with generated captions: a cat watching TV captioned as a dog watching TV, a fruit market scene, a bathroom sink, pizzas on a table, people sitting around a table, a cat in front of a laptop, and a bus on a city street](cococaps.png)
 
 In the COCO dataset, images are of various scenes and objects. And the captioning algorithm is able to capture the overall content of what is happening in the image, except for some mistakes like the cat is not sitting on the laptop. But, in general, the captions are very discriminative considering the large differences between images. Given images and captions, it is very easy to tell which image corresponds to which caption. Image captioning makes great sense in this case.
 
 Then I applied the same captioning algorithm to the [Clothing Co-Parsing (CCP) dataset](https://github.com/bearpaw/clothing-co-parsing), whose images are all clothing images. The captions are shown below.
 
-![](ccpcaps.png)
+![Eight clothing images from the CCP dataset with generated captions that are generic and often incorrect, such as "holding a cell phone" or "holding a tennis racquet," illustrating how general image captioning fails to capture fine-grained clothing details](ccpcaps.png)
 
 In the CCP dataset, images are all coming from the clothing domain and thus they are very similar to each other in the overall content. And the differences are mostly reflected in fine-grained details. In this case, the captions which only capture the overall content become meaningless and are not very helpful for distinguishing one image from others. Moreover, the captions make more mistakes, like a lot of false positives of cell phones.
 
@@ -67,7 +68,7 @@ Similar to fine-grained image classification, which finds many applications in o
 
 Actually, businesses are always trying to describe the attractive details of their goods to convince customers to make the buying decision. For example, the advertising captions of two clothing images in [Toutiao](http://m.toutiao.com/profile/5569547953/) are shown below.
 
-![](toutiaocaps.png)
+![Two Cheongsam dress advertising images from Toutiao with fine-grained captions in Chinese and English describing specific details like style, fit, and color, contrasting with the generic captions produced by standard image captioning models](toutiaocaps.png)
 
 The above captions are very different from those of the COCO and CCP datasets. Instead of merely focusing on the overall image content, they try to capture more fine-grained details of the clothes. They even go beyond those details to present customers a sense of how the clothes will look on him/her. These captions are also more flexible since they are manually written by businesses, though a mistake about the color of the dress is made in the right image. So a natural question is whether we can apply image captioning to write such captions for advertising. Obviously, general image captioning is still unable to perform well on it, as shown in the captions of the CCP dataset. So fine-grained image captioning comes into use. However, there are still very few works on it.
 

@@ -2,6 +2,7 @@
 title: "Killing PyTorch Multi-GPU Training the Safe Way"
 summary: "Recently I was working with PyTorch multi-GPU training and I came across a nightmare GPU memory problem. After some expensive trial and error, I finally found a solution for it."
 tags: ["deep-learning", "pytorch"]
+description: "How to safely terminate PyTorch multi-GPU training without leaking GPU memory — diagnosing and fixing a DataLoader worker process issue."
 date: 2018-11-02T14:58:10+08:00
 lastmod: 2025-01-31
 draft: false

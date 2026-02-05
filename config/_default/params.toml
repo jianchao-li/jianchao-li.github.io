@@ -19,6 +19,7 @@ showScrollToTop = true
   cardViewScreenWidth = false
 
 [article]
+  showBreadcrumbs = true
   showDate = true
   showDateUpdated = true
   showAuthor = true

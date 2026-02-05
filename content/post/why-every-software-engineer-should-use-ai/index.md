@@ -2,7 +2,9 @@
 title: "Why Every Software Engineer Should Use AI"
 summary: "This post shares my perspectives on why every software engineer should use AI — a cultural shift as significant as any we've experienced."
 tags: ["AI", "software engineering", "productivity"]
+description: "Why every software engineer should embrace AI tools — the productivity gains and the industry-wide cultural shift driving adoption."
 date: 2026-02-04T10:00:00+01:00
+lastmod: 2026-02-04T10:00:00+01:00
 draft: false
 ---
 The past few months have witnessed rapid and transformative advancements in AI. Large language models have become remarkably capable at understanding and generating code. AI agents can now autonomously complete complex multi-step tasks. Tools like [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [OpenAI Codex](https://openai.com/index/openai-codex/), and [GitHub Copilot](https://github.com/features/copilot) have fundamentally changed how developers write software.

@@ -1,6 +1,7 @@
 ---
 title: "Playing With Image Captioning"
 summary: "I played with image captioning using neuraltalk2 written by Andrej Karpathy."
+description: "A hands-on tutorial on training and running an image captioning model using NeuralTalk2, with results on COCO and CCP datasets."
 tags: ["deep-learning", "computer-vision", "NLP"]
 date: 2018-08-08T20:12:45+08:00
 lastmod: 2025-01-31
@@ -13,7 +14,7 @@ I have been fascinated by image captioning for some time but still have not play
 ## The theory
 The working mechanism of image captioning is shown in the following picture (taken from [Andrej Karpathy](https://cs.stanford.edu/people/karpathy/)). 
 
-![](rnn7.png)
+![Diagram of the image captioning pipeline showing a CNN encoding an image of a man in a straw hat into a feature vector, which is fed into an RNN that generates the caption words "straw", "hat", and "END" sequentially](rnn7.png)
 
 <br>The image is encoded into a feature vector by a convolutional neural network (CNN) and then fed into a recurrent neural network (RNN) to generate the captions. The RNN works word by word. Each time it receives an input word and a hidden state and generates the next word, which is used as the input word in the next time. The CNN feature vector of the image is used as the initial hidden state, which is updated in each time step of the RNN. 
 
@@ -31,9 +32,9 @@ The following screenshots show the settings of the VM instance. I made several c
 * Changed Boot disk to Ubuntu 16.04 LTS
 * Checked Allow HTTP traffic and Allow HTTPS traffic
 
-![](vm-up.png)
+![Google Cloud Platform Create an Instance page showing the upper settings: name set to neuraltalk2, region us-west1 Oregon, zone us-west1-b, 1 vCPU with 3.75 GB memory, and Ubuntu 16.04 LTS boot disk](vm-up.png)
 
-![](vm-down.png)
+![Google Cloud Platform Create an Instance page showing the lower settings: firewall rules with Allow HTTP traffic and Allow HTTPS traffic both checked, and Create button at the bottom](vm-down.png)
 
 ### Installing Torch
 `neuraltalk2` is written in Torch. So you need to install Torch first. You can simply follow the steps in [Getting started with Torch](http://torch.ch/docs/getting-started.html#_):
@@ -103,13 +104,13 @@ th eval.lua -model models/model_id1-501-1448236541.t7_cpu.t7 -image_folder image
 
 #### COCO
 
-![](cococaps.png)
+![Grid of seven COCO dataset images with neuraltalk2 generated captions: a dog watching TV, a woman with bananas, a bathroom sink, pizzas on a table, people sitting around a table, a cat near a laptop, and a bus on a street](cococaps.png)
 
 In the COCO dataset, images are of various scenes and objects. And `neuraltalk2` is able to capture the overall content of what is happening in the image, except for some mistakes like the cat is not sitting on the laptop. But, in general, the captions are very discriminative considering the large differences between images. Given images and captions, it is very easy to tell which image corresponds to which caption. Image captioning makes great sense in this case.
 
 #### CCP
 
-![](ccpcaps.png)
+![Grid of eight Clothing Co-Parsing dataset images showing fashion street photography with neuraltalk2 generated captions that are generic and repetitive, frequently mentioning cell phones and sidewalks](ccpcaps.png)
 
 In the CCP dataset, images are all coming from the clothing domain and thus they are very similar to each other in the overall content. And the differences are mostly reflected in fine-grained details. In this case, the captions of `neuraltalk2` which only capture the overall content become meaningless and are not very helpful for distinguishing one image from others. Moreover, the captions make more mistakes, like a lot of false positives of cell phones.
 

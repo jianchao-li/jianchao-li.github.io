@@ -1,8 +1,10 @@
 ---
 title: "The Double-Edged Sword of Compounding"
 summary: "While many investors understand the power of compound returns, they may not fully grasp that compounding can also result in a significant downside. This post explores this double-edged sword."
+description: "Understanding how compound returns work both for and against investors — the mathematical reality behind compounding gains and losses."
 tags: ["investing", "finance"]
 date: 2025-01-03T22:08:00+01:00
+lastmod: 2025-01-03T22:08:00+01:00
 draft: false
 ---
 Starting with this post, I want to venture into a new area — investing — distinct from my usual topics of computer vision, deep learning, etc. Investing has become my latest hobby, and after diving into it, I have found it both fascinating and inspiring.
@@ -67,7 +69,7 @@ The snowball effect of compound interest described above is known as [exponentia
 
 If we plot the results of compounding versus non-compounding over 50 years, the "explosion" or magic of compound interest becomes much more evident. After 50 years, your initial $100 principal grows to around $11,739! And remember, this 117-fold growth comes from a "modest" 10% compound interest rate. Take a moment to think about it: a 117-times increase from just 0.1, and you will start to appreciate the magic of compound interest. By comparison, in the non-compounding case, it would take 1,164 years to grow to $11,739!
 
-![](compound.png)
+![Line chart comparing compounding vs non-compounding growth of a $100 principal at 10% interest over 50 years, showing the compounding curve rising exponentially to around $11,000 while the non-compounding line grows linearly to about $600](compound.png)
 
 For what it's worth, the non-compounding case is also known as [simple interest](https://en.wikipedia.org/wiki/Interest#Simple_interest).
 

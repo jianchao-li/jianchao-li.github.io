@@ -1,8 +1,10 @@
 ---
 title: "Interpret PyTorch Models with Captum"
 summary: "I used Captum to interpret the output of a MobileNetV2, which visualized the main regions in the input image that drove the model to generate its output."
+description: "How to use Captum's LayerGradCam to visualize and interpret the predictions of a PyTorch MobileNetV2 image classification model."
 tags: ["deep-learning", "pytorch"]
 date: 2020-02-29T10:49:18+08:00
+lastmod: 2020-02-29T10:49:18+08:00
 draft: false
 ---
 While deep neural networks have achieved state-of-the-art performance in many problems(e.g., image classification, object detection, scene parsing etc.), it is always not trivial to interpret their outputs. Till now, the most common and useful way to interpret the output of a deep neural network is still by visualization. You may refer to this [CS231n course note](http://cs231n.github.io/understanding-cnn/) for some introduction.
@@ -61,7 +63,7 @@ plt.figure(figsize=(10, 10))
 plt.imshow(img)
 ```
 
-![](image.png)
+![Photo of a female Great Hornbill perched on a tree branch surrounded by green leaves and berries, displayed with matplotlib axes showing pixel dimensions](image.png)
 
 I also prepare the class names for the 1000 classes in ImageNet. This will let me know the specific class names instead of only the index of the predicted class. The class names are loaded from the following URL.
 
@@ -173,7 +175,7 @@ ax.set_title(class_names_map[str(out_index)], fontsize=30)
 plt.imshow(vis)
 ```
 
-![](visualization.png)
+![LayerGradCam heatmap visualization overlaid on the Hornbill image, with red regions highlighting the head and beak area that most influenced the model prediction of hornbill](visualization.png)
 
 We can see that the model makes a correct prediction. From the above visualization, we can also see that the red regions are mostly around the head and beak of the Hornbill, especiall its heavy bill. The red regions are the main regions that drive the model to generate its output. This makes great sense as those regions are just the distinctive features of a Hornbill.
 

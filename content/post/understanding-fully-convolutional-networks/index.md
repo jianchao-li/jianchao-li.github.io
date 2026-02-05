@@ -2,6 +2,7 @@
 title: "Understanding Fully Convolutional Networks"
 summary: "I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great details. Moreover, I will analyze the MXNet implementation of FCNs."
 tags: ["deep-learning", "computer-vision"]
+description: "A detailed walkthrough of Fully Convolutional Networks (FCN) for semantic segmentation, including architecture, implementation in PyTorch, and training on PASCAL VOC."
 date: 2018-09-15T19:29:22+08:00
 lastmod: 2025-01-31
 draft: false
@@ -14,13 +15,13 @@ Fully convolutional networks, or FCNs, were proposed by [Jonathan Long](http://p
 
 Semantic segmentation is a task in which given an image, we need to assign a semantic label (like cat, dog, person, background etc.) to each of its pixels. The following are some examples taken from [The PASCAL VOC data sets](http://host.robots.ox.ac.uk/pascal/VOC/) with different colors representing different semantic classes.
 
-![](pascalvoc.png)
+![PASCAL VOC semantic segmentation examples showing four images (a motorcyclist, a dining table with chairs, a living room with a Christmas tree, and a bedroom with sofas) alongside their corresponding segmentation masks with different colors representing object classes](pascalvoc.png)
 
 The PASCAL VOC data sets define 20 semantic classes: aeroplane, bicycle, bird, boat, bottle, bus, car, cat, chair, cow, dining table, dog, horse, motorbike, person, potted plant, sheep, sofa, train, and tv/monitor. Actually these are all *object* classes. For pixels falling into non-object classes (which are called *stuff*) like sky, they will be labeled as "background".
 
 Some later semantic segmentation data sets like [The Cityscapes Dataset](https://www.cityscapes-dataset.com/) and [The COCO-Stuff dataset](https://github.com/nightrome/cocostuff) account for both object and stuff classes. The following are some examples taken from the COCO-Stuff dataset, with class names also shown.
 
-![](cocostuff.png)
+![COCO-Stuff dataset examples arranged in a 3x2 grid, each showing an original image paired with its dense segmentation map labeling both object and stuff classes such as person, tree, clouds, grass, river, boat, elephant, giraffe, sea, and building](cocostuff.png)
 
 ## How to use CNNs for segmentation
 
@@ -30,7 +31,7 @@ However, in semantic segmentation, we need pixel-wise dense predictions instead 
 
 I was working on object segmentation at the end of 2014. Object segmentation is arguably much simpler than semantic segmentation in that it only classifies the pixels into two classes: the backround and the foreground (a specific object, like pedestrian, horse, bird etc.). The following are some examples taken from [Caltech-UCSD Birds-200-2011](http://www.vision.caltech.edu/visipedia/CUB-200-2011.html) with the object masks shown below the images.
 
-![](cub200.png)
+![CUB-200-2011 bird dataset examples showing four bird photographs in the top row with their corresponding binary foreground-background segmentation masks below, where white silhouettes represent the bird regions against a black background](cub200.png)
 
 Since CNNs are good at handling fixed-size data, a simple idea is to fix both the sizes of the image and the object mask. Then we set the number of output units of the last fully connected layer to be equal to the number of mask elements.
 
@@ -64,7 +65,7 @@ For example, if you are convolving a 4x4 input ($H\_{in} = W\_{in} = 4$) with a 
 
 Now, in deconvolution, we would like to transform a 2x2 input to a 4x4 output using the same 3x3 convolutional kernel. Since deconvolution is still convolution, equations $\eqref{eq1}$ and $\eqref{eq2}$ still hold. Suppose we also use stride 1, then we need to solve $4 = \frac{2 + 2P - 3}{1} + 1$, which gives $P = 2$. So the corresponding deconvolution is just a convolution of a 2x2 input with the same 3x3 kernel, stride 1, and padding 2.
 
-![](deconv.png)
+![Illustration of convolution and deconvolution operations: the top shows a standard convolution from a 4x4 input to a 2x2 output using a 3x3 kernel, and the bottom shows the corresponding deconvolution from a 2x2 input (zero-padded to 6x6) back to a 4x4 output using the same 3x3 kernel](deconv.png)
 
 Now let's look at the relationship between the input size and output size in deconvolution. As mentioned above, deconvolution is a convolution with swapped input size and output size. So we can derive the relationship just by swapping $H\_{in}$ with $H\_{out}$ and $W\_{in}$ with $W\_{out}$ in equations $\eqref{eq1}$ and $\eqref{eq2}$, which gives
 
@@ -136,7 +137,7 @@ There is a nice visualization of the 16-layer VGG in [netscope](http://ethereon.
 
 Now you are ready to embrace the idea of FCNs. It is fairly simple: first downsample the image to smaller feature maps and then upsample them to the segmentation masks (of the same size as the image). [CS231n 2018 Lecture 11](http://cs231n.stanford.edu/slides/2018/cs231n_2018_lecture11.pdf) has the following nice illustration which summarizes this process. Actually I think the $D_3 \times H/4 \times W/4$ of Low-res should be $D_3 \times H/8 \times W/8$. Anyway, you can just ignore the captions. The picture has reflected the core idea.
 
-![](fcn.png)
+![FCN architecture diagram showing an input image of cows being downsampled through convolutional layers to progressively lower resolutions and then upsampled back to the original resolution to produce a pixel-wise segmentation prediction map](fcn.png)
 
 To gain more understanding, let's walk through a concrete example - [voc-fcn32s](https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn32s/val.prototxt), an adaptation of the 16-layer VGG into an FCN for semantic segmentation in the PASCAL VOC data sets. Since this dataset has 21 classes, we need to learn 21 segmentation masks.
 
@@ -212,7 +213,7 @@ layer {
 
 This Crop layer accepts `upscore` ($21 \times \left(H + 38\right) \times \left(W + 38\right)$) and `data` ($3 \times H \times W$) from the two `bottom` fields. It also has two parameters: `axis: 2` and `offset: 19`. In Caffe, a feature map (blob) is of size $N \times C \times H \times W$, with $N$, $C$, $H$ and $W$ being the 0th, 1st, 2nd and 3rd dimension. So `upscore` and `data` are actually of size $N \times 21 \times \left(H + 38\right) \times \left(W + 38\right)$ and $N \times 3 \times H \times W$ respectively. `axis: 2` means to crop from the 2nd dimension (inclusive). So only the dimension $H$ and $W$ of `upscore` ($\left(H + 38\right) \times \left(W + 38\right)$) will be cropped to be the same as `data` ($H \times W$). And `offset: 19` specifies the starting index of the cropping, which means that `upscore` will be cropped to be `upscore[19: 19 + H, 19: 19 + W]`, literally the central part of `upscore`. The following is an illustration of this process, with the green part being the cropped region `score`.
 
-![](crop.png)
+![Diagram illustrating the Crop layer operation: the upscore feature map of size (H+38)x(W+38) is cropped with an offset of 19 pixels on each side to extract the central HxW region called score, matching the spatial dimensions of the original input data](crop.png)
 
 ## Simplifying FCN to a stack of convolutional layers
 
@@ -540,7 +541,7 @@ In the `upscore` layer of voc-fcn32s, the feature maps are directly upsampled by
 
 For [voc-fcn16s](https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn16s/val.prototxt), the feature maps from `score_fr` will first be upsampled by a factor of 2 in `upscore2`. Then, we generate another set of outputs from `pool4` using convolution in `score_pool4` and crop it to be the same size as that of `upscore2` in `score_pool4c`. Finally, we combine `upscore2` and `score_pool4c` using element-wise summation in `fuse_pool4`, upsample it by a factor of 16 in `upscore16` and crop it in `score` to obtain the output. We show the network architecture for this process while omitting the previous layers in the following figure. Moreover, this process is broken down in the table below.
 
-![](fcn-voc16s.png)
+![FCN-16s network architecture diagram showing two parallel paths: one from pool4 through score_pool4 and score_pool4c, and another from score_fr through upscore2, which are fused via element-wise summation in fuse_pool4, then upsampled in upscore16 and cropped to produce the final score](fcn-voc16s.png)
 
 | Name | Type | Params | Size |
 | ---- | ---- | ------ | ----:|
@@ -557,7 +558,7 @@ As can be seen, the finer details from the intermediate resolution in `pool4` ar
 
 We may combine more resolutions in the same way. In fcn-voc8s, we generate one more set of outputs from `pool3` and combine it with later feature maps. The network architecture is similarly shown in the figure below with the process broken down in the following table.
 
-![](fcn-voc8s.png)
+![FCN-8s network architecture diagram showing three parallel paths: from pool3 through score_pool3, from pool4 through score_pool4 fused with upscore2 from score_fr, and the combined result upsampled again and fused with pool3 features before a final 8x upsampling and crop to produce the score](fcn-voc8s.png)
 
 | Name | Type | Params | Size |
 | ---- | ---- | ------ | ----:|
@@ -577,7 +578,7 @@ We may combine more resolutions in the same way. In fcn-voc8s, we generate one m
 
 In fcn-voc8s, one more intermediate resolution `pool3` are incorpoeated. From fcn-voc32s, fcn-voc16s to fcn-voc8s, more intermediate resolutions are incorporated and the results will contain more details, as shown below (taken from the [FCN paper](https://arxiv.org/pdf/1411.4038.pdf)).
 
-![](details.png)
+![Comparison of segmentation results from FCN-32s, FCN-16s, FCN-8s, and ground truth, showing progressively finer detail and sharper boundaries as more intermediate resolutions are incorporated, with the FCN-8s output most closely matching the ground truth](details.png)
 
 ## Conclusion
 We cover fully convolutional networks in great detail. To summarize, we have learned:
