@@ -41,7 +41,7 @@
   <meta property="og:url" content="https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/">
   <meta property="og:site_name" content="Jianchao Li">
   <meta property="og:title" content="Connecting Computer Vision and Natural Language">
-  <meta property="og:description" content="I combined my previous posts on image captioning and visual question answering and extended them to a wider topic - connecting computer vision and natural language.">
+  <meta property="og:description" content="An overview of research connecting computer vision and natural language processing, covering image captioning, video captioning, visual question answering, and text-to-image generation.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
@@ -56,7 +56,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/featured.jpg">
   <meta name="twitter:title" content="Connecting Computer Vision and Natural Language">
-  <meta name="twitter:description" content="I combined my previous posts on image captioning and visual question answering and extended them to a wider topic - connecting computer vision and natural language.">
+  <meta name="twitter:description" content="An overview of research connecting computer vision and natural language processing, covering image captioning, video captioning, visual question answering, and text-to-image generation.">
 
   
   
@@ -204,7 +204,7 @@
     "articleSection": "Posts",
     "name": "Connecting Computer Vision and Natural Language",
     "headline": "Connecting Computer Vision and Natural Language",
-    
+    "description": "An overview of research connecting computer vision and natural language processing, covering image captioning, video captioning, visual question answering, and text-to-image generation.",
     "inLanguage": "en",
     "url" : "https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/",
     "author" : {
@@ -720,6 +720,37 @@
     
     <header id="single_header" class="mt-5 max-w-prose">
       
+        <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/"
+      >Home</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/post/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/post/connecting-computer-vision-and-natural-language/"
+      >Connecting Computer Vision and Natural Language</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+      
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
         Connecting Computer Vision and Natural Language
       </h1>
@@ -1027,7 +1058,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="Image captioning architecture showing a CNN encoding a photo of a man wearing a straw hat into a feature vector, which initializes an RNN that sequentially generates the caption words &ldquo;straw hat&rdquo;"
     width="483"
     height="295"
     src="/post/connecting-computer-vision-and-natural-language/imagecap.png"
@@ -1040,7 +1071,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="Video captioning architecture showing frames of a boy playing golf processed by a convolutional network, with frame features averaged and fed into a two-layer LSTM recurrent network that generates the caption &ldquo;A boy is playing golf&rdquo;"
     width="1473"
     height="748"
     src="/post/connecting-computer-vision-and-natural-language/videocap_hu_af15c3528718242b.png"
@@ -1064,7 +1095,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="GAN architecture for text-to-image synthesis showing a generator network that takes a text encoding of &ldquo;this flower has small, round violet petals with a dark purple center&rdquo; combined with random noise to produce a flower image, and a discriminator network that evaluates the generated image against the text description"
     width="1946"
     height="532"
     src="/post/connecting-computer-vision-and-natural-language/text2im_hu_2acd8dbcfb4b8831.png"
@@ -1088,7 +1119,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="Bottom-up and top-down attention model for VQA showing a question encoded via word embeddings and a GRU, combined with image features through top-down attention weights and element-wise product to predict scores over candidate answers"
     width="1996"
     height="442"
     src="/post/connecting-computer-vision-and-natural-language/butdvqa_hu_abf3dfb28d2af66a.png"
@@ -1123,7 +1154,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="Seven COCO dataset images with generated captions: a cat watching TV captioned as a dog watching TV, a fruit market scene, a bathroom sink, pizzas on a table, people sitting around a table, a cat in front of a laptop, and a bus on a city street"
     width="1109"
     height="655"
     src="/post/connecting-computer-vision-and-natural-language/cococaps_hu_fc65aca2d4d4c6b1.png"
@@ -1138,7 +1169,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="Eight clothing images from the CCP dataset with generated captions that are generic and often incorrect, such as &ldquo;holding a cell phone&rdquo; or &ldquo;holding a tennis racquet,&rdquo; illustrating how general image captioning fails to capture fine-grained clothing details"
     width="899"
     height="755"
     src="/post/connecting-computer-vision-and-natural-language/ccpcaps_hu_78edd5ed7f1635f9.png"
@@ -1155,7 +1186,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="Two Cheongsam dress advertising images from Toutiao with fine-grained captions in Chinese and English describing specific details like style, fit, and color, contrasting with the generic captions produced by standard image captioning models"
     width="642"
     height="537"
     src="/post/connecting-computer-vision-and-natural-language/toutiaocaps.png"

@@ -4,30 +4,40 @@
     <title>Pytorch on Jianchao Li</title>
     <link>https://jianchao-li.github.io/tags/pytorch/</link>
     <description>Recent content in Pytorch on Jianchao Li</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 31 Jan 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://jianchao-li.github.io/tags/pytorch/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2026 Jianchao Li</copyright>
+    <lastBuildDate>Fri, 31 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://jianchao-li.github.io/tags/pytorch/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Interpret PyTorch Models with Captum</title>
       <link>https://jianchao-li.github.io/post/interpret-pytorch-models-with-captum/</link>
       <pubDate>Sat, 29 Feb 2020 10:49:18 +0800</pubDate>
+      
       <guid>https://jianchao-li.github.io/post/interpret-pytorch-models-with-captum/</guid>
       <description>I used Captum to interpret the output of a MobileNetV2, which visualized the main regions in the input image that drove the model to generate its output.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://jianchao-li.github.io/post/interpret-pytorch-models-with-captum/featured.jpg" />
     </item>
+    
     <item>
       <title>From PyTorch to Core ML</title>
       <link>https://jianchao-li.github.io/post/from-pytorch-to-coreml/</link>
       <pubDate>Wed, 16 Oct 2019 01:00:18 +0800</pubDate>
+      
       <guid>https://jianchao-li.github.io/post/from-pytorch-to-coreml/</guid>
       <description>I converted a PyTorch model to Core ML and ran it on an iPhone.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://jianchao-li.github.io/post/from-pytorch-to-coreml/featured.jpg" />
     </item>
+    
     <item>
       <title>Killing PyTorch Multi-GPU Training the Safe Way</title>
       <link>https://jianchao-li.github.io/post/killing-pytorch-multi-gpu-training-the-safe-way/</link>
       <pubDate>Fri, 02 Nov 2018 14:58:10 +0800</pubDate>
+      
       <guid>https://jianchao-li.github.io/post/killing-pytorch-multi-gpu-training-the-safe-way/</guid>
       <description>Recently I was working with PyTorch multi-GPU training and I came across a nightmare GPU memory problem. After some expensive trial and error, I finally found a solution for it.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://jianchao-li.github.io/post/killing-pytorch-multi-gpu-training-the-safe-way/featured.jpg" />
     </item>
+    
   </channel>
 </rss>

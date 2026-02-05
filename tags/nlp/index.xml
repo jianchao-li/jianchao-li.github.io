@@ -4,30 +4,40 @@
     <title>NLP on Jianchao Li</title>
     <link>https://jianchao-li.github.io/tags/nlp/</link>
     <description>Recent content in NLP on Jianchao Li</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 31 Jan 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://jianchao-li.github.io/tags/nlp/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2026 Jianchao Li</copyright>
+    <lastBuildDate>Fri, 31 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://jianchao-li.github.io/tags/nlp/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Connecting Computer Vision and Natural Language</title>
       <link>https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/</link>
       <pubDate>Tue, 27 Nov 2018 15:36:00 +0800</pubDate>
+      
       <guid>https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/</guid>
       <description>I combined my previous posts on image captioning and visual question answering and extended them to a wider topic - connecting computer vision and natural language.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/featured.jpg" />
     </item>
+    
     <item>
       <title>A Dive Into Visual Question Answering</title>
       <link>https://jianchao-li.github.io/post/a-dive-into-visual-question-answering/</link>
       <pubDate>Mon, 27 Aug 2018 14:34:35 +0800</pubDate>
+      
       <guid>https://jianchao-li.github.io/post/a-dive-into-visual-question-answering/</guid>
       <description>I read some papers on VQA and summarized its state-of-the-art, bottlenecks and possible solutions.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://jianchao-li.github.io/post/a-dive-into-visual-question-answering/featured.jpg" />
     </item>
+    
     <item>
       <title>Playing With Image Captioning</title>
       <link>https://jianchao-li.github.io/post/playing-with-image-captioning/</link>
       <pubDate>Wed, 08 Aug 2018 20:12:45 +0800</pubDate>
+      
       <guid>https://jianchao-li.github.io/post/playing-with-image-captioning/</guid>
       <description>I played with image captioning using neuraltalk2 written by Andrej Karpathy.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://jianchao-li.github.io/post/playing-with-image-captioning/featured.jpg" />
     </item>
+    
   </channel>
 </rss>

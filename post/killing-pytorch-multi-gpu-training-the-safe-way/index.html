@@ -41,7 +41,7 @@
   <meta property="og:url" content="https://jianchao-li.github.io/post/killing-pytorch-multi-gpu-training-the-safe-way/">
   <meta property="og:site_name" content="Jianchao Li">
   <meta property="og:title" content="Killing PyTorch Multi-GPU Training the Safe Way">
-  <meta property="og:description" content="Recently I was working with PyTorch multi-GPU training and I came across a nightmare GPU memory problem. After some expensive trial and error, I finally found a solution for it.">
+  <meta property="og:description" content="How to safely terminate PyTorch multi-GPU training without leaking GPU memory — diagnosing and fixing a DataLoader worker process issue.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
@@ -55,7 +55,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://jianchao-li.github.io/post/killing-pytorch-multi-gpu-training-the-safe-way/featured.jpg">
   <meta name="twitter:title" content="Killing PyTorch Multi-GPU Training the Safe Way">
-  <meta name="twitter:description" content="Recently I was working with PyTorch multi-GPU training and I came across a nightmare GPU memory problem. After some expensive trial and error, I finally found a solution for it.">
+  <meta name="twitter:description" content="How to safely terminate PyTorch multi-GPU training without leaking GPU memory — diagnosing and fixing a DataLoader worker process issue.">
 
   
   
@@ -203,7 +203,7 @@
     "articleSection": "Posts",
     "name": "Killing PyTorch Multi-GPU Training the Safe Way",
     "headline": "Killing PyTorch Multi-GPU Training the Safe Way",
-    
+    "description": "How to safely terminate PyTorch multi-GPU training without leaking GPU memory — diagnosing and fixing a DataLoader worker process issue.",
     "inLanguage": "en",
     "url" : "https://jianchao-li.github.io/post/killing-pytorch-multi-gpu-training-the-safe-way/",
     "author" : {
@@ -718,6 +718,37 @@
 
     
     <header id="single_header" class="mt-5 max-w-prose">
+      
+        <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/"
+      >Home</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/post/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/post/killing-pytorch-multi-gpu-training-the-safe-way/"
+      >Killing PyTorch Multi-GPU Training the Safe Way</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
       
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
         Killing PyTorch Multi-GPU Training the Safe Way

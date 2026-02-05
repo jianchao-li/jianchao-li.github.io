@@ -41,7 +41,7 @@
   <meta property="og:url" content="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/">
   <meta property="og:site_name" content="Jianchao Li">
   <meta property="og:title" content="Understanding Fully Convolutional Networks">
-  <meta property="og:description" content="I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great details. Moreover, I will analyze the MXNet implementation of FCNs.">
+  <meta property="og:description" content="A detailed walkthrough of Fully Convolutional Networks (FCN) for semantic segmentation, including architecture, implementation in PyTorch, and training on PASCAL VOC.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
@@ -55,7 +55,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/featured.jpg">
   <meta name="twitter:title" content="Understanding Fully Convolutional Networks">
-  <meta name="twitter:description" content="I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great details. Moreover, I will analyze the MXNet implementation of FCNs.">
+  <meta name="twitter:description" content="A detailed walkthrough of Fully Convolutional Networks (FCN) for semantic segmentation, including architecture, implementation in PyTorch, and training on PASCAL VOC.">
 
   
   
@@ -203,7 +203,7 @@
     "articleSection": "Posts",
     "name": "Understanding Fully Convolutional Networks",
     "headline": "Understanding Fully Convolutional Networks",
-    
+    "description": "A detailed walkthrough of Fully Convolutional Networks (FCN) for semantic segmentation, including architecture, implementation in PyTorch, and training on PASCAL VOC.",
     "inLanguage": "en",
     "url" : "https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/",
     "author" : {
@@ -719,6 +719,37 @@
     
     <header id="single_header" class="mt-5 max-w-prose">
       
+        <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/"
+      >Home</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/post/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/post/understanding-fully-convolutional-networks/"
+      >Understanding Fully Convolutional Networks</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+      
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
         Understanding Fully Convolutional Networks
       </h1>
@@ -983,7 +1014,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="PASCAL VOC semantic segmentation examples showing four images (a motorcyclist, a dining table with chairs, a living room with a Christmas tree, and a bedroom with sofas) alongside their corresponding segmentation masks with different colors representing object classes"
     width="552"
     height="204"
     src="/post/understanding-fully-convolutional-networks/pascalvoc.png"
@@ -998,7 +1029,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="COCO-Stuff dataset examples arranged in a 3x2 grid, each showing an original image paired with its dense segmentation map labeling both object and stuff classes such as person, tree, clouds, grass, river, boat, elephant, giraffe, sea, and building"
     width="2007"
     height="730"
     src="/post/understanding-fully-convolutional-networks/cocostuff_hu_8c96bcbaaab6ed8f.png"
@@ -1024,7 +1055,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="CUB-200-2011 bird dataset examples showing four bird photographs in the top row with their corresponding binary foreground-background segmentation masks below, where white silhouettes represent the bird regions against a black background"
     width="1073"
     height="380"
     src="/post/understanding-fully-convolutional-networks/cub200_hu_d8cd98a0331707e2.png"
@@ -1071,7 +1102,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="Illustration of convolution and deconvolution operations: the top shows a standard convolution from a 4x4 input to a 2x2 output using a 3x3 kernel, and the bottom shows the corresponding deconvolution from a 2x2 input (zero-padded to 6x6) back to a 4x4 output using the same 3x3 kernel"
     width="870"
     height="642"
     src="/post/understanding-fully-convolutional-networks/deconv_hu_df3b22f1fd21b3be.png"
@@ -1362,7 +1393,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="FCN architecture diagram showing an input image of cows being downsampled through convolutional layers to progressively lower resolutions and then upsampled back to the original resolution to produce a pixel-wise segmentation prediction map"
     width="946"
     height="246"
     src="/post/understanding-fully-convolutional-networks/fcn_hu_2dc8598c4a3b76f.png"
@@ -1652,7 +1683,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="Diagram illustrating the Crop layer operation: the upscore feature map of size (H&#43;38)x(W&#43;38) is cropped with an offset of 19 pixels on each side to extract the central HxW region called score, matching the spatial dimensions of the original input data"
     width="726"
     height="386"
     src="/post/understanding-fully-convolutional-networks/crop.png"
@@ -2066,7 +2097,7 @@ $$</p>
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="FCN-16s network architecture diagram showing two parallel paths: one from pool4 through score_pool4 and score_pool4c, and another from score_fr through upscore2, which are fused via element-wise summation in fuse_pool4, then upsampled in upscore16 and cropped to produce the final score"
     width="1024"
     height="119"
     src="/post/understanding-fully-convolutional-networks/fcn-voc16s_hu_503de23d43b6d99a.png"
@@ -2141,7 +2172,7 @@ $$</p>
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="FCN-8s network architecture diagram showing three parallel paths: from pool3 through score_pool3, from pool4 through score_pool4 fused with upscore2 from score_fr, and the combined result upsampled again and fused with pool3 features before a final 8x upsampling and crop to produce the score"
     width="1024"
     height="129"
     src="/post/understanding-fully-convolutional-networks/fcn-voc8s_hu_5078a84f96d50824.png"
@@ -2245,7 +2276,7 @@ $$</p>
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="Comparison of segmentation results from FCN-32s, FCN-16s, FCN-8s, and ground truth, showing progressively finer detail and sharper boundaries as more intermediate resolutions are incorporated, with the FCN-8s output most closely matching the ground truth"
     width="732"
     height="300"
     src="/post/understanding-fully-convolutional-networks/details.png"

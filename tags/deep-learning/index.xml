@@ -4,58 +4,80 @@
     <title>Deep-Learning on Jianchao Li</title>
     <link>https://jianchao-li.github.io/tags/deep-learning/</link>
     <description>Recent content in Deep-Learning on Jianchao Li</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 31 Jan 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://jianchao-li.github.io/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2026 Jianchao Li</copyright>
+    <lastBuildDate>Fri, 31 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://jianchao-li.github.io/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Interpret PyTorch Models with Captum</title>
       <link>https://jianchao-li.github.io/post/interpret-pytorch-models-with-captum/</link>
       <pubDate>Sat, 29 Feb 2020 10:49:18 +0800</pubDate>
+      
       <guid>https://jianchao-li.github.io/post/interpret-pytorch-models-with-captum/</guid>
       <description>I used Captum to interpret the output of a MobileNetV2, which visualized the main regions in the input image that drove the model to generate its output.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://jianchao-li.github.io/post/interpret-pytorch-models-with-captum/featured.jpg" />
     </item>
+    
     <item>
       <title>From PyTorch to Core ML</title>
       <link>https://jianchao-li.github.io/post/from-pytorch-to-coreml/</link>
       <pubDate>Wed, 16 Oct 2019 01:00:18 +0800</pubDate>
+      
       <guid>https://jianchao-li.github.io/post/from-pytorch-to-coreml/</guid>
       <description>I converted a PyTorch model to Core ML and ran it on an iPhone.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://jianchao-li.github.io/post/from-pytorch-to-coreml/featured.jpg" />
     </item>
+    
     <item>
       <title>Connecting Computer Vision and Natural Language</title>
       <link>https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/</link>
       <pubDate>Tue, 27 Nov 2018 15:36:00 +0800</pubDate>
+      
       <guid>https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/</guid>
       <description>I combined my previous posts on image captioning and visual question answering and extended them to a wider topic - connecting computer vision and natural language.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://jianchao-li.github.io/post/connecting-computer-vision-and-natural-language/featured.jpg" />
     </item>
+    
     <item>
       <title>Killing PyTorch Multi-GPU Training the Safe Way</title>
       <link>https://jianchao-li.github.io/post/killing-pytorch-multi-gpu-training-the-safe-way/</link>
       <pubDate>Fri, 02 Nov 2018 14:58:10 +0800</pubDate>
+      
       <guid>https://jianchao-li.github.io/post/killing-pytorch-multi-gpu-training-the-safe-way/</guid>
       <description>Recently I was working with PyTorch multi-GPU training and I came across a nightmare GPU memory problem. After some expensive trial and error, I finally found a solution for it.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://jianchao-li.github.io/post/killing-pytorch-multi-gpu-training-the-safe-way/featured.jpg" />
     </item>
+    
     <item>
       <title>Understanding Fully Convolutional Networks</title>
       <link>https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/</link>
       <pubDate>Sat, 15 Sep 2018 19:29:22 +0800</pubDate>
+      
       <guid>https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/</guid>
       <description>I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great details. Moreover, I will analyze the MXNet implementation of FCNs.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/featured.jpg" />
     </item>
+    
     <item>
       <title>A Dive Into Visual Question Answering</title>
       <link>https://jianchao-li.github.io/post/a-dive-into-visual-question-answering/</link>
       <pubDate>Mon, 27 Aug 2018 14:34:35 +0800</pubDate>
+      
       <guid>https://jianchao-li.github.io/post/a-dive-into-visual-question-answering/</guid>
       <description>I read some papers on VQA and summarized its state-of-the-art, bottlenecks and possible solutions.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://jianchao-li.github.io/post/a-dive-into-visual-question-answering/featured.jpg" />
     </item>
+    
     <item>
       <title>Playing With Image Captioning</title>
       <link>https://jianchao-li.github.io/post/playing-with-image-captioning/</link>
       <pubDate>Wed, 08 Aug 2018 20:12:45 +0800</pubDate>
+      
       <guid>https://jianchao-li.github.io/post/playing-with-image-captioning/</guid>
       <description>I played with image captioning using neuraltalk2 written by Andrej Karpathy.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://jianchao-li.github.io/post/playing-with-image-captioning/featured.jpg" />
     </item>
+    
   </channel>
 </rss>

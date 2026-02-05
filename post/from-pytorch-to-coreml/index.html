@@ -41,7 +41,7 @@
   <meta property="og:url" content="https://jianchao-li.github.io/post/from-pytorch-to-coreml/">
   <meta property="og:site_name" content="Jianchao Li">
   <meta property="og:title" content="From PyTorch to Core ML">
-  <meta property="og:description" content="I converted a PyTorch model to Core ML and ran it on an iPhone.">
+  <meta property="og:description" content="A step-by-step guide to converting a PyTorch deep learning model to Apple&#39;s Core ML format and deploying it in an iOS app.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
@@ -56,7 +56,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://jianchao-li.github.io/post/from-pytorch-to-coreml/featured.jpg">
   <meta name="twitter:title" content="From PyTorch to Core ML">
-  <meta name="twitter:description" content="I converted a PyTorch model to Core ML and ran it on an iPhone.">
+  <meta name="twitter:description" content="A step-by-step guide to converting a PyTorch deep learning model to Apple&#39;s Core ML format and deploying it in an iOS app.">
 
   
   
@@ -204,7 +204,7 @@
     "articleSection": "Posts",
     "name": "From PyTorch to Core ML",
     "headline": "From PyTorch to Core ML",
-    
+    "description": "A step-by-step guide to converting a PyTorch deep learning model to Apple\u0027s Core ML format and deploying it in an iOS app.",
     "inLanguage": "en",
     "url" : "https://jianchao-li.github.io/post/from-pytorch-to-coreml/",
     "author" : {
@@ -720,6 +720,37 @@
     
     <header id="single_header" class="mt-5 max-w-prose">
       
+        <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/"
+      >Home</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/post/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/post/from-pytorch-to-coreml/"
+      >From PyTorch to Core ML</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+      
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
         From PyTorch to Core ML
       </h1>
@@ -1001,7 +1032,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="Xcode showing the MobileNet.mlmodel file details, including the Machine Learning Model metadata, the auto-generated MobileNet Swift model class, and the Prediction section listing the input (a 224x224 color image) and outputs (classLabel string and classLabelProbs dictionary)"
     width="2880"
     height="1610"
     src="/post/from-pytorch-to-coreml/model_details_hu_c4917463d9378072.png"
@@ -1016,7 +1047,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="Xcode toolbar with the build button highlighted in a red rectangle and the device simulator selector showing iPhone 11 Pro Max highlighted in a blue rectangle"
     width="1024"
     height="589"
     src="/post/from-pytorch-to-coreml/xcode_hu_b6b531c952f6468f.png"
@@ -1030,7 +1061,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="iPhone 11 Pro Max simulator running the Vision&#43;ML Example app with a black screen and an &ldquo;Add a photo.&rdquo; button at the bottom along with a camera icon"
     width="734"
     height="1596"
     src="/post/from-pytorch-to-coreml/iphone.png"
@@ -1044,7 +1075,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="Xcode dialog for adding files to a project, with &ldquo;Copy items if needed&rdquo; checked, &ldquo;Create groups&rdquo; selected for added folders, and the Vision&#43;ML Example target checked"
     width="1460"
     height="864"
     src="/post/from-pytorch-to-coreml/drag_hu_e0e15e3eb73c4a94.png"
@@ -1058,7 +1089,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="Xcode project General settings for the Vision&#43;ML Example target, with the Deployment Info section showing the iOS target version highlighted in a red rectangle set to iOS 11.2"
     width="1024"
     height="566"
     src="/post/from-pytorch-to-coreml/ios_version_hu_34453ff07916de4e.png"
@@ -1084,7 +1115,7 @@
     loading="lazy"
     decoding="async"
     fetchpriority="auto"
-    alt=""
+    alt="Flow diagram showing the model conversion pipeline: PyTorch to ONNX to CoreML, with arrows connecting the three steps from left to right"
     width="408"
     height="102"
     src="/post/from-pytorch-to-coreml/conversion.png"
