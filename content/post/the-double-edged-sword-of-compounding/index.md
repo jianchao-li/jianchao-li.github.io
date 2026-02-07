@@ -19,57 +19,244 @@ Interest is typically paid at fixed intervals. In the example above, let's assum
 
 Here, you may notice a [snowball effect](https://en.wikipedia.org/wiki/Snowball_effect): as your interest payments are added to your principal (increasing it from $100 to $110), your interest payments also grow (from $10 to $11). This cycle continues, with the interest added to your principal, which increases the principal further, leading to higher interest payments and, in turn, an even higher principal, and so on.
 
-If we continue the above calculations for 10 years, the principals and interest amounts would look as follows (with rounding errors). The principal represents the total amount (principal plus interest) at the beginning of each year, which is the same as the total at the end of the previous year. The interest is the amount earned at the end of each year. For year n + 1, the principal is simply the principal from year n plus the interest earned in year n.
+If we continue the above calculations for 10 years, the principal, interest earned, and total would look as follows (with rounding errors). The principal represents the total amount at the beginning of each year, which is the same as the total at the end of the previous year. The interest is the amount earned at the end of each year. For year n + 1, the principal is simply the principal from year n plus the interest earned in year n.
 
-| Year | Principal ($) | Interest ($) | Total ($) |
-| -------- | ------- | ------- | ------- |
-| 1 | 100 | 10 | 110 |
-| 2 | 110 | 11 | 121 |
-| 3 | 121 | 12.1 | 133.1 | 
-| 4 | 133.1 | 13.31 | 146.41 |
-| 5 | 146.41 | 14.641 | 161.051 |
-| 6 | 161.051 | 16.1051 | 177.1561 |
-| 7 | 177.1561 | 17.7156 | 194.8717 |
-| 8 | 194.8717 | 19.4872 | 214.3589 |
-| 9 | 214.3589 | 21.4359 | 235.7948 |
-| 10 | 235.7948 | 23.5795 | 259.3742 |
+{{< chart >}}
+type: 'line',
+data: {
+  labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+  datasets: [
+    {
+      label: 'Principal',
+      data: [100, 110, 121, 133.1, 146.41, 161.05, 177.16, 194.87, 214.36, 235.79],
+      borderColor: 'rgb(54, 162, 235)',
+      backgroundColor: 'rgba(54, 162, 235, 0.1)',
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: 4
+    },
+    {
+      label: 'Interest Earned',
+      data: [10, 11, 12.1, 13.31, 14.64, 16.11, 17.72, 19.49, 21.44, 23.58],
+      borderColor: 'rgb(255, 165, 0)',
+      backgroundColor: 'rgba(255, 165, 0, 0.1)',
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: 4
+    },
+    {
+      label: 'Total',
+      data: [110, 121, 133.1, 146.41, 161.05, 177.16, 194.87, 214.36, 235.79, 259.37],
+      borderColor: 'rgb(34, 139, 34)',
+      backgroundColor: 'rgba(34, 139, 34, 0.1)',
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: 4
+    }
+  ]
+},
+options: {
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Year'
+      }
+    },
+    y: {
+      title: {
+        display: true,
+        text: 'Value ($)'
+      },
+      ticks: {
+        callback: function(value) {
+          return '$' + value.toLocaleString();
+        }
+      }
+    }
+  },
+  plugins: {
+    legend: {
+      labels: {
+        usePointStyle: true,
+        pointStyle: 'line'
+      }
+    },
+    tooltip: {
+      callbacks: {
+        label: function(context) {
+          return context.dataset.label + ': $' + context.parsed.y.toLocaleString();
+        }
+      }
+    }
+  }
+}
+{{< /chart >}}
+
+<small>**Figure 1.** Compound interest on a $100 principal at 10% over 10 years</small>
 
 ## The magic of Compound Interest
 
 > "Compound interest is the eighth wonder of the world. He who understands it, earns it... he who doesn't... pays it." - Albert Einstein
 
-Looking at the numbers in the table above, you might realize the magic of compound interest: starting with $100 in principal, earning 10% interests per year, by the beginning of the 9th year, you have doubled your money. If this doesn't amaze you, let's explore two more calculations to help you fully appreciate it.
+Looking at the chart above, you might realize the magic of compound interest: starting with $100 in principal, earning 10% interests per year, by the beginning of the 9th year, you have doubled your money. If this doesn't amaze you, let's explore two more calculations to help you fully appreciate it.
 
-### Compounding for Another 10 Years
+### Compounding Over 30 Years
 
-Let’s extend the calculations from the table above for another 10 years.
+Let's extend the view to 30 years to see the bigger picture.
 
-| Year | Principal ($) | Interest ($) | Total ($) |
-| -------- | ------- | ------- | ------- |
-| 11 | 259.3742 | 25.9374 | 285.3117 |
-| 12 | 285.3117 | 28.5312 | 313.8428 |
-| 13 | 313.8428 | 31.3843 | 345.2271 |
-| 14 | 345.2271 | 34.5227 | 379.7498 |
-| 15 | 379.7498 | 37.9750 | 417.7248 |
-| 16 | 417.7248 | 41.7725 | 459.4973 |
-| 17 | 459.4973 | 45.9497 | 505.4470 |
-| 18 | 505.4470 | 50.5447 | 555.9917 |
-| 19 | 555.9917 | 55.5992 | 611.5909 |
-| 20 | 611.5909 | 61.1591 | 672.7500 |
+{{< chart >}}
+type: 'line',
+data: {
+  labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'],
+  datasets: [
+    {
+      label: 'Principal',
+      data: [100, 110, 121, 133.1, 146.41, 161.05, 177.16, 194.87, 214.36, 235.79, 259.37, 285.31, 313.84, 345.23, 379.75, 417.72, 459.50, 505.45, 555.99, 611.59, 672.75, 740.03, 814.03, 895.43, 984.97, 1083.47, 1191.82, 1311.00, 1442.10, 1586.31],
+      borderColor: 'rgb(54, 162, 235)',
+      backgroundColor: 'rgba(54, 162, 235, 0.1)',
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: 4
+    },
+    {
+      label: 'Interest Earned',
+      data: [10, 11, 12.1, 13.31, 14.64, 16.11, 17.72, 19.49, 21.44, 23.58, 25.94, 28.53, 31.38, 34.52, 37.98, 41.77, 45.95, 50.54, 55.60, 61.16, 67.28, 74.00, 81.40, 89.54, 98.50, 108.35, 119.18, 131.10, 144.21, 158.63],
+      borderColor: 'rgb(255, 165, 0)',
+      backgroundColor: 'rgba(255, 165, 0, 0.1)',
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 4, 4, 4, 4],
+      pointBackgroundColor: ['rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(220, 53, 69)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)'],
+      pointBorderColor: ['rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(220, 53, 69)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)', 'rgb(255, 165, 0)']
+    },
+    {
+      label: 'Total',
+      data: [110, 121, 133.1, 146.41, 161.05, 177.16, 194.87, 214.36, 235.79, 259.37, 285.31, 313.84, 345.23, 379.75, 417.72, 459.50, 505.45, 555.99, 611.59, 672.75, 740.03, 814.03, 895.43, 984.97, 1083.47, 1191.82, 1311.00, 1442.10, 1586.31, 1744.94],
+      borderColor: 'rgb(34, 139, 34)',
+      backgroundColor: 'rgba(34, 139, 34, 0.1)',
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: 4
+    }
+  ]
+},
+options: {
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Year'
+      }
+    },
+    y: {
+      title: {
+        display: true,
+        text: 'Value ($)'
+      },
+      ticks: {
+        callback: function(value) {
+          return '$' + value.toLocaleString();
+        }
+      }
+    }
+  },
+  plugins: {
+    legend: {
+      labels: {
+        usePointStyle: true,
+        pointStyle: 'line'
+      }
+    },
+    tooltip: {
+      callbacks: {
+        label: function(context) {
+          return context.dataset.label + ': $' + context.parsed.y.toLocaleString();
+        }
+      }
+    }
+  }
+}
+{{< /chart >}}
 
-As you can see, at the beginning of the 10th year, your principal is around $236. By the start of the 20th year, it has grown (non-linearly) to approximately $612. Continuing the calculations, by the 26th year, you will receive an interest payment of $108.35, the first time your interest payment exceeds your initial $100 principal! The longer you continue the calculations, the wilder the numbers become.
+<small>**Figure 2.** Compound interest on a $100 principal at 10% over 30 years</small>
+
+As you can see, at the beginning of the 10th year, your principal is around $236. By the start of the 20th year, it has grown (non-linearly) to approximately $612, and by the 30th year, it reaches about $1,586. More strikingly, notice the Interest Earned curve at year 26 (the red dot): this is the first time your annual interest payment ($108.35) exceeds your initial $100 principal! The longer you continue the calculations, the wilder the numbers become.
 
 ### The Case of Non-Compounding
 
-Now, let's consider the non-compounding case, where the annual interest payment is not added back to the principal. In this scenario, you receive interest based on the initial $100 principal, meaning you earn $10 in interest each year. After 10 years, your total amount would be $200 ($100 + $100 x 0.1 x 10). While this is not too far from the compounded case, where your total would be around $259, the gap widens significantly after another 10 years. In the non-compounding case, you would have $300 ($100 + $100 x 0.1 x 20), while in the compounding case, you would have approximately $673. As before, the longer you continue the calculations, the more drastic the gap becomes.
+Now, let's consider the non-compounding case, where the annual interest payment is not added back to the principal. In this scenario, you receive interest based on the initial $100 principal, meaning you earn $10 in interest each year. After 10 years, your total amount would be $200 ($100 + $100 x 0.1 x 10). While this is not too far from the compounded case, where your total would be around $259, the gap widens significantly over time. After 20 years, the non-compounding case yields $300 ($100 + $100 x 0.1 x 20), while the compounding case reaches approximately $673. After 30 years, the gap is even more dramatic: $400 versus about $1,745. The longer you continue the calculations, the more drastic the gap becomes.
 
 ### Exponential Explosion
 
 The snowball effect of compound interest described above is known as [exponential growth](https://en.wikipedia.org/wiki/Exponential_growth), or more dramatically, [exponential explosion](https://www.stewartmath.com/dp_fops_samples/dp7.html). This is the essence of the magic of compound interest — over time, the amount of your money grows exponentially to a "formidable" sum (though not so dramatic in the example above, largely due to the small $100 principal).
 
-If we plot the results of compounding versus non-compounding over 50 years, the "explosion" or magic of compound interest becomes much more evident. After 50 years, your initial $100 principal grows to around $11,739! And remember, this 117-fold growth comes from a "modest" 10% compound interest rate. Take a moment to think about it: a 117-times increase from just 0.1, and you will start to appreciate the magic of compound interest. By comparison, in the non-compounding case, it would take 1,164 years to grow to $11,739!
+If we chart the results of compounding versus non-compounding over 50 years, the "explosion" or magic of compound interest becomes much more evident. After 50 years, your initial $100 principal grows to around $11,739! And remember, this 117-fold growth comes from a "modest" 10% compound interest rate. Take a moment to think about it: a 117-times increase from just 0.1, and you will start to appreciate the magic of compound interest. By comparison, in the non-compounding case, it would take 1,164 years to grow to $11,739!
 
-![Line chart comparing compounding vs non-compounding growth of a $100 principal at 10% interest over 50 years, showing the compounding curve rising exponentially to around $11,000 while the non-compounding line grows linearly to about $600](compound.png)
+{{< chart >}}
+type: 'line',
+data: {
+  labels: ['0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50'],
+  datasets: [
+    {
+      label: 'Compounding',
+      data: [100, 161.05, 259.37, 417.72, 672.75, 1083.47, 1744.94, 2810.24, 4525.93, 7289.05, 11739.09],
+      borderColor: 'rgb(34, 139, 34)',
+      backgroundColor: 'rgba(34, 139, 34, 0.1)',
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: 4
+    },
+    {
+      label: 'Non-compounding',
+      data: [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600],
+      borderColor: 'rgb(220, 53, 69)',
+      backgroundColor: 'rgba(220, 53, 69, 0.1)',
+      borderWidth: 2,
+      tension: 0,
+      pointRadius: 4
+    }
+  ]
+},
+options: {
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Years'
+      }
+    },
+    y: {
+      title: {
+        display: true,
+        text: 'Value ($)'
+      },
+      ticks: {
+        callback: function(value) {
+          return '$' + value.toLocaleString();
+        }
+      }
+    }
+  },
+  plugins: {
+    legend: {
+      labels: {
+        usePointStyle: true,
+        pointStyle: 'line'
+      }
+    },
+    tooltip: {
+      callbacks: {
+        label: function(context) {
+          return context.dataset.label + ': $' + context.parsed.y.toLocaleString();
+        }
+      }
+    }
+  }
+}
+{{< /chart >}}
+
+<small>**Figure 3.** Compounding vs non-compounding over 50 years ($100 principal, 10% interest rate)</small>
 
 For what it's worth, the non-compounding case is also known as [simple interest](https://en.wikipedia.org/wiki/Interest#Simple_interest).
 
@@ -97,29 +284,158 @@ or
 
 Investment return rate = Market return rate - Total expense ratio
 
-Now, let’s perform similar calculations to compare a 10% market return with a 9% investment return. Specifically, we will calculate the total amount of money (with rounding errors) at 10-year intervals for both cases.
+Now, let's perform similar calculations to compare a 10% market return with a 9% investment return. Specifically, we will compare the total amount of money (with rounding errors) at 10-year intervals for both cases.
 
-| Years | Market Value (10%, $) | Investment Value (9%, $) | Percentage of Market Value Kept by Investment (%) |
-| ------- | ------- | ------- | ------- |
-| 10 | 25,937.42 | 23,673.64 | 91.27 |
-| 20 | 67,275.00 | 56,044.11 | 83.31 |
-| 30 | 174,494.02 | 132,676.78 | 76.04 |
-| 40 | 452,592.56 | 314,094.20 | 69.40 |
-| 50 | 1,173,908.53 | 743,575.20 | 63.34 |
+{{< chart >}}
+type: 'line',
+data: {
+  labels: ['10', '20', '30', '40', '50'],
+  datasets: [
+    {
+      label: 'Market Value (10%)',
+      data: [25937.42, 67275.00, 174494.02, 452592.56, 1173908.53],
+      borderColor: 'rgb(34, 139, 34)',
+      backgroundColor: 'rgba(34, 139, 34, 0.1)',
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: 4,
+      yAxisID: 'y'
+    },
+    {
+      label: 'Investment Value (9%)',
+      data: [23673.64, 56044.11, 132676.78, 314094.20, 743575.20],
+      borderColor: 'rgb(220, 53, 69)',
+      backgroundColor: 'rgba(220, 53, 69, 0.15)',
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: 4,
+      fill: '-1',
+      yAxisID: 'y'
+    },
+    {
+      label: 'Percentage Kept',
+      data: [91.27, 83.31, 76.04, 69.40, 63.34],
+      borderColor: 'rgb(255, 165, 0)',
+      backgroundColor: 'rgba(255, 165, 0, 0.1)',
+      borderWidth: 2,
+      borderDash: [5, 5],
+      tension: 0.3,
+      pointRadius: 4,
+      yAxisID: 'y1'
+    }
+  ]
+},
+options: {
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Years'
+      }
+    },
+    y: {
+      position: 'left',
+      title: {
+        display: true,
+        text: 'Value ($)'
+      },
+      ticks: {
+        callback: function(value) {
+          return '$' + value.toLocaleString();
+        }
+      }
+    },
+    y1: {
+      position: 'right',
+      title: {
+        display: true,
+        text: 'Percentage Kept (%)'
+      },
+      min: 50,
+      max: 100,
+      ticks: {
+        callback: function(value) {
+          return value + '%';
+        }
+      },
+      grid: {
+        drawOnChartArea: false
+      }
+    }
+  },
+  plugins: {
+    legend: {
+      labels: {
+        usePointStyle: true,
+        pointStyle: 'line'
+      }
+    },
+    tooltip: {
+      callbacks: {
+        label: function(context) {
+          if (context.dataset.yAxisID === 'y1') {
+            return context.dataset.label + ': ' + context.parsed.y + '%';
+          }
+          return context.dataset.label + ': $' + context.parsed.y.toLocaleString();
+        }
+      }
+    }
+  }
+}
+{{< /chart >}}
 
-From the table, it is clear that over time, you retain less and less of the market value. After 10 years, you keep over 91%, but after 50 years, this drops to just over 63%. In other words, after 10 years, you lose around 9% of the market value, and after 50 years, the loss grows to 37%. Where does this 37% go? You guessed it - it's consumed by fees.
+<small>**Figure 4.** Impact of 1% TER on a $10,000 investment over 50 years</small>
+
+From the chart, it is clear that over time, you retain less and less of the market value. After 10 years, you keep over 91%, but after 50 years, this drops to just over 63%. In other words, after 10 years, you lose around 9% of the market value, and after 50 years, the loss grows to 37%. Where does this 37% go? You guessed it - it's consumed by fees.
 
 Now, consider this: the 37% loss stems from a seemingly "small" 1% annual fee. To better understand the impact, let’s look at the absolute dollar amounts lost due to these fees over time.
 
-| Years | Market Value (10%, $) | Investment Value (9%, $) | Value Lost to Fees ($) |
-| ------- | ------- | ------- | ------- |
-| 10 | 25,937.42 | 23,673.64 | 2,263.79 |
-| 20 | 67,275.00 | 56,044.11 | 11,230.89 |
-| 30 | 174,494.02 | 132,676.78 | 41,817.24 |
-| 40 | 452,592.56 | 314,094.20 | 138,498.36 |
-| 50 | 1,173,908.53 | 743,575.20 | 430,333.32 |
+{{< chart >}}
+type: 'bar',
+data: {
+  labels: ['10', '20', '30', '40', '50'],
+  datasets: [
+    {
+      label: 'Value Lost to Fees',
+      data: [2263.79, 11230.89, 41817.24, 138498.36, 430333.32]
+    }
+  ]
+},
+options: {
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Years'
+      }
+    },
+    y: {
+      title: {
+        display: true,
+        text: 'Value Lost ($)'
+      },
+      ticks: {
+        callback: function(value) {
+          return '$' + value.toLocaleString();
+        }
+      }
+    }
+  },
+  plugins: {
+    tooltip: {
+      callbacks: {
+        label: function(context) {
+          return context.dataset.label + ': $' + context.parsed.y.toLocaleString();
+        }
+      }
+    }
+  }
+}
+{{< /chart >}}
 
-As shown, over 50 years, you lose a staggering $430,333 to fees — more than 43 times your initial $10,000 principal! Once again, this immense loss results from a seemingly "small" 1% annual fee.
+<small>**Figure 5.** Value lost to 1% TER fees over 50 years ($10,000 principal)</small>
+
+As shown in the chart, over 50 years, you lose a staggering $430,333 to fees — more than 43 times your initial $10,000 principal! Once again, this immense loss results from a seemingly "small" 1% annual fee.
 
 By now, it should be clear: costs also compound, and over time, they can amount to a formidable loss. This is why compounding can be a double-edged sword.
 
@@ -140,6 +456,8 @@ Let’s consider a simple example where the market drops by 10% in the first yea
 | 1 | 900 | 890 |
 | 2 | 1,068 | 1,059.1|
 
+<small>**Table 1.** Market and investment values using variable actual returns ($1,000 principal, 1% TER)</small>
+
 * In the first year, the market value drops by 10% ($1000 x (1 - 10%) = $900). And deducting a 1% fee ($1000 x 1% = $10), the investment value is $890 ($900 - $10).
 * In the second year, the market grows by 20% ($890 x (1 + 20%) = $1,068). And deducting a 1% fee on the initial investment value ($890 x 1% = $8.9) , the final investment value is $1,059.1 ($1,068 - $8.9).
 
@@ -150,6 +468,8 @@ Let’s consider a simple example where the market drops by 10% in the first yea
 | 1 | 1039.2 | 1029.2 |
 | 2 | 1069.54 | 1059.25|
 
+<small>**Table 2.** Market and investment values using annualized rate of return ($1,000 principal, 1% TER)</small>
+
 * Here, we apply the annualized rate of return (3.92%), reduced by the TER of 1%, resulting in a net return of 2.92%. The calculations follow the same logic as the fixed compound interest example.
 
 As shown in the tables above, the final values are very similar (up to rounding differences), regardless of whether we use the variable actual returns and the fixed annualized rate of return. This demonstrates that using the annualized rate still accurately reflects the impact of costs while simplifying the calculations.
@@ -158,29 +478,179 @@ As shown in the tables above, the final values are very similar (up to rounding 
 
 In our examples, costs are calculated based on the initial value at the beginning of each year, which allows for the clean formulas presented above. However, if costs are instead calculated based on the final value at the end of each year, the results will differ, though the impact of costs would still be similar.
 
-Let's revisit the example with fixed 10% annual rate of return and an initial principal of $10,000. This time, a 1% cost is deducted at the end of the year. The numbers would look as follows.
+Let's revisit the example with fixed 10% annual rate of return and an initial principal of $10,000. This time, a 1% cost is deducted at the end of the year.
 
-| Years | Market Value ($) | Investment Value ($) |
-| ------- | ------- | ------- |
-| 10 | 23,694.28 | 23,457.34 |
-| 20 | 55,580.49 | 55,024.69 |
-| 30 | 130,377.06 | 129,073.29 |
-| 40 | 305,829.94 | 302,771.64 |
-| 50 | 717,395.74 | 710,221.78 |
+{{< chart >}}
+type: 'line',
+data: {
+  labels: ['10', '20', '30', '40', '50'],
+  datasets: [
+    {
+      label: 'Cost on Initial Value',
+      data: [23694.28, 55580.49, 130377.06, 305829.94, 717395.74],
+      borderColor: 'rgb(34, 139, 34)',
+      backgroundColor: 'rgba(34, 139, 34, 0.1)',
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: 4
+    },
+    {
+      label: 'Cost on Final Value',
+      data: [23457.34, 55024.69, 129073.29, 302771.64, 710221.78],
+      borderColor: 'rgb(220, 53, 69)',
+      backgroundColor: 'rgba(220, 53, 69, 0.15)',
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: 4,
+      fill: '-1'
+    }
+  ]
+},
+options: {
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Years'
+      }
+    },
+    y: {
+      title: {
+        display: true,
+        text: 'Value ($)'
+      },
+      ticks: {
+        callback: function(value) {
+          return '$' + value.toLocaleString();
+        }
+      }
+    }
+  },
+  plugins: {
+    legend: {
+      labels: {
+        usePointStyle: true,
+        pointStyle: 'line'
+      }
+    },
+    tooltip: {
+      callbacks: {
+        label: function(context) {
+          return context.dataset.label + ': $' + context.parsed.y.toLocaleString();
+        }
+      }
+    }
+  }
+}
+{{< /chart >}}
+
+<small>**Figure 6.** Costs deducted based on final value ($10,000 principal, 10% return, 1% TER)</small>
 
 In this scenario, the net rate of return drops to approximately 8.9% (you can verify it using [this calculator](https://www.buyupside.com/calculators/annualizedreturn.htm)), which is slightly lower than (but similar to) the 9% achieved when costs are calculated based on the initial value.
 
 ### How to Avoid the Double-Edged Sword
 
-The solution is simple: minimize investment costs, or at the very least, reduce them to a level you can accept. For instance, if the fund cost is reduced to a TER of 0.03% (and such low-cost funds do exist), you would still be able to retain over 98% of the market value after 50 years!
+The solution is simple: minimize investment costs, or at the very least, reduce them to a level you can accept. For instance, if the fund cost is reduced to a TER of 0.03% (and such low-cost funds do exist), you would still be able to retain over 98% of the market value after 50 years! As the chart below shows, the market value and investment value curves nearly overlap — a stark contrast to the widening gap we saw with a 1% TER.
 
-| Years | Market Value (10%, $) | Investment Value (9.97%, $) | Percentage of Market Value Kept by Investment (%) |
-| ------- | ------- | ------- | ------- |
-| 10 | 25,937.42 | 25,866.77 | 99.73 |
-| 20 | 67,275.00 | 66,908.99 | 99.46 |
-| 30 | 174,494.02 | 173,071.98 | 99.19 |
-| 40 | 452,592.56 | 447,681.35 | 98.91 |
-| 50 | 1,173,908.53 | 1,158,007.18 | 98.65 |
+{{< chart >}}
+type: 'line',
+data: {
+  labels: ['10', '20', '30', '40', '50'],
+  datasets: [
+    {
+      label: 'Market Value (10%)',
+      data: [25937.42, 67275.00, 174494.02, 452592.56, 1173908.53],
+      borderColor: 'rgb(34, 139, 34)',
+      backgroundColor: 'rgba(34, 139, 34, 0.1)',
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: 4,
+      yAxisID: 'y'
+    },
+    {
+      label: 'Investment Value (9.97%)',
+      data: [25866.77, 66908.99, 173071.98, 447681.35, 1158007.18],
+      borderColor: 'rgb(220, 53, 69)',
+      backgroundColor: 'rgba(220, 53, 69, 0.15)',
+      borderWidth: 2,
+      tension: 0.3,
+      pointRadius: 4,
+      fill: '-1',
+      yAxisID: 'y'
+    },
+    {
+      label: 'Percentage Kept',
+      data: [99.73, 99.46, 99.19, 98.91, 98.65],
+      borderColor: 'rgb(255, 165, 0)',
+      backgroundColor: 'rgba(255, 165, 0, 0.1)',
+      borderWidth: 2,
+      borderDash: [5, 5],
+      tension: 0.3,
+      pointRadius: 4,
+      yAxisID: 'y1'
+    }
+  ]
+},
+options: {
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Years'
+      }
+    },
+    y: {
+      position: 'left',
+      title: {
+        display: true,
+        text: 'Value ($)'
+      },
+      ticks: {
+        callback: function(value) {
+          return '$' + value.toLocaleString();
+        }
+      }
+    },
+    y1: {
+      position: 'right',
+      title: {
+        display: true,
+        text: 'Percentage Kept (%)'
+      },
+      min: 50,
+      max: 100,
+      ticks: {
+        callback: function(value) {
+          return value + '%';
+        }
+      },
+      grid: {
+        drawOnChartArea: false
+      }
+    }
+  },
+  plugins: {
+    legend: {
+      labels: {
+        usePointStyle: true,
+        pointStyle: 'line'
+      }
+    },
+    tooltip: {
+      callbacks: {
+        label: function(context) {
+          if (context.dataset.yAxisID === 'y1') {
+            return context.dataset.label + ': ' + context.parsed.y + '%';
+          }
+          return context.dataset.label + ': $' + context.parsed.y.toLocaleString();
+        }
+      }
+    }
+  }
+}
+{{< /chart >}}
+
+<small>**Figure 7.** Impact of 0.03% TER on a $10,000 investment over 50 years</small>
 
 ### Is My Fund Cost High?
 
