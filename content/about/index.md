@@ -8,8 +8,6 @@ showTableOfContents: false
 showComments: false
 ---
 
-Jianchao Li is a software engineer based in Zurich, Switzerland, currently working at [Meta](https://www.meta.com/). His work focuses on deep learning, machine learning, and computer vision. Before Meta, he worked at [ViSenze](https://www.visenze.com/), [ByteDance](https://www.bytedance.com/), and [Indeed](https://www.indeed.com/).
-
 ## Experience
 
 <div class="timeline">
