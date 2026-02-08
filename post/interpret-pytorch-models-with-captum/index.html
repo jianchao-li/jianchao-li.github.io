@@ -46,7 +46,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2020-02-29T10:49:18+08:00">
-    <meta property="article:modified_time" content="2020-02-29T10:49:18+08:00">
+    <meta property="article:modified_time" content="2026-02-08T00:00:00+00:00">
     <meta property="article:tag" content="Deep-Learning">
     <meta property="article:tag" content="Pytorch">
     <meta property="og:image" content="https://jianchao-li.github.io/post/interpret-pytorch-models-with-captum/featured.jpg">
@@ -216,12 +216,12 @@
     "dateCreated": "2020-02-29T10:49:18\u002b08:00",
     "datePublished": "2020-02-29T10:49:18\u002b08:00",
     
-    "dateModified": "2020-02-29T10:49:18\u002b08:00",
+    "dateModified": "2026-02-08T00:00:00\u002b00:00",
     
     "keywords": ["deep-learning","pytorch"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "1036"
+    "wordCount": "1062"
   }]
   </script>
 
@@ -782,6 +782,8 @@
   
 
   
+    
+  
 
   
 
@@ -803,7 +805,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2020-02-29T10:49:18&#43;08:00">29 February 2020</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">5 mins</span>
+      <time datetime="2020-02-29T10:49:18&#43;08:00">29 February 2020</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2026-02-08T00:00:00&#43;00:00">Updated: 8 February 2026</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">5 mins</span>
     
 
     
@@ -1035,19 +1037,24 @@
 </span></span><span class="line"><span class="cl"><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span></span></span></code></pre></div></div>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="Photo of a female Great Hornbill perched on a tree branch surrounded by green leaves and berries, displayed with matplotlib axes showing pixel dimensions"
-    width="598"
-    height="481"
-    src="/post/interpret-pytorch-models-with-captum/image.png"
-    srcset="/post/interpret-pytorch-models-with-captum/image.png 800w, /post/interpret-pytorch-models-with-captum/image.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/interpret-pytorch-models-with-captum/image.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="Photo of a female Great Hornbill perched on a tree branch surrounded by green leaves and berries, displayed with matplotlib axes showing pixel dimensions"
+          width="598"
+          height="481"
+          src="/post/interpret-pytorch-models-with-captum/image_hu_70056d7294d8305.png"
+          srcset="/post/interpret-pytorch-models-with-captum/image_hu_70056d7294d8305.png 800w,/post/interpret-pytorch-models-with-captum/image_hu_b676eb946c254353.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/interpret-pytorch-models-with-captum/image.png"
+        />
+  
+  <figcaption><strong>Figure 1.</strong> A female Great Hornbill used as the test image for model interpretation.</figcaption>
+  </figure>
 <p>I also prepare the class names for the 1000 classes in ImageNet. This will let me know the specific class names instead of only the index of the predicted class. The class names are loaded from the following URL.</p>
 <div class="highlight-wrapper"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://s3.amazonaws.com/deep-learning-models/image-models/imagenet_class_index.json&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
@@ -1140,19 +1147,24 @@
 </span></span><span class="line"><span class="cl">ax = fig.add_subplot(111)
 </span></span><span class="line"><span class="cl">ax.set_title(class_names_map[str(out_index)], fontsize=30)
 </span></span><span class="line"><span class="cl">plt.imshow(vis)</span></span></code></pre></div></div>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="LayerGradCam heatmap visualization overlaid on the Hornbill image, with red regions highlighting the head and beak area that most influenced the model prediction of hornbill"
-    width="598"
-    height="506"
-    src="/post/interpret-pytorch-models-with-captum/visualization.png"
-    srcset="/post/interpret-pytorch-models-with-captum/visualization.png 800w, /post/interpret-pytorch-models-with-captum/visualization.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/interpret-pytorch-models-with-captum/visualization.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="LayerGradCam heatmap visualization overlaid on the Hornbill image, with red regions highlighting the head and beak area that most influenced the model prediction of hornbill"
+          width="598"
+          height="506"
+          src="/post/interpret-pytorch-models-with-captum/visualization_hu_7c3a6af99dbdb053.png"
+          srcset="/post/interpret-pytorch-models-with-captum/visualization_hu_7c3a6af99dbdb053.png 800w,/post/interpret-pytorch-models-with-captum/visualization_hu_eb177b5eb03e8612.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/interpret-pytorch-models-with-captum/visualization.png"
+        />
+  
+  <figcaption><strong>Figure 2.</strong> LayerGradCam heatmap highlighting the regions that most influenced the prediction.</figcaption>
+  </figure>
 <p>We can see that the model makes a correct prediction. From the above visualization, we can also see that the red regions are mostly around the head and beak of the Hornbill, especiall its heavy bill. The red regions are the main regions that drive the model to generate its output. This makes great sense as those regions are just the distinctive features of a Hornbill.</p>
 <p>Now you can also apply the above technique (and more from Captum) to interpret the output of your PyTorch model. Have fun!</p>
 <p><strong>Notes:</strong> This post is also available as a <a href="https://gist.github.com/jianchao-li/f7b507bc66b2215e15cc0135f03c3ff9"  target="_blank" rel="noreferrer">Jupyter notebook</a>.</p>
@@ -1323,7 +1335,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2019-10-16T01:00:18&#43;08:00">16 October 2019</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2025-01-31T00:00:00&#43;00:00">Updated: 31 January 2025</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">4 mins</span>
+      <time datetime="2019-10-16T01:00:18&#43;08:00">16 October 2019</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2026-02-08T00:00:00&#43;00:00">Updated: 8 February 2026</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">5 mins</span>
     
 
     
@@ -1683,7 +1695,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2018-11-27T15:36:00&#43;08:00">27 November 2018</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2025-01-31T00:00:00&#43;00:00">Updated: 31 January 2025</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">8 mins</span>
+      <time datetime="2018-11-27T15:36:00&#43;08:00">27 November 2018</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2026-02-08T00:00:00&#43;00:00">Updated: 8 February 2026</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">8 mins</span>
     
 
     

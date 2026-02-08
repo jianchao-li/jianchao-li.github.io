@@ -46,7 +46,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2019-10-16T01:00:18+08:00">
-    <meta property="article:modified_time" content="2025-01-31T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-02-08T00:00:00+00:00">
     <meta property="article:tag" content="Deep-Learning">
     <meta property="article:tag" content="Pytorch">
     <meta property="article:tag" content="Ios">
@@ -217,12 +217,12 @@
     "dateCreated": "2019-10-16T01:00:18\u002b08:00",
     "datePublished": "2019-10-16T01:00:18\u002b08:00",
     
-    "dateModified": "2025-01-31T00:00:00\u002b00:00",
+    "dateModified": "2026-02-08T00:00:00\u002b00:00",
     
     "keywords": ["deep-learning","pytorch","ios"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "831"
+    "wordCount": "902"
   }]
   </script>
 
@@ -806,7 +806,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2019-10-16T01:00:18&#43;08:00">16 October 2019</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2025-01-31T00:00:00&#43;00:00">Updated: 31 January 2025</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">4 mins</span>
+      <time datetime="2019-10-16T01:00:18&#43;08:00">16 October 2019</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2026-02-08T00:00:00&#43;00:00">Updated: 8 February 2026</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">5 mins</span>
     
 
     
@@ -1029,76 +1029,101 @@
 </h2>
 <p>Before diving into details, it is better to get a sense of what a Core ML model looks like. You may download the sample code in <a href="https://developer.apple.com/documentation/vision/classifying_images_with_vision_and_core_ml"  target="_blank" rel="noreferrer">Classifying Images with Vision and Core ML</a>. There is a <code>MobileNet.mlmodel</code> inside it. You can open it with Xcode to see what it looks like.</p>
 <p>The following is a screenshot of the model details. In the center area, there are 3 sections: Machine Learning Model, Model Class and Prediction.</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="Xcode showing the MobileNet.mlmodel file details, including the Machine Learning Model metadata, the auto-generated MobileNet Swift model class, and the Prediction section listing the input (a 224x224 color image) and outputs (classLabel string and classLabelProbs dictionary)"
-    width="2880"
-    height="1610"
-    src="/post/from-pytorch-to-coreml/model_details_hu_c4917463d9378072.png"
-    srcset="/post/from-pytorch-to-coreml/model_details_hu_c4917463d9378072.png 800w, /post/from-pytorch-to-coreml/model_details_hu_874ed6e1190a07c9.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/from-pytorch-to-coreml/model_details.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="Xcode showing the MobileNet.mlmodel file details, including the Machine Learning Model metadata, the auto-generated MobileNet Swift model class, and the Prediction section listing the input (a 224x224 color image) and outputs (classLabel string and classLabelProbs dictionary)"
+          width="2880"
+          height="1610"
+          src="/post/from-pytorch-to-coreml/model_details_hu_c4917463d9378072.png"
+          srcset="/post/from-pytorch-to-coreml/model_details_hu_c4917463d9378072.png 800w,/post/from-pytorch-to-coreml/model_details_hu_874ed6e1190a07c9.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/from-pytorch-to-coreml/model_details.png"
+        />
+  
+  <figcaption><strong>Figure 1.</strong> MobileNet.mlmodel details in Xcode showing model metadata, Swift class, and prediction inputs/outputs.</figcaption>
+  </figure>
 <p>The interesting part is the Prediction. It tells us that the input to the model is a color (RGB) image of size 224 x 224 and the outputs have two parts: top-1 category <code>classLabel</code> and the probabilities of all categories <code>classLabelProbs</code>. <strong>This will guide the model conversion later</strong>.</p>
 <p>Then you can click the triangle in the following red rectangle to build the project. You can also select the device simulator that you want to run the project on in the blue rectangle.</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="Xcode toolbar with the build button highlighted in a red rectangle and the device simulator selector showing iPhone 11 Pro Max highlighted in a blue rectangle"
-    width="1024"
-    height="589"
-    src="/post/from-pytorch-to-coreml/xcode_hu_b6b531c952f6468f.png"
-    srcset="/post/from-pytorch-to-coreml/xcode_hu_b6b531c952f6468f.png 800w, /post/from-pytorch-to-coreml/xcode.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/from-pytorch-to-coreml/xcode.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="Xcode toolbar with the build button highlighted in a red rectangle and the device simulator selector showing iPhone 11 Pro Max highlighted in a blue rectangle"
+          width="1024"
+          height="589"
+          src="/post/from-pytorch-to-coreml/xcode_hu_b6b531c952f6468f.png"
+          srcset="/post/from-pytorch-to-coreml/xcode_hu_b6b531c952f6468f.png 800w,/post/from-pytorch-to-coreml/xcode_hu_f1924b4ed0468a5.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/from-pytorch-to-coreml/xcode.png"
+        />
+  
+  <figcaption><strong>Figure 2.</strong> Xcode toolbar with the build button and device simulator selector.</figcaption>
+  </figure>
 <p>You may need to configure the &ldquo;Signing &amp; Capabilities&rdquo; by clicking the <code>Vision+ML Example</code> folder (an Apple ID will be needed). After that, you should see an iPhone coming out in your screen and you can start to add a photo and play with it! If you want to try it on a real iPhone, just connect your iPhone to the computer (USB or Type-C) then you should be able to select your iPhone in the blue rectangle.</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="iPhone 11 Pro Max simulator running the Vision&#43;ML Example app with a black screen and an &ldquo;Add a photo.&rdquo; button at the bottom along with a camera icon"
-    width="734"
-    height="1596"
-    src="/post/from-pytorch-to-coreml/iphone.png"
-    srcset="/post/from-pytorch-to-coreml/iphone.png 800w, /post/from-pytorch-to-coreml/iphone.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/from-pytorch-to-coreml/iphone.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="iPhone 11 Pro Max simulator running the Vision&#43;ML Example app with a black screen and an &#39;Add a photo.&#39; button at the bottom along with a camera icon"
+          width="734"
+          height="1596"
+          src="/post/from-pytorch-to-coreml/iphone_hu_6578b51659105ff.png"
+          srcset="/post/from-pytorch-to-coreml/iphone_hu_6578b51659105ff.png 800w,/post/from-pytorch-to-coreml/iphone_hu_a07c78748d4d1295.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/from-pytorch-to-coreml/iphone.png"
+        />
+  
+  <figcaption><strong>Figure 3.</strong> Vision+ML Example app running on the iPhone simulator.</figcaption>
+  </figure>
 <p>You can try more open source Core ML models <a href="https://developer.apple.com/machine-learning/models/"  target="_blank" rel="noreferrer">here</a>. To add a model to the project, you need to drag it to the project structure and set it up as follows. Some files will be generated automatically for you to use the model.</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="Xcode dialog for adding files to a project, with &ldquo;Copy items if needed&rdquo; checked, &ldquo;Create groups&rdquo; selected for added folders, and the Vision&#43;ML Example target checked"
-    width="1460"
-    height="864"
-    src="/post/from-pytorch-to-coreml/drag_hu_e0e15e3eb73c4a94.png"
-    srcset="/post/from-pytorch-to-coreml/drag_hu_e0e15e3eb73c4a94.png 800w, /post/from-pytorch-to-coreml/drag_hu_7d70a400453aa4ad.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/from-pytorch-to-coreml/drag.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="Xcode dialog for adding files to a project, with &#39;Copy items if needed&#39; checked, &#39;Create groups&#39; selected for added folders, and the Vision&#43;ML Example target checked"
+          width="1460"
+          height="864"
+          src="/post/from-pytorch-to-coreml/drag_hu_e0e15e3eb73c4a94.png"
+          srcset="/post/from-pytorch-to-coreml/drag_hu_e0e15e3eb73c4a94.png 800w,/post/from-pytorch-to-coreml/drag_hu_7d70a400453aa4ad.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/from-pytorch-to-coreml/drag.png"
+        />
+  
+  <figcaption><strong>Figure 4.</strong> Adding a Core ML model file to the Xcode project.</figcaption>
+  </figure>
 <p>You need to change the line <code>let model = try VNCoreMLModel(for: MobileNet().model)</code> in <code>ImageClassificationViewController.swift</code> to use the model. You may also need to update the target iOS version shown in the red rectangle of the following screenshot.</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="Xcode project General settings for the Vision&#43;ML Example target, with the Deployment Info section showing the iOS target version highlighted in a red rectangle set to iOS 11.2"
-    width="1024"
-    height="566"
-    src="/post/from-pytorch-to-coreml/ios_version_hu_34453ff07916de4e.png"
-    srcset="/post/from-pytorch-to-coreml/ios_version_hu_34453ff07916de4e.png 800w, /post/from-pytorch-to-coreml/ios_version.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/from-pytorch-to-coreml/ios_version.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="Xcode project General settings for the Vision&#43;ML Example target, with the Deployment Info section showing the iOS target version highlighted in a red rectangle set to iOS 11.2"
+          width="1024"
+          height="566"
+          src="/post/from-pytorch-to-coreml/ios_version_hu_34453ff07916de4e.png"
+          srcset="/post/from-pytorch-to-coreml/ios_version_hu_34453ff07916de4e.png 800w,/post/from-pytorch-to-coreml/ios_version_hu_e31ec3a30fedfe7.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/from-pytorch-to-coreml/ios_version.png"
+        />
+  
+  <figcaption><strong>Figure 5.</strong> Configuring the target iOS version in Xcode project settings.</figcaption>
+  </figure>
 
 <h2 class="relative group">Model Conversion
     <div id="model-conversion" class="anchor"></div>
@@ -1112,19 +1137,24 @@
 <p>Now we take a step back. We have just trained a model using PyTorch or MXNet and we want to run it on iOS. Obviously, we need to convert the <code>.pth</code> or <code>.params</code> to <code>.mlmodel</code>. This is model conversion.</p>
 <p>For Caffe and Keras, their models can be converted to Core ML models directly. However, such direct conversion is not supported for PyTorch. Fortunately, we have <a href="https://onnx.ai/"  target="_blank" rel="noreferrer">ONNX</a>, an excellent exchange format between models of various frameworks.</p>
 <p>The conversion flow from PyTorch to Core ML is as follows. I will use the <code>mobilenet_v2</code> of <code>torchvision</code> as an example to walk through the conversion process.</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="Flow diagram showing the model conversion pipeline: PyTorch to ONNX to CoreML, with arrows connecting the three steps from left to right"
-    width="408"
-    height="102"
-    src="/post/from-pytorch-to-coreml/conversion.png"
-    srcset="/post/from-pytorch-to-coreml/conversion.png 800w, /post/from-pytorch-to-coreml/conversion.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/from-pytorch-to-coreml/conversion.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="Flow diagram showing the model conversion pipeline: PyTorch to ONNX to CoreML, with arrows connecting the three steps from left to right"
+          width="408"
+          height="102"
+          src="/post/from-pytorch-to-coreml/conversion_hu_2345d71704c84859.png"
+          srcset="/post/from-pytorch-to-coreml/conversion_hu_2345d71704c84859.png 800w,/post/from-pytorch-to-coreml/conversion_hu_cbab169a53269aca.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/from-pytorch-to-coreml/conversion.png"
+        />
+  
+  <figcaption><strong>Figure 6.</strong> Model conversion pipeline from PyTorch to ONNX to Core ML.</figcaption>
+  </figure>
 
 <h3 class="relative group">Loading TorchVision Model
     <div id="loading-torchvision-model" class="anchor"></div>
@@ -1528,7 +1558,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2018-11-27T15:36:00&#43;08:00">27 November 2018</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2025-01-31T00:00:00&#43;00:00">Updated: 31 January 2025</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">8 mins</span>
+      <time datetime="2018-11-27T15:36:00&#43;08:00">27 November 2018</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2026-02-08T00:00:00&#43;00:00">Updated: 8 February 2026</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">8 mins</span>
     
 
     
@@ -1713,7 +1743,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2018-09-15T19:29:22&#43;08:00">15 September 2018</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2025-01-31T00:00:00&#43;00:00">Updated: 31 January 2025</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">31 mins</span>
+      <time datetime="2018-09-15T19:29:22&#43;08:00">15 September 2018</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2026-02-08T00:00:00&#43;00:00">Updated: 8 February 2026</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">31 mins</span>
     
 
     

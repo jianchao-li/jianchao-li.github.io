@@ -46,7 +46,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2018-09-15T19:29:22+08:00">
-    <meta property="article:modified_time" content="2025-01-31T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-02-08T00:00:00+00:00">
     <meta property="article:tag" content="Deep-Learning">
     <meta property="article:tag" content="Computer-Vision">
     <meta property="og:image" content="https://jianchao-li.github.io/post/understanding-fully-convolutional-networks/featured.jpg">
@@ -216,12 +216,12 @@
     "dateCreated": "2018-09-15T19:29:22\u002b08:00",
     "datePublished": "2018-09-15T19:29:22\u002b08:00",
     
-    "dateModified": "2025-01-31T00:00:00\u002b00:00",
+    "dateModified": "2026-02-08T00:00:00\u002b00:00",
     
     "keywords": ["deep-learning","computer-vision"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "6391"
+    "wordCount": "6512"
   }]
   </script>
 
@@ -805,7 +805,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2018-09-15T19:29:22&#43;08:00">15 September 2018</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2025-01-31T00:00:00&#43;00:00">Updated: 31 January 2025</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">31 mins</span>
+      <time datetime="2018-09-15T19:29:22&#43;08:00">15 September 2018</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2026-02-08T00:00:00&#43;00:00">Updated: 8 February 2026</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">31 mins</span>
     
 
     
@@ -1011,34 +1011,44 @@
     
 </h2>
 <p>Semantic segmentation is a task in which given an image, we need to assign a semantic label (like cat, dog, person, background etc.) to each of its pixels. The following are some examples taken from <a href="http://host.robots.ox.ac.uk/pascal/VOC/"  target="_blank" rel="noreferrer">The PASCAL VOC data sets</a> with different colors representing different semantic classes.</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="PASCAL VOC semantic segmentation examples showing four images (a motorcyclist, a dining table with chairs, a living room with a Christmas tree, and a bedroom with sofas) alongside their corresponding segmentation masks with different colors representing object classes"
-    width="552"
-    height="204"
-    src="/post/understanding-fully-convolutional-networks/pascalvoc.png"
-    srcset="/post/understanding-fully-convolutional-networks/pascalvoc.png 800w, /post/understanding-fully-convolutional-networks/pascalvoc.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/understanding-fully-convolutional-networks/pascalvoc.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="PASCAL VOC semantic segmentation examples showing four images (a motorcyclist, a dining table with chairs, a living room with a Christmas tree, and a bedroom with sofas) alongside their corresponding segmentation masks with different colors representing object classes"
+          width="552"
+          height="204"
+          src="/post/understanding-fully-convolutional-networks/pascalvoc_hu_e79c0bb61f36725c.png"
+          srcset="/post/understanding-fully-convolutional-networks/pascalvoc_hu_e79c0bb61f36725c.png 800w,/post/understanding-fully-convolutional-networks/pascalvoc_hu_d996e39b9480193c.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/understanding-fully-convolutional-networks/pascalvoc.png"
+        />
+  
+  <figcaption><strong>Figure 1.</strong> PASCAL VOC semantic segmentation examples with images and their corresponding segmentation masks.</figcaption>
+  </figure>
 <p>The PASCAL VOC data sets define 20 semantic classes: aeroplane, bicycle, bird, boat, bottle, bus, car, cat, chair, cow, dining table, dog, horse, motorbike, person, potted plant, sheep, sofa, train, and tv/monitor. Actually these are all <em>object</em> classes. For pixels falling into non-object classes (which are called <em>stuff</em>) like sky, they will be labeled as &ldquo;background&rdquo;.</p>
 <p>Some later semantic segmentation data sets like <a href="https://www.cityscapes-dataset.com/"  target="_blank" rel="noreferrer">The Cityscapes Dataset</a> and <a href="https://github.com/nightrome/cocostuff"  target="_blank" rel="noreferrer">The COCO-Stuff dataset</a> account for both object and stuff classes. The following are some examples taken from the COCO-Stuff dataset, with class names also shown.</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="COCO-Stuff dataset examples arranged in a 3x2 grid, each showing an original image paired with its dense segmentation map labeling both object and stuff classes such as person, tree, clouds, grass, river, boat, elephant, giraffe, sea, and building"
-    width="2007"
-    height="730"
-    src="/post/understanding-fully-convolutional-networks/cocostuff_hu_8c96bcbaaab6ed8f.png"
-    srcset="/post/understanding-fully-convolutional-networks/cocostuff_hu_8c96bcbaaab6ed8f.png 800w, /post/understanding-fully-convolutional-networks/cocostuff_hu_661998b25d2e461b.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/understanding-fully-convolutional-networks/cocostuff.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="COCO-Stuff dataset examples arranged in a 3x2 grid, each showing an original image paired with its dense segmentation map labeling both object and stuff classes such as person, tree, clouds, grass, river, boat, elephant, giraffe, sea, and building"
+          width="2007"
+          height="730"
+          src="/post/understanding-fully-convolutional-networks/cocostuff_hu_8c96bcbaaab6ed8f.png"
+          srcset="/post/understanding-fully-convolutional-networks/cocostuff_hu_8c96bcbaaab6ed8f.png 800w,/post/understanding-fully-convolutional-networks/cocostuff_hu_661998b25d2e461b.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/understanding-fully-convolutional-networks/cocostuff.png"
+        />
+  
+  <figcaption><strong>Figure 2.</strong> COCO-Stuff dataset examples with dense segmentation maps labeling both object and stuff classes.</figcaption>
+  </figure>
 
 <h2 class="relative group">How to use CNNs for segmentation
     <div id="how-to-use-cnns-for-segmentation" class="anchor"></div>
@@ -1052,19 +1062,24 @@
 <p>Back in 2015, convolutional neural networks (CNNs) have achieved tremendous success in image classification (like <a href="https://www.nvidia.cn/content/tesla/pdf/machine-learning/imagenet-classification-with-deep-convolutional-nn.pdf"  target="_blank" rel="noreferrer">AlexNet</a> and <a href="https://www.cs.unc.edu/~wliu/papers/GoogLeNet.pdf"  target="_blank" rel="noreferrer">GoogLeNet</a>), doing extremely well in learning from a fixed-size image to a single category label. Generally, the image will go through several convolutional layers and then fully connected layers, giving a fixed-size (equal to the number of classes) output, whose softmax loss with respect to the ground truth label will be computed and back-propagated to update parameters.</p>
 <p>However, in semantic segmentation, we need pixel-wise dense predictions instead of just a single label. For example, for a 256x128 image, the segmentation mask is also of size 256x128. We need to use CNNs to generate a predicted mask and then compute the loss between it and the ground truth one.</p>
 <p>I was working on object segmentation at the end of 2014. Object segmentation is arguably much simpler than semantic segmentation in that it only classifies the pixels into two classes: the backround and the foreground (a specific object, like pedestrian, horse, bird etc.). The following are some examples taken from <a href="http://www.vision.caltech.edu/visipedia/CUB-200-2011.html"  target="_blank" rel="noreferrer">Caltech-UCSD Birds-200-2011</a> with the object masks shown below the images.</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="CUB-200-2011 bird dataset examples showing four bird photographs in the top row with their corresponding binary foreground-background segmentation masks below, where white silhouettes represent the bird regions against a black background"
-    width="1073"
-    height="380"
-    src="/post/understanding-fully-convolutional-networks/cub200_hu_d8cd98a0331707e2.png"
-    srcset="/post/understanding-fully-convolutional-networks/cub200_hu_d8cd98a0331707e2.png 800w, /post/understanding-fully-convolutional-networks/cub200.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/understanding-fully-convolutional-networks/cub200.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="CUB-200-2011 bird dataset examples showing four bird photographs in the top row with their corresponding binary foreground-background segmentation masks below, where white silhouettes represent the bird regions against a black background"
+          width="1073"
+          height="380"
+          src="/post/understanding-fully-convolutional-networks/cub200_hu_d8cd98a0331707e2.png"
+          srcset="/post/understanding-fully-convolutional-networks/cub200_hu_d8cd98a0331707e2.png 800w,/post/understanding-fully-convolutional-networks/cub200_hu_44b7c7598e6e2085.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/understanding-fully-convolutional-networks/cub200.png"
+        />
+  
+  <figcaption><strong>Figure 3.</strong> CUB-200-2011 bird dataset examples with binary foreground-background segmentation masks.</figcaption>
+  </figure>
 <p>Since CNNs are good at handling fixed-size data, a simple idea is to fix both the sizes of the image and the object mask. Then we set the number of output units of the last fully connected layer to be equal to the number of mask elements.</p>
 <p>For loss computation, since I was working on object segmentation with only two values (0 for background and 1 for foreground) in the mask, I simply adopted the Euclidean loss. This extremely simple idea achieved state-of-the-art results in some object segmentation datasets and was published in ICIP 2015 entitled <a href="http://ieeexplore.ieee.org/document/7351084/"  target="_blank" rel="noreferrer">Object segmentation with deep regression</a>.</p>
 
@@ -1099,19 +1114,24 @@
 <p>$H_{out}$, $H_{in}$, $W_{out}$, $W_{in}$, $P$, $K$, and $S$ represent the output height, input height, output width, input width, padding, kernel size and stride respectively. In this post, we assume that the same padding and stride is used in both the height and width dimensions.</p>
 <p>For example, if you are convolving a 4x4 input ($H_{in} = W_{in} = 4$) with a 3x3 kernel ($K = 3$) with stride 1 ($S = 1$) and no padding ($P = 0$), you will get an output of size 2x2 ($\frac{4 + 2 \times 0 - 3}{1} + 1 = 2$). So this is a convolution that transforms a 4x4 input to a 2x2 output with a 3x3 convolutional kernel.</p>
 <p>Now, in deconvolution, we would like to transform a 2x2 input to a 4x4 output using the same 3x3 convolutional kernel. Since deconvolution is still convolution, equations $\eqref{eq1}$ and $\eqref{eq2}$ still hold. Suppose we also use stride 1, then we need to solve $4 = \frac{2 + 2P - 3}{1} + 1$, which gives $P = 2$. So the corresponding deconvolution is just a convolution of a 2x2 input with the same 3x3 kernel, stride 1, and padding 2.</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="Illustration of convolution and deconvolution operations: the top shows a standard convolution from a 4x4 input to a 2x2 output using a 3x3 kernel, and the bottom shows the corresponding deconvolution from a 2x2 input (zero-padded to 6x6) back to a 4x4 output using the same 3x3 kernel"
-    width="870"
-    height="642"
-    src="/post/understanding-fully-convolutional-networks/deconv_hu_df3b22f1fd21b3be.png"
-    srcset="/post/understanding-fully-convolutional-networks/deconv_hu_df3b22f1fd21b3be.png 800w, /post/understanding-fully-convolutional-networks/deconv.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/understanding-fully-convolutional-networks/deconv.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="Illustration of convolution and deconvolution operations: the top shows a standard convolution from a 4x4 input to a 2x2 output using a 3x3 kernel, and the bottom shows the corresponding deconvolution from a 2x2 input (zero-padded to 6x6) back to a 4x4 output using the same 3x3 kernel"
+          width="870"
+          height="642"
+          src="/post/understanding-fully-convolutional-networks/deconv_hu_df3b22f1fd21b3be.png"
+          srcset="/post/understanding-fully-convolutional-networks/deconv_hu_df3b22f1fd21b3be.png 800w,/post/understanding-fully-convolutional-networks/deconv_hu_a24e6bd4aae64bad.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/understanding-fully-convolutional-networks/deconv.png"
+        />
+  
+  <figcaption><strong>Figure 4.</strong> Convolution (top) and deconvolution (bottom) with a 3x3 kernel.</figcaption>
+  </figure>
 <p>Now let&rsquo;s look at the relationship between the input size and output size in deconvolution. As mentioned above, deconvolution is a convolution with swapped input size and output size. So we can derive the relationship just by swapping $H_{in}$ with $H_{out}$ and $W_{in}$ with $W_{out}$ in equations $\eqref{eq1}$ and $\eqref{eq2}$, which gives</p>
 <p>$$H_{in} = \frac{H_{out} + 2P - K}{S} + 1 \tag{3}\label{eq3}$$</p>
 <p>$$W_{in} = \frac{W_{out} + 2P - K}{S} + 1 \tag{4}\label{eq4}$$</p>
@@ -1390,19 +1410,24 @@
     
 </h2>
 <p>Now you are ready to embrace the idea of FCNs. It is fairly simple: first downsample the image to smaller feature maps and then upsample them to the segmentation masks (of the same size as the image). <a href="http://cs231n.stanford.edu/slides/2018/cs231n_2018_lecture11.pdf"  target="_blank" rel="noreferrer">CS231n 2018 Lecture 11</a> has the following nice illustration which summarizes this process. Actually I think the $D_3 \times H/4 \times W/4$ of Low-res should be $D_3 \times H/8 \times W/8$. Anyway, you can just ignore the captions. The picture has reflected the core idea.</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="FCN architecture diagram showing an input image of cows being downsampled through convolutional layers to progressively lower resolutions and then upsampled back to the original resolution to produce a pixel-wise segmentation prediction map"
-    width="946"
-    height="246"
-    src="/post/understanding-fully-convolutional-networks/fcn_hu_2dc8598c4a3b76f.png"
-    srcset="/post/understanding-fully-convolutional-networks/fcn_hu_2dc8598c4a3b76f.png 800w, /post/understanding-fully-convolutional-networks/fcn.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/understanding-fully-convolutional-networks/fcn.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="FCN architecture diagram showing an input image of cows being downsampled through convolutional layers to progressively lower resolutions and then upsampled back to the original resolution to produce a pixel-wise segmentation prediction map"
+          width="946"
+          height="246"
+          src="/post/understanding-fully-convolutional-networks/fcn_hu_2dc8598c4a3b76f.png"
+          srcset="/post/understanding-fully-convolutional-networks/fcn_hu_2dc8598c4a3b76f.png 800w,/post/understanding-fully-convolutional-networks/fcn_hu_423813954a94326b.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/understanding-fully-convolutional-networks/fcn.png"
+        />
+  
+  <figcaption><strong>Figure 5.</strong> FCN architecture: downsampling through convolutions and upsampling back to produce pixel-wise predictions.</figcaption>
+  </figure>
 <p>To gain more understanding, let&rsquo;s walk through a concrete example - <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn32s/val.prototxt"  target="_blank" rel="noreferrer">voc-fcn32s</a>, an adaptation of the 16-layer VGG into an FCN for semantic segmentation in the PASCAL VOC data sets. Since this dataset has 21 classes, we need to learn 21 segmentation masks.</p>
 <p>Let&rsquo;s also break the voc-fcn32s down layer by layer. Note that the size of <code>data</code> is now $3 \times H \times W$. In this way, we will show that FCN is able to handle input of any size! All default settings are the same to those in the above table.</p>
 <table>
@@ -1680,19 +1705,24 @@
 </span></span></span><span class="line"><span class="cl">  <span class="p">}</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
 <p>This Crop layer accepts <code>upscore</code> ($21 \times \left(H + 38\right) \times \left(W + 38\right)$) and <code>data</code> ($3 \times H \times W$) from the two <code>bottom</code> fields. It also has two parameters: <code>axis: 2</code> and <code>offset: 19</code>. In Caffe, a feature map (blob) is of size $N \times C \times H \times W$, with $N$, $C$, $H$ and $W$ being the 0th, 1st, 2nd and 3rd dimension. So <code>upscore</code> and <code>data</code> are actually of size $N \times 21 \times \left(H + 38\right) \times \left(W + 38\right)$ and $N \times 3 \times H \times W$ respectively. <code>axis: 2</code> means to crop from the 2nd dimension (inclusive). So only the dimension $H$ and $W$ of <code>upscore</code> ($\left(H + 38\right) \times \left(W + 38\right)$) will be cropped to be the same as <code>data</code> ($H \times W$). And <code>offset: 19</code> specifies the starting index of the cropping, which means that <code>upscore</code> will be cropped to be <code>upscore[19: 19 + H, 19: 19 + W]</code>, literally the central part of <code>upscore</code>. The following is an illustration of this process, with the green part being the cropped region <code>score</code>.</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="Diagram illustrating the Crop layer operation: the upscore feature map of size (H&#43;38)x(W&#43;38) is cropped with an offset of 19 pixels on each side to extract the central HxW region called score, matching the spatial dimensions of the original input data"
-    width="726"
-    height="386"
-    src="/post/understanding-fully-convolutional-networks/crop.png"
-    srcset="/post/understanding-fully-convolutional-networks/crop.png 800w, /post/understanding-fully-convolutional-networks/crop.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/understanding-fully-convolutional-networks/crop.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="Diagram illustrating the Crop layer operation: the upscore feature map of size (H&#43;38)x(W&#43;38) is cropped with an offset of 19 pixels on each side to extract the central HxW region called score, matching the spatial dimensions of the original input data"
+          width="726"
+          height="386"
+          src="/post/understanding-fully-convolutional-networks/crop_hu_8abc45df8178e596.png"
+          srcset="/post/understanding-fully-convolutional-networks/crop_hu_8abc45df8178e596.png 800w,/post/understanding-fully-convolutional-networks/crop_hu_ea43b68531b2f6d9.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/understanding-fully-convolutional-networks/crop.png"
+        />
+  
+  <figcaption><strong>Figure 6.</strong> The Crop layer extracts the central region of the upscore feature map to match the input dimensions.</figcaption>
+  </figure>
 
 <h2 class="relative group">Simplifying FCN to a stack of convolutional layers
     <div id="simplifying-fcn-to-a-stack-of-convolutional-layers" class="anchor"></div>
@@ -2094,19 +2124,24 @@ $$</p>
 </h2>
 <p>In the <code>upscore</code> layer of voc-fcn32s, the feature maps are directly upsampled by a large factor of 32 (this is why it is named voc-fcn32s), which will produce relatively coarse predictions due to missing finer detils from intermediate resolutions. So, in <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn16s/val.prototxt"  target="_blank" rel="noreferrer">voc-fcn16s</a> and <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn8s/val.prototxt"  target="_blank" rel="noreferrer">voc-fcn8s</a>, the shrinked feature maps are upsampled more than once before being recovered to the size of the image.</p>
 <p>For <a href="https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn16s/val.prototxt"  target="_blank" rel="noreferrer">voc-fcn16s</a>, the feature maps from <code>score_fr</code> will first be upsampled by a factor of 2 in <code>upscore2</code>. Then, we generate another set of outputs from <code>pool4</code> using convolution in <code>score_pool4</code> and crop it to be the same size as that of <code>upscore2</code> in <code>score_pool4c</code>. Finally, we combine <code>upscore2</code> and <code>score_pool4c</code> using element-wise summation in <code>fuse_pool4</code>, upsample it by a factor of 16 in <code>upscore16</code> and crop it in <code>score</code> to obtain the output. We show the network architecture for this process while omitting the previous layers in the following figure. Moreover, this process is broken down in the table below.</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="FCN-16s network architecture diagram showing two parallel paths: one from pool4 through score_pool4 and score_pool4c, and another from score_fr through upscore2, which are fused via element-wise summation in fuse_pool4, then upsampled in upscore16 and cropped to produce the final score"
-    width="1024"
-    height="119"
-    src="/post/understanding-fully-convolutional-networks/fcn-voc16s_hu_503de23d43b6d99a.png"
-    srcset="/post/understanding-fully-convolutional-networks/fcn-voc16s_hu_503de23d43b6d99a.png 800w, /post/understanding-fully-convolutional-networks/fcn-voc16s.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/understanding-fully-convolutional-networks/fcn-voc16s.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="FCN-16s network architecture diagram showing two parallel paths: one from pool4 through score_pool4 and score_pool4c, and another from score_fr through upscore2, which are fused via element-wise summation in fuse_pool4, then upsampled in upscore16 and cropped to produce the final score"
+          width="1024"
+          height="119"
+          src="/post/understanding-fully-convolutional-networks/fcn-voc16s_hu_503de23d43b6d99a.png"
+          srcset="/post/understanding-fully-convolutional-networks/fcn-voc16s_hu_503de23d43b6d99a.png 800w,/post/understanding-fully-convolutional-networks/fcn-voc16s_hu_f09ac01bed944965.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/understanding-fully-convolutional-networks/fcn-voc16s.png"
+        />
+  
+  <figcaption><strong>Figure 7.</strong> FCN-16s architecture fusing features from pool4 with upsampled score predictions.</figcaption>
+  </figure>
 <table>
   <thead>
       <tr>
@@ -2169,19 +2204,24 @@ $$</p>
 </table>
 <p>As can be seen, the finer details from the intermediate resolution in <code>pool4</code> are incorporated into later feature maps, which will produce finer outputs than those of fcn-voc32s. Actually, fcn-voc16s utilizes two resolutions of a factor of 16 and a factor of 32.</p>
 <p>We may combine more resolutions in the same way. In fcn-voc8s, we generate one more set of outputs from <code>pool3</code> and combine it with later feature maps. The network architecture is similarly shown in the figure below with the process broken down in the following table.</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="FCN-8s network architecture diagram showing three parallel paths: from pool3 through score_pool3, from pool4 through score_pool4 fused with upscore2 from score_fr, and the combined result upsampled again and fused with pool3 features before a final 8x upsampling and crop to produce the score"
-    width="1024"
-    height="129"
-    src="/post/understanding-fully-convolutional-networks/fcn-voc8s_hu_5078a84f96d50824.png"
-    srcset="/post/understanding-fully-convolutional-networks/fcn-voc8s_hu_5078a84f96d50824.png 800w, /post/understanding-fully-convolutional-networks/fcn-voc8s.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/understanding-fully-convolutional-networks/fcn-voc8s.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="FCN-8s network architecture diagram showing three parallel paths: from pool3 through score_pool3, from pool4 through score_pool4 fused with upscore2 from score_fr, and the combined result upsampled again and fused with pool3 features before a final 8x upsampling and crop to produce the score"
+          width="1024"
+          height="129"
+          src="/post/understanding-fully-convolutional-networks/fcn-voc8s_hu_5078a84f96d50824.png"
+          srcset="/post/understanding-fully-convolutional-networks/fcn-voc8s_hu_5078a84f96d50824.png 800w,/post/understanding-fully-convolutional-networks/fcn-voc8s_hu_f64a902fbfb2a672.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/understanding-fully-convolutional-networks/fcn-voc8s.png"
+        />
+  
+  <figcaption><strong>Figure 8.</strong> FCN-8s architecture incorporating features from pool3, pool4, and score predictions.</figcaption>
+  </figure>
 <table>
   <thead>
       <tr>
@@ -2273,19 +2313,24 @@ $$</p>
   </tbody>
 </table>
 <p>In fcn-voc8s, one more intermediate resolution <code>pool3</code> are incorpoeated. From fcn-voc32s, fcn-voc16s to fcn-voc8s, more intermediate resolutions are incorporated and the results will contain more details, as shown below (taken from the <a href="https://arxiv.org/pdf/1411.4038.pdf"  target="_blank" rel="noreferrer">FCN paper</a>).</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="Comparison of segmentation results from FCN-32s, FCN-16s, FCN-8s, and ground truth, showing progressively finer detail and sharper boundaries as more intermediate resolutions are incorporated, with the FCN-8s output most closely matching the ground truth"
-    width="732"
-    height="300"
-    src="/post/understanding-fully-convolutional-networks/details.png"
-    srcset="/post/understanding-fully-convolutional-networks/details.png 800w, /post/understanding-fully-convolutional-networks/details.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/understanding-fully-convolutional-networks/details.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="Comparison of segmentation results from FCN-32s, FCN-16s, FCN-8s, and ground truth, showing progressively finer detail and sharper boundaries as more intermediate resolutions are incorporated, with the FCN-8s output most closely matching the ground truth"
+          width="732"
+          height="300"
+          src="/post/understanding-fully-convolutional-networks/details_hu_68aec6b55bf12c4e.png"
+          srcset="/post/understanding-fully-convolutional-networks/details_hu_68aec6b55bf12c4e.png 800w,/post/understanding-fully-convolutional-networks/details_hu_dc1ff64e151ccec9.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/understanding-fully-convolutional-networks/details.png"
+        />
+  
+  <figcaption><strong>Figure 9.</strong> Segmentation results from FCN-32s, FCN-16s, and FCN-8s compared to ground truth.</figcaption>
+  </figure>
 
 <h2 class="relative group">Conclusion
     <div id="conclusion" class="anchor"></div>
@@ -2471,7 +2516,7 @@ $$</p>
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2018-08-27T14:34:35&#43;08:00">27 August 2018</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2025-01-31T00:00:00&#43;00:00">Updated: 31 January 2025</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">6 mins</span>
+      <time datetime="2018-08-27T14:34:35&#43;08:00">27 August 2018</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2026-02-08T00:00:00&#43;00:00">Updated: 8 February 2026</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">6 mins</span>
     
 
     
@@ -2656,7 +2701,7 @@ $$</p>
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2018-08-08T20:12:45&#43;08:00">8 August 2018</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2025-01-31T00:00:00&#43;00:00">Updated: 31 January 2025</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">5 mins</span>
+      <time datetime="2018-08-08T20:12:45&#43;08:00">8 August 2018</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2026-02-08T00:00:00&#43;00:00">Updated: 8 February 2026</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">6 mins</span>
     
 
     

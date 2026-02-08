@@ -46,7 +46,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
     <meta property="article:published_time" content="2018-08-08T20:12:45+08:00">
-    <meta property="article:modified_time" content="2025-01-31T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-02-08T00:00:00+00:00">
     <meta property="article:tag" content="Deep-Learning">
     <meta property="article:tag" content="Computer-Vision">
     <meta property="article:tag" content="NLP">
@@ -217,12 +217,12 @@
     "dateCreated": "2018-08-08T20:12:45\u002b08:00",
     "datePublished": "2018-08-08T20:12:45\u002b08:00",
     
-    "dateModified": "2025-01-31T00:00:00\u002b00:00",
+    "dateModified": "2026-02-08T00:00:00\u002b00:00",
     
     "keywords": ["deep-learning","computer-vision","NLP"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "1053"
+    "wordCount": "1114"
   }]
   </script>
 
@@ -806,7 +806,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2018-08-08T20:12:45&#43;08:00">8 August 2018</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2025-01-31T00:00:00&#43;00:00">Updated: 31 January 2025</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">5 mins</span>
+      <time datetime="2018-08-08T20:12:45&#43;08:00">8 August 2018</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2026-02-08T00:00:00&#43;00:00">Updated: 8 February 2026</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">6 mins</span>
     
 
     
@@ -1020,19 +1020,24 @@
     
 </h2>
 <p>The working mechanism of image captioning is shown in the following picture (taken from <a href="https://cs.stanford.edu/people/karpathy/"  target="_blank" rel="noreferrer">Andrej Karpathy</a>).</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="Diagram of the image captioning pipeline showing a CNN encoding an image of a man in a straw hat into a feature vector, which is fed into an RNN that generates the caption words &ldquo;straw&rdquo;, &ldquo;hat&rdquo;, and &ldquo;END&rdquo; sequentially"
-    width="483"
-    height="295"
-    src="/post/playing-with-image-captioning/rnn7.png"
-    srcset="/post/playing-with-image-captioning/rnn7.png 800w, /post/playing-with-image-captioning/rnn7.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/playing-with-image-captioning/rnn7.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="Diagram of the image captioning pipeline showing a CNN encoding an image of a man in a straw hat into a feature vector, which is fed into an RNN that generates the caption words &#39;straw&#39;, &#39;hat&#39;, and &#39;END&#39; sequentially"
+          width="483"
+          height="295"
+          src="/post/playing-with-image-captioning/rnn7_hu_438de6341b6d7a96.png"
+          srcset="/post/playing-with-image-captioning/rnn7_hu_438de6341b6d7a96.png 800w,/post/playing-with-image-captioning/rnn7_hu_223d2aab16955ce5.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/playing-with-image-captioning/rnn7.png"
+        />
+  
+  <figcaption><strong>Figure 1.</strong> Image captioning pipeline: a CNN encodes the image and an RNN generates the caption word by word.</figcaption>
+  </figure>
 <p><br>The image is encoded into a feature vector by a convolutional neural network (CNN) and then fed into a recurrent neural network (RNN) to generate the captions. The RNN works word by word. Each time it receives an input word and a hidden state and generates the next word, which is used as the input word in the next time. The CNN feature vector of the image is used as the initial hidden state, which is updated in each time step of the RNN.</p>
 <p>In the above picture, the RNN receives the initial hidden state and <code>START</code> (a special word incidating the RNN to start generation) and generates the first word <code>straw</code>. Then <code>straw</code> is fed into the RNN together with the updated hidden state to generate <code>hat</code>. Finally, <code>hat</code> is fed into the RNN with the latest hidden state to generate <code>END</code> (a special word indicating the RNN to stop). So the caption of the image is <em>straw hat</em>.</p>
 
@@ -1064,32 +1069,42 @@
 <li>Changed Boot disk to Ubuntu 16.04 LTS</li>
 <li>Checked Allow HTTP traffic and Allow HTTPS traffic</li>
 </ul>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="Google Cloud Platform Create an Instance page showing the upper settings: name set to neuraltalk2, region us-west1 Oregon, zone us-west1-b, 1 vCPU with 3.75 GB memory, and Ubuntu 16.04 LTS boot disk"
-    width="2874"
-    height="1398"
-    src="/post/playing-with-image-captioning/vm-up_hu_9d3f467a81e4d621.png"
-    srcset="/post/playing-with-image-captioning/vm-up_hu_9d3f467a81e4d621.png 800w, /post/playing-with-image-captioning/vm-up_hu_e7bb47e22c74c2df.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/playing-with-image-captioning/vm-up.png"></figure>
-</p>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="Google Cloud Platform Create an Instance page showing the lower settings: firewall rules with Allow HTTP traffic and Allow HTTPS traffic both checked, and Create button at the bottom"
-    width="2867"
-    height="1406"
-    src="/post/playing-with-image-captioning/vm-down_hu_6816b45ecf973952.png"
-    srcset="/post/playing-with-image-captioning/vm-down_hu_6816b45ecf973952.png 800w, /post/playing-with-image-captioning/vm-down_hu_9e5b5fd9e36d8bdb.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/playing-with-image-captioning/vm-down.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="Google Cloud Platform Create an Instance page showing the upper settings: name set to neuraltalk2, region us-west1 Oregon, zone us-west1-b, 1 vCPU with 3.75 GB memory, and Ubuntu 16.04 LTS boot disk"
+          width="2874"
+          height="1398"
+          src="/post/playing-with-image-captioning/vm-up_hu_9d3f467a81e4d621.png"
+          srcset="/post/playing-with-image-captioning/vm-up_hu_9d3f467a81e4d621.png 800w,/post/playing-with-image-captioning/vm-up_hu_e7bb47e22c74c2df.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/playing-with-image-captioning/vm-up.png"
+        />
+  
+  <figcaption><strong>Figure 2.</strong> Google Cloud VM instance settings (upper section).</figcaption>
+  </figure>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="Google Cloud Platform Create an Instance page showing the lower settings: firewall rules with Allow HTTP traffic and Allow HTTPS traffic both checked, and Create button at the bottom"
+          width="2867"
+          height="1406"
+          src="/post/playing-with-image-captioning/vm-down_hu_6816b45ecf973952.png"
+          srcset="/post/playing-with-image-captioning/vm-down_hu_6816b45ecf973952.png 800w,/post/playing-with-image-captioning/vm-down_hu_9e5b5fd9e36d8bdb.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/playing-with-image-captioning/vm-down.png"
+        />
+  
+  <figcaption><strong>Figure 3.</strong> Google Cloud VM instance settings (lower section) with firewall rules.</figcaption>
+  </figure>
 
 <h3 class="relative group">Installing Torch
     <div id="installing-torch" class="anchor"></div>
@@ -1185,19 +1200,24 @@
     </span>
     
 </h4>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="Grid of seven COCO dataset images with neuraltalk2 generated captions: a dog watching TV, a woman with bananas, a bathroom sink, pizzas on a table, people sitting around a table, a cat near a laptop, and a bus on a street"
-    width="1109"
-    height="655"
-    src="/post/playing-with-image-captioning/cococaps_hu_fc65aca2d4d4c6b1.png"
-    srcset="/post/playing-with-image-captioning/cococaps_hu_fc65aca2d4d4c6b1.png 800w, /post/playing-with-image-captioning/cococaps.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/playing-with-image-captioning/cococaps.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="Grid of seven COCO dataset images with neuraltalk2 generated captions: a dog watching TV, a woman with bananas, a bathroom sink, pizzas on a table, people sitting around a table, a cat near a laptop, and a bus on a street"
+          width="1109"
+          height="655"
+          src="/post/playing-with-image-captioning/cococaps_hu_fc65aca2d4d4c6b1.png"
+          srcset="/post/playing-with-image-captioning/cococaps_hu_fc65aca2d4d4c6b1.png 800w,/post/playing-with-image-captioning/cococaps_hu_2be4f1a06c1c9546.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/playing-with-image-captioning/cococaps.png"
+        />
+  
+  <figcaption><strong>Figure 4.</strong> Neuraltalk2 captions on COCO dataset images.</figcaption>
+  </figure>
 <p>In the COCO dataset, images are of various scenes and objects. And <code>neuraltalk2</code> is able to capture the overall content of what is happening in the image, except for some mistakes like the cat is not sitting on the laptop. But, in general, the captions are very discriminative considering the large differences between images. Given images and captions, it is very easy to tell which image corresponds to which caption. Image captioning makes great sense in this case.</p>
 
 <h4 class="relative group">CCP
@@ -1209,19 +1229,24 @@
     </span>
     
 </h4>
-<p><figure><img
-    class="my-0 rounded-md"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="auto"
-    alt="Grid of eight Clothing Co-Parsing dataset images showing fashion street photography with neuraltalk2 generated captions that are generic and repetitive, frequently mentioning cell phones and sidewalks"
-    width="899"
-    height="755"
-    src="/post/playing-with-image-captioning/ccpcaps_hu_78edd5ed7f1635f9.png"
-    srcset="/post/playing-with-image-captioning/ccpcaps_hu_78edd5ed7f1635f9.png 800w, /post/playing-with-image-captioning/ccpcaps.png 1280w"
-    sizes="(min-width: 768px) 50vw, 65vw"
-    data-zoom-src="/post/playing-with-image-captioning/ccpcaps.png"></figure>
-</p>
+
+<figure>
+        <img
+          class="my-0 rounded-md"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          alt="Grid of eight Clothing Co-Parsing dataset images showing fashion street photography with neuraltalk2 generated captions that are generic and repetitive, frequently mentioning cell phones and sidewalks"
+          width="899"
+          height="755"
+          src="/post/playing-with-image-captioning/ccpcaps_hu_78edd5ed7f1635f9.png"
+          srcset="/post/playing-with-image-captioning/ccpcaps_hu_78edd5ed7f1635f9.png 800w,/post/playing-with-image-captioning/ccpcaps_hu_79c6e353a7595264.png 1280w"
+          sizes="(min-width: 768px) 50vw, 65vw"
+          data-zoom-src="/post/playing-with-image-captioning/ccpcaps.png"
+        />
+  
+  <figcaption><strong>Figure 5.</strong> Neuraltalk2 captions on CCP dataset images, showing generic and repetitive descriptions.</figcaption>
+  </figure>
 <p>In the CCP dataset, images are all coming from the clothing domain and thus they are very similar to each other in the overall content. And the differences are mostly reflected in fine-grained details. In this case, the captions of <code>neuraltalk2</code> which only capture the overall content become meaningless and are not very helpful for distinguishing one image from others. Moreover, the captions make more mistakes, like a lot of false positives of cell phones.</p>
 
 <h3 class="relative group">Thoughts

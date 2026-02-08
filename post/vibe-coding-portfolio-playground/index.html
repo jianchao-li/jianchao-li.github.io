@@ -21,7 +21,7 @@
 
   
   
-    <meta name="description" content="I built a full-stack portfolio analysis tool entirely through vibe coding — 100% of the code was written by AI. Here&#39;s what I made and what I learned.">
+    <meta name="description" content="I built a portfolio analysis tool entirely through vibe coding — 100% of the code was written by AI. Here&#39;s what I made and what I learned.">
   
   
     <meta name="keywords" content="AI,vibe-coding,investing,side-project,">
@@ -41,7 +41,7 @@
   <meta property="og:url" content="https://jianchao-li.github.io/post/vibe-coding-portfolio-playground/">
   <meta property="og:site_name" content="Jianchao Li">
   <meta property="og:title" content="Vibe Coding Portfolio Playground">
-  <meta property="og:description" content="Building a full-stack investment portfolio analysis tool through vibe coding — the experience, the product, and reflections on AI-assisted development.">
+  <meta property="og:description" content="Building a portfolio analysis tool through vibe coding — the experience, the product, and reflections on AI-assisted development.">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
@@ -57,7 +57,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://jianchao-li.github.io/post/vibe-coding-portfolio-playground/featured.png">
   <meta name="twitter:title" content="Vibe Coding Portfolio Playground">
-  <meta name="twitter:description" content="Building a full-stack investment portfolio analysis tool through vibe coding — the experience, the product, and reflections on AI-assisted development.">
+  <meta name="twitter:description" content="Building a portfolio analysis tool through vibe coding — the experience, the product, and reflections on AI-assisted development.">
 
   
   
@@ -207,7 +207,7 @@
     "articleSection": "Posts",
     "name": "Vibe Coding Portfolio Playground",
     "headline": "Vibe Coding Portfolio Playground",
-    "description": "Building a full-stack investment portfolio analysis tool through vibe coding — the experience, the product, and reflections on AI-assisted development.",
+    "description": "Building a portfolio analysis tool through vibe coding — the experience, the product, and reflections on AI-assisted development.",
     "inLanguage": "en",
     "url" : "https://jianchao-li.github.io/post/vibe-coding-portfolio-playground/",
     "author" : {
@@ -223,7 +223,7 @@
     "keywords": ["AI","vibe-coding","investing","side-project"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "1435"
+    "wordCount": "1432"
   }]
   </script>
 
@@ -1002,12 +1002,10 @@
         
 
         <div class="article-content max-w-prose mb-20">
-          <!-- TODO: add screen recording -->
-<p>This is the second post in my venture into the world of investing. In the <a href="/post/the-double-edged-sword-of-compounding/" >first post</a>, I talked about compound interest — what I consider the <a href="https://en.wikipedia.org/wiki/First_principle"  target="_blank" rel="noreferrer">&ldquo;first principle&rdquo;</a> of investing. This post is about the next natural question: how do you actually put your money to work?</p>
+          <p>This is the second post in my venture into the world of investing. In the <a href="/post/the-double-edged-sword-of-compounding/" >first post</a>, I talked about compound interest — what I consider the <a href="https://en.wikipedia.org/wiki/First_principle"  target="_blank" rel="noreferrer">&ldquo;first principle&rdquo;</a> of investing. This post is about the next natural question: how do you actually put your money to work?</p>
 <p>The answer is building a <a href="https://en.wikipedia.org/wiki/Portfolio_%28finance%29"  target="_blank" rel="noreferrer">portfolio</a> — a combination of assets like stocks and bonds. Which assets to hold, and in what proportions, is one of the most consequential decisions in personal investing. It&rsquo;s also not straightforward: there are <a href="https://www.optimizedportfolio.com/lazy-portfolios/"  target="_blank" rel="noreferrer">many approaches</a> to choose from, and they can lead to very different outcomes over time.</p>
 <p>Before committing to a portfolio, I wanted to see how different strategies have actually performed historically. Past performance doesn&rsquo;t guarantee future results, but it reveals how different strategies have behaved through real market conditions. So I went looking for tools that could help.</p>
 <p>The common tools didn&rsquo;t quite fit. <a href="https://www.google.com/finance/"  target="_blank" rel="noreferrer">Google Finance</a> and <a href="https://finance.yahoo.com/"  target="_blank" rel="noreferrer">Yahoo Finance</a> both require entering a specific number of shares for each asset — but when designing a portfolio, the natural unit is percentages (&ldquo;60% stocks, 40% bonds&rdquo;), not share counts. <a href="https://www.portfoliovisualizer.com/"  target="_blank" rel="noreferrer">Portfolio Visualizer</a> looked more promising, but it&rsquo;s behind a paywall. I wanted something I could freely tinker with.</p>
-<div style="text-align: center;">
 
 <figure>
         <img
@@ -1024,11 +1022,8 @@
           data-zoom-src="/post/vibe-coding-portfolio-playground/gfinance.png"
         />
   
-  
+  <figcaption><strong>Figure 1.</strong> Google Finance asks for the number of shares when adding an asset to a portfolio.</figcaption>
   </figure>
-<p><small><strong>Figure 1.</strong> Google Finance asks for the number of shares (&ldquo;Quantity&rdquo;) when adding an asset to a portfolio.</small></p>
-</div>
-<div style="text-align: center;">
 
 <figure>
         <img
@@ -1045,10 +1040,8 @@
           data-zoom-src="/post/vibe-coding-portfolio-playground/yfinance.png"
         />
   
-  
+  <figcaption><strong>Figure 2.</strong> Yahoo Finance also requires specifying the number of shares purchased.</figcaption>
   </figure>
-<p><small><strong>Figure 2.</strong> Yahoo Finance also requires specifying the number of shares purchased (&ldquo;Shares&rdquo;).</small></p>
-</div>
 <p>Since I&rsquo;m a software engineer, the obvious next thought was: why not build it myself? With the promise of <a href="https://x.com/karpathy/status/1886192184808149383"  target="_blank" rel="noreferrer">vibe coding</a>, I gave it a try this weekend and built <strong><a href="https://portfolio-playground-frontend.vercel.app/"  target="_blank" rel="noreferrer">Portfolio Playground</a></strong>, a web application for analyzing and comparing investment portfolios.</p>
 
 <h2 class="relative group">What I Built
@@ -1061,7 +1054,6 @@
     
 </h2>
 <p><a href="https://portfolio-playground-frontend.vercel.app/"  target="_blank" rel="noreferrer">Portfolio Playground</a> lets you build custom investment portfolios from real market data, visualize their historical performance, and compare key risk/return metrics side by side. Here&rsquo;s what it can do.</p>
-<!-- TODO: add screenshot -->
 <p><strong>Portfolio Builder.</strong> You search for any ticker symbol with autocomplete powered by <a href="https://ranaroussi.github.io/yfinance/"  target="_blank" rel="noreferrer">yfinance</a>, assign percentage weights, and create a named portfolio. Want to compare a tech-heavy portfolio against a diversified index fund? Build both and see the results immediately.</p>
 <p><strong>Preset Portfolios.</strong> For quick benchmarking, there are one-click presets: S&amp;P 500 (VOO), NASDAQ 100 (QQQ), Developed Markets ex-US (VEA), Emerging Markets (VWO), Gold (GLD), Bitcoin (IBIT), and Volatility (VIXY). These make it easy to compare your custom portfolio against common benchmarks.</p>
 <p><strong>Performance Chart.</strong> All portfolios are plotted on a normalized $100-start line chart with a configurable date range. The normalization makes comparison fair regardless of actual share prices. Interactive tooltips and hover highlighting let you drill into specific dates and portfolios.</p>
@@ -1136,7 +1128,7 @@
 <p><a href="https://x.com/karpathy/status/1886192184808149383"  target="_blank" rel="noreferrer">Vibe coding</a> is a term coined by <a href="https://karpathy.ai/"  target="_blank" rel="noreferrer">Andrej Karpathy</a> to describe a style of programming where you describe what you want in natural language and AI writes the code. You don&rsquo;t type code yourself — you guide, review, and iterate. <a href="https://portfolio-playground-frontend.vercel.app/"  target="_blank" rel="noreferrer">Portfolio Playground</a> was built entirely this way. 100% of the code was AI-generated.</p>
 <p><strong>Speed and momentum.</strong> The most striking thing about vibe coding is the pace. Ideas turn into working features at unprecedented speed. I&rsquo;d describe a feature, AI would implement it, I&rsquo;d see the result, and I was already thinking about the next thing. The feedback loop is tight and <em>addictive</em> — there&rsquo;s a momentum that builds when the gap between &ldquo;I want this&rdquo; and &ldquo;it works&rdquo; shrinks dramatically.</p>
 <p>When things move this fast, ambition grows. In traditional development, the time and effort required to build something often leads to aggressive scoping. Engineers cut corners, leave TODOs scattered through the code — placeholders for improvements that may never happen. Vibe coding flips this dynamic. When the cost of building is low, it&rsquo;s just easy to try an idea. There&rsquo;s a creative flow that emerges — it feels more like designing a product than grinding through code.</p>
-<p><strong>Closing the skills gap.</strong> I am not good at frontend development, and many of the technologies used in this project — Next.js, Tailwind CSS, pnpm, FastAPI — are things I have never worked with before. Normally, working with unfamiliar technologies means slow progress and constant trips to Stack Overflow when things go wrong. With vibe coding, this bottleneck mostly went away. I could focus on <em>what</em> the UI should look like and <em>how</em> it should behave, and let AI handle the implementation details — CSS, component structure, state management, all of it. The result is a frontend I&rsquo;m genuinely happy with, built far faster than I could have managed on my own.</p>
+<p><strong>Closing the skills gap.</strong> I am not good at frontend development, and many of the technologies used in this project — Next.js, Typescript, Recharts, FastAPI — are things I have never worked with before. Normally, working with unfamiliar technologies means slow progress and constant trips to Stack Overflow when things go wrong. With vibe coding, this bottleneck mostly went away. I could focus on <em>what</em> the UI should look like and <em>how</em> it should behave, and let AI handle the implementation details — CSS, component structure, state management, all of it. The result is a frontend I&rsquo;m genuinely happy with, built far faster than I could have managed on my own.</p>
 <p><strong>The side-project motivation problem.</strong> Side projects with a full-time job can easily stall: start on a free weekend, make some progress, then work or life gets in the way. By the time people come back to it, they&rsquo;ve forgotten the code, the dev environment needs updating, and the motivation has evaporated. Vibe coding compresses the build cycle so drastically that this problem is much less likely to happen. <a href="https://portfolio-playground-frontend.vercel.app/"  target="_blank" rel="noreferrer">Portfolio Playground</a> went from idea to working product in a single weekend. I started on Saturday afternoon, the MVP was deployed by late Saturday night, and more features were added and deployed on Sunday. There was no &ldquo;coming back to it later&rdquo; — it was done before the motivation could fade.</p>
 <p><strong>Scope creep, the good kind.</strong> When adding a feature costs minutes instead of hours, you naturally add more. For example, multi-currency support wasn&rsquo;t in my original plan, but it was cheap to try, so I just added it. The project ended up more feature-rich than I originally envisioned.</p>
 <p><strong>Human judgment still matters.</strong> While AI wrote all the code, I made every product decision. Which metrics to include, how the chart should behave on hover, what the UX flow should feel like, which preset portfolios make sense — these all required understanding of the domain. AI also makes mistakes, and I still needed to direct it to fix them — sometimes by sending screenshots of what went wrong, sometimes by asking AI to double-check its own work, or by suggesting a different approach. AI is a powerful executor, but it needs a clear direction and active oversight.</p>
@@ -1152,7 +1144,6 @@
     
 </h2>
 <p>In my <a href="/post/why-every-software-engineer-should-use-ai/" >previous post</a>, I wrote about engineers shifting from coders to orchestrators. Building <a href="https://portfolio-playground-frontend.vercel.app/"  target="_blank" rel="noreferrer">Portfolio Playground</a> was that shift in practice — I focused on product decisions and direction, AI handled the implementation. If you&rsquo;re curious, check out the <a href="https://portfolio-playground-frontend.vercel.app/"  target="_blank" rel="noreferrer">live app</a> or the <a href="https://github.com/jianchao-li/portfolio-playground"  target="_blank" rel="noreferrer">source code on GitHub</a>.</p>
-<!-- TODO: add deployed URL when available -->
 
 <h2 class="relative group">Disclaimers
     <div id="disclaimers" class="anchor"></div>
@@ -1309,6 +1300,8 @@
   
 
   
+    
+  
 
   
 
@@ -1330,7 +1323,7 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2026-02-04T10:00:00&#43;01:00">4 February 2026</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">4 mins</span>
+      <time datetime="2026-02-04T10:00:00&#43;01:00">4 February 2026</time><span class="px-2 text-primary-500">&middot;</span><time datetime="2026-02-08T00:00:00&#43;00:00">Updated: 8 February 2026</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">4 mins</span>
     
 
     
