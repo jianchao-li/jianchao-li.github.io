@@ -4,7 +4,7 @@ summary: "I read some papers on VQA and summarized its state-of-the-art, bottlen
 description: "An exploration of Visual Question Answering (VQA) — how deep learning models answer natural language questions about images."
 tags: ["deep-learning", "computer-vision", "NLP"]
 date: 2018-08-27T14:34:35+08:00
-lastmod: 2025-01-31
+lastmod: 2026-02-08
 draft: false
 ---
 > **Disclaimer:** This post was written in 2018. The AI/ML field has evolved significantly since then, and the techniques, tools, and state-of-the-art methods described here are now considered outdated. Modern approaches like Vision Transformers and large multimodal models (GPT-4V, Claude, Gemini) have largely superseded the methods discussed.
@@ -14,7 +14,7 @@ I have been very interested in the interplay between vision and natural language
 ## What is VQA?
 VQA is a task that involves understanding the semantic information of both an image and a natural language question and returning the answer also expressed in natural language. You may play with the [Visual Chatbot](http://demo.visualdialog.org/) to get a sense of VQA.
 
-![Screenshot of the Visual Chatbot demo showing a street scene image with the generated caption "a car driving down a street with a traffic light" and the user asking "What is the weather like?" with the bot answering "sunny"](vqabot.png)
+{{< figure src="vqabot.png" alt="Screenshot of the Visual Chatbot demo showing a street scene image with the generated caption 'a car driving down a street with a traffic light' and the user asking 'What is the weather like?' with the bot answering 'sunny'" caption="**Figure 1.** The Visual Chatbot demo answering a question about a street scene image." >}}
 
 <br>As can be seen, this is a multi-modal task involving two modes of data (an image and a text). To answer the question, both the semantics of the image and the question should be well understood.
 

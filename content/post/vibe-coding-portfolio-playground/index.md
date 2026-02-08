@@ -1,14 +1,12 @@
 ---
 title: "Vibe Coding Portfolio Playground"
-summary: "I built a full-stack portfolio analysis tool entirely through vibe coding — 100% of the code was written by AI. Here's what I made and what I learned."
+summary: "I built a portfolio analysis tool entirely through vibe coding — 100% of the code was written by AI. Here's what I made and what I learned."
 tags: ["AI", "vibe-coding", "investing", "side-project"]
-description: "Building a full-stack investment portfolio analysis tool through vibe coding — the experience, the product, and reflections on AI-assisted development."
+description: "Building a portfolio analysis tool through vibe coding — the experience, the product, and reflections on AI-assisted development."
 date: 2026-02-08T10:00:00+01:00
 lastmod: 2026-02-08T10:00:00+01:00
 draft: false
 ---
-
-<!-- TODO: add screen recording -->
 
 This is the second post in my venture into the world of investing. In the [first post](/post/the-double-edged-sword-of-compounding/), I talked about compound interest — what I consider the ["first principle"](https://en.wikipedia.org/wiki/First_principle) of investing. This post is about the next natural question: how do you actually put your money to work?
 
@@ -18,29 +16,15 @@ Before committing to a portfolio, I wanted to see how different strategies have 
 
 The common tools didn't quite fit. [Google Finance](https://www.google.com/finance/) and [Yahoo Finance](https://finance.yahoo.com/) both require entering a specific number of shares for each asset — but when designing a portfolio, the natural unit is percentages ("60% stocks, 40% bonds"), not share counts. [Portfolio Visualizer](https://www.portfoliovisualizer.com/) looked more promising, but it's behind a paywall. I wanted something I could freely tinker with.
 
-<div style="text-align: center;">
+{{< figure src="gfinance.png" caption="**Figure 1.** Google Finance asks for the number of shares when adding an asset to a portfolio." >}}
 
-{{< figure src="gfinance.png" >}}
-
-<small>**Figure 1.** Google Finance asks for the number of shares ("Quantity") when adding an asset to a portfolio.</small>
-
-</div>
-
-<div style="text-align: center;">
-
-{{< figure src="yfinance.png" >}}
-
-<small>**Figure 2.** Yahoo Finance also requires specifying the number of shares purchased ("Shares").</small>
-
-</div>
+{{< figure src="yfinance.png" caption="**Figure 2.** Yahoo Finance also requires specifying the number of shares purchased." >}}
 
 Since I'm a software engineer, the obvious next thought was: why not build it myself? With the promise of [vibe coding](https://x.com/karpathy/status/1886192184808149383), I gave it a try this weekend and built **[Portfolio Playground](https://portfolio-playground-frontend.vercel.app/)**, a web application for analyzing and comparing investment portfolios.
 
 ## What I Built
 
 [Portfolio Playground](https://portfolio-playground-frontend.vercel.app/) lets you build custom investment portfolios from real market data, visualize their historical performance, and compare key risk/return metrics side by side. Here's what it can do.
-
-<!-- TODO: add screenshot -->
 
 **Portfolio Builder.** You search for any ticker symbol with autocomplete powered by [yfinance](https://ranaroussi.github.io/yfinance/#), assign percentage weights, and create a named portfolio. Want to compare a tech-heavy portfolio against a diversified index fund? Build both and see the results immediately.
 
@@ -70,7 +54,7 @@ For a detailed technical breakdown of the architecture and implementation, see t
 
 When things move this fast, ambition grows. In traditional development, the time and effort required to build something often leads to aggressive scoping. Engineers cut corners, leave TODOs scattered through the code — placeholders for improvements that may never happen. Vibe coding flips this dynamic. When the cost of building is low, it's just easy to try an idea. There's a creative flow that emerges — it feels more like designing a product than grinding through code.
 
-**Closing the skills gap.** I am not good at frontend development, and many of the technologies used in this project — Next.js, Tailwind CSS, pnpm, FastAPI — are things I have never worked with before. Normally, working with unfamiliar technologies means slow progress and constant trips to Stack Overflow when things go wrong. With vibe coding, this bottleneck mostly went away. I could focus on *what* the UI should look like and *how* it should behave, and let AI handle the implementation details — CSS, component structure, state management, all of it. The result is a frontend I'm genuinely happy with, built far faster than I could have managed on my own.
+**Closing the skills gap.** I am not good at frontend development, and many of the technologies used in this project — Next.js, Typescript, Recharts, FastAPI — are things I have never worked with before. Normally, working with unfamiliar technologies means slow progress and constant trips to Stack Overflow when things go wrong. With vibe coding, this bottleneck mostly went away. I could focus on *what* the UI should look like and *how* it should behave, and let AI handle the implementation details — CSS, component structure, state management, all of it. The result is a frontend I'm genuinely happy with, built far faster than I could have managed on my own.
 
 **The side-project motivation problem.** Side projects with a full-time job can easily stall: start on a free weekend, make some progress, then work or life gets in the way. By the time people come back to it, they've forgotten the code, the dev environment needs updating, and the motivation has evaporated. Vibe coding compresses the build cycle so drastically that this problem is much less likely to happen. [Portfolio Playground](https://portfolio-playground-frontend.vercel.app/) went from idea to working product in a single weekend. I started on Saturday afternoon, the MVP was deployed by late Saturday night, and more features were added and deployed on Sunday. There was no "coming back to it later" — it was done before the motivation could fade.
 
@@ -83,9 +67,6 @@ When things move this fast, ambition grows. In traditional development, the time
 ## Final Thoughts
 
 In my [previous post](/post/why-every-software-engineer-should-use-ai/), I wrote about engineers shifting from coders to orchestrators. Building [Portfolio Playground](https://portfolio-playground-frontend.vercel.app/) was that shift in practice — I focused on product decisions and direction, AI handled the implementation. If you're curious, check out the [live app](https://portfolio-playground-frontend.vercel.app/) or the [source code on GitHub](https://github.com/jianchao-li/portfolio-playground).
-
-<!-- TODO: add deployed URL when available -->
-
 ## Disclaimers
 
 This post and the accompanying [webapp](https://portfolio-playground-frontend.vercel.app/) are for informational and educational purposes only. I am not a professional investor or financial advisor, nor do I claim to be, and use of this webapp does not create an advisory relationship. Data may be inaccurate, delayed, or incomplete, and I do not accept responsibility for any such inaccuracies. The content reflects my personal research and understanding and should not be interpreted as professional advice. You are solely responsible for your financial decisions — consult a qualified financial professional before making investment decisions.

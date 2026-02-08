@@ -4,7 +4,7 @@ summary: "This post shares my perspectives on why every software engineer should
 tags: ["AI", "software engineering", "productivity"]
 description: "Why every software engineer should embrace AI tools — the productivity gains and the industry-wide cultural shift driving adoption."
 date: 2026-02-04T10:00:00+01:00
-lastmod: 2026-02-04T10:00:00+01:00
+lastmod: 2026-02-08
 draft: false
 ---
 The past few months have witnessed rapid and transformative advancements in AI. Large language models have become remarkably capable at understanding and generating code. AI agents can now autonomously complete complex multi-step tasks. Tools like [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [OpenAI Codex](https://openai.com/index/openai-codex/), and [GitHub Copilot](https://github.com/features/copilot) have fundamentally changed how developers write software.
@@ -23,7 +23,7 @@ Because of this constraint, if a person wants to accomplish more, he/she typical
 
 AI changes this equation. With agents, multi-tasking becomes genuinely possible. We can delegate tasks to multiple agents running in parallel while we focus on what requires human judgement. This creates the potential for everyone to become a multiple of themselves — not by working harder, but by orchestrating more.
 
-![Orchestrating](orchestrating.png)
+{{< figure src="orchestrating.png" alt="Orchestrating" caption="**Figure 1.** AI enables multi-tasking by orchestrating multiple agents in parallel." >}}
 
 ### Knowledge Sharing
 
@@ -33,7 +33,7 @@ AI shifts this dynamic. I've observed much higher motivation for people to write
 
 The result is an AI that has acquired knowledge that would take any individual much longer to learn on their own.
 
-![Knowledge Sharing](knowledge.png)
+{{< figure src="knowledge.png" alt="Knowledge Sharing" caption="**Figure 2.** AI closes the knowledge sharing incentive loop." >}}
 
 ### Resilience
 
@@ -41,7 +41,7 @@ Human productivity is variable. We have good days and bad days — our energy, f
 
 AI adds resilience to this system. When we're not at our best, we can lean more heavily on AI to maintain output while we recover. When we hit a wall on a problem, AI can offer alternative angles. When context slips from memory, AI can reconstruct it. The effect compounds: our floor rises, and we recover faster from setbacks.
 
-![Resilience](resilience.png)
+{{< figure src="resilience.png" alt="Resilience" caption="**Figure 3.** AI adds resilience to human productivity fluctuations." >}}
 
 ### Cognitive Offload
 
@@ -49,7 +49,7 @@ Some of the draining parts of engineering are mechanical: [reading through unfam
 
 AI excels here. It can read and comprehend a large codebase in seconds. It can produce code that would take a human minutes to type in moments. By offloading this mechanical work, AI frees our mental capacity for what actually requires human judgement: understanding the real problem, making design tradeoffs, and evaluating whether solutions fit the broader system.
 
-![Cognitive Offload](offload.png)
+{{< figure src="offload.png" alt="Cognitive Offload" caption="**Figure 4.** AI offloads mechanical cognitive work, freeing mental capacity for higher-level thinking." >}}
 
 ## Industrial Shift
 
@@ -61,7 +61,7 @@ The implication is clear: the ability to write code alone is no longer enough to
 
 The role of the software engineer is fundamentally transforming — from "coder" to "orchestrator". This means spending more time understanding the systems, decomposing problems into components AI can handle, reviewing and refining AI-generated solutions, and collaborating with both AI and humans.
 
-![Industrial Shift](shift.png)
+{{< figure src="shift.png" alt="Industrial Shift" caption="**Figure 5.** The role of software engineers is shifting from coder to orchestrator." >}}
 
 ## Conclusion
 
