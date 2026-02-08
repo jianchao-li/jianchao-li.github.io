@@ -1,0 +1,9 @@
+.article-content figure img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.article-content figure figcaption {
+  text-align: center;
+}
