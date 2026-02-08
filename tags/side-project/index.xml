@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Side-Project on Jianchao Li</title>
+    <link>https://jianchao-li.github.io/tags/side-project/</link>
+    <description>Recent content in Side-Project on Jianchao Li</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© 2026 Jianchao Li</copyright>
+    <lastBuildDate>Sun, 08 Feb 2026 10:00:00 +0100</lastBuildDate><atom:link href="https://jianchao-li.github.io/tags/side-project/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Vibe Coding Portfolio Playground</title>
+      <link>https://jianchao-li.github.io/post/vibe-coding-portfolio-playground/</link>
+      <pubDate>Sun, 08 Feb 2026 10:00:00 +0100</pubDate>
+      
+      <guid>https://jianchao-li.github.io/post/vibe-coding-portfolio-playground/</guid>
+      <description>I built a full-stack portfolio analysis tool entirely through vibe coding — 100% of the code was written by AI. Here&amp;rsquo;s what I made and what I learned.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://jianchao-li.github.io/post/vibe-coding-portfolio-playground/featured.png" />
+    </item>
+    
+  </channel>
+</rss>
