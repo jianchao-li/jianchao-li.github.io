@@ -8,6 +8,8 @@ lastmod: 2026-02-08T10:00:00+01:00
 draft: false
 ---
 
+{{< video src="demo.mov" autoplay="true" loop="true" muted="true" >}}
+
 This is the second post in my venture into the world of investing. In the [first post](/post/the-double-edged-sword-of-compounding/), I talked about compound interest — what I consider the ["first principle"](https://en.wikipedia.org/wiki/First_principle) of investing. This post is about the next natural question: how do you actually put your money to work?
 
 The answer is building a [portfolio](https://en.wikipedia.org/wiki/Portfolio_(finance)) — a combination of assets like stocks and bonds. Which assets to hold, and in what proportions, is one of the most consequential decisions in personal investing. It's also not straightforward: there are [many approaches](https://www.optimizedportfolio.com/lazy-portfolios/) to choose from, and they can lead to very different outcomes over time.
