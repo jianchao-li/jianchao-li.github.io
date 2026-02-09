@@ -8,7 +8,7 @@ lastmod: 2026-02-08T10:00:00+01:00
 draft: false
 ---
 
-{{< video src="demo.mov" autoplay="true" loop="true" muted="true" >}}
+## Motivation
 
 This is the second post in my venture into the world of investing. In the [first post](/post/the-double-edged-sword-of-compounding/), I talked about compound interest — what I consider the ["first principle"](https://en.wikipedia.org/wiki/First_principle) of investing. This post is about the next natural question: how do you actually put your money to work?
 
@@ -22,31 +22,7 @@ The common tools didn't quite fit. [Google Finance](https://www.google.com/finan
 
 {{< figure src="yfinance.png" caption="**Figure 2.** Yahoo Finance also requires specifying the number of shares purchased." >}}
 
-Since I'm a software engineer, the obvious next thought was: why not build it myself? With the promise of [vibe coding](https://x.com/karpathy/status/1886192184808149383), I gave it a try this weekend and built **[Portfolio Playground](https://portfolio-playground-frontend.vercel.app/)**, a web application for analyzing and comparing investment portfolios.
-
-## What I Built
-
-[Portfolio Playground](https://portfolio-playground-frontend.vercel.app/) lets you build custom investment portfolios from real market data, visualize their historical performance, and compare key risk/return metrics side by side. Here's what it can do.
-
-**Portfolio Builder.** You search for any ticker symbol with autocomplete powered by [yfinance](https://ranaroussi.github.io/yfinance/#), assign percentage weights, and create a named portfolio. Want to compare a tech-heavy portfolio against a diversified index fund? Build both and see the results immediately.
-
-**Preset Portfolios.** For quick benchmarking, there are one-click presets: S&P 500 (VOO), NASDAQ 100 (QQQ), Developed Markets ex-US (VEA), Emerging Markets (VWO), Gold (GLD), Bitcoin (IBIT), and Volatility (VIXY). These make it easy to compare your custom portfolio against common benchmarks.
-
-**Performance Chart.** All portfolios are plotted on a normalized $100-start line chart with a configurable date range. The normalization makes comparison fair regardless of actual share prices. Interactive tooltips and hover highlighting let you drill into specific dates and portfolios.
-
-{{< figure src="performance.png" caption="**Figure 3.** Performance chart comparing multiple portfolios, normalized to a $100 starting value." >}}
-
-**Statistics Table.** A side-by-side comparison of Total Return, Annualized Return, Volatility, Sharpe Ratio, and Max Drawdown. Each metric has a tooltip explaining what it measures. If you read my [previous post on compounding](/post/the-double-edged-sword-of-compounding/), you'll recognize some of these metrics — annualized return is essentially the compound growth rate I discussed there.
-
-{{< figure src="statistics.png" caption="**Figure 4.** Statistics table showing key risk and return metrics for each portfolio." >}}
-
-**Multi-Currency Support.** You can view all results in any of 36 currencies — from major ones like USD, EUR, GBP, JPY, and CHF to emerging-market currencies like BRL, CNY, INR, and KRW. The app fetches real exchange rates and applies the conversion, so you can see how your portfolio performs in the currency you actually spend.
-
-**Asset Allocation View.** Hover over any portfolio chip to see a donut chart breakdown of its holdings and weights. It's a small detail, but it makes it much easier to remember what's inside each portfolio when you're comparing several at once.
-
-{{< figure src="donut.png" caption="**Figure 5.** Asset allocation donut chart showing portfolio holdings and weights on hover." >}}
-
-For a detailed technical breakdown of the architecture and implementation, see the [GitHub repository](https://github.com/jianchao-li/portfolio-playground).
+Since I'm a software engineer, the obvious next thought was: why not build it myself? With the promise of [vibe coding](https://x.com/karpathy/status/1886192184808149383), I gave it a try this weekend and built **[Portfolio Playground](https://portfolio-playground-frontend.vercel.app/)**, a web application for building custom investment portfolios from real market data, visualizing their historical performance, and comparing key risk/return metrics side by side. For a full walkthrough of the features, see the [project page](/projects/portfolio-playground/).
 
 ## Reflecting on the Vibe Coding Experience
 
@@ -69,8 +45,9 @@ When things move this fast, ambition grows. In traditional development, the time
 ## Final Thoughts
 
 In my [previous post](/post/why-every-software-engineer-should-use-ai/), I wrote about engineers shifting from coders to orchestrators. Building [Portfolio Playground](https://portfolio-playground-frontend.vercel.app/) was that shift in practice — I focused on product decisions and direction, AI handled the implementation. If you're curious, check out the [live app](https://portfolio-playground-frontend.vercel.app/) or the [source code on GitHub](https://github.com/jianchao-li/portfolio-playground).
+
 ## Disclaimers
 
-This post and the accompanying [webapp](https://portfolio-playground-frontend.vercel.app/) are for informational and educational purposes only. I am not a professional investor or financial advisor, nor do I claim to be, and use of this webapp does not create an advisory relationship. Data may be inaccurate, delayed, or incomplete, and I do not accept responsibility for any such inaccuracies. The content reflects my personal research and understanding and should not be interpreted as professional advice. You are solely responsible for your financial decisions — consult a qualified financial professional before making investment decisions.
+This post and the accompanying [webapp](https://portfolio-playground-frontend.vercel.app/) are for informational and educational purposes only. I am not a professional investor or financial advisor, nor do I claim to be, and use of [this webapp](https://portfolio-playground-frontend.vercel.app/) does not create an advisory relationship. Data may be inaccurate, delayed, or incomplete, and I do not accept responsibility for any such inaccuracies. The content reflects my personal research and understanding and should not be interpreted as professional advice. You are solely responsible for your financial decisions — consult a qualified financial professional before making investment decisions.
 
 The [webapp](https://portfolio-playground-frontend.vercel.app/) is deployed using free tiers of [Render](https://render.com/) and [Vercel](https://vercel.com/), so its availability is not guaranteed.

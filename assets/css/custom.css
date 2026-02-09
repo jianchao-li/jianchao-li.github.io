@@ -7,3 +7,14 @@
 .article-content figure figcaption {
   text-align: center;
 }
+
+/* Project links */
+.project-links {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.project-links-sep {
+  margin: 0 0.5rem;
+  color: #9ca3af;
+}
