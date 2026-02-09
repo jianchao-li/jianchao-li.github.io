@@ -1,7 +1,3 @@
-[submodule "public"]
-	path = public
-	url = git@github.com:jianchao-li/jianchao-li.github.io.git
-	branch = master
 [submodule "themes/blowfish"]
 	path = themes/blowfish
 	url = https://github.com/nunocoracao/blowfish.git
