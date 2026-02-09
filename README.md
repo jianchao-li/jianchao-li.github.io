@@ -1,12 +1,15 @@
 # Personal Website Builder
 
-Source repository for [jianchao-li.github.io](https://jianchao-li.github.io) - the personal website of Jianchao Li.
+Source repository for [jianchao-li.github.io](https://jianchao-li.github.io) — the personal website and blog of Jianchao Li.
 
 ## Tech Stack
 
 - **Static Site Generator**: [Hugo](https://gohugo.io/) v0.155.1
 - **Theme**: [Blowfish](https://github.com/nunocoracao/blowfish)
-- **Deployment**: GitHub Pages
+- **Styling**: Tailwind CSS (via Blowfish)
+- **Deployment**: GitHub Pages via GitHub Actions
+- **Analytics**: Google Analytics
+- **Comments**: [Giscus](https://giscus.app/) (GitHub Discussions)
 
 ## Local Development
 
@@ -14,41 +17,34 @@ Source repository for [jianchao-li.github.io](https://jianchao-li.github.io) - t
 # Start development server
 ./view.sh
 # Or manually:
-hugo server -D
+hugo server --printI18nWarnings
 
 # Visit http://localhost:1313
 ```
 
 ## Build & Deploy
 
-```bash
-# Build the site
-hugo
-
-# Deploy to GitHub Pages
-cd public
-git add -A
-git commit -m "Rebuild site"
-git push origin master
-cd ..
-
-# Update main repo
-git add public
-git commit -m "Update published site"
-git push origin master
-```
+Pushes to the `master` branch automatically trigger a [GitHub Actions workflow](.github/workflows/hugo.yml) that builds the site with `hugo --minify` and deploys it to GitHub Pages.
 
 ## Repository Structure
 
 ```
 website-builder/
-├── config/_default/     # Hugo configuration
+├── .github/workflows/   # GitHub Actions deployment workflow
+├── assets/
+│   ├── css/custom.css   # Custom style overrides
+│   └── img/             # Author image
+├── config/_default/     # Hugo configuration (site, params, menus, languages)
 ├── content/
-│   ├── about/           # About page
-│   └── post/            # Blog posts
-├── static/              # Static assets (favicon)
-├── themes/blowfish/     # Theme (git submodule)
-└── public/              # Built site (git submodule → GitHub Pages)
+│   ├── about/           # About page with professional timeline
+│   ├── post/            # Blog posts
+│   └── projects/        # Project showcases
+├── layouts/
+│   ├── partials/        # Custom partials (analytics, comments)
+│   ├── 404.html         # Custom 404 page
+│   └── robots.txt       # robots.txt template
+├── static/              # Favicons and static assets
+└── themes/blowfish/     # Blowfish theme (git submodule)
 ```
 
 ## License
