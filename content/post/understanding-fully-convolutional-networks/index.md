@@ -86,7 +86,7 @@ Now you know how to design a deconvolutional layer to upsample an input size to 
 
 Before introducing FCNs, I would like to talk about [VGG](https://arxiv.org/pdf/1409.1556.pdf), which is the backbone network for the FCN example that will be presented in the next section. It was used by [Karen Simonyan](http://www.robots.ox.ac.uk/~karen/) and [Andrew Zisserman](https://www.robots.ox.ac.uk/~az/) in ILSVRC 2015 and won the second-place in the image classification task.
 
-Specifically, I will use the [16-layer VGG](https://gist.github.com/ksimonyan/211839e770f7b538e2d8#file-vgg_ilsvrc_16_layers_deploy-prototxt) as an example. The following table is a breakdown of the network layer by layer. Note that the stride and padding is 1 and 0 by default if not specified. And the last softmax layer for loss computation is ignored. By **Size**, we mean the shape of the output blobs, which is computed using equations $\eqref{eq1}$ and $\eqref{eq2}$.
+Specifically, I will use the [16-layer VGG](https://gist.github.com/ksimonyan/211839e770f7b538e2d8#file-vgg_ilsvrc_16_layers_deploy-prototxt) as an example. The following table is a breakdown of the network layer by layer. Note that the stride and padding is 1 and 0 by default if not specified. And the last softmax layer for loss computation is ignored. By **Size**, we mean the shape of the output blobs, which is computed using equations (1) and (2).
 
 | Name | Type | Params | Size |
 | ---- | ---- | ------ | ----:|
@@ -190,11 +190,11 @@ Let's also break the voc-fcn32s down layer by layer. Note that the size of `data
 
 Several interesting facts worth notice have been highlighted in red. Let's go over them one by one.
 
-The most interesting and confusing one is probably the padding 100 in `conv1_1`. Why do FCNs use padding 100 instead of just 1 as does VGG? Well, let's try to use padding 1 and see what will happen. Using equations $\eqref{eq1}$ and $\eqref{eq2}$ repeatedly, we can compute that the corresponding output size of `pool5` will be $512 \times \frac{H}{32} \times \frac{W}{32}$.
+The most interesting and confusing one is probably the padding 100 in `conv1_1`. Why do FCNs use padding 100 instead of just 1 as does VGG? Well, let's try to use padding 1 and see what will happen. Using equations (1) and (2) repeatedly, we can compute that the corresponding output size of `pool5` will be $512 \times \frac{H}{32} \times \frac{W}{32}$.
 
-So far so good. But now comes `fc6` with 4096 7x7 kernels. By plugging the variables into $\eqref{eq1}$ and $\eqref{eq2}$, the output size of `fc6` will be $4096 \times \frac{H - 192}{32} \times \frac{W - 192}{32}$. To make $\frac{H - 192}{32}$ and $\frac{W - 192}{32}$ positive (at least 1), both $H$ and $W$ should be greater than or equal to 224. This means that if we use padding 1 in `conv1_1`, the FCN will only be able to handle images not smaller than 224x224. However, we would like FCN to be able to handle input of any size, which is one of its main advantages. So we need to add more padding in `conv1_1` and 100 is a sensible value.
+So far so good. But now comes `fc6` with 4096 7x7 kernels. By plugging the variables into (1) and (2), the output size of `fc6` will be $4096 \times \frac{H - 192}{32} \times \frac{W - 192}{32}$. To make $\frac{H - 192}{32}$ and $\frac{W - 192}{32}$ positive (at least 1), both $H$ and $W$ should be greater than or equal to 224. This means that if we use padding 1 in `conv1_1`, the FCN will only be able to handle images not smaller than 224x224. However, we would like FCN to be able to handle input of any size, which is one of its main advantages. So we need to add more padding in `conv1_1` and 100 is a sensible value.
 
-We also see that both `fc6` and `fc7` are now convolutional layers, fitting the name *fully convolutional networks*. In the deconvolutional layer `upscore`, the feature maps of `score_fr`with size $\frac{H + 6}{32}$x$\frac{W + 6}{32}$ are upsampled to $\left(H + 38\right) \times \left(W + 38\right)$. You may try to verify the correctness of this output size using equations $\eqref{eq5}$ and $\eqref{eq6}$.
+We also see that both `fc6` and `fc7` are now convolutional layers, fitting the name *fully convolutional networks*. In the deconvolutional layer `upscore`, the feature maps of `score_fr`with size $\frac{H + 6}{32}$x$\frac{W + 6}{32}$ are upsampled to $\left(H + 38\right) \times \left(W + 38\right)$. You may try to verify the correctness of this output size using equations (5) and (6).
 
 After `upscore`, we have an output feature map of $21 \times \left(H + 38\right) \times \left(W + 38\right)$. However, what we want is $21 \times H \times W$. So here comes the last but not least Crop layer, which is used to *crop* the input and defined as follows in Caffe.
 
@@ -234,7 +234,7 @@ However, FCNs also have other layers like pooling layers, deconvolutional layers
 
 Well, if you have walked through the computation of the offset in voc-fcn32s, you will notice that the offset is only related to the size ($H$ and $W$) of the feature maps. And in FCNs, only convolutional layers, deconvolutional layers and pooling layers will change the feature map size. So we can safely ignore other layers like ReLU and Dropout.
 
-For deconvolutional layers, they are just convolutional layers. So we only need to check pooling layers. For pooling layers, they are actually equivalent to convolutional layers regarding the size relationship between the input and output. Specifically, for pooling layers, equations $\eqref{eq1}$ and $\eqref{eq2}$ exactly hold true. For example, in `pool1`, we use 2x2 max pooling kernels ($K = 2$) with stride 2 ($S = 2$). And the default padding is 0 ($P = 0$). According to $\eqref{eq1}$ and $\eqref{eq2}$, we have
+For deconvolutional layers, they are just convolutional layers. So we only need to check pooling layers. For pooling layers, they are actually equivalent to convolutional layers regarding the size relationship between the input and output. Specifically, for pooling layers, equations (1) and (2) exactly hold true. For example, in `pool1`, we use 2x2 max pooling kernels ($K = 2$) with stride 2 ($S = 2$). And the default padding is 0 ($P = 0$). According to (1) and (2), we have
 
 $$
 \begin{equation}
@@ -260,7 +260,7 @@ So it makes sense to simplify an FCN to be a stack of convolutional layers since
 
 ## Reparameterizing convolutional layers
 
-Now, we only need to deal with convolutional layers. But, before diving into the derivation, let's further simplify it by reparameterizing convolution. Specifically, we rewrite equations $\eqref{eq1}$ and $\eqref{eq2}$ by moving $H_{in}$ and $W_{in}$ to the left-hand side.
+Now, we only need to deal with convolutional layers. But, before diving into the derivation, let's further simplify it by reparameterizing convolution. Specifically, we rewrite equations (1) and (2) by moving $H_{in}$ and $W_{in}$ to the left-hand side.
 
 $$
 \begin{equation}
@@ -280,13 +280,13 @@ W_{in} &= S\left(W_{out} - 1\right) + K - 2P \\\\\\
 \end{aligned}
 \end{equation}\tag{10}$$
 
-As can be seen, we introduce a new parameter $P^\prime$ in equations $\eqref{eq9}$ and $\eqref{eq10}$, which is defined as follows.
+As can be seen, we introduce a new parameter $P^\prime$ in equations (9) and (10), which is defined as follows.
 
 $$P^\prime = \frac{K - S}{2} - P \tag{11}$$
 
 Given $P^\prime$, a convolutional layer with parameters $K$, $S$ and $P$ can be reparameterized by $S$ and $P^\prime$. $S$ still stands for the stride. And we name $P^\prime$ *offset*. Notice that $P^\prime$ is the offset of a convoltional layer, which is different from the aforementioned $T$, the offset of the FCN.
 
-For pooling layers, equations $\eqref{eq9}$ and $\eqref{eq10}$ also apply to them exactly. For deconvolutional layers, we rewrite equations $\eqref{eq5}$ and $\eqref{eq6}$ by moving $H_{out}$ and $W_{out}$ to the left-hand side.
+For pooling layers, equations (9) and (10) also apply to them exactly. For deconvolutional layers, we rewrite equations (5) and (6) by moving $H_{out}$ and $W_{out}$ to the left-hand side.
 
 $$
 \begin{equation}
@@ -304,7 +304,7 @@ W_{out} &= SW_{in} + 2\left(\frac{K - S}{2} - P\right) \\\\\\
 \end{aligned}
 \end{equation}\tag{13}$$
 
-Since a deconvolutional layer is just a convolutional layer with its input size and output size swapped. Let's swap $H_{out}$ with $H_{in}$ and $W_{out}$ with $W_{in}$ in $\eqref{eq12}$ and $\eqref{eq13}$. Then we get the following convolutional layer expressed by equations $\eqref{eq14}$ and $\eqref{eq15}$.
+Since a deconvolutional layer is just a convolutional layer with its input size and output size swapped. Let's swap $H_{out}$ with $H_{in}$ and $W_{out}$ with $W_{in}$ in (12) and (13). Then we get the following convolutional layer expressed by equations (14) and (15).
 
 $$H_{in} = SH_{out} + 2P^\prime \tag{14}$$
 
@@ -316,7 +316,7 @@ $$H_{out} = \frac{1}{S}H_{in} + 2\left(-\frac{P^\prime}{S}\right) \tag{16}$$
 
 $$W_{out} = \frac{1}{S}W_{in} + 2\left(-\frac{P^\prime}{S}\right) \tag{17}$$
 
-Note that equations $\eqref{eq12}$ and $\eqref{eq13}$ represent a deconvolutional layer with stride $S$ and offset $P^\prime$ while equations $\eqref{eq16}$ and $\eqref{eq17}$ represent a convolutional layer, whose stride and offset are $\frac{1}{S}$ and $-\frac{P^\prime}{S}$ respectively. 
+Note that equations (12) and (13) represent a deconvolutional layer with stride $S$ and offset $P^\prime$ while equations (16) and (17) represent a convolutional layer, whose stride and offset are $\frac{1}{S}$ and $-\frac{P^\prime}{S}$ respectively. 
 
 Based on the above analysis, we can obtain the following theorem, which will come into use later.
 
@@ -334,7 +334,7 @@ $$
 
 The input to the network is denoted as $L_0$ and the output as $L_n$. For layer $L_i, i = 0, 1, 2, \dots, n$, its height, width, stride and offset are denoted as $H_i$, $W_i$, $S_i$ and $P^\prime_i$ respectively. Note that we ignore the $N$ and $C$ dimensions since the offset of FCN ($T$) is only related to $H$ and $W$. Let's further assume that $H_0 = W_0$ such that $H_i = W_i$ for all $i = 0, 1, 2, \dots, n$. Now we only need to consider a single dimension $H$.
 
-Based on equations $\eqref{eq9}$ and $\eqref{eq10}$, we can write down
+Based on equations (9) and (10), we can write down
 
 $$
 \begin{equation}
@@ -369,7 +369,7 @@ According to the definition of $T$, we have
 
 $$H_n = H_0 + 2T \tag{21}$$
 
-By plugging equation $\eqref{eq21}$ into equation $\eqref{eq20}$, we have
+By plugging equation (21) into equation (20), we have
 
 $$
 \begin{equation}
@@ -408,7 +408,7 @@ Typically we design the network to make $S_1S_2 \dots S_n = 1$. Let's take voc-f
 
 For `upscore`, it is a deconvolutional layer and so we make use of **Theorem** to compute its reparameterization parameters. Multiplying the above $S_1S_2 \dots S_{22}$ will give us $2 ^ 5 \times 1 ^ {16} \times \frac{1}{32} = 1$.
 
-Given $S_1S_2 \dots S_n = 1$, equation $\eqref{eq22}$ will be simplified into
+Given $S_1S_2 \dots S_n = 1$, equation (22) will be simplified into
 
 $$H_0 = H_0 + 2T + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{23}$$
 
@@ -416,7 +416,7 @@ Now we can derive the equation for computing the offset $T$.
 
 $$T=-\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{24}$$
 
-I computed $T$ for voc-fcn32s using the following Python codes according to equation $\eqref{eq24}$ and the result is 19.0, which is exactly the offset of the Crop layer.
+I computed $T$ for voc-fcn32s using the following Python codes according to equation (24) and the result is 19.0, which is exactly the offset of the Crop layer.
 
 ```python
 >>> S = [1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1]
@@ -438,7 +438,7 @@ I computed $T$ for voc-fcn32s using the following Python codes according to equa
 
 Now you know one way to compute $T$. I would like to tell you one more, which is used in [MXNet](https://github.com/apache/incubator-mxnet/blob/master/example/fcn-xs/symbol_fcnxs.py).
 
-From equation $\eqref{eq19}$, we can write down the equations of $H_0$ expressed in $H_i$ for all $i = 1, 2, \dots, n$.
+From equation (19), we can write down the equations of $H_0$ expressed in $H_i$ for all $i = 1, 2, \dots, n$.
 
 $$
 \begin{align}
@@ -449,7 +449,7 @@ H_0 &= \left(S_1S_2S_3\right)H_3 + 2\left(S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\
 H_0 &= \left(S_1S_2 \dots S_n\right)H_n + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{28}\end{align}
 $$
 
-As aforementioned, eqution $\eqref{eq25}$ is a reparameterization of the convolutional layer conv-1 connecting $L_0$ and $L_1$. Obviously, equations $\eqref{eq26}$ to $\eqref{eq28}$ all have a similar form. We can actually treat them as a *compound convolutional layer* connecting $L_0$ and $L_2, L_3, \dots, L_n$. Let's call the compound convolutional layer connecting $L_0$ and $L_i \left(i = 1, 2, \dots, n\right)$ the $i$-th compound convolutional layer, whose compound stride $S_i^{\text{compound}}$ and compound offset $P_i^{\text{compound}}$ are as follows.
+As aforementioned, eqution (25) is a reparameterization of the convolutional layer conv-1 connecting $L_0$ and $L_1$. Obviously, equations (26) to (28) all have a similar form. We can actually treat them as a *compound convolutional layer* connecting $L_0$ and $L_2, L_3, \dots, L_n$. Let's call the compound convolutional layer connecting $L_0$ and $L_i \left(i = 1, 2, \dots, n\right)$ the $i$-th compound convolutional layer, whose compound stride $S_i^{\text{compound}}$ and compound offset $P_i^{\text{compound}}$ are as follows.
 
 $$
 \begin{equation}
@@ -490,9 +490,9 @@ P_{i}^{\text{compound}} &= S_1S_2 \dots S_{i - 1}P^\prime_i + S_1S_2 \dots S_{i 
 \end{aligned}
 \end{equation}\tag{31}$$
 
-Equations $\eqref{eq30}$ and $\eqref{eq31}$ are actually how [MXNet](https://github.com/apache/incubator-mxnet/blob/master/example/fcn-xs/symbol_fcnxs.py) compute the compound stride and compound offset. Let's dive into the codes to see how it is implemented.
+Equations (30) and (31) are actually how [MXNet](https://github.com/apache/incubator-mxnet/blob/master/example/fcn-xs/symbol_fcnxs.py) compute the compound stride and compound offset. Let's dive into the codes to see how it is implemented.
 
-In function `filter_map`, a convolution with parameters $K$ (`kernel`), $S$ (`stride`) and $P$ (`pad`) is reparameterized to $S$ (`stride`) and $P^\prime_i$. `(kernel-stride)/2-pad` is just $P^\prime_i$ according to equation $\eqref{eq11}$.
+In function `filter_map`, a convolution with parameters $K$ (`kernel`), $S$ (`stride`) and $P$ (`pad`) is reparameterized to $S$ (`stride`) and $P^\prime_i$. `(kernel-stride)/2-pad` is just $P^\prime_i$ according to equation (11).
 
 ```python
 def filter_map(kernel=1, stride=1, pad=0):
@@ -506,7 +506,7 @@ def inv_fp(fp_in):
     return (1.0/fp_in[0], -1.0*fp_in[1]/fp_in[0])
 ```
 
-In `compose_fp`, equations $\eqref{eq30}$ and $\eqref{eq31}$ are implemented. `fp_first` represents $\left(S_{i - 1}^{\text{compound}}, P_{i - 1}^{\text{compound}}\right)$ and `fp_second` represents $\left(S_i, P^\prime_i\right)$. The returned result is $\left(S_i^{\text{compound}}, P_i^{\text{compound}}\right)$.
+In `compose_fp`, equations (30) and (31) are implemented. `fp_first` represents $\left(S_{i - 1}^{\text{compound}}, P_{i - 1}^{\text{compound}}\right)$ and `fp_second` represents $\left(S_i, P^\prime_i\right)$. The returned result is $\left(S_i^{\text{compound}}, P_i^{\text{compound}}\right)$.
 
 ```python
 def compose_fp(fp_first, fp_second):
