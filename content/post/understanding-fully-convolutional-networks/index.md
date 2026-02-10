@@ -239,7 +239,7 @@ For deconvolutional layers, they are just convolutional layers. So we only need 
 $$
 \begin{equation}
 \begin{aligned}
-H_{out} &= \frac{H_{in} + 2 \times 0 - 2}{2} + 1 \\\\\\
+H_{out} &= \frac{H_{in} + 2 \times 0 - 2}{2} + 1 \\
 &= \frac{H_{in}}{2}
 \end{aligned}
 \end{equation}\tag{7}$$
@@ -249,7 +249,7 @@ and
 $$
 \begin{equation}
 \begin{aligned}
-W_{out} &= \frac{W_{in} + 2 \times 0 - 2}{2} + 1 \\\\\\
+W_{out} &= \frac{W_{in} + 2 \times 0 - 2}{2} + 1 \\
 &= \frac{W_{in}}{2}
 \end{aligned}
 \end{equation}\tag{8}$$
@@ -265,8 +265,8 @@ Now, we only need to deal with convolutional layers. But, before diving into the
 $$
 \begin{equation}
 \begin{aligned}
-H_{in} &= S\left(H_{out} - 1\right) + K - 2P \\\\\\
-&= SH_{out} + 2\left(\frac{K - S}{2} - P\right) \\\\\\
+H_{in} &= S\left(H_{out} - 1\right) + K - 2P \\
+&= SH_{out} + 2\left(\frac{K - S}{2} - P\right) \\
 &= SH_{out} + 2P^\prime
 \end{aligned}
 \end{equation}\tag{9}$$
@@ -274,8 +274,8 @@ H_{in} &= S\left(H_{out} - 1\right) + K - 2P \\\\\\
 $$
 \begin{equation}
 \begin{aligned}
-W_{in} &= S\left(W_{out} - 1\right) + K - 2P \\\\\\
-&= SW_{out} + 2\left(\frac{K - S}{2} - P\right) \\\\\\
+W_{in} &= S\left(W_{out} - 1\right) + K - 2P \\
+&= SW_{out} + 2\left(\frac{K - S}{2} - P\right) \\
 &= SW_{out} + 2P^\prime
 \end{aligned}
 \end{equation}\tag{10}$$
@@ -291,7 +291,7 @@ For pooling layers, equations (9) and (10) also apply to them exactly. For decon
 $$
 \begin{equation}
 \begin{aligned}
-H_{out} &= SH_{in} + 2\left(\frac{K - S}{2} - P\right) \\\\\\
+H_{out} &= SH_{in} + 2\left(\frac{K - S}{2} - P\right) \\
 &= SH_{in} + 2P^\prime
 \end{aligned}
 \end{equation}\tag{12}$$
@@ -299,7 +299,7 @@ H_{out} &= SH_{in} + 2\left(\frac{K - S}{2} - P\right) \\\\\\
 $$
 \begin{equation}
 \begin{aligned}
-W_{out} &= SW_{in} + 2\left(\frac{K - S}{2} - P\right) \\\\\\
+W_{out} &= SW_{in} + 2\left(\frac{K - S}{2} - P\right) \\
 &= SW_{in} + 2P^\prime
 \end{aligned}
 \end{equation}\tag{13}$$
@@ -339,9 +339,9 @@ Based on equations (9) and (10), we can write down
 $$
 \begin{equation}
 \begin{aligned}
-H_0 &= S_1H_1 + 2P^\prime_1 \\\\\\
-H_1 &= S_2H_2 + 2P^\prime_2 \\\\\\
-&\dots \\\\\\
+H_0 &= S_1H_1 + 2P^\prime_1 \\
+H_1 &= S_2H_2 + 2P^\prime_2 \\
+&\dots \\
 H_{n - 1} &= S_nH_n + 2P^\prime_n
 \end{aligned}
 \end{equation}\tag{18}$$
@@ -351,11 +351,11 @@ If we plug in the expression of $H_i$ into that of $H_{i - 1}$, we can get
 $$
 \begin{equation}
 \begin{aligned}
-H_0 &= S_1H_1 + 2P^\prime_1\\\\\\
-&= S_1\left(S_2H_2 + 2P^\prime_2\right) + 2P^\prime_1 \\\\\\
-&= \left(S_1S_2\right)H_2 + 2\left(S_1P^\prime_2 + P^\prime_1\right) \\\\\\
-&= \left(S_1S_2\right)\left(S_3H_3 + 2P^\prime_3\right) + 2\left(S_1P^\prime_2 + P^\prime_1\right) \\\\\\
-&= \left(S_1S_2S_3\right)H_3 + 2\left(S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \\\\\\
+H_0 &= S_1H_1 + 2P^\prime_1\\
+&= S_1\left(S_2H_2 + 2P^\prime_2\right) + 2P^\prime_1 \\
+&= \left(S_1S_2\right)H_2 + 2\left(S_1P^\prime_2 + P^\prime_1\right) \\
+&= \left(S_1S_2\right)\left(S_3H_3 + 2P^\prime_3\right) + 2\left(S_1P^\prime_2 + P^\prime_1\right) \\
+&= \left(S_1S_2S_3\right)H_3 + 2\left(S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \\
 &= \dots
 \end{aligned}
 \end{equation}\tag{19}$$
@@ -374,7 +374,7 @@ By plugging equation (21) into equation (20), we have
 $$
 \begin{equation}
 \begin{aligned}
-H_0 &= \left(S_1S_2 \dots S_n\right)\left(H_0 + 2T\right) + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \\\\\\
+H_0 &= \left(S_1S_2 \dots S_n\right)\left(H_0 + 2T\right) + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \\
 &= \left(S_1S_2 \dots S_n\right)H_0 + 2\left(S_1S_2 \dots S_n\right)T + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right)
 \end{aligned}
 \end{equation}\tag{22}$$
@@ -442,10 +442,10 @@ From equation (19), we can write down the equations of $H_0$ expressed in $H_i$ 
 
 $$
 \begin{align}
-H_0 &= S_1H_1 + 2P^\prime_1 \tag{25} \\\\\\
-H_0 &= \left(S_1S_2\right)H_2 + 2\left(S_1P^\prime_2 + P^\prime_1\right) \tag{26} \\\\\\
-H_0 &= \left(S_1S_2S_3\right)H_3 + 2\left(S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{27} \\\\\\
-&\dots \\\\\\
+H_0 &= S_1H_1 + 2P^\prime_1 \tag{25} \\
+H_0 &= \left(S_1S_2\right)H_2 + 2\left(S_1P^\prime_2 + P^\prime_1\right) \tag{26} \\
+H_0 &= \left(S_1S_2S_3\right)H_3 + 2\left(S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{27} \\
+&\dots \\
 H_0 &= \left(S_1S_2 \dots S_n\right)H_n + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{28}\end{align}
 $$
 
@@ -454,10 +454,10 @@ As aforementioned, eqution (25) is a reparameterization of the convolutional lay
 $$
 \begin{equation}
 \begin{aligned}
-\left(S_1^{\text{compound}}, P_1^{\text{compound}}\right) &= \left(S_1, P^\prime_1\right) \\\\\\
-\left(S_2^{\text{compound}}, P_2^{\text{compound}}\right) &= \left(S_1S_2, S_1P^\prime_2 + P^\prime_1\right) \\\\\\
-\left(S_3^{\text{compound}}, P_3^{\text{compound}}\right) &= \left(S_1S_2S_3, S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \\\\\\
-&\dots \\\\\\
+\left(S_1^{\text{compound}}, P_1^{\text{compound}}\right) &= \left(S_1, P^\prime_1\right) \\
+\left(S_2^{\text{compound}}, P_2^{\text{compound}}\right) &= \left(S_1S_2, S_1P^\prime_2 + P^\prime_1\right) \\
+\left(S_3^{\text{compound}}, P_3^{\text{compound}}\right) &= \left(S_1S_2S_3, S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \\
+&\dots \\
 \left(S_n^{\text{compound}}, P_n^{\text{compound}}\right) &= \left(S_1S_2 \dots S_n, S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right)
 \end{aligned}
 \end{equation}\tag{29}$$
@@ -475,8 +475,8 @@ According to the expressions of $S_{i}^{\text{compound}}$ and $P_{i}^{\text{comp
 $$
 \begin{equation}
 \begin{aligned}
-S_{i}^{\text{compound}} &= S_1S_2 \dots S_i \\\\\\
-&= \underbrace{S_1S_2 \dots S_{i - 1}}_{S_{i - 1}^{\text{compound}}}S_i \\\\\\
+S_{i}^{\text{compound}} &= S_1S_2 \dots S_i \\
+&= \underbrace{S_1S_2 \dots S_{i - 1}}_{S_{i - 1}^{\text{compound}}}S_i \\
 &= S_{i - 1}^{\text{compound}}S_i
 \end{aligned}
 \end{equation}\tag{30}$$
@@ -484,8 +484,8 @@ S_{i}^{\text{compound}} &= S_1S_2 \dots S_i \\\\\\
 $$
 \begin{equation}
 \begin{aligned}
-P_{i}^{\text{compound}} &= S_1S_2 \dots S_{i - 1}P^\prime_i + S_1S_2 \dots S_{i - 2}P^\prime_{i - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1 \\\\\\
-&= \underbrace{S_1S_2 \dots S_{i - 1}}_{S_{i - 1}^{\text{compound}}}P^\prime_i + \underbrace{S_1S_2 \dots S_{i - 2}P^\prime_{i - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1}_{P_{i - 1}^{\text{compound}}} \\\\\\
+P_{i}^{\text{compound}} &= S_1S_2 \dots S_{i - 1}P^\prime_i + S_1S_2 \dots S_{i - 2}P^\prime_{i - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1 \\
+&= \underbrace{S_1S_2 \dots S_{i - 1}}_{S_{i - 1}^{\text{compound}}}P^\prime_i + \underbrace{S_1S_2 \dots S_{i - 2}P^\prime_{i - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1}_{P_{i - 1}^{\text{compound}}} \\
 &= S_{i - 1}^{\text{compound}}P^\prime_i + P_{i - 1}^{\text{compound}}
 \end{aligned}
 \end{equation}\tag{31}$$
