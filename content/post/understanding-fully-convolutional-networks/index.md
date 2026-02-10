@@ -74,7 +74,7 @@ $$H_{in} = \frac{H_{out} + 2P - K}{S} + 1 \tag{3}$$
 
 $$W_{in} = \frac{W_{out} + 2P - K}{S} + 1 \tag{4}$$
 
-By moving $H_{out}$ and $W_{out}$ to the left-hand side, we finally get 
+By moving \(H_{out}\) and \(W_{out}\) to the left-hand side, we finally get 
 
 $$H_{out} = SH_{in} + K - S - 2P \tag{5}$$
 
@@ -136,67 +136,67 @@ There is a nice visualization of the 16-layer VGG in [netscope](http://ethereon.
 
 ## Fully convolutional networks
 
-Now you are ready to embrace the idea of FCNs. It is fairly simple: first downsample the image to smaller feature maps and then upsample them to the segmentation masks (of the same size as the image). [CS231n 2018 Lecture 11](http://cs231n.stanford.edu/slides/2018/cs231n_2018_lecture11.pdf) has the following nice illustration which summarizes this process. Actually I think the $D_3 \times H/4 \times W/4$ of Low-res should be $D_3 \times H/8 \times W/8$. Anyway, you can just ignore the captions. The picture has reflected the core idea.
+Now you are ready to embrace the idea of FCNs. It is fairly simple: first downsample the image to smaller feature maps and then upsample them to the segmentation masks (of the same size as the image). [CS231n 2018 Lecture 11](http://cs231n.stanford.edu/slides/2018/cs231n_2018_lecture11.pdf) has the following nice illustration which summarizes this process. Actually I think the \(D_3 \times H/4 \times W/4\) of Low-res should be \(D_3 \times H/8 \times W/8\). Anyway, you can just ignore the captions. The picture has reflected the core idea.
 
 {{< figure src="fcn.png" alt="FCN architecture diagram showing an input image of cows being downsampled through convolutional layers to progressively lower resolutions and then upsampled back to the original resolution to produce a pixel-wise segmentation prediction map" caption="**Figure 5.** FCN architecture: downsampling through convolutions and upsampling back to produce pixel-wise predictions." >}}
 
 To gain more understanding, let's walk through a concrete example - [voc-fcn32s](https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn32s/val.prototxt), an adaptation of the 16-layer VGG into an FCN for semantic segmentation in the PASCAL VOC data sets. Since this dataset has 21 classes, we need to learn 21 segmentation masks.
 
-Let's also break the voc-fcn32s down layer by layer. Note that the size of `data` is now $3 \times H \times W$. In this way, we will show that FCN is able to handle input of any size! All default settings are the same to those in the above table.
+Let's also break the voc-fcn32s down layer by layer. Note that the size of `data` is now \(3 \times H \times W\). In this way, we will show that FCN is able to handle input of any size! All default settings are the same to those in the above table.
 
 | Name | Type | Params | Size |
 | ---- | ---- | ------ | ----:|
-| `data` | Data | | <span style="color:red">$3 \times H \times W$</span> |
-| `conv1_1` | Convolution | 64 3x3 kernels, <span style="color:red">padding 100</span> | $64 \times \left(H + 198\right) \times \left(W + 198\right)$ |
-| `relu1_1` | ReLU | | $64 \times \left(H + 198\right) \times \left(W + 198\right)$ |
-| `conv1_2` | Convolution | 64 3x3 kernels, padding 1 | $64 \times \left(H + 198\right) \times \left(W + 198\right)$ |
-| `relu1_2` | ReLU | | $64 \times \left(H + 198\right) \times \left(W + 198\right)$ |
-| `pool1` | Pooling | max 2x2, stride 2 | $64 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)$ |
-| `conv2_1` | Convolution | 128 3x3 kernels, padding 1 | $128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)$ |
-| `relu2_1` | ReLU | | $128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)$ |
-| `conv2_2` | Convolution | 128 3x3 kernels, padding 1 | $128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)$ |
-| `relu2_2` | ReLU | | $128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)$ |
-| `pool2` | Pooling | max 2x2, stride 2 | $128 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$ |
-| `conv3_1` | Convolution | 256 3x3 kernels, padding 1 | $256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$ |
-| `relu3_1` | ReLU | | $256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$ |
-| `conv3_2` | Convolution | 256 3x3 kernels, padding 1 | $256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$ |
-| `relu3_2` | ReLU | | $256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$ |
-| `conv3_3` | Convolution | 256 3x3 kernels, padding 1 | $256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$ |
-| `relu3_3` | ReLU | | $256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)$ |
-| `pool3` | Pooling | max 2x2, stride 2 | $256 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$ |
-| `conv4_1` | Convolution | 512 3x3 kernels, padding 1 | $512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$ |
-| `relu4_1` | ReLU | | $512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$ |
-| `conv4_2` | Convolution | 512 3x3 kernels, padding 1 | $512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$ |
-| `relu4_2` | ReLU | | $512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$ |
-| `conv4_3` | Convolution | 512 3x3 kernels, padding 1 | $512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$ |
-| `relu4_3` | ReLU | | $512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$ |
-| `pool4` | Pooling | max 2x2, stride 2 | $512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$ |
-| `conv5_1` | Convolution | 512 3x3 kernels, padding 1 | $512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$ |
-| `relu5_1` | ReLU | | $512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$ |
-| `conv5_2` | Convolution | 512 3x3 kernels, padding 1 | $512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$ |
-| `relu5_2` | ReLU | | $512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$ |
-| `conv5_3` | Convolution | 512 3x3 kernels, padding 1 | $512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$ |
-| `relu5_3` | ReLU | | $512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$ |
-| `pool5` | Pooling | max 2x2, stride 2 | $512 \times \left(\frac{H + 6}{32} + 6\right) \times \left(\frac{W + 6}{32} + 6\right)$ |
-| `fc6` | <span style="color:red">Convolution</span> | 4096 7x7 kernels | $4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$ |
-| `relu6` | ReLU | | $4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$ |
-| `drop6` | Dropout | p=0.5 | $4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$ |
-| `fc7` | <span style="color:red">Convolution</span> | 4096 1x1 kernels | $4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$ |
-| `relu7` | ReLU | | $4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$ |
-| `drop7` | Dropout | | $4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$ |
-| `score_fr` | Convolution | 21 1x1 kernels | $21 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$ |
-| `upscore` | <span style="color:red">Deconvolution</span> | 21 64x64 kernels, stride 32 | <span style="color:red">$21 \times \left(H + 38\right) \times \left(W + 38\right)$</span> |
-| `score` | <span style="color:red">Crop</span> | Explained below | $21 \times H \times W$|
+| `data` | Data | | <span style="color:red">\(3 \times H \times W\)</span> |
+| `conv1_1` | Convolution | 64 3x3 kernels, <span style="color:red">padding 100</span> | \(64 \times \left(H + 198\right) \times \left(W + 198\right)\) |
+| `relu1_1` | ReLU | | \(64 \times \left(H + 198\right) \times \left(W + 198\right)\) |
+| `conv1_2` | Convolution | 64 3x3 kernels, padding 1 | \(64 \times \left(H + 198\right) \times \left(W + 198\right)\) |
+| `relu1_2` | ReLU | | \(64 \times \left(H + 198\right) \times \left(W + 198\right)\) |
+| `pool1` | Pooling | max 2x2, stride 2 | \(64 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)\) |
+| `conv2_1` | Convolution | 128 3x3 kernels, padding 1 | \(128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)\) |
+| `relu2_1` | ReLU | | \(128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)\) |
+| `conv2_2` | Convolution | 128 3x3 kernels, padding 1 | \(128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)\) |
+| `relu2_2` | ReLU | | \(128 \times \left(\frac{H}{2} + 99\right) \times \left(\frac{W}{2} + 99\right)\) |
+| `pool2` | Pooling | max 2x2, stride 2 | \(128 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)\) |
+| `conv3_1` | Convolution | 256 3x3 kernels, padding 1 | \(256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)\) |
+| `relu3_1` | ReLU | | \(256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)\) |
+| `conv3_2` | Convolution | 256 3x3 kernels, padding 1 | \(256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)\) |
+| `relu3_2` | ReLU | | \(256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)\) |
+| `conv3_3` | Convolution | 256 3x3 kernels, padding 1 | \(256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)\) |
+| `relu3_3` | ReLU | | \(256 \times \left(\frac{H + 2}{4} + 49\right) \times \left(\frac{W + 2}{4} + 49\right)\) |
+| `pool3` | Pooling | max 2x2, stride 2 | \(256 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)\) |
+| `conv4_1` | Convolution | 512 3x3 kernels, padding 1 | \(512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)\) |
+| `relu4_1` | ReLU | | \(512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)\) |
+| `conv4_2` | Convolution | 512 3x3 kernels, padding 1 | \(512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)\) |
+| `relu4_2` | ReLU | | \(512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)\) |
+| `conv4_3` | Convolution | 512 3x3 kernels, padding 1 | \(512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)\) |
+| `relu4_3` | ReLU | | \(512 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)\) |
+| `pool4` | Pooling | max 2x2, stride 2 | \(512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)\) |
+| `conv5_1` | Convolution | 512 3x3 kernels, padding 1 | \(512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)\) |
+| `relu5_1` | ReLU | | \(512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)\) |
+| `conv5_2` | Convolution | 512 3x3 kernels, padding 1 | \(512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)\) |
+| `relu5_2` | ReLU | | \(512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)\) |
+| `conv5_3` | Convolution | 512 3x3 kernels, padding 1 | \(512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)\) |
+| `relu5_3` | ReLU | | \(512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)\) |
+| `pool5` | Pooling | max 2x2, stride 2 | \(512 \times \left(\frac{H + 6}{32} + 6\right) \times \left(\frac{W + 6}{32} + 6\right)\) |
+| `fc6` | <span style="color:red">Convolution</span> | 4096 7x7 kernels | \(4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}\) |
+| `relu6` | ReLU | | \(4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}\) |
+| `drop6` | Dropout | p=0.5 | \(4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}\) |
+| `fc7` | <span style="color:red">Convolution</span> | 4096 1x1 kernels | \(4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}\) |
+| `relu7` | ReLU | | \(4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}\) |
+| `drop7` | Dropout | | \(4096 \times \frac{H + 6}{32} \times \frac{W + 6}{32}\) |
+| `score_fr` | Convolution | 21 1x1 kernels | \(21 \times \frac{H + 6}{32} \times \frac{W + 6}{32}\) |
+| `upscore` | <span style="color:red">Deconvolution</span> | 21 64x64 kernels, stride 32 | <span style="color:red">\(21 \times \left(H + 38\right) \times \left(W + 38\right)\)</span> |
+| `score` | <span style="color:red">Crop</span> | Explained below | \(21 \times H \times W\)|
 
 Several interesting facts worth notice have been highlighted in red. Let's go over them one by one.
 
-The most interesting and confusing one is probably the padding 100 in `conv1_1`. Why do FCNs use padding 100 instead of just 1 as does VGG? Well, let's try to use padding 1 and see what will happen. Using equations (1) and (2) repeatedly, we can compute that the corresponding output size of `pool5` will be $512 \times \frac{H}{32} \times \frac{W}{32}$.
+The most interesting and confusing one is probably the padding 100 in `conv1_1`. Why do FCNs use padding 100 instead of just 1 as does VGG? Well, let's try to use padding 1 and see what will happen. Using equations (1) and (2) repeatedly, we can compute that the corresponding output size of `pool5` will be \(512 \times \frac{H}{32} \times \frac{W}{32}\).
 
-So far so good. But now comes `fc6` with 4096 7x7 kernels. By plugging the variables into (1) and (2), the output size of `fc6` will be $4096 \times \frac{H - 192}{32} \times \frac{W - 192}{32}$. To make $\frac{H - 192}{32}$ and $\frac{W - 192}{32}$ positive (at least 1), both $H$ and $W$ should be greater than or equal to 224. This means that if we use padding 1 in `conv1_1`, the FCN will only be able to handle images not smaller than 224x224. However, we would like FCN to be able to handle input of any size, which is one of its main advantages. So we need to add more padding in `conv1_1` and 100 is a sensible value.
+So far so good. But now comes `fc6` with 4096 7x7 kernels. By plugging the variables into (1) and (2), the output size of `fc6` will be \(4096 \times \frac{H - 192}{32} \times \frac{W - 192}{32}\). To make \(\frac{H - 192}{32}\) and \(\frac{W - 192}{32}\) positive (at least 1), both \(H\) and \(W\) should be greater than or equal to 224. This means that if we use padding 1 in `conv1_1`, the FCN will only be able to handle images not smaller than 224x224. However, we would like FCN to be able to handle input of any size, which is one of its main advantages. So we need to add more padding in `conv1_1` and 100 is a sensible value.
 
-We also see that both `fc6` and `fc7` are now convolutional layers, fitting the name *fully convolutional networks*. In the deconvolutional layer `upscore`, the feature maps of `score_fr`with size $\frac{H + 6}{32}$x$\frac{W + 6}{32}$ are upsampled to $\left(H + 38\right) \times \left(W + 38\right)$. You may try to verify the correctness of this output size using equations (5) and (6).
+We also see that both `fc6` and `fc7` are now convolutional layers, fitting the name *fully convolutional networks*. In the deconvolutional layer `upscore`, the feature maps of `score_fr`with size \(\frac{H + 6}{32}\)x\(\frac{W + 6}{32}\) are upsampled to \(\left(H + 38\right) \times \left(W + 38\right)\). You may try to verify the correctness of this output size using equations (5) and (6).
 
-After `upscore`, we have an output feature map of $21 \times \left(H + 38\right) \times \left(W + 38\right)$. However, what we want is $21 \times H \times W$. So here comes the last but not least Crop layer, which is used to *crop* the input and defined as follows in Caffe.
+After `upscore`, we have an output feature map of \(21 \times \left(H + 38\right) \times \left(W + 38\right)\). However, what we want is \(21 \times H \times W\). So here comes the last but not least Crop layer, which is used to *crop* the input and defined as follows in Caffe.
 
 ```protobuf
 layer {
@@ -212,17 +212,17 @@ layer {
 }
 ```
 
-This Crop layer accepts `upscore` ($21 \times \left(H + 38\right) \times \left(W + 38\right)$) and `data` ($3 \times H \times W$) from the two `bottom` fields. It also has two parameters: `axis: 2` and `offset: 19`. In Caffe, a feature map (blob) is of size $N \times C \times H \times W$, with $N$, $C$, $H$ and $W$ being the 0th, 1st, 2nd and 3rd dimension. So `upscore` and `data` are actually of size $N \times 21 \times \left(H + 38\right) \times \left(W + 38\right)$ and $N \times 3 \times H \times W$ respectively. `axis: 2` means to crop from the 2nd dimension (inclusive). So only the dimension $H$ and $W$ of `upscore` ($\left(H + 38\right) \times \left(W + 38\right)$) will be cropped to be the same as `data` ($H \times W$). And `offset: 19` specifies the starting index of the cropping, which means that `upscore` will be cropped to be `upscore[19: 19 + H, 19: 19 + W]`, literally the central part of `upscore`. The following is an illustration of this process, with the green part being the cropped region `score`.
+This Crop layer accepts `upscore` (\(21 \times \left(H + 38\right) \times \left(W + 38\right)\)) and `data` (\(3 \times H \times W\)) from the two `bottom` fields. It also has two parameters: `axis: 2` and `offset: 19`. In Caffe, a feature map (blob) is of size \(N \times C \times H \times W\), with \(N\), \(C\), \(H\) and \(W\) being the 0th, 1st, 2nd and 3rd dimension. So `upscore` and `data` are actually of size \(N \times 21 \times \left(H + 38\right) \times \left(W + 38\right)\) and \(N \times 3 \times H \times W\) respectively. `axis: 2` means to crop from the 2nd dimension (inclusive). So only the dimension \(H\) and \(W\) of `upscore` (\(\left(H + 38\right) \times \left(W + 38\right)\)) will be cropped to be the same as `data` (\(H \times W\)). And `offset: 19` specifies the starting index of the cropping, which means that `upscore` will be cropped to be `upscore[19: 19 + H, 19: 19 + W]`, literally the central part of `upscore`. The following is an illustration of this process, with the green part being the cropped region `score`.
 
 {{< figure src="crop.png" alt="Diagram illustrating the Crop layer operation: the upscore feature map of size (H+38)x(W+38) is cropped with an offset of 19 pixels on each side to extract the central HxW region called score, matching the spatial dimensions of the original input data" caption="**Figure 6.** The Crop layer extracts the central region of the upscore feature map to match the input dimensions." >}}
 
 ## Simplifying FCN to a stack of convolutional layers
 
-As shown in the above example, we use a Crop layer with `offset: 19` to crop the feature maps. This cropping layer comes into use since sometimes the deconvolutional (upsampling) layer may not precisely generate an $H \times W$ feature map. Instead, it may give us something like $\left(H + 2T\right) \times \left(W + 2T\right)$. In this case we need to determine the offset $T$ to do the cropping.
+As shown in the above example, we use a Crop layer with `offset: 19` to crop the feature maps. This cropping layer comes into use since sometimes the deconvolutional (upsampling) layer may not precisely generate an \(H \times W\) feature map. Instead, it may give us something like \(\left(H + 2T\right) \times \left(W + 2T\right)\). In this case we need to determine the offset \(T\) to do the cropping.
 
 In the previous section, we break down the network layer by layer and write down the output shape for each layer, based on which we compute the offset of the Crop layer. In the coming sections, we will look at a general case and derive the offset.
 
-In this section, we first simplify an FCN into a stack of $n$ convolutional layers, as shown below. This will make later derivation easier.
+In this section, we first simplify an FCN into a stack of \(n\) convolutional layers, as shown below. This will make later derivation easier.
 
 $$
 \begin{align}
@@ -232,9 +232,9 @@ $$
 
 However, FCNs also have other layers like pooling layers, deconvolutional layers, or ReLU layers. So why do we only consider convolutional layers?
 
-Well, if you have walked through the computation of the offset in voc-fcn32s, you will notice that the offset is only related to the size ($H$ and $W$) of the feature maps. And in FCNs, only convolutional layers, deconvolutional layers and pooling layers will change the feature map size. So we can safely ignore other layers like ReLU and Dropout.
+Well, if you have walked through the computation of the offset in voc-fcn32s, you will notice that the offset is only related to the size (\(H\) and \(W\)) of the feature maps. And in FCNs, only convolutional layers, deconvolutional layers and pooling layers will change the feature map size. So we can safely ignore other layers like ReLU and Dropout.
 
-For deconvolutional layers, they are just convolutional layers. So we only need to check pooling layers. For pooling layers, they are actually equivalent to convolutional layers regarding the size relationship between the input and output. Specifically, for pooling layers, equations (1) and (2) exactly hold true. For example, in `pool1`, we use 2x2 max pooling kernels ($K = 2$) with stride 2 ($S = 2$). And the default padding is 0 ($P = 0$). According to (1) and (2), we have
+For deconvolutional layers, they are just convolutional layers. So we only need to check pooling layers. For pooling layers, they are actually equivalent to convolutional layers regarding the size relationship between the input and output. Specifically, for pooling layers, equations (1) and (2) exactly hold true. For example, in `pool1`, we use 2x2 max pooling kernels (\(K = 2\)) with stride 2 (\(S = 2\)). And the default padding is 0 (\(P = 0\)). According to (1) and (2), we have
 
 $$
 \begin{equation}
@@ -260,7 +260,7 @@ So it makes sense to simplify an FCN to be a stack of convolutional layers since
 
 ## Reparameterizing convolutional layers
 
-Now, we only need to deal with convolutional layers. But, before diving into the derivation, let's further simplify it by reparameterizing convolution. Specifically, we rewrite equations (1) and (2) by moving $H_{in}$ and $W_{in}$ to the left-hand side.
+Now, we only need to deal with convolutional layers. But, before diving into the derivation, let's further simplify it by reparameterizing convolution. Specifically, we rewrite equations (1) and (2) by moving \(H_{in}\) and \(W_{in}\) to the left-hand side.
 
 $$
 \begin{equation}
@@ -280,13 +280,13 @@ W_{in} &= S\left(W_{out} - 1\right) + K - 2P \\
 \end{aligned}
 \end{equation}\tag{10}$$
 
-As can be seen, we introduce a new parameter $P^\prime$ in equations (9) and (10), which is defined as follows.
+As can be seen, we introduce a new parameter \(P^\prime\) in equations (9) and (10), which is defined as follows.
 
 $$P^\prime = \frac{K - S}{2} - P \tag{11}$$
 
-Given $P^\prime$, a convolutional layer with parameters $K$, $S$ and $P$ can be reparameterized by $S$ and $P^\prime$. $S$ still stands for the stride. And we name $P^\prime$ *offset*. Notice that $P^\prime$ is the offset of a convoltional layer, which is different from the aforementioned $T$, the offset of the FCN.
+Given \(P^\prime\), a convolutional layer with parameters \(K\), \(S\) and \(P\) can be reparameterized by \(S\) and \(P^\prime\). \(S\) still stands for the stride. And we name \(P^\prime\) *offset*. Notice that \(P^\prime\) is the offset of a convoltional layer, which is different from the aforementioned \(T\), the offset of the FCN.
 
-For pooling layers, equations (9) and (10) also apply to them exactly. For deconvolutional layers, we rewrite equations (5) and (6) by moving $H_{out}$ and $W_{out}$ to the left-hand side.
+For pooling layers, equations (9) and (10) also apply to them exactly. For deconvolutional layers, we rewrite equations (5) and (6) by moving \(H_{out}\) and \(W_{out}\) to the left-hand side.
 
 $$
 \begin{equation}
@@ -304,23 +304,23 @@ W_{out} &= SW_{in} + 2\left(\frac{K - S}{2} - P\right) \\
 \end{aligned}
 \end{equation}\tag{13}$$
 
-Since a deconvolutional layer is just a convolutional layer with its input size and output size swapped. Let's swap $H_{out}$ with $H_{in}$ and $W_{out}$ with $W_{in}$ in (12) and (13). Then we get the following convolutional layer expressed by equations (14) and (15).
+Since a deconvolutional layer is just a convolutional layer with its input size and output size swapped. Let's swap \(H_{out}\) with \(H_{in}\) and \(W_{out}\) with \(W_{in}\) in (12) and (13). Then we get the following convolutional layer expressed by equations (14) and (15).
 
 $$H_{in} = SH_{out} + 2P^\prime \tag{14}$$
 
 $$W_{in} = SW_{out} + 2P^\prime \tag{15}$$
 
-Similarly, we move $H_{out}$ and $W_{out}$ to the left-hand side.
+Similarly, we move \(H_{out}\) and \(W_{out}\) to the left-hand side.
 
 $$H_{out} = \frac{1}{S}H_{in} + 2\left(-\frac{P^\prime}{S}\right) \tag{16}$$
 
 $$W_{out} = \frac{1}{S}W_{in} + 2\left(-\frac{P^\prime}{S}\right) \tag{17}$$
 
-Note that equations (12) and (13) represent a deconvolutional layer with stride $S$ and offset $P^\prime$ while equations (16) and (17) represent a convolutional layer, whose stride and offset are $\frac{1}{S}$ and $-\frac{P^\prime}{S}$ respectively. 
+Note that equations (12) and (13) represent a deconvolutional layer with stride \(S\) and offset \(P^\prime\) while equations (16) and (17) represent a convolutional layer, whose stride and offset are \(\frac{1}{S}\) and \(-\frac{P^\prime}{S}\) respectively. 
 
 Based on the above analysis, we can obtain the following theorem, which will come into use later.
 
-> **Theorem** A deconvolution with stride $S$ and offset $P^\prime$ is equavilent to a convolution with stride $\frac{1}{S}$ and offset $-\frac{P^\prime}{S}$.
+> **Theorem** A deconvolution with stride \(S\) and offset \(P^\prime\) is equavilent to a convolution with stride \(\frac{1}{S}\) and offset \(-\frac{P^\prime}{S}\).
 
 ## Computing the offset
 
@@ -332,7 +332,7 @@ $$
 \end{align}
 $$
 
-The input to the network is denoted as $L_0$ and the output as $L_n$. For layer $L_i, i = 0, 1, 2, \dots, n$, its height, width, stride and offset are denoted as $H_i$, $W_i$, $S_i$ and $P^\prime_i$ respectively. Note that we ignore the $N$ and $C$ dimensions since the offset of FCN ($T$) is only related to $H$ and $W$. Let's further assume that $H_0 = W_0$ such that $H_i = W_i$ for all $i = 0, 1, 2, \dots, n$. Now we only need to consider a single dimension $H$.
+The input to the network is denoted as \(L_0\) and the output as \(L_n\). For layer \(L_i, i = 0, 1, 2, \dots, n\), its height, width, stride and offset are denoted as \(H_i\), \(W_i\), \(S_i\) and \(P^\prime_i\) respectively. Note that we ignore the \(N\) and \(C\) dimensions since the offset of FCN (\(T\)) is only related to \(H\) and \(W\). Let's further assume that \(H_0 = W_0\) such that \(H_i = W_i\) for all \(i = 0, 1, 2, \dots, n\). Now we only need to consider a single dimension \(H\).
 
 Based on equations (9) and (10), we can write down
 
@@ -346,7 +346,7 @@ H_{n - 1} &= S_nH_n + 2P^\prime_n
 \end{aligned}
 \end{equation}\tag{18}$$
 
-If we plug in the expression of $H_i$ into that of $H_{i - 1}$, we can get
+If we plug in the expression of \(H_i\) into that of \(H_{i - 1}\), we can get
 
 $$
 \begin{equation}
@@ -365,7 +365,7 @@ Have you noticed the regularities? If you move on, you will end up with
 $$
 H_0 = \left(S_1S_2 \dots S_n\right)H_n + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{20}$$
 
-According to the definition of $T$, we have
+According to the definition of \(T\), we have
 
 $$H_n = H_0 + 2T \tag{21}$$
 
@@ -379,44 +379,44 @@ H_0 &= \left(S_1S_2 \dots S_n\right)\left(H_0 + 2T\right) + 2\left(S_1S_2 \dots 
 \end{aligned}
 \end{equation}\tag{22}$$
 
-Typically we design the network to make $S_1S_2 \dots S_n = 1$. Let's take voc-fcn8s as an example to verify this point. In this network, we have the following general convolutional layers (both pooling and deconvolutional layers are also counted as convolutional layers).
+Typically we design the network to make \(S_1S_2 \dots S_n = 1\). Let's take voc-fcn8s as an example to verify this point. In this network, we have the following general convolutional layers (both pooling and deconvolutional layers are also counted as convolutional layers).
 
-| Name | Type | Old parameterization ($K, S, P$) | Reparameterization ($S, P^\prime$) |
+| Name | Type | Old parameterization (\(K, S, P\)) | Reparameterization (\(S, P^\prime\)) |
 | ---- | ---- | --------------: | ------------------------------: |
-| `conv1_1` | Convolution | $K_1 = 3, S_1 = 1, P_1 = 100$ | $S_1 = 1, P^\prime_1 = -99$ |
-| `conv1_2` | Convolution | $K_2 = 3, S_2= 1, P_2 = 1$ | \$S_2 = 1, P^\prime_2 = 0$ |
-| `pool1` | Pooling | $K_3 = 2, S_3 = 2, P_3 = 0$ | $S_3 = 2, P^\prime_3 = 0$ |
-| `conv2_1` | Convolution | $K_4 = 3, S_4 = 1, P_4 = 1$ | $S_4 = 1, P^\prime_4 = 0$ |
-| `conv2_2` | Convolution | $K_5 = 3, S_5 = 1, P_5 = 1$ | $S_5 = 1, P^\prime_5 = 0$ |
-| `pool2` | Pooling | $K_6 = 2, S_6 = 2, P_6 = 0$ | $S_6 = 2, P^\prime_6 = 0$ |
-| `conv3_1` | Convolution | $K_7 = 3, S_7 = 1, P_7 = 1$ | $S_7 = 1, P^\prime_7 = 0$ |
-| `conv3_2` | Convolution | $K_8 = 3, S_8 = 1, P_8 = 1$ | $S_8 = 1, P^\prime_8 = 0$ |
-| `conv3_3` | Convolution | $K_9 = 3, S_9 = 1, P_9 = 1$ | $S_9 = 1, P^\prime_9 = 0$ |
-| `pool3` | Pooling | $K_{10} = 2, S_{10} = 2, P_{10} = 0$ | $S_{10} = 2, P^\prime_{10} = 0$ |
-| `conv4_1` | Convolution | $K_{11} = 3, S_{11} = 1, P_{11} = 1$ | $S_{11} = 1, P^\prime_{11} = 0$ |
-| `conv4_2` | Convolution | $K_{12} = 3, S_{12} = 1, P_{12} = 1$ | $S_{12} = 1, P^\prime_{12} = 0$ |
-| `conv4_3` | Convolution | $K_{13} = 3, S_{13} = 1, P_{13} = 1$ | $S_{13} = 1, P^\prime_{13} = 0$ |
-| `pool4` | Pooling | $K_{14} = 2, S_{14} = 2, P_{14} = 0$ | $S_{14} = 2, , P^\prime_{14} = 0$ |
-| `conv5_1` | Convolution | $K_{15} = 3, S_{15} = 1, P_{15} = 1$ | $S_{15} = 1, P^\prime_{15} = 0$ |
-| `conv5_2` | Convolution | $K_{16} = 3, S_{16} = 1, P_{16} = 1$ | $S_{16} = 1, P^\prime_{16} = 0$ |
-| `conv5_3` | Convolution | $K_{17} = 3, S_{17} = 1, P_{17} = 1$ | $S_{17} = 1, P^\prime_{17} = 0$ |
-| `pool5` | Pooling | $K_{18} = 2, S_{18} = 2, P_{18} = 0$ | $S_{18} = 2, P^\prime_{18} = 0$ |
-| `fc6` | Convolution | $K_{19} = 7, S_{19} = 1, P_{19} = 0$ | $S_{19} = 1, P^\prime_{19} = 3$ |
-| `fc7` | Convolution | $K_{20} = 1, S_{20} = 1, P_{20} = 0$ | $S_{20} = 1, P^\prime_{20} = 0$ |
-| `score_fr` | Convolution | $K_{21} = 1, S_{21} = 1, P_{21} = 0$ | $S_{21} = 1, P^\prime_{21} = 0$ |
-| `upscore` | Deconvolution | $K_{22} = 64, S_{22} = 32, P_{22} = 0$ | $S_{22} = \frac{1}{32}, P^\prime_{22} = -\frac{1}{2}$ |
+| `conv1_1` | Convolution | \(K_1 = 3, S_1 = 1, P_1 = 100\) | \(S_1 = 1, P^\prime_1 = -99\) |
+| `conv1_2` | Convolution | \(K_2 = 3, S_2= 1, P_2 = 1\) | \(S_2 = 1, P^\prime_2 = 0\) |
+| `pool1` | Pooling | \(K_3 = 2, S_3 = 2, P_3 = 0\) | \(S_3 = 2, P^\prime_3 = 0\) |
+| `conv2_1` | Convolution | \(K_4 = 3, S_4 = 1, P_4 = 1\) | \(S_4 = 1, P^\prime_4 = 0\) |
+| `conv2_2` | Convolution | \(K_5 = 3, S_5 = 1, P_5 = 1\) | \(S_5 = 1, P^\prime_5 = 0\) |
+| `pool2` | Pooling | \(K_6 = 2, S_6 = 2, P_6 = 0\) | \(S_6 = 2, P^\prime_6 = 0\) |
+| `conv3_1` | Convolution | \(K_7 = 3, S_7 = 1, P_7 = 1\) | \(S_7 = 1, P^\prime_7 = 0\) |
+| `conv3_2` | Convolution | \(K_8 = 3, S_8 = 1, P_8 = 1\) | \(S_8 = 1, P^\prime_8 = 0\) |
+| `conv3_3` | Convolution | \(K_9 = 3, S_9 = 1, P_9 = 1\) | \(S_9 = 1, P^\prime_9 = 0\) |
+| `pool3` | Pooling | \(K_{10} = 2, S_{10} = 2, P_{10} = 0\) | \(S_{10} = 2, P^\prime_{10} = 0\) |
+| `conv4_1` | Convolution | \(K_{11} = 3, S_{11} = 1, P_{11} = 1\) | \(S_{11} = 1, P^\prime_{11} = 0\) |
+| `conv4_2` | Convolution | \(K_{12} = 3, S_{12} = 1, P_{12} = 1\) | \(S_{12} = 1, P^\prime_{12} = 0\) |
+| `conv4_3` | Convolution | \(K_{13} = 3, S_{13} = 1, P_{13} = 1\) | \(S_{13} = 1, P^\prime_{13} = 0\) |
+| `pool4` | Pooling | \(K_{14} = 2, S_{14} = 2, P_{14} = 0\) | \(S_{14} = 2, , P^\prime_{14} = 0\) |
+| `conv5_1` | Convolution | \(K_{15} = 3, S_{15} = 1, P_{15} = 1\) | \(S_{15} = 1, P^\prime_{15} = 0\) |
+| `conv5_2` | Convolution | \(K_{16} = 3, S_{16} = 1, P_{16} = 1\) | \(S_{16} = 1, P^\prime_{16} = 0\) |
+| `conv5_3` | Convolution | \(K_{17} = 3, S_{17} = 1, P_{17} = 1\) | \(S_{17} = 1, P^\prime_{17} = 0\) |
+| `pool5` | Pooling | \(K_{18} = 2, S_{18} = 2, P_{18} = 0\) | \(S_{18} = 2, P^\prime_{18} = 0\) |
+| `fc6` | Convolution | \(K_{19} = 7, S_{19} = 1, P_{19} = 0\) | \(S_{19} = 1, P^\prime_{19} = 3\) |
+| `fc7` | Convolution | \(K_{20} = 1, S_{20} = 1, P_{20} = 0\) | \(S_{20} = 1, P^\prime_{20} = 0\) |
+| `score_fr` | Convolution | \(K_{21} = 1, S_{21} = 1, P_{21} = 0\) | \(S_{21} = 1, P^\prime_{21} = 0\) |
+| `upscore` | Deconvolution | \(K_{22} = 64, S_{22} = 32, P_{22} = 0\) | \(S_{22} = \frac{1}{32}, P^\prime_{22} = -\frac{1}{2}\) |
 
-For `upscore`, it is a deconvolutional layer and so we make use of **Theorem** to compute its reparameterization parameters. Multiplying the above $S_1S_2 \dots S_{22}$ will give us $2 ^ 5 \times 1 ^ {16} \times \frac{1}{32} = 1$.
+For `upscore`, it is a deconvolutional layer and so we make use of **Theorem** to compute its reparameterization parameters. Multiplying the above \(S_1S_2 \dots S_{22}\) will give us \(2 ^ 5 \times 1 ^ {16} \times \frac{1}{32} = 1\).
 
-Given $S_1S_2 \dots S_n = 1$, equation (22) will be simplified into
+Given \(S_1S_2 \dots S_n = 1\), equation (22) will be simplified into
 
 $$H_0 = H_0 + 2T + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{23}$$
 
-Now we can derive the equation for computing the offset $T$.
+Now we can derive the equation for computing the offset \(T\).
 
 $$T=-\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{24}$$
 
-I computed $T$ for voc-fcn32s using the following Python codes according to equation (24) and the result is 19.0, which is exactly the offset of the Crop layer.
+I computed \(T\) for voc-fcn32s using the following Python codes according to equation (24) and the result is 19.0, which is exactly the offset of the Crop layer.
 
 ```python
 >>> S = [1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1]
@@ -436,9 +436,9 @@ I computed $T$ for voc-fcn32s using the following Python codes according to equa
 
 ## How MXNet computes the offset
 
-Now you know one way to compute $T$. I would like to tell you one more, which is used in [MXNet](https://github.com/apache/incubator-mxnet/blob/master/example/fcn-xs/symbol_fcnxs.py).
+Now you know one way to compute \(T\). I would like to tell you one more, which is used in [MXNet](https://github.com/apache/incubator-mxnet/blob/master/example/fcn-xs/symbol_fcnxs.py).
 
-From equation (19), we can write down the equations of $H_0$ expressed in $H_i$ for all $i = 1, 2, \dots, n$.
+From equation (19), we can write down the equations of \(H_0\) expressed in \(H_i\) for all \(i = 1, 2, \dots, n\).
 
 $$
 \begin{align}
@@ -449,7 +449,7 @@ H_0 &= \left(S_1S_2S_3\right)H_3 + 2\left(S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\
 H_0 &= \left(S_1S_2 \dots S_n\right)H_n + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{28}\end{align}
 $$
 
-As aforementioned, eqution (25) is a reparameterization of the convolutional layer conv-1 connecting $L_0$ and $L_1$. Obviously, equations (26) to (28) all have a similar form. We can actually treat them as a *compound convolutional layer* connecting $L_0$ and $L_2, L_3, \dots, L_n$. Let's call the compound convolutional layer connecting $L_0$ and $L_i \left(i = 1, 2, \dots, n\right)$ the $i$-th compound convolutional layer, whose compound stride $S_i^{\text{compound}}$ and compound offset $P_i^{\text{compound}}$ are as follows.
+As aforementioned, eqution (25) is a reparameterization of the convolutional layer conv-1 connecting \(L_0\) and \(L_1\). Obviously, equations (26) to (28) all have a similar form. We can actually treat them as a *compound convolutional layer* connecting \(L_0\) and \(L_2, L_3, \dots, L_n\). Let's call the compound convolutional layer connecting \(L_0\) and \(L_i \left(i = 1, 2, \dots, n\right)\) the \(i\)-th compound convolutional layer, whose compound stride \(S_i^{\text{compound}}\) and compound offset \(P_i^{\text{compound}}\) are as follows.
 
 $$
 \begin{equation}
@@ -462,15 +462,15 @@ $$
 \end{aligned}
 \end{equation}\tag{29}$$
 
-As you may have noticed, $P_n^{\text{compound}}$ is just $-T$. If we can compute $P_n^{\text{compound}}$, then we know the value of $T$. 
+As you may have noticed, \(P_n^{\text{compound}}\) is just \(-T\). If we can compute \(P_n^{\text{compound}}\), then we know the value of \(T\). 
 
-Since $H_0 = 1 \cdot H_0 + 0$, let's introduce two auxiliary variables $\left(S_0^{\text{compound}}, P_0^{\text{compound}}\right) = \left(1, 0\right)$.
+Since \(H_0 = 1 \cdot H_0 + 0\), let's introduce two auxiliary variables \(\left(S_0^{\text{compound}}, P_0^{\text{compound}}\right) = \left(1, 0\right)\).
 
-Now the problem is: given $\left(S_1, P^\prime_1\right), \left(S_2, P^\prime_2\right), \dots, \left(S_n, P^\prime_n\right)$ and $\left(S_0^{\text{compound}}, P_0^{\text{compound}}\right)$, how to compute $\left(S_i^{\text{compound}}, P_i^{\text{compound}}\right)$ for $i = 1, 2, \dots, n$.
+Now the problem is: given \(\left(S_1, P^\prime_1\right), \left(S_2, P^\prime_2\right), \dots, \left(S_n, P^\prime_n\right)\) and \(\left(S_0^{\text{compound}}, P_0^{\text{compound}}\right)\), how to compute \(\left(S_i^{\text{compound}}, P_i^{\text{compound}}\right)\) for \(i = 1, 2, \dots, n\).
 
-This problem can be further reduced to: given $\left(S_{i - 1}^{\text{compound}}, P_{i - 1}^{\text{compound}}\right)$ and $\left(S_i, P^\prime_i\right)$, how to compute $\left(S_{i}^{\text{compound}}, P_{i}^{\text{compound}}\right)$ for $i = 1, 2, \dots, n$.
+This problem can be further reduced to: given \(\left(S_{i - 1}^{\text{compound}}, P_{i - 1}^{\text{compound}}\right)\) and \(\left(S_i, P^\prime_i\right)\), how to compute \(\left(S_{i}^{\text{compound}}, P_{i}^{\text{compound}}\right)\) for \(i = 1, 2, \dots, n\).
 
-According to the expressions of $S_{i}^{\text{compound}}$ and $P_{i}^{\text{compound}}$, we have
+According to the expressions of \(S_{i}^{\text{compound}}\) and \(P_{i}^{\text{compound}}\), we have
 
 $$
 \begin{equation}
@@ -492,28 +492,28 @@ P_{i}^{\text{compound}} &= S_1S_2 \dots S_{i - 1}P^\prime_i + S_1S_2 \dots S_{i 
 
 Equations (30) and (31) are actually how [MXNet](https://github.com/apache/incubator-mxnet/blob/master/example/fcn-xs/symbol_fcnxs.py) compute the compound stride and compound offset. Let's dive into the codes to see how it is implemented.
 
-In function `filter_map`, a convolution with parameters $K$ (`kernel`), $S$ (`stride`) and $P$ (`pad`) is reparameterized to $S$ (`stride`) and $P^\prime_i$. `(kernel-stride)/2-pad` is just $P^\prime_i$ according to equation (11).
+In function `filter_map`, a convolution with parameters \(K\) (`kernel`), \(S\) (`stride`) and \(P\) (`pad`) is reparameterized to \(S\) (`stride`) and \(P^\prime_i\). `(kernel-stride)/2-pad` is just \(P^\prime_i\) according to equation (11).
 
 ```python
 def filter_map(kernel=1, stride=1, pad=0):
     return (stride, (kernel-stride)/2-pad)
 ```
 
-In function `inv_fp`, a deconvolutional layer is transformed to an equivalent convolutional layer according to **Theorem**. `fp_in` just stores $\left(S, P^\prime\right)$.
+In function `inv_fp`, a deconvolutional layer is transformed to an equivalent convolutional layer according to **Theorem**. `fp_in` just stores \(\left(S, P^\prime\right)\).
 
 ```python
 def inv_fp(fp_in):
     return (1.0/fp_in[0], -1.0*fp_in[1]/fp_in[0])
 ```
 
-In `compose_fp`, equations (30) and (31) are implemented. `fp_first` represents $\left(S_{i - 1}^{\text{compound}}, P_{i - 1}^{\text{compound}}\right)$ and `fp_second` represents $\left(S_i, P^\prime_i\right)$. The returned result is $\left(S_i^{\text{compound}}, P_i^{\text{compound}}\right)$.
+In `compose_fp`, equations (30) and (31) are implemented. `fp_first` represents \(\left(S_{i - 1}^{\text{compound}}, P_{i - 1}^{\text{compound}}\right)\) and `fp_second` represents \(\left(S_i, P^\prime_i\right)\). The returned result is \(\left(S_i^{\text{compound}}, P_i^{\text{compound}}\right)\).
 
 ```python
 def compose_fp(fp_first, fp_second):
     return (fp_first[0]*fp_second[0], fp_first[0]*fp_second[1]+fp_first[1])
 ```
 
-Finally, in `compose_fp_list`, $\left(S_{n}^{\text{compound}}, P_{n}^{\text{compound}}\right)$ are computed iteratively using $\left(S_1, P^\prime_1\right), \left(S_2, P^\prime_2\right), \dots, \left(S_n, P^\prime_n\right)$ (stored in `fp_list`) and $\left(S_0^{\text{compound}}, P_0^{\text{compound}}\right)$ (`fp_out`) by repeatedly calling `compose_fp`. You may convince yourself of this point by manually running several steps of the `for` loop.
+Finally, in `compose_fp_list`, \(\left(S_{n}^{\text{compound}}, P_{n}^{\text{compound}}\right)\) are computed iteratively using \(\left(S_1, P^\prime_1\right), \left(S_2, P^\prime_2\right), \dots, \left(S_n, P^\prime_n\right)\) (stored in `fp_list`) and \(\left(S_0^{\text{compound}}, P_0^{\text{compound}}\right)\) (`fp_out`) by repeatedly calling `compose_fp`. You may convince yourself of this point by manually running several steps of the `for` loop.
 
 ```python
 def compose_fp_list(fp_list):
@@ -533,14 +533,14 @@ For [voc-fcn16s](https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master
 
 | Name | Type | Params | Size |
 | ---- | ---- | ------ | ----:|
-| `pool4` | Pooling | max 2x2, stride 2 | $512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$ |
-| `score_pool4` | Convolution | 21 1x1 kernels | $21 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$ |
-| `score_fr` | Convolution | 21 1x1 kernels | $21 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$ |
-| `upscore2` | Deconvolution | 21 4x4 kernels, stride 2 | $21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$ |
-| `score_pool4c` | Crop | axis 2, offset 5 | $21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$|
-| `fuse_pool4` | Eltwise | sum | $21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$ | 
-| `upscore16` |  Deconvolution | 21 32x32 kernels, stride 16 | $21 \times \left(H + 54\right) \times \left(W + 54\right)$ |
-| `score` | Crop | axis 2, offset 27 | $21 \times H \times W$|
+| `pool4` | Pooling | max 2x2, stride 2 | \(512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)\) |
+| `score_pool4` | Convolution | 21 1x1 kernels | \(21 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)\) |
+| `score_fr` | Convolution | 21 1x1 kernels | \(21 \times \frac{H + 6}{32} \times \frac{W + 6}{32}\) |
+| `upscore2` | Deconvolution | 21 4x4 kernels, stride 2 | \(21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)\) |
+| `score_pool4c` | Crop | axis 2, offset 5 | \(21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)\)|
+| `fuse_pool4` | Eltwise | sum | \(21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)\) | 
+| `upscore16` |  Deconvolution | 21 32x32 kernels, stride 16 | \(21 \times \left(H + 54\right) \times \left(W + 54\right)\) |
+| `score` | Crop | axis 2, offset 27 | \(21 \times H \times W\)|
 
 As can be seen, the finer details from the intermediate resolution in `pool4` are incorporated into later feature maps, which will produce finer outputs than those of fcn-voc32s. Actually, fcn-voc16s utilizes two resolutions of a factor of 16 and a factor of 32.
 
@@ -550,19 +550,19 @@ We may combine more resolutions in the same way. In fcn-voc8s, we generate one m
 
 | Name | Type | Params | Size |
 | ---- | ---- | ------ | ----:|
-| `pool3` | Pooling | max 2x2, stride 2 | $256 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$ |
-| `score_pool3` | Convolution | 21 1x1 kernels | $21 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)$ |
-| `pool4` | Pooling | max 2x2, stride 2 | $512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$ |
-| `score_pool4` | Convolution | 21 1x1 kernels | $21 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)$ |
-| `score_fr` | Convolution | 21 1x1 kernels | $21 \times \frac{H + 6}{32} \times \frac{W + 6}{32}$ |
-| `upscore2` | Deconvolution | 21 4x4 kernels, stride 2 | $21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$ |
-| `score_pool4c` | Crop | axis 2, offset 5 | $21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$|
-| `fuse_pool4` | Eltwise | sum | $21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)$ | 
-| `upscore_pool4` |  Deconvolution | 21 4x4 kernels, stride 2 | $21 \times \left(\frac{H + 6}{8} + 6\right) \times \left(\frac{W + 6}{8} + 6\right)$ |
-| `score_pool3c` | Crop | axis 2, offset 9 | $21 \times \left(\frac{H + 6}{8} + 6\right) \times \left(\frac{W + 6}{8} + 6\right)$ |
-| `fuse_pool3` | Eltwise | sum | $21 \times \left(\frac{H + 6}{8} + 6\right) \times \left(\frac{W + 6}{8} + 6\right)$ |
-| `upscore8` | Deconvolution | 21 16x16 kernels, stride 8 | $21 \times \left(H + 62\right) \times \left(W + 62\right)$ |
-| `score` | Crop | axis 2, offset 31 | $21 \times H \times W$|
+| `pool3` | Pooling | max 2x2, stride 2 | \(256 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)\) |
+| `score_pool3` | Convolution | 21 1x1 kernels | \(21 \times \left(\frac{H + 6}{8} + 24\right) \times \left(\frac{W + 6}{8} + 24\right)\) |
+| `pool4` | Pooling | max 2x2, stride 2 | \(512 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)\) |
+| `score_pool4` | Convolution | 21 1x1 kernels | \(21 \times \left(\frac{H + 6}{16} + 12\right) \times \left(\frac{W + 6}{16} + 12\right)\) |
+| `score_fr` | Convolution | 21 1x1 kernels | \(21 \times \frac{H + 6}{32} \times \frac{W + 6}{32}\) |
+| `upscore2` | Deconvolution | 21 4x4 kernels, stride 2 | \(21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)\) |
+| `score_pool4c` | Crop | axis 2, offset 5 | \(21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)\)|
+| `fuse_pool4` | Eltwise | sum | \(21 \times \left(\frac{H + 6}{16} + 2\right) \times \left(\frac{W + 6}{16} + 2\right)\) | 
+| `upscore_pool4` |  Deconvolution | 21 4x4 kernels, stride 2 | \(21 \times \left(\frac{H + 6}{8} + 6\right) \times \left(\frac{W + 6}{8} + 6\right)\) |
+| `score_pool3c` | Crop | axis 2, offset 9 | \(21 \times \left(\frac{H + 6}{8} + 6\right) \times \left(\frac{W + 6}{8} + 6\right)\) |
+| `fuse_pool3` | Eltwise | sum | \(21 \times \left(\frac{H + 6}{8} + 6\right) \times \left(\frac{W + 6}{8} + 6\right)\) |
+| `upscore8` | Deconvolution | 21 16x16 kernels, stride 8 | \(21 \times \left(H + 62\right) \times \left(W + 62\right)\) |
+| `score` | Crop | axis 2, offset 31 | \(21 \times H \times W\)|
 
 In fcn-voc8s, one more intermediate resolution `pool3` are incorpoeated. From fcn-voc32s, fcn-voc16s to fcn-voc8s, more intermediate resolutions are incorporated and the results will contain more details, as shown below (taken from the [FCN paper](https://arxiv.org/pdf/1411.4038.pdf)).
 
