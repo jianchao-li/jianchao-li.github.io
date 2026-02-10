@@ -62,9 +62,9 @@ $$W_{out} = \frac{W_{in} + 2P - K}{S} + 1 \tag{2}$$
 
 \(H_{out}\), \(H_{in}\), \(W_{out}\), \(W_{in}\), \(P\), \(K\), and \(S\) represent the output height, input height, output width, input width, padding, kernel size and stride respectively. In this post, we assume that the same padding and stride is used in both the height and width dimensions.
 
-For example, if you are convolving a 4x4 input (\(H_{in} = W_{in} = 4\)) with a 3x3 kernel (\(K = 3\)) with stride 1 (\(S = 1\)) and no padding (\(P = 0\)), you will get an output of size 2x2 (\(\frac{4 + 2 \times 0 - 3}{1} + 1 = 2\). So this is a convolution that transforms a 4x4 input to a 2x2 output with a 3x3 convolutional kernel. 
+For example, if you are convolving a 4x4 input (\(H_{in} = W_{in} = 4\)) with a 3x3 kernel (\(K = 3\)) with stride 1 (\(S = 1\)) and no padding (\(P = 0\)), you will get an output of size 2x2 (\(\frac{4 + 2 \times 0 - 3}{1} + 1 = 2\)). So this is a convolution that transforms a 4x4 input to a 2x2 output with a 3x3 convolutional kernel. 
 
-Now, in deconvolution, we would like to transform a 2x2 input to a 4x4 output using the same 3x3 convolutional kernel. Since deconvolution is still convolution, equations (1) and (2) still hold. Suppose we also use stride 1, then we need to solve \(4 = \frac{2 + 2P - 3}{1} + 1\), which gives \(P = 2\)\). So the corresponding deconvolution is just a convolution of a 2x2 input with the same 3x3 kernel, stride 1, and padding 2.
+Now, in deconvolution, we would like to transform a 2x2 input to a 4x4 output using the same 3x3 convolutional kernel. Since deconvolution is still convolution, equations (1) and (2) still hold. Suppose we also use stride 1, then we need to solve \(4 = \frac{2 + 2P - 3}{1} + 1\), which gives \(P = 2\)). So the corresponding deconvolution is just a convolution of a 2x2 input with the same 3x3 kernel, stride 1, and padding 2.
 
 {{< figure src="deconv.png" alt="Illustration of convolution and deconvolution operations: the top shows a standard convolution from a 4x4 input to a 2x2 output using a 3x3 kernel, and the bottom shows the corresponding deconvolution from a 2x2 input (zero-padded to 6x6) back to a 4x4 output using the same 3x3 kernel" caption="**Figure 4.** Convolution (top) and deconvolution (bottom) with a 3x3 kernel." >}}
 
@@ -284,7 +284,7 @@ As can be seen, we introduce a new parameter \(P^\prime\) in equations (9) and (
 
 $$P^\prime = \frac{K - S}{2} - P \tag{11}$$
 
-Given \(P^\prime\), a convolutional layer with parameters \(K\), \(S\) and \(P\) can be reparameterized by \(S\) and \(P^\prime\). \(S\) still stands for the stride. And we name \(P^\prime\) *offset*. Notice that \(P^\prime\) is the offset of a convoltional layer, which is different from the aforementioned \(T\), the offset of the FCN.
+Given \(P^\prime\), a convolutional layer with parameters \(K\), \(S\) and \(P\) can be reparameterized by \(S\) and \(P^\prime\). \(S\) still stands for the stride. And we name \(P^\prime\) *offset*. Notice that \(P^\prime\) is the offset of a convolutional layer, which is different from the aforementioned \(T\), the offset of the FCN.
 
 For pooling layers, equations (9) and (10) also apply to them exactly. For deconvolutional layers, we rewrite equations (5) and (6) by moving \(H_{out}\) and \(W_{out}\) to the left-hand side.
 
@@ -320,7 +320,7 @@ Note that equations (12) and (13) represent a deconvolutional layer with stride 
 
 Based on the above analysis, we can obtain the following theorem, which will come into use later.
 
-> **Theorem** A deconvolution with stride \(S\) and offset \(P^\prime\) is equavilent to a convolution with stride \(\frac{1}{S}\) and offset \(-\frac{P^\prime}{S}\).
+> **Theorem** A deconvolution with stride \(S\) and offset \(P^\prime\) is equivalent to a convolution with stride \(\frac{1}{S}\) and offset \(-\frac{P^\prime}{S}\).
 
 ## Computing the offset
 
@@ -396,7 +396,7 @@ Typically we design the network to make \(S_1S_2 \dots S_n = 1\). Let's take voc
 | `conv4_1` | Convolution | \(K_{11} = 3, S_{11} = 1, P_{11} = 1\) | \(S_{11} = 1, P^\prime_{11} = 0\) |
 | `conv4_2` | Convolution | \(K_{12} = 3, S_{12} = 1, P_{12} = 1\) | \(S_{12} = 1, P^\prime_{12} = 0\) |
 | `conv4_3` | Convolution | \(K_{13} = 3, S_{13} = 1, P_{13} = 1\) | \(S_{13} = 1, P^\prime_{13} = 0\) |
-| `pool4` | Pooling | \(K_{14} = 2, S_{14} = 2, P_{14} = 0\) | \(S_{14} = 2, , P^\prime_{14} = 0\) |
+| `pool4` | Pooling | \(K_{14} = 2, S_{14} = 2, P_{14} = 0\) | \(S_{14} = 2, P^\prime_{14} = 0\) |
 | `conv5_1` | Convolution | \(K_{15} = 3, S_{15} = 1, P_{15} = 1\) | \(S_{15} = 1, P^\prime_{15} = 0\) |
 | `conv5_2` | Convolution | \(K_{16} = 3, S_{16} = 1, P_{16} = 1\) | \(S_{16} = 1, P^\prime_{16} = 0\) |
 | `conv5_3` | Convolution | \(K_{17} = 3, S_{17} = 1, P_{17} = 1\) | \(S_{17} = 1, P^\prime_{17} = 0\) |
@@ -449,7 +449,7 @@ H_0 &= \left(S_1S_2S_3\right)H_3 + 2\left(S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\
 H_0 &= \left(S_1S_2 \dots S_n\right)H_n + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{28}\end{align}
 $$
 
-As aforementioned, eqution (25) is a reparameterization of the convolutional layer conv-1 connecting \(L_0\) and \(L_1\). Obviously, equations (26) to (28) all have a similar form. We can actually treat them as a *compound convolutional layer* connecting \(L_0\) and \(L_2, L_3, \dots, L_n\). Let's call the compound convolutional layer connecting \(L_0\) and \(L_i \left(i = 1, 2, \dots, n\right)\) the \(i\)-th compound convolutional layer, whose compound stride \(S_i^{\text{compound}}\) and compound offset \(P_i^{\text{compound}}\) are as follows.
+As aforementioned, equation (25) is a reparameterization of the convolutional layer conv-1 connecting \(L_0\) and \(L_1\). Obviously, equations (26) to (28) all have a similar form. We can actually treat them as a *compound convolutional layer* connecting \(L_0\) and \(L_2, L_3, \dots, L_n\). Let's call the compound convolutional layer connecting \(L_0\) and \(L_i \left(i = 1, 2, \dots, n\right)\) the \(i\)-th compound convolutional layer, whose compound stride \(S_i^{\text{compound}}\) and compound offset \(P_i^{\text{compound}}\) are as follows.
 
 $$
 \begin{equation}
@@ -521,11 +521,11 @@ def compose_fp_list(fp_list):
     for fp in fp_list:
         fp_out = compose_fp(fp_out, fp)
     return fp_out
-````
+```
 
 ## Finer Details
 
-In the `upscore` layer of voc-fcn32s, the feature maps are directly upsampled by a large factor of 32 (this is why it is named voc-fcn32s), which will produce relatively coarse predictions due to missing finer detils from intermediate resolutions. So, in [voc-fcn16s](https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn16s/val.prototxt) and [voc-fcn8s](https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn8s/val.prototxt), the shrinked feature maps are upsampled more than once before being recovered to the size of the image.
+In the `upscore` layer of voc-fcn32s, the feature maps are directly upsampled by a large factor of 32 (this is why it is named voc-fcn32s), which will produce relatively coarse predictions due to missing finer details from intermediate resolutions. So, in [voc-fcn16s](https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn16s/val.prototxt) and [voc-fcn8s](https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn8s/val.prototxt), the shrinked feature maps are upsampled more than once before being recovered to the size of the image.
 
 For [voc-fcn16s](https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master/voc-fcn16s/val.prototxt), the feature maps from `score_fr` will first be upsampled by a factor of 2 in `upscore2`. Then, we generate another set of outputs from `pool4` using convolution in `score_pool4` and crop it to be the same size as that of `upscore2` in `score_pool4c`. Finally, we combine `upscore2` and `score_pool4c` using element-wise summation in `fuse_pool4`, upsample it by a factor of 16 in `upscore16` and crop it in `score` to obtain the output. We show the network architecture for this process while omitting the previous layers in the following figure. Moreover, this process is broken down in the table below.
 
@@ -564,7 +564,7 @@ We may combine more resolutions in the same way. In fcn-voc8s, we generate one m
 | `upscore8` | Deconvolution | 21 16x16 kernels, stride 8 | \(21 \times \left(H + 62\right) \times \left(W + 62\right)\) |
 | `score` | Crop | axis 2, offset 31 | \(21 \times H \times W\)|
 
-In fcn-voc8s, one more intermediate resolution `pool3` are incorpoeated. From fcn-voc32s, fcn-voc16s to fcn-voc8s, more intermediate resolutions are incorporated and the results will contain more details, as shown below (taken from the [FCN paper](https://arxiv.org/pdf/1411.4038.pdf)).
+In fcn-voc8s, one more intermediate resolution `pool3` are incorporated. From fcn-voc32s, fcn-voc16s to fcn-voc8s, more intermediate resolutions are incorporated and the results will contain more details, as shown below (taken from the [FCN paper](https://arxiv.org/pdf/1411.4038.pdf)).
 
 {{< figure src="details.png" alt="Comparison of segmentation results from FCN-32s, FCN-16s, FCN-8s, and ground truth, showing progressively finer detail and sharper boundaries as more intermediate resolutions are incorporated, with the FCN-8s output most closely matching the ground truth" caption="**Figure 9.** Segmentation results from FCN-32s, FCN-16s, and FCN-8s compared to ground truth." >}}
 
