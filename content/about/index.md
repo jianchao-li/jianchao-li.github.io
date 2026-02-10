@@ -100,9 +100,9 @@ showComments: false
   position: relative;
   margin: 1.5rem 0;
   padding-bottom: 1rem;
-  overflow-x: auto;
   justify-content: flex-start;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .timeline-item {
@@ -112,6 +112,7 @@ showComments: false
   text-align: center;
   position: relative;
   min-width: 140px;
+  max-width: 200px;
   padding: 0;
 }
 
@@ -160,7 +161,6 @@ showComments: false
 .timeline-content h3 {
   margin: 0 0 0.3rem 0;
   font-size: 0.95rem;
-  white-space: nowrap;
 }
 
 .timeline-date {
@@ -178,6 +178,36 @@ showComments: false
 
 .dark .timeline-location {
   color: #9ca3af;
+}
+
+@media (max-width: 640px) {
+  .timeline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .timeline-item {
+    flex-direction: row;
+    text-align: left;
+    max-width: 100%;
+    gap: 1rem;
+  }
+
+  .timeline-marker {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 0;
+  }
+
+  .timeline-marker img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .timeline-content h3 {
+    font-size: 0.9rem;
+  }
 }
 
 .interest-chips {
