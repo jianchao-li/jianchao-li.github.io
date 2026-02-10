@@ -363,7 +363,12 @@ H_0 &= S_1H_1 + 2P^\prime_1\\
 Have you noticed the regularities? If you move on, you will end up with
 
 $$
-H_0 = \left(S_1S_2 \dots S_n\right)H_n + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{20}$$
+\begin{equation}
+\begin{split}
+H_0 = {} & \left(S_1S_2 \dots S_n\right)H_n \\
+& + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right)
+\end{split}
+\end{equation}\tag{20}$$
 
 According to the definition of \(T\), we have
 
@@ -374,8 +379,10 @@ By plugging equation (21) into equation (20), we have
 $$
 \begin{equation}
 \begin{aligned}
-H_0 &= \left(S_1S_2 \dots S_n\right)\left(H_0 + 2T\right) + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \\
-&= \left(S_1S_2 \dots S_n\right)H_0 + 2\left(S_1S_2 \dots S_n\right)T + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right)
+H_0 &= \left(S_1S_2 \dots S_n\right)\left(H_0 + 2T\right) \\
+& \quad + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \\
+&= \left(S_1S_2 \dots S_n\right)H_0 + 2\left(S_1S_2 \dots S_n\right)T \\
+& \quad + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right)
 \end{aligned}
 \end{equation}\tag{22}$$
 
@@ -410,11 +417,23 @@ For `upscore`, it is a deconvolutional layer and so we make use of **Theorem** t
 
 Given \(S_1S_2 \dots S_n = 1\), equation (22) will be simplified into
 
-$$H_0 = H_0 + 2T + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{23}$$
+$$
+\begin{equation}
+\begin{split}
+H_0 = {} & H_0 + 2T \\
+& + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right)
+\end{split}
+\end{equation}\tag{23}$$
 
 Now we can derive the equation for computing the offset \(T\).
 
-$$T=-\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{24}$$
+$$
+\begin{equation}
+\begin{split}
+T = -\big( & S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots \\
+& + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1 \big)
+\end{split}
+\end{equation}\tag{24}$$
 
 I computed \(T\) for voc-fcn32s using the following Python codes according to equation (24) and the result is 19.0, which is exactly the offset of the Crop layer.
 
@@ -446,7 +465,8 @@ H_0 &= S_1H_1 + 2P^\prime_1 \tag{25} \\
 H_0 &= \left(S_1S_2\right)H_2 + 2\left(S_1P^\prime_2 + P^\prime_1\right) \tag{26} \\
 H_0 &= \left(S_1S_2S_3\right)H_3 + 2\left(S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{27} \\
 &\dots \\
-H_0 &= \left(S_1S_2 \dots S_n\right)H_n + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{28}\end{align}
+H_0 &= \left(S_1S_2 \dots S_n\right)H_n \\
+& \quad + 2\left(S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \tag{28}\end{align}
 $$
 
 As aforementioned, equation (25) is a reparameterization of the convolutional layer conv-1 connecting \(L_0\) and \(L_1\). Obviously, equations (26) to (28) all have a similar form. We can actually treat them as a *compound convolutional layer* connecting \(L_0\) and \(L_2, L_3, \dots, L_n\). Let's call the compound convolutional layer connecting \(L_0\) and \(L_i \left(i = 1, 2, \dots, n\right)\) the \(i\)-th compound convolutional layer, whose compound stride \(S_i^{\text{compound}}\) and compound offset \(P_i^{\text{compound}}\) are as follows.
@@ -458,7 +478,8 @@ $$
 \left(S_2^{\text{compound}}, P_2^{\text{compound}}\right) &= \left(S_1S_2, S_1P^\prime_2 + P^\prime_1\right) \\
 \left(S_3^{\text{compound}}, P_3^{\text{compound}}\right) &= \left(S_1S_2S_3, S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right) \\
 &\dots \\
-\left(S_n^{\text{compound}}, P_n^{\text{compound}}\right) &= \left(S_1S_2 \dots S_n, S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\right)
+\left(S_n^{\text{compound}}, P_n^{\text{compound}}\right) &= \Big(S_1S_2 \dots S_n, \\
+& \qquad S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{n - 1} + \dots + S_1S_2P^\prime_3 + S_1P^\prime_2 + P^\prime_1\Big)
 \end{aligned}
 \end{equation}\tag{29}$$
 
