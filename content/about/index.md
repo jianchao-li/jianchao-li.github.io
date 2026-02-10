@@ -84,10 +84,14 @@ showComments: false
 
 ## Interests
 
-- Deep Learning
-- Computer Vision
-- Software Engineering
-- Investing
+<div class="interest-chips">
+  <a href="/tags/deep-learning/" class="interest-chip">Deep Learning</a>
+  <a href="/tags/computer-vision/" class="interest-chip">Computer Vision</a>
+  <a href="/tags/software-engineering/" class="interest-chip">Software Engineering</a>
+  <a href="/tags/investing/" class="interest-chip">Investing</a>
+  <a href="/tags/ai/" class="interest-chip">AI</a>
+  <a href="/tags/vibe-coding/" class="interest-chip">Vibe Coding</a>
+</div>
 
 <style>
 .timeline {
@@ -178,5 +182,40 @@ showComments: false
 
 .dark .timeline-location {
   color: #9ca3af;
+}
+
+.interest-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.interest-chip {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  background: #eff6ff;
+  color: #3b82f6;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+
+.interest-chip:hover {
+  background: #3b82f6;
+  color: white;
+}
+
+.dark .interest-chip {
+  background: #1e3a5f;
+  color: #60a5fa;
+}
+
+.dark .interest-chip:hover {
+  background: #3b82f6;
+  color: white;
 }
 </style>
