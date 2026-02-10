@@ -1,6 +1,7 @@
 ---
 title: "About"
 description: "About Jianchao Li"
+layout: "simple"
 showDate: false
 showAuthor: false
 showReadingTime: false
@@ -8,7 +9,7 @@ showTableOfContents: false
 showComments: false
 ---
 
-## Experience
+## Career
 
 <div class="timeline">
   <div class="timeline-item">
@@ -95,36 +96,28 @@ showComments: false
 
 <style>
 .timeline {
+  display: flex;
   position: relative;
-  padding-left: 60px;
   margin: 1.5rem 0;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 24px;
-  top: 25px;
-  bottom: 50px;
-  width: 2px;
-  background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
-  border-radius: 1px;
+  padding-bottom: 1rem;
+  overflow-x: auto;
+  justify-content: flex-start;
+  gap: 2rem;
 }
 
 .timeline-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   position: relative;
-  padding-bottom: 2rem;
-}
-
-.timeline-item:last-child {
-  padding-bottom: 0;
+  min-width: 140px;
+  padding: 0;
 }
 
 .timeline-marker {
-  position: absolute;
-  left: -60px;
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   background: white;
   border-radius: 12px;
   display: flex;
@@ -132,6 +125,8 @@ showComments: false
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   z-index: 1;
+  margin-bottom: 0.75rem;
+  flex-shrink: 0;
 }
 
 .dark .timeline-marker {
@@ -151,8 +146,8 @@ showComments: false
 }
 
 .timeline-marker img {
-  width: 36px;
-  height: 36px;
+  width: 76px;
+  height: 76px;
   object-fit: contain;
   pointer-events: none;
 }
@@ -163,21 +158,22 @@ showComments: false
 }
 
 .timeline-content h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.1rem;
+  margin: 0 0 0.3rem 0;
+  font-size: 0.95rem;
+  white-space: nowrap;
 }
 
 .timeline-date {
   display: block;
   color: #3b82f6;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .timeline-location {
   display: block;
   color: #6b7280;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .dark .timeline-location {
