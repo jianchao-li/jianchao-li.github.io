@@ -1,6 +1,6 @@
 # Personal Website Builder
 
-Source repository for [jianchao-li.github.io](https://jianchao-li.github.io) — the personal website and blog of Jianchao Li.
+Source repository for [jiaochao.xyz](https://jianchao.xyz) — the personal website and blog of Jianchao Li.
 
 ## Tech Stack
 
