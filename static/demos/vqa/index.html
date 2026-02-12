@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual Question Answering Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .drop-zone {
+      transition: all 0.2s ease;
+    }
+    .drop-zone.dragover {
+      border-color: #3b82f6;
+      background-color: rgba(59, 130, 246, 0.1);
+    }
+    .sample-image {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .sample-image:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .sample-image.selected {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    }
+    .typing-cursor::after {
+      content: '|';
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    .spinner {
+      border: 3px solid #e5e7eb;
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .question-chip {
+      transition: all 0.2s ease;
+    }
+    .question-chip:hover {
+      background-color: #dbeafe;
+      border-color: #3b82f6;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="mb-8">
+      <a href="/posts/a-dive-into-visual-question-answering/" class="text-blue-600 hover:text-blue-800 text-sm mb-2 inline-block">&larr; Back to Post</a>
+      <h1 class="text-3xl font-bold text-gray-900">Visual Question Answering Demo</h1>
+      <p class="text-gray-600 mt-2">Ask questions about images using AI, running entirely in your browser.</p>
+    </header>
+
+    <!-- Model Status -->
+    <div id="model-status" class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+      <div class="flex items-center gap-3">
+        <div class="spinner"></div>
+        <div>
+          <p class="font-medium text-blue-900">Loading model...</p>
+          <p id="model-progress" class="text-sm text-blue-700">Downloading model weights (this may take a moment on first visit)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sample Images -->
+    <section class="mb-8">
+      <h2 class="text-lg font-semibold text-gray-800 mb-3">Select an Image</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <button class="sample-image rounded-lg overflow-hidden cursor-pointer border-2 border-transparent hover:border-blue-400 focus:border-blue-500 focus:outline-none" data-url="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400" data-questions='["What city is this?", "Is it daytime or nighttime?", "Are there any cars?"]' disabled>
+          <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400" alt="City" class="w-full h-32 object-cover">
+          <span class="block text-xs text-gray-600 py-1">City</span>
+        </button>
+        <button class="sample-image rounded-lg overflow-hidden cursor-pointer border-2 border-transparent hover:border-blue-400 focus:border-blue-500 focus:outline-none" data-url="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400" data-questions='["What is on the desk?", "What color is the laptop?", "Is there a keyboard?"]' disabled>
+          <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400" alt="Laptop" class="w-full h-32 object-cover">
+          <span class="block text-xs text-gray-600 py-1">Workspace</span>
+        </button>
+        <button class="sample-image rounded-lg overflow-hidden cursor-pointer border-2 border-transparent hover:border-blue-400 focus:border-blue-500 focus:outline-none" data-url="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400" data-questions='["What animal is this?", "What is it doing?", "Is it day or night?"]' disabled>
+          <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400" alt="Cat" class="w-full h-32 object-cover">
+          <span class="block text-xs text-gray-600 py-1">Cat</span>
+        </button>
+        <button class="sample-image rounded-lg overflow-hidden cursor-pointer border-2 border-transparent hover:border-blue-400 focus:border-blue-500 focus:outline-none" data-url="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400" data-questions='["What type of food is this?", "How many items are there?", "Is this a meal?"]' disabled>
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400" alt="Food" class="w-full h-32 object-cover">
+          <span class="block text-xs text-gray-600 py-1">Food</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Upload Zone -->
+    <section class="mb-8">
+      <h2 class="text-lg font-semibold text-gray-800 mb-3">Or Upload Your Own</h2>
+      <div id="drop-zone" class="drop-zone border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-gray-400">
+        <input type="file" id="file-input" accept="image/*" class="hidden">
+        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+          <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <p class="mt-2 text-gray-600">Drag and drop an image here, or click to select</p>
+        <p class="text-sm text-gray-500">PNG, JPG, GIF up to 10MB</p>
+      </div>
+    </section>
+
+    <!-- Question and Answer Section -->
+    <section id="qa-section" class="hidden">
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        <div class="flex flex-col md:flex-row">
+          <!-- Image Preview -->
+          <div class="md:w-1/2 p-4">
+            <img id="preview-image" src="" alt="Preview" class="w-full h-64 object-contain bg-gray-100 rounded">
+          </div>
+          <!-- Question Input and Answer -->
+          <div class="md:w-1/2 p-4 flex flex-col">
+            <!-- Suggested Questions -->
+            <div id="suggested-questions" class="mb-4 hidden">
+              <p class="text-sm font-medium text-gray-500 mb-2">Try asking:</p>
+              <div id="question-chips" class="flex flex-wrap gap-2"></div>
+            </div>
+
+            <!-- Question Input -->
+            <div class="mb-4">
+              <label for="question-input" class="block text-sm font-medium text-gray-700 mb-2">Your Question</label>
+              <div class="flex gap-2">
+                <input type="text" id="question-input" placeholder="What do you want to know about this image?" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" disabled>
+                <button id="ask-btn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed" disabled>Ask</button>
+              </div>
+            </div>
+
+            <!-- Answer -->
+            <div class="flex-1">
+              <h3 class="text-sm font-medium text-gray-500 mb-2">Answer</h3>
+              <div id="answer-container" class="min-h-[60px] p-4 bg-gray-50 rounded-lg">
+                <p id="answer-text" class="text-xl text-gray-800"></p>
+                <p id="answer-placeholder" class="text-gray-400 italic">Ask a question about the image above</p>
+              </div>
+              <div id="generating-indicator" class="hidden flex items-center gap-2 text-gray-500 mt-2">
+                <div class="spinner" style="width: 16px; height: 16px; border-width: 2px;"></div>
+                <span>Thinking...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-12 pt-6 border-t border-gray-200 text-center text-sm text-gray-500">
+      <p>Powered by <a href="https://huggingface.co/docs/transformers.js" target="_blank" class="text-blue-600 hover:underline">Transformers.js</a> and <a href="https://huggingface.co/vikhyatk/moondream2" target="_blank" class="text-blue-600 hover:underline">Moondream2</a></p>
+      <p class="mt-1">All processing happens locally in your browser. Your images never leave your device.</p>
+    </footer>
+  </div>
+
+  <script type="module">
+    let worker = null;
+    let currentImageSource = null;
+    let isModelReady = false;
+
+    const modelStatus = document.getElementById('model-status');
+    const modelProgress = document.getElementById('model-progress');
+    const sampleButtons = document.querySelectorAll('.sample-image');
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const qaSection = document.getElementById('qa-section');
+    const previewImage = document.getElementById('preview-image');
+    const questionInput = document.getElementById('question-input');
+    const askBtn = document.getElementById('ask-btn');
+    const answerText = document.getElementById('answer-text');
+    const answerPlaceholder = document.getElementById('answer-placeholder');
+    const generatingIndicator = document.getElementById('generating-indicator');
+    const suggestedQuestions = document.getElementById('suggested-questions');
+    const questionChips = document.getElementById('question-chips');
+
+    // Initialize the worker
+    function initWorker() {
+      worker = new Worker(new URL('./worker.js', import.meta.url), { type: 'module' });
+
+      worker.onmessage = (event) => {
+        const { type, message, answer } = event.data;
+
+        if (type === 'progress') {
+          modelProgress.textContent = message;
+        }
+
+        if (type === 'ready') {
+          isModelReady = true;
+          modelStatus.className = 'mb-6 p-4 bg-green-50 border border-green-200 rounded-lg';
+          modelStatus.innerHTML = `
+            <div class="flex items-center gap-3">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <div>
+                <p class="font-medium text-green-900">Model ready!</p>
+                <p class="text-sm text-green-700">Select an image and ask a question about it.</p>
+              </div>
+            </div>
+          `;
+          sampleButtons.forEach(btn => btn.disabled = false);
+        }
+
+        if (type === 'answer') {
+          generatingIndicator.classList.add('hidden');
+          askBtn.disabled = false;
+          questionInput.disabled = false;
+
+          // Typing animation
+          let i = 0;
+          answerText.classList.add('typing-cursor');
+          const typeInterval = setInterval(() => {
+            if (i < answer.length) {
+              answerText.textContent += answer[i];
+              i++;
+            } else {
+              clearInterval(typeInterval);
+              answerText.classList.remove('typing-cursor');
+            }
+          }, 30);
+        }
+
+        if (type === 'error') {
+          console.error('Worker error:', message);
+          if (!isModelReady) {
+            modelStatus.className = 'mb-6 p-4 bg-red-50 border border-red-200 rounded-lg';
+            modelStatus.innerHTML = `
+              <div class="flex items-center gap-3">
+                <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                <div>
+                  <p class="font-medium text-red-900">Failed to load model</p>
+                  <p class="text-sm text-red-700">${message}</p>
+                </div>
+              </div>
+            `;
+          } else {
+            generatingIndicator.classList.add('hidden');
+            answerText.textContent = 'Error answering question. Please try again.';
+            answerText.classList.add('text-red-600');
+            askBtn.disabled = false;
+            questionInput.disabled = false;
+          }
+        }
+      };
+
+      // Start loading the model
+      worker.postMessage({ type: 'init' });
+    }
+
+    // Set up image for questioning
+    function setupImage(imageSource, questions = null) {
+      currentImageSource = imageSource;
+      qaSection.classList.remove('hidden');
+      previewImage.src = imageSource;
+      questionInput.disabled = false;
+      askBtn.disabled = false;
+      answerText.textContent = '';
+      answerText.classList.remove('text-red-600');
+      answerPlaceholder.classList.remove('hidden');
+
+      // Clear selection from other images
+      sampleButtons.forEach(btn => btn.classList.remove('selected'));
+
+      // Set up suggested questions
+      if (questions && questions.length > 0) {
+        suggestedQuestions.classList.remove('hidden');
+        questionChips.innerHTML = '';
+        questions.forEach(q => {
+          const chip = document.createElement('button');
+          chip.className = 'question-chip px-3 py-1 text-sm bg-white border border-gray-300 rounded-full text-gray-700 hover:bg-blue-50';
+          chip.textContent = q;
+          chip.addEventListener('click', () => {
+            questionInput.value = q;
+            askQuestion();
+          });
+          questionChips.appendChild(chip);
+        });
+      } else {
+        suggestedQuestions.classList.add('hidden');
+      }
+
+      // Focus on question input
+      questionInput.focus();
+    }
+
+    // Ask a question about the current image
+    function askQuestion() {
+      const question = questionInput.value.trim();
+      if (!isModelReady || !currentImageSource || !question) return;
+
+      answerText.textContent = '';
+      answerText.classList.remove('text-red-600');
+      answerPlaceholder.classList.add('hidden');
+      generatingIndicator.classList.remove('hidden');
+      askBtn.disabled = true;
+      questionInput.disabled = true;
+
+      worker.postMessage({
+        type: 'ask',
+        data: { imageSource: currentImageSource, question }
+      });
+    }
+
+    // Handle file upload
+    function handleFile(file) {
+      if (!file.type.startsWith('image/')) {
+        alert('Please upload an image file.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setupImage(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Event listeners
+    sampleButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const url = btn.dataset.url;
+        const questions = JSON.parse(btn.dataset.questions || '[]');
+        if (url && !btn.disabled) {
+          sampleButtons.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          setupImage(url, questions);
+        }
+      });
+    });
+
+    askBtn.addEventListener('click', askQuestion);
+
+    questionInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        askQuestion();
+      }
+    });
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file) handleFile(file);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) handleFile(file);
+    });
+
+    // Initialize
+    initWorker();
+  </script>
+</body>
+</html>
