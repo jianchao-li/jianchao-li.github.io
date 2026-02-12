@@ -1,121 +1,28 @@
 ---
-title: "Playing With Image Captioning"
-summary: "I played with image captioning using neuraltalk2 written by Andrej Karpathy."
-description: "A hands-on tutorial on training and running an image captioning model using NeuralTalk2, with results on COCO and CCP datasets."
-tags: ["deep-learning", "computer-vision", "NLP"]
+title: "Image Captioning Demo"
+summary: "An interactive browser-based demo that generates natural language captions for images using Transformers.js and the ViT-GPT2 model."
+tags: ["Transformers.js", "Machine Learning", "Computer Vision"]
 date: 2018-08-08T20:12:45+08:00
-lastmod: 2026-02-08
+lastmod: 2026-02-12
 draft: false
 ---
-> **Disclaimer:** This post was written in 2018. The AI/ML field has evolved significantly since then, and the techniques, tools, and state-of-the-art methods described here are now considered outdated. Modern approaches like Vision Transformers and large multimodal models (GPT-4V, Claude, Gemini) have largely superseded the methods discussed.
 
-I have been fascinated by image captioning for some time but still have not played with it. I gave it a try today using the open source project [`neuraltalk2`](https://github.com/karpathy/neuraltalk2) written by [Andrej Karpathy](https://cs.stanford.edu/people/karpathy/).
+<div class="project-links" style="text-align: center; margin: 2rem 0;">
+  <a href="/demos/image-captioning/" target="_blank" style="display: inline-block; padding: 0.75rem 2rem; background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; font-weight: 600; font-size: 1.1rem; border-radius: 0.5rem; text-decoration: none; box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4); transition: transform 0.2s, box-shadow 0.2s;">🚀 Try the Demo</a>
+</div>
 
-## The theory
-The working mechanism of image captioning is shown in the following picture (taken from [Andrej Karpathy](https://cs.stanford.edu/people/karpathy/)). 
+This demo runs a vision-language model entirely in your browser to generate captions for images. Upload your own image or try one of the sample images to see it in action.
 
-{{< figure src="rnn7.png" alt="Diagram of the image captioning pipeline showing a CNN encoding an image of a man in a straw hat into a feature vector, which is fed into an RNN that generates the caption words 'straw', 'hat', and 'END' sequentially" caption="**Figure 1.** Image captioning pipeline: a CNN encodes the image and an RNN generates the caption word by word." >}}
+## How It Works
 
-<br>The image is encoded into a feature vector by a convolutional neural network (CNN) and then fed into a recurrent neural network (RNN) to generate the captions. The RNN works word by word. Each time it receives an input word and a hidden state and generates the next word, which is used as the input word in the next time. The CNN feature vector of the image is used as the initial hidden state, which is updated in each time step of the RNN. 
+The demo uses [Transformers.js](https://huggingface.co/docs/transformers.js) to run the [ViT-GPT2 image captioning model](https://huggingface.co/nlpconnect/vit-gpt2-image-captioning) directly in your browser. No server is required — all inference happens locally on your device.
 
-In the above picture, the RNN receives the initial hidden state and `START` (a special word incidating the RNN to start generation) and generates the first word `straw`. Then `straw` is fed into the RNN together with the updated hidden state to generate `hat`. Finally, `hat` is fed into the RNN with the latest hidden state to generate `END` (a special word indicating the RNN to stop). So the caption of the image is *straw hat*.
+**Vision Encoder (ViT).** The image is processed by a Vision Transformer that extracts visual features from the image, breaking it into patches and encoding spatial relationships.
 
-## The experiment
-I played with [`neuraltalk2`](https://github.com/karpathy/neuraltalk2) to get a sense of how image captioning performs.
+**Text Decoder (GPT-2).** The visual features are fed into a GPT-2 language model that generates a natural language caption word by word.
 
-### Working environment
-I ran the code in a VM instance of Google Cloud. If you also want to use Google Cloud, you may refer to the [Google Cloud Tutorial of CS231n](http://cs231n.github.io/gce-tutorial/) to learn about how to set up a virtual instance. The tutorial is a bit long and you should only need to reach **Connect to Your Virtual Instance**.
+**Browser-Native ML.** Transformers.js converts the model to ONNX format and runs inference via WebAssembly, with WebGL acceleration when available. The model weights (~100MB) are cached in IndexedDB after the first load for faster subsequent visits.
 
-The following screenshots show the settings of the VM instance. I made several changes:
-* Changed Name to neuraltalk2
-* Changed Region and Zone to us-west1 (Oregon) and us-west1-b
-* Changed Boot disk to Ubuntu 16.04 LTS
-* Checked Allow HTTP traffic and Allow HTTPS traffic
+## Privacy
 
-{{< figure src="vm-up.png" alt="Google Cloud Platform Create an Instance page showing the upper settings: name set to neuraltalk2, region us-west1 Oregon, zone us-west1-b, 1 vCPU with 3.75 GB memory, and Ubuntu 16.04 LTS boot disk" caption="**Figure 2.** Google Cloud VM instance settings (upper section)." >}}
-
-{{< figure src="vm-down.png" alt="Google Cloud Platform Create an Instance page showing the lower settings: firewall rules with Allow HTTP traffic and Allow HTTPS traffic both checked, and Create button at the bottom" caption="**Figure 3.** Google Cloud VM instance settings (lower section) with firewall rules." >}}
-
-### Installing Torch
-`neuraltalk2` is written in Torch. So you need to install Torch first. You can simply follow the steps in [Getting started with Torch](http://torch.ch/docs/getting-started.html#_):
-```
-$ git clone https://github.com/torch/distro.git ~/torch --recursive
-$ cd ~/torch; bash install-deps;
-$ ./install.sh
-```
-At the end of the last command, you will be prompted a question. Just answer `yes`.
-```
-Do you want to automatically prepend the Torch install location
-to PATH and LD_LIBRARY_PATH in your /home/jianchao/.bashrc? (yes/no)
-[yes] >>>
-yes
-```
-Finally, run
-```
-$ source ~/.bashrc
-```
-Now Torch should be ready.
-
-### Installing dependencies
-I ran `neuraltalk2` on the CPU (since GPU is very expensive in Google Cloud). So I only need a part of the dependencies. I ran the following commands from my `$HOME` directory to install the dependencies.
-```
-$ luarocks install nn
-$ luarocks install nngraph
-$ luarocks install image
-
-$ # Install Lua CJSON
-$ wget https://www.kyne.com.au/~mark/software/download/lua-cjson-2.1.0.tar.gz
-$ tar -xvzf lua-cjson-2.1.0.tar.gz
-$ cd lua-cjson-2.1.0
-$ luarocks make
-$ cd # go back $HOME
-
-$ # Install loadcaffe
-$ sudo apt-get install libprotobuf-dev protobuf-compiler
-$ CC=gcc-5 CXX=g++-5 luarocks install loadcaffe
-
-$ # Install torch-hdf5
-$ sudo apt-get install libhdf5-serial-dev hdf5-tools
-$ git clone https://github.com/deepmind/torch-hdf5
-$ cd torch-hdf5
-$ luarocks make hdf5-0-0.rockspec LIBHDF5_LIBDIR="/usr/lib/x86_64-linux-gnu/"
-$ cd # go back $HOME
-```
-Notice that Andrej listed `loadcaffe` and `torch-hdf5` under **For training**, but they are actually also required for inference. And if you would like to run `neuraltalk2` on a GPU, please follow the `README.md` to install those additional dependencies.
-
-### Captioning images
-Now we can use `neuraltalk2` to caption images. Just clone the repository and download the pretrained model. Since I ran it on CPU, I downloaded the [CPU model](https://cs.stanford.edu/people/karpathy/neuraltalk2/checkpoint_v1_cpu.zip). You may need to download the [GPU model](http://cs.stanford.edu/people/karpathy/neuraltalk2/checkpoint_v1.zip) to run it on GPU.
-```
-$ git clone https://github.com/karpathy/neuraltalk2.git
-$ cd neuraltalk2
-$ mkdir models
-$ cd models
-$ wget --no-check-certificate https://cs.stanford.edu/people/karpathy/neuraltalk2/checkpoint_v1_cpu.zip
-$ unzip checkpoint_v1_cpu.zip
-```
-I created another folder `images` in the root directory of `neuraltalk2` to store the test images. I downloaded two datasets for the experiment: the [2017 Val Images of COCO](https://cocodataset.org/#download) and the [Clothing Co-Parsing (CCP) Dataset](https://github.com/bearpaw/clothing-co-parsing).
-
-After everything is ready, just run the following command to apply `neuraltalk2` to caption the images. Since I used CPU, I set `-gpuid -1`.
-```
-th eval.lua -model models/model_id1-501-1448236541.t7_cpu.t7 -image_folder images/ -num_images -1 -gpuid -1
-```
-
-### Results
-
-#### COCO
-
-{{< figure src="cococaps.png" alt="Grid of seven COCO dataset images with neuraltalk2 generated captions: a dog watching TV, a woman with bananas, a bathroom sink, pizzas on a table, people sitting around a table, a cat near a laptop, and a bus on a street" caption="**Figure 4.** Neuraltalk2 captions on COCO dataset images." >}}
-
-In the COCO dataset, images are of various scenes and objects. And `neuraltalk2` is able to capture the overall content of what is happening in the image, except for some mistakes like the cat is not sitting on the laptop. But, in general, the captions are very discriminative considering the large differences between images. Given images and captions, it is very easy to tell which image corresponds to which caption. Image captioning makes great sense in this case.
-
-#### CCP
-
-{{< figure src="ccpcaps.png" alt="Grid of eight Clothing Co-Parsing dataset images showing fashion street photography with neuraltalk2 generated captions that are generic and repetitive, frequently mentioning cell phones and sidewalks" caption="**Figure 5.** Neuraltalk2 captions on CCP dataset images, showing generic and repetitive descriptions." >}}
-
-In the CCP dataset, images are all coming from the clothing domain and thus they are very similar to each other in the overall content. And the differences are mostly reflected in fine-grained details. In this case, the captions of `neuraltalk2` which only capture the overall content become meaningless and are not very helpful for distinguishing one image from others. Moreover, the captions make more mistakes, like a lot of false positives of cell phones.
-
-### Thoughts
-
-For classifying images in the same domain, researchers have come up with fine-grained image classification. Now to caption these images, whose fine-grained details are much more important than the overall content, it makes sense to state that we need *fine-grained image captioning*.
-
-To solve the fine-grained image captioning problem, we need to collect a dataset of images in the same domain with fine-grained captions. The considerable number of advertising captions for clothes/food/cars serve as a good basis. The pipeline of fine-grained image captioning may also be similar to that of general image captioning: a CNN learns a domain-specific representation of the image (maybe via fine-tuning the network in a fine-grained image classification task) and then an RNN generates a fine-grained caption conditioned on the representation. There should be many problems waiting to be discovered and solved in fine-grained image captioning.
+Since the model runs entirely in your browser, your images never leave your device. No data is sent to any server.

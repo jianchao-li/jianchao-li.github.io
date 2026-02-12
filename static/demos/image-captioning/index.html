@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Captioning Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .drop-zone {
+      transition: all 0.2s ease;
+    }
+    .drop-zone.dragover {
+      border-color: #3b82f6;
+      background-color: rgba(59, 130, 246, 0.1);
+    }
+    .sample-image {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .sample-image:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .typing-cursor::after {
+      content: '|';
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    .spinner {
+      border: 3px solid #e5e7eb;
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="mb-8">
+      <a href="/projects/image-captioning-demo/" class="text-blue-600 hover:text-blue-800 text-sm mb-2 inline-block">&larr; Back to Project</a>
+      <h1 class="text-3xl font-bold text-gray-900">Image Captioning Demo</h1>
+      <p class="text-gray-600 mt-2">Generate natural language captions for images using AI, running entirely in your browser.</p>
+    </header>
+
+    <!-- Model Status -->
+    <div id="model-status" class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+      <div class="flex items-center gap-3">
+        <div class="spinner"></div>
+        <div>
+          <p class="font-medium text-blue-900">Loading model...</p>
+          <p id="model-progress" class="text-sm text-blue-700">Downloading model weights (this may take a moment on first visit)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sample Images -->
+    <section class="mb-8">
+      <h2 class="text-lg font-semibold text-gray-800 mb-3">Try a Sample Image</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <button class="sample-image rounded-lg overflow-hidden cursor-pointer border-2 border-transparent hover:border-blue-400 focus:border-blue-500 focus:outline-none" data-url="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400" disabled>
+          <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400" alt="Dog" class="w-full h-32 object-cover">
+          <span class="block text-xs text-gray-600 py-1">Dog</span>
+        </button>
+        <button class="sample-image rounded-lg overflow-hidden cursor-pointer border-2 border-transparent hover:border-blue-400 focus:border-blue-500 focus:outline-none" data-url="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=400" disabled>
+          <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=400" alt="City" class="w-full h-32 object-cover">
+          <span class="block text-xs text-gray-600 py-1">City</span>
+        </button>
+        <button class="sample-image rounded-lg overflow-hidden cursor-pointer border-2 border-transparent hover:border-blue-400 focus:border-blue-500 focus:outline-none" data-url="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400" disabled>
+          <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400" alt="Food" class="w-full h-32 object-cover">
+          <span class="block text-xs text-gray-600 py-1">Food</span>
+        </button>
+        <button class="sample-image rounded-lg overflow-hidden cursor-pointer border-2 border-transparent hover:border-blue-400 focus:border-blue-500 focus:outline-none" data-url="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" disabled>
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400" alt="Mountains" class="w-full h-32 object-cover">
+          <span class="block text-xs text-gray-600 py-1">Mountains</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Upload Zone -->
+    <section class="mb-8">
+      <h2 class="text-lg font-semibold text-gray-800 mb-3">Or Upload Your Own</h2>
+      <div id="drop-zone" class="drop-zone border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-gray-400">
+        <input type="file" id="file-input" accept="image/*" class="hidden">
+        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+          <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <p class="mt-2 text-gray-600">Drag and drop an image here, or click to select</p>
+        <p class="text-sm text-gray-500">PNG, JPG, GIF up to 10MB</p>
+      </div>
+    </section>
+
+    <!-- Preview and Result -->
+    <section id="result-section" class="hidden">
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        <div class="flex flex-col md:flex-row">
+          <div class="md:w-1/2 p-4">
+            <img id="preview-image" src="" alt="Preview" class="w-full h-64 object-contain bg-gray-100 rounded">
+          </div>
+          <div class="md:w-1/2 p-4 flex flex-col justify-center">
+            <h3 class="text-sm font-medium text-gray-500 mb-2">Generated Caption</h3>
+            <div id="caption-container" class="min-h-[60px]">
+              <p id="caption-text" class="text-xl text-gray-800"></p>
+            </div>
+            <div id="generating-indicator" class="hidden flex items-center gap-2 text-gray-500">
+              <div class="spinner" style="width: 16px; height: 16px; border-width: 2px;"></div>
+              <span>Generating caption...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-12 pt-6 border-t border-gray-200 text-center text-sm text-gray-500">
+      <p>Powered by <a href="https://huggingface.co/docs/transformers.js" target="_blank" class="text-blue-600 hover:underline">Transformers.js</a> and <a href="https://huggingface.co/Xenova/vit-gpt2-image-captioning" target="_blank" class="text-blue-600 hover:underline">ViT-GPT2</a></p>
+      <p class="mt-1">All processing happens locally in your browser. Your images never leave your device.</p>
+    </footer>
+  </div>
+
+  <script type="module">
+    import { pipeline } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.4.1';
+
+    let captioner = null;
+    const modelStatus = document.getElementById('model-status');
+    const modelProgress = document.getElementById('model-progress');
+    const sampleButtons = document.querySelectorAll('.sample-image');
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const resultSection = document.getElementById('result-section');
+    const previewImage = document.getElementById('preview-image');
+    const captionText = document.getElementById('caption-text');
+    const generatingIndicator = document.getElementById('generating-indicator');
+
+    // Initialize the model
+    async function initModel() {
+      try {
+        captioner = await pipeline('image-to-text', 'Xenova/vit-gpt2-image-captioning', {
+          progress_callback: (progress) => {
+            if (progress.status === 'downloading') {
+              const percent = progress.progress ? Math.round(progress.progress) : 0;
+              modelProgress.textContent = `Downloading: ${progress.file} (${percent}%)`;
+            } else if (progress.status === 'loading') {
+              modelProgress.textContent = `Loading model into memory...`;
+            }
+          }
+        });
+
+        // Model loaded successfully
+        modelStatus.className = 'mb-6 p-4 bg-green-50 border border-green-200 rounded-lg';
+        modelStatus.innerHTML = `
+          <div class="flex items-center gap-3">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <div>
+              <p class="font-medium text-green-900">Model ready!</p>
+              <p class="text-sm text-green-700">Click a sample image or upload your own to generate a caption.</p>
+            </div>
+          </div>
+        `;
+
+        // Enable sample buttons
+        sampleButtons.forEach(btn => btn.disabled = false);
+      } catch (error) {
+        console.error('Failed to load model:', error);
+        modelStatus.className = 'mb-6 p-4 bg-red-50 border border-red-200 rounded-lg';
+        modelStatus.innerHTML = `
+          <div class="flex items-center gap-3">
+            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            <div>
+              <p class="font-medium text-red-900">Failed to load model</p>
+              <p class="text-sm text-red-700">${error.message}</p>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // Generate caption for an image
+    async function generateCaption(imageSource) {
+      if (!captioner) return;
+
+      resultSection.classList.remove('hidden');
+      previewImage.src = imageSource;
+      captionText.textContent = '';
+      generatingIndicator.classList.remove('hidden');
+
+      try {
+        const output = await captioner(imageSource);
+        const caption = output[0].generated_text;
+
+        generatingIndicator.classList.add('hidden');
+
+        // Typing animation
+        let i = 0;
+        captionText.classList.add('typing-cursor');
+        const typeInterval = setInterval(() => {
+          if (i < caption.length) {
+            captionText.textContent += caption[i];
+            i++;
+          } else {
+            clearInterval(typeInterval);
+            captionText.classList.remove('typing-cursor');
+          }
+        }, 30);
+      } catch (error) {
+        console.error('Caption generation failed:', error);
+        generatingIndicator.classList.add('hidden');
+        captionText.textContent = 'Error generating caption. Please try again.';
+        captionText.classList.add('text-red-600');
+      }
+    }
+
+    // Handle file upload
+    function handleFile(file) {
+      if (!file.type.startsWith('image/')) {
+        alert('Please upload an image file.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        generateCaption(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Event listeners
+    sampleButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const url = btn.dataset.url;
+        if (url && !btn.disabled) {
+          generateCaption(url);
+        }
+      });
+    });
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file) handleFile(file);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) handleFile(file);
+    });
+
+    // Initialize
+    initModel();
+  </script>
+</body>
+</html>
