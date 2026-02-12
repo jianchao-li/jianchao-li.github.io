@@ -5,10 +5,10 @@
 
   [en.params]
     mainSections = ["posts"]
-    description = "Software Engineer with expertise in deep learning and computer vision"
+    description = "Senior Software Engineer exploring AI, deep learning, computer vision, and investing"
 
   [en.params.author]
     name = "Jianchao Li"
     image = "img/author.jpg"
-    headline = "Software Engineer at Meta"
+    headline = "Senior Software Engineer at Meta"
     bio = "I build with AI."
