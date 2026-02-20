@@ -10,7 +10,7 @@ draft: false
 
 ## Motivation
 
-This is the second post in my venture into the world of investing. In the [first post](/post/the-double-edged-sword-of-compounding/), I talked about compound interest — what I consider the ["first principle"](https://en.wikipedia.org/wiki/First_principle) of investing. This post is about the next natural question: how do you actually put your money to work?
+This is the second post in my venture into the world of investing. In the [first post](/posts/the-double-edged-sword-of-compounding/), I talked about compound interest — what I consider the ["first principle"](https://en.wikipedia.org/wiki/First_principle) of investing. This post is about the next natural question: how do you actually put your money to work?
 
 The answer is building a [portfolio](https://en.wikipedia.org/wiki/Portfolio_(finance)) — a combination of assets like stocks and bonds. Which assets to hold, and in what proportions, is one of the most consequential decisions in personal investing. It's also not straightforward: there are [many approaches](https://www.optimizedportfolio.com/lazy-portfolios/) to choose from, and they can lead to very different outcomes over time.
 
@@ -44,7 +44,7 @@ When things move this fast, ambition grows. In traditional development, the time
 
 ## Final Thoughts
 
-In my [previous post](/post/why-every-software-engineer-should-use-ai/), I wrote about engineers shifting from coders to orchestrators. Building [Portfolio Playground](https://portfolio-playground-frontend.vercel.app/) was that shift in practice — I focused on product decisions and direction, AI handled the implementation. If you're curious, check out the [live app](https://portfolio-playground-frontend.vercel.app/) or the [source code on GitHub](https://github.com/jianchao-li/portfolio-playground).
+In my [previous post](/posts/why-every-software-engineer-should-use-ai/), I wrote about engineers shifting from coders to orchestrators. Building [Portfolio Playground](https://portfolio-playground-frontend.vercel.app/) was that shift in practice — I focused on product decisions and direction, AI handled the implementation. If you're curious, check out the [live app](https://portfolio-playground-frontend.vercel.app/) or the [source code on GitHub](https://github.com/jianchao-li/portfolio-playground).
 
 ## Disclaimers
 

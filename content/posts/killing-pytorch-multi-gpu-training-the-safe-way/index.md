@@ -11,7 +11,7 @@ As you may have noticed from the title, this post is somewhat different from my 
 
 ## Memory consumption
 
-Since my last post on [FCNs](/post/understanding-fully-convolutional-networks/), I have been working on semantic segmentation. Nowadays, we have deep neural networks for it, like the state-of-the-art [PSPNet](https://arxiv.org/abs/1612.01105) from CVPR 2017.
+Since my last post on [FCNs](/posts/understanding-fully-convolutional-networks/), I have been working on semantic segmentation. Nowadays, we have deep neural networks for it, like the state-of-the-art [PSPNet](https://arxiv.org/abs/1612.01105) from CVPR 2017.
 
 In practice, segmentation networks are **much more memory-intensive** than recognition/classification networks. The reason is that semantic segmentation requires dense pixel-level predictions. For example, in the ImageNet classification task, you may use a neural network to transform a 224x224 image into 1000 real numbers (class probabilities). However, in semantic segmentation, suppose you have 20 semantic classes, you need to transform the 224x224 image into 20 224x224 probability maps, each representing probabilities of pixels belonging to one class. The output size changes from 1000 to 20x224x224=1003520, which is more than 1000 times!
 
