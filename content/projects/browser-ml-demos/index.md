@@ -2,6 +2,7 @@
 title: "Browser ML Demos"
 summary: "Interactive machine learning demos that run entirely in your browser using Transformers.js. No server required — all inference happens locally on your device."
 tags: ["Transformers.js", "Machine Learning", "Computer Vision"]
+weight: 2
 showDate: false
 showReadingTime: false
 showComments: false

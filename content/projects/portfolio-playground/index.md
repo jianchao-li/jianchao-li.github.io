@@ -2,6 +2,7 @@
 title: "Portfolio Playground"
 summary: "A web app for building custom investment portfolios, visualizing historical performance, and comparing risk/return metrics."
 tags: ["Next.js", "FastAPI", "yfinance"]
+weight: 1
 showDate: false
 showReadingTime: false
 showComments: false
