@@ -8,10 +8,34 @@ showReadingTime: false
 showComments: false
 ---
 
-<div class="project-links">
-  <a href="https://portfolio-playground-frontend.vercel.app/" target="_blank">Website</a>
-  <span class="project-links-sep">·</span>
-  <a href="https://github.com/jianchao-li/portfolio-playground" target="_blank">Source Code</a>
+<style>
+.project-btn-group {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+.project-btn {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 0.5rem;
+  text-decoration: none !important;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.project-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+</style>
+
+<div class="project-btn-group">
+  <a href="https://portfolio-playground-frontend.vercel.app/" target="_blank" class="project-btn">Website</a>
+  <a href="https://github.com/jianchao-li/portfolio-playground" target="_blank" class="project-btn">Source Code</a>
 </div>
 
 {{< video src="demo.mov" autoplay="true" loop="true" muted="true" >}}
