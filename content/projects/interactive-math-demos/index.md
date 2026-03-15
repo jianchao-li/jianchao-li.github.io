@@ -88,4 +88,10 @@ A collection of interactive demos that bring mathematical concepts to life. Play
     <div class="tech">Interactive simulation &middot; Statistics tracker</div>
     <span class="demo-btn">Try Demo</span>
   </a>
+  <a href="/demos/galton-board/" target="_blank" class="demo-card">
+    <h3>Galton Board</h3>
+    <p>Drop balls through a grid of pegs and watch them pile up into a bell curve. See the binomial distribution emerge from pure randomness.</p>
+    <div class="tech">Canvas animation &middot; Normal distribution</div>
+    <span class="demo-btn">Try Demo</span>
+  </a>
 </div>

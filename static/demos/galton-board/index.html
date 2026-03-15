@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galton Board</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div class="max-w-5xl mx-auto px-4 py-8">
+    <header class="mb-6">
+      <a href="/projects/interactive-math-demos/" class="text-teal-600 hover:text-teal-800 text-sm mb-2 inline-block">&larr; Back to Project</a>
+      <h1 class="text-3xl font-bold text-gray-900">Galton Board</h1>
+      <p class="text-gray-600 mt-2">Balls bounce left or right at each peg with equal probability. The result? A bell curve emerges from pure randomness.</p>
+    </header>
+
+    <!-- Controls -->
+    <div class="flex flex-wrap gap-4 items-end mb-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-600 mb-1">Rows of pegs</label>
+        <input type="number" id="rows-input" value="10"
+          class="w-20 px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-400">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-600 mb-1">Drop speed</label>
+        <select id="speed-input"
+          class="px-3 py-2 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-400">
+          <option value="1">Slow</option>
+          <option value="3" selected>Normal</option>
+          <option value="8">Fast</option>
+          <option value="30">Turbo</option>
+        </select>
+      </div>
+      <button onclick="dropBalls(1)"
+        class="px-5 py-2 bg-gradient-to-r from-teal-500 to-blue-500 text-white rounded-lg font-semibold hover:from-teal-400 hover:to-blue-400 transition-all shadow-lg shadow-teal-500/25">
+        Drop 1
+      </button>
+      <button onclick="dropBalls(10)"
+        class="px-5 py-2 bg-gradient-to-r from-teal-500 to-blue-500 text-white rounded-lg font-semibold hover:from-teal-400 hover:to-blue-400 transition-all shadow-lg shadow-teal-500/25">
+        Drop 10
+      </button>
+      <button onclick="dropBalls(100)"
+        class="px-5 py-2 bg-gradient-to-r from-teal-500 to-blue-500 text-white rounded-lg font-semibold hover:from-teal-400 hover:to-blue-400 transition-all shadow-lg shadow-teal-500/25">
+        Drop 100
+      </button>
+      <button onclick="resetBoard()"
+        class="px-5 py-2 bg-gray-100 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-all">
+        Reset
+      </button>
+      <div class="ml-auto text-sm text-gray-500">
+        Total: <span id="total-count" class="font-semibold text-gray-900">0</span>
+      </div>
+    </div>
+
+    <!-- Canvas -->
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm p-2 mb-6">
+      <canvas id="board"></canvas>
+    </div>
+
+    <footer class="pt-4 border-t border-gray-200 text-center text-sm text-gray-500">
+      <p>The <a href="https://en.wikipedia.org/wiki/Galton_board" target="_blank" class="text-teal-600 hover:underline">Galton board</a> demonstrates how the binomial distribution approximates a normal (bell) curve. Each ball's path is a series of independent coin flips.</p>
+    </footer>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('board');
+    const ctx = canvas.getContext('2d');
+
+    let ROWS, BINS, GAP, PEG_R, BALL_R;
+    let pegPositions = []; // [row][col] = {x, y}
+    let binXPositions = []; // x center of each bin
+    let binCounts = [];
+    let boardBottom, binAreaTop, binAreaBottom;
+    let totalDropped = 0;
+    let balls = [];
+    let running = false;
+
+    function layout() {
+      ROWS = Math.max(3, Math.min(20, parseInt(document.getElementById('rows-input').value) || 10));
+      BINS = ROWS + 1;
+
+      const w = canvas.parentElement.clientWidth - 16;
+      canvas.width = w;
+
+      GAP = Math.min(48, Math.floor(w / (BINS + 3)));
+      PEG_R = Math.max(2, GAP * 0.07);
+      BALL_R = Math.max(4, GAP * 0.18);
+
+      const pegAreaTop = 30;
+
+      // Compute peg positions
+      pegPositions = [];
+      for (let r = 0; r < ROWS; r++) {
+        const row = [];
+        const cols = r + 1;
+        const rowWidth = r * GAP;
+        const x0 = w / 2 - rowWidth / 2;
+        const y = pegAreaTop + (r + 1) * GAP;
+        for (let c = 0; c < cols; c++) {
+          row.push({ x: x0 + c * GAP, y });
+        }
+        pegPositions.push(row);
+      }
+
+      // Bin x positions align with where balls exit the last peg row
+      // After ROWS pegs, a ball that went right `k` times lands in bin k
+      // Bin positions are spaced like the last row but with ROWS+1 slots
+      const lastRowWidth = ROWS * GAP;
+      const bx0 = w / 2 - lastRowWidth / 2;
+      binXPositions = [];
+      for (let b = 0; b < BINS; b++) {
+        binXPositions.push(bx0 + b * GAP);
+      }
+
+      boardBottom = pegAreaTop + (ROWS + 1) * GAP;
+      binAreaTop = boardBottom;
+      binAreaBottom = boardBottom + GAP * 5;
+      canvas.height = binAreaBottom + 10;
+    }
+
+    function drawBoard() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Pegs
+      ctx.fillStyle = '#94a3b8';
+      for (const row of pegPositions) {
+        for (const p of row) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, PEG_R, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // Bin walls
+      ctx.strokeStyle = '#e5e7eb';
+      ctx.lineWidth = 1;
+      for (let b = 0; b <= BINS; b++) {
+        const x = binXPositions[0] - GAP / 2 + b * GAP;
+        ctx.beginPath();
+        ctx.moveTo(x, binAreaTop);
+        ctx.lineTo(x, binAreaBottom);
+        ctx.stroke();
+      }
+      // Bin floor
+      ctx.beginPath();
+      ctx.moveTo(binXPositions[0] - GAP / 2, binAreaBottom);
+      ctx.lineTo(binXPositions[BINS - 1] + GAP / 2, binAreaBottom);
+      ctx.stroke();
+
+      // Accumulated balls in bins (draw as stacked circles)
+      const maxVisual = Math.floor((binAreaBottom - binAreaTop - 4) / (BALL_R * 2));
+      const maxCount = Math.max(1, ...binCounts);
+      const scale = maxCount > maxVisual ? maxVisual / maxCount : 1;
+
+      for (let b = 0; b < BINS; b++) {
+        if (binCounts[b] === 0) continue;
+        const x = binXPositions[b];
+        const shown = Math.max(1, Math.round(binCounts[b] * scale));
+        for (let j = 0; j < shown; j++) {
+          const y = binAreaBottom - BALL_R - j * BALL_R * 2;
+          ctx.beginPath();
+          ctx.arc(x, y, BALL_R * 0.9, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(13, 148, 136, 0.65)';
+          ctx.fill();
+        }
+        // Count label above bin
+        ctx.fillStyle = '#6b7280';
+        ctx.font = `${Math.max(10, GAP * 0.24)}px sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.fillText(binCounts[b], x, binAreaTop - 4);
+      }
+
+      // Falling balls
+      ctx.fillStyle = '#0d9488';
+      for (const ball of balls) {
+        ctx.beginPath();
+        ctx.arc(ball.x, ball.y, BALL_R, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Drop point indicator
+      ctx.fillStyle = '#d1d5db';
+      ctx.beginPath();
+      ctx.moveTo(canvas.width / 2 - 6, 10);
+      ctx.lineTo(canvas.width / 2 + 6, 10);
+      ctx.lineTo(canvas.width / 2, 20);
+      ctx.fill();
+    }
+
+    function resetBoard() {
+      balls = [];
+      totalDropped = 0;
+      document.getElementById('total-count').textContent = '0';
+      layout();
+      binCounts = new Array(BINS).fill(0);
+      drawBoard();
+    }
+
+    function dropBalls(n) {
+      const speed = parseInt(document.getElementById('speed-input').value) || 3;
+      for (let i = 0; i < n; i++) {
+        setTimeout(() => spawnBall(speed), i * Math.max(15, 120 / speed));
+      }
+    }
+
+    function spawnBall(speed) {
+      // Pre-decide the path: at each row, go left (0) or right (1)
+      const choices = [];
+      let bin = 0;
+      for (let r = 0; r < ROWS; r++) {
+        const goRight = Math.random() < 0.5 ? 1 : 0;
+        bin += goRight;
+        choices.push(goRight);
+      }
+
+      // Build waypoints: start -> each peg deflection point -> final bin
+      const waypoints = [];
+      // Start above the first peg
+      waypoints.push({ x: canvas.width / 2, y: 20 });
+
+      let col = 0; // tracks which column index in the NEXT row the ball heads to
+      for (let r = 0; r < ROWS; r++) {
+        // Ball hits peg at (r, col), deflects left or right
+        // The peg position is pegPositions[r][col]
+        // After deflection, ball goes toward peg (r+1, col) or (r+1, col+1)
+        // But we position the waypoint slightly below/beside the peg
+        const peg = pegPositions[r][col];
+        const offset = choices[r] ? BALL_R + PEG_R : -(BALL_R + PEG_R);
+        waypoints.push({ x: peg.x + offset, y: peg.y + GAP * 0.3 });
+        col += choices[r];
+      }
+
+      // Final position: bin center, at bin area top
+      waypoints.push({ x: binXPositions[bin], y: binAreaTop + BALL_R });
+
+      balls.push({
+        waypoints,
+        wp: 0, // current waypoint index (traveling from wp to wp+1)
+        progress: 0,
+        speed,
+        bin,
+        x: waypoints[0].x,
+        y: waypoints[0].y
+      });
+
+      if (!running) {
+        running = true;
+        requestAnimationFrame(tick);
+      }
+    }
+
+    function tick() {
+      // Update balls
+      for (let i = balls.length - 1; i >= 0; i--) {
+        const b = balls[i];
+        b.progress += 0.06 * b.speed;
+
+        if (b.progress >= 1) {
+          b.wp++;
+          b.progress = 0;
+
+          if (b.wp >= b.waypoints.length - 1) {
+            // Ball has arrived at the bin
+            binCounts[b.bin]++;
+            totalDropped++;
+            document.getElementById('total-count').textContent = totalDropped;
+            balls.splice(i, 1);
+            continue;
+          }
+        }
+
+        const from = b.waypoints[b.wp];
+        const to = b.waypoints[b.wp + 1];
+        const t = b.progress;
+        b.x = from.x + (to.x - from.x) * t;
+        b.y = from.y + (to.y - from.y) * t;
+      }
+
+      drawBoard();
+
+      if (balls.length > 0) {
+        requestAnimationFrame(tick);
+      } else {
+        running = false;
+        drawBoard(); // Final draw to ensure bins are shown
+      }
+    }
+
+    // Init
+    window.addEventListener('resize', () => { layout(); binCounts = binCounts || new Array(BINS).fill(0); drawBoard(); });
+    document.getElementById('rows-input').addEventListener('change', resetBoard);
+    resetBoard();
+  </script>
+</body>
+</html>
