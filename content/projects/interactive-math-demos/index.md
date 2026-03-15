@@ -23,6 +23,10 @@ A collection of interactive demos that bring mathematical concepts to life. Play
   padding: 1.5rem;
   background: var(--color-neutral-50);
   transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  text-decoration: none !important;
+  color: inherit !important;
+  display: block;
 }
 .dark .demo-card {
   border-color: var(--color-neutral-700);
@@ -72,16 +76,16 @@ A collection of interactive demos that bring mathematical concepts to life. Play
 </style>
 
 <div class="demo-grid">
-  <div class="demo-card">
+  <a href="/demos/collatz/" target="_blank" class="demo-card">
     <h3>Collatz Conjecture</h3>
     <p>Enter any positive integer and watch its Collatz sequence unfold. Will it always reach 1? One of math's most famous unsolved problems.</p>
     <div class="tech">Chart.js &middot; Animated visualization</div>
-    <a href="/demos/collatz/" target="_blank" class="demo-btn">Try Demo</a>
-  </div>
-  <div class="demo-card">
+    <span class="demo-btn">Try Demo</span>
+  </a>
+  <a href="/demos/monty-hall/" target="_blank" class="demo-card">
     <h3>Monty Hall Problem</h3>
     <p>Play the classic game show puzzle interactively. Pick a door, decide whether to switch, and watch the probabilities converge.</p>
     <div class="tech">Interactive simulation &middot; Statistics tracker</div>
-    <a href="/demos/monty-hall/" target="_blank" class="demo-btn">Try Demo</a>
-  </div>
+    <span class="demo-btn">Try Demo</span>
+  </a>
 </div>
