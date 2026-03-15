@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monty Hall Problem</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <style>
+    body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #134e4a 100%); }
+    .door {
+      width: 140px;
+      height: 200px;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    .door.closed {
+      background: linear-gradient(180deg, #1e3a5f 0%, #0f2744 100%);
+      border: 2px solid rgba(255,255,255,0.15);
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.3);
+    }
+    .door.closed:hover:not(.disabled) {
+      border-color: #2dd4bf;
+      box-shadow: 0 0 20px rgba(45,212,191,0.3), inset 0 0 30px rgba(0,0,0,0.3);
+      transform: scale(1.05);
+    }
+    .door.selected {
+      border-color: #2dd4bf !important;
+      box-shadow: 0 0 25px rgba(45,212,191,0.4), inset 0 0 30px rgba(0,0,0,0.3) !important;
+    }
+    .door.revealed-goat {
+      background: linear-gradient(180deg, #3f1515 0%, #2a0f0f 100%);
+      border: 2px solid rgba(239,68,68,0.4);
+      cursor: default;
+    }
+    .door.revealed-car {
+      background: linear-gradient(180deg, #134e2a 0%, #0a3018 100%);
+      border: 2px solid rgba(34,197,94,0.6);
+      box-shadow: 0 0 30px rgba(34,197,94,0.3);
+    }
+    .door.disabled { cursor: default; }
+    .door-knob {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #c9a961;
+      box-shadow: 0 0 5px rgba(201,169,97,0.5);
+    }
+    .door-label {
+      position: absolute;
+      bottom: -28px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-white">
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <header class="mb-8">
+      <a href="/projects/interactive-math-demos/" class="text-teal-300 hover:text-teal-100 text-sm mb-2 inline-block">&larr; Back to Project</a>
+      <h1 class="text-3xl font-bold">Monty Hall Problem</h1>
+      <p class="text-slate-300 mt-2">Behind one door is a car; behind the other two are goats. Pick a door, then decide: switch or stay?</p>
+    </header>
+
+    <!-- Game Area -->
+    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 mb-6">
+      <p id="game-message" class="text-center text-lg text-slate-200 mb-6">Pick a door!</p>
+
+      <div class="flex justify-center gap-6 mb-10">
+        <div class="text-center">
+          <div id="door-0" class="door closed" onclick="handleDoorClick(0)">
+            <span class="door-content">?</span>
+            <div class="door-knob"></div>
+          </div>
+          <div class="door-label">Door 1</div>
+        </div>
+        <div class="text-center">
+          <div id="door-1" class="door closed" onclick="handleDoorClick(1)">
+            <span class="door-content">?</span>
+            <div class="door-knob"></div>
+          </div>
+          <div class="door-label">Door 2</div>
+        </div>
+        <div class="text-center">
+          <div id="door-2" class="door closed" onclick="handleDoorClick(2)">
+            <span class="door-content">?</span>
+            <div class="door-knob"></div>
+          </div>
+          <div class="door-label">Door 3</div>
+        </div>
+      </div>
+
+      <!-- Switch/Stay buttons -->
+      <div id="choice-buttons" class="hidden flex justify-center gap-4 mb-4">
+        <button onclick="makeChoice('stay')"
+          class="px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 rounded-lg font-semibold hover:from-amber-400 hover:to-orange-400 transition-all shadow-lg">
+          Stay
+        </button>
+        <button onclick="makeChoice('switch')"
+          class="px-6 py-3 bg-gradient-to-r from-teal-500 to-blue-500 rounded-lg font-semibold hover:from-teal-400 hover:to-blue-400 transition-all shadow-lg">
+          Switch
+        </button>
+      </div>
+
+      <!-- Play Again -->
+      <div id="play-again" class="hidden flex justify-center">
+        <button onclick="resetGame()"
+          class="px-6 py-3 bg-white/10 border border-white/20 rounded-lg font-semibold hover:bg-white/20 transition-all">
+          Play Again
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 mb-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-semibold">Your Statistics</h2>
+        <button onclick="resetStats()" class="text-sm text-slate-400 hover:text-white transition">Reset Stats</button>
+      </div>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div class="bg-white/5 rounded-lg p-4">
+          <div class="text-sm text-amber-300 mb-1">Stay Strategy</div>
+          <div class="flex justify-between items-end">
+            <div>
+              <span id="stay-wins" class="text-2xl font-bold">0</span>
+              <span class="text-slate-400"> / </span>
+              <span id="stay-total" class="text-slate-400">0</span>
+            </div>
+            <div id="stay-pct" class="text-lg text-slate-400">--%</div>
+          </div>
+        </div>
+        <div class="bg-white/5 rounded-lg p-4">
+          <div class="text-sm text-teal-300 mb-1">Switch Strategy</div>
+          <div class="flex justify-between items-end">
+            <div>
+              <span id="switch-wins" class="text-2xl font-bold">0</span>
+              <span class="text-slate-400"> / </span>
+              <span id="switch-total" class="text-slate-400">0</span>
+            </div>
+            <div id="switch-pct" class="text-lg text-slate-400">--%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bulk Simulation -->
+    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 mb-6">
+      <h2 class="text-lg font-semibold mb-4">Bulk Simulation</h2>
+      <div class="flex gap-3 mb-4">
+        <input type="number" id="sim-count" min="100" max="100000" value="1000"
+          class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-400"
+          placeholder="Number of rounds">
+        <button onclick="runSimulation()"
+          class="px-6 py-3 bg-gradient-to-r from-teal-500 to-blue-500 rounded-lg font-semibold hover:from-teal-400 hover:to-blue-400 transition-all shadow-lg shadow-teal-500/25">
+          Simulate
+        </button>
+      </div>
+      <div class="bg-white/5 rounded-lg p-4">
+        <canvas id="sim-chart" height="200"></canvas>
+      </div>
+    </div>
+
+    <footer class="mt-12 pt-6 border-t border-white/10 text-center text-sm text-slate-400">
+      <p>The <a href="https://en.wikipedia.org/wiki/Monty_Hall_problem" target="_blank" class="text-teal-300 hover:underline">Monty Hall problem</a> shows that switching doors gives you a 2/3 chance of winning, while staying gives only 1/3.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Game state
+    let carDoor, playerPick, revealedDoor, phase;
+    let stats = { stayWins: 0, stayTotal: 0, switchWins: 0, switchTotal: 0 };
+    let simChart = null;
+
+    function initGame() {
+      carDoor = Math.floor(Math.random() * 3);
+      playerPick = null;
+      revealedDoor = null;
+      phase = 'pick'; // pick -> switch-or-stay -> result
+    }
+
+    function handleDoorClick(doorIndex) {
+      if (phase !== 'pick') return;
+
+      playerPick = doorIndex;
+      phase = 'switch-or-stay';
+
+      // Highlight selected door
+      document.getElementById(`door-${doorIndex}`).classList.add('selected');
+
+      // Reveal a goat door (not the player's pick and not the car)
+      const goatDoors = [0, 1, 2].filter(d => d !== playerPick && d !== carDoor);
+      revealedDoor = goatDoors[Math.floor(Math.random() * goatDoors.length)];
+
+      // Disable all doors
+      for (let i = 0; i < 3; i++) {
+        document.getElementById(`door-${i}`).classList.add('disabled');
+      }
+
+      // Reveal goat door with slight delay
+      setTimeout(() => {
+        const revealEl = document.getElementById(`door-${revealedDoor}`);
+        revealEl.classList.remove('closed');
+        revealEl.classList.add('revealed-goat');
+        revealEl.querySelector('.door-content').textContent = 'Goat';
+        revealEl.querySelector('.door-knob').style.display = 'none';
+
+        document.getElementById('game-message').textContent = 'A goat is revealed! Do you want to switch or stay?';
+        document.getElementById('choice-buttons').classList.remove('hidden');
+      }, 500);
+    }
+
+    function makeChoice(choice) {
+      phase = 'result';
+      document.getElementById('choice-buttons').classList.add('hidden');
+
+      const finalPick = choice === 'switch'
+        ? [0, 1, 2].find(d => d !== playerPick && d !== revealedDoor)
+        : playerPick;
+
+      const won = finalPick === carDoor;
+
+      // Update stats
+      if (choice === 'stay') {
+        stats.stayTotal++;
+        if (won) stats.stayWins++;
+      } else {
+        stats.switchTotal++;
+        if (won) stats.switchWins++;
+      }
+      updateStatsDisplay();
+
+      // Reveal all doors
+      for (let i = 0; i < 3; i++) {
+        if (i === revealedDoor) continue;
+        const el = document.getElementById(`door-${i}`);
+        el.classList.remove('closed', 'selected');
+        if (i === carDoor) {
+          el.classList.add('revealed-car');
+          el.querySelector('.door-content').textContent = 'Car';
+        } else {
+          el.classList.add('revealed-goat');
+          el.querySelector('.door-content').textContent = 'Goat';
+        }
+        el.querySelector('.door-knob').style.display = 'none';
+      }
+
+      const action = choice === 'switch' ? 'switched' : 'stayed';
+      document.getElementById('game-message').textContent = won
+        ? `You ${action} and won the car!`
+        : `You ${action} and got a goat. The car was behind Door ${carDoor + 1}.`;
+
+      document.getElementById('play-again').classList.remove('hidden');
+    }
+
+    function resetGame() {
+      document.getElementById('play-again').classList.add('hidden');
+      document.getElementById('choice-buttons').classList.add('hidden');
+      document.getElementById('game-message').textContent = 'Pick a door!';
+
+      for (let i = 0; i < 3; i++) {
+        const el = document.getElementById(`door-${i}`);
+        el.className = 'door closed';
+        el.querySelector('.door-content').textContent = '?';
+        el.querySelector('.door-knob').style.display = '';
+      }
+
+      initGame();
+    }
+
+    function updateStatsDisplay() {
+      document.getElementById('stay-wins').textContent = stats.stayWins;
+      document.getElementById('stay-total').textContent = stats.stayTotal;
+      document.getElementById('switch-wins').textContent = stats.switchWins;
+      document.getElementById('switch-total').textContent = stats.switchTotal;
+
+      document.getElementById('stay-pct').textContent = stats.stayTotal > 0
+        ? (stats.stayWins / stats.stayTotal * 100).toFixed(1) + '%' : '--%';
+      document.getElementById('switch-pct').textContent = stats.switchTotal > 0
+        ? (stats.switchWins / stats.switchTotal * 100).toFixed(1) + '%' : '--%';
+    }
+
+    function resetStats() {
+      stats = { stayWins: 0, stayTotal: 0, switchWins: 0, switchTotal: 0 };
+      updateStatsDisplay();
+      if (simChart) { simChart.destroy(); simChart = null; }
+    }
+
+    function runSimulation() {
+      const n = parseInt(document.getElementById('sim-count').value);
+      if (isNaN(n) || n < 1 || n > 100000) return;
+
+      let switchWins = 0, stayWins = 0;
+      for (let i = 0; i < n; i++) {
+        const car = Math.floor(Math.random() * 3);
+        const pick = Math.floor(Math.random() * 3);
+        // Stay wins only if initial pick is the car
+        if (pick === car) stayWins++;
+        // Switch wins if initial pick is NOT the car
+        else switchWins++;
+      }
+
+      // Merge into stats
+      stats.stayTotal += n;
+      stats.stayWins += stayWins;
+      stats.switchTotal += n;
+      stats.switchWins += switchWins;
+      updateStatsDisplay();
+
+      // Draw chart
+      if (simChart) simChart.destroy();
+      const ctx = document.getElementById('sim-chart').getContext('2d');
+      simChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Stay', 'Switch'],
+          datasets: [{
+            label: 'Win %',
+            data: [
+              (stayWins / n * 100).toFixed(1),
+              (switchWins / n * 100).toFixed(1)
+            ],
+            backgroundColor: ['rgba(245, 158, 11, 0.7)', 'rgba(45, 212, 191, 0.7)'],
+            borderColor: ['#f59e0b', '#2dd4bf'],
+            borderWidth: 2,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          animation: { duration: 800, easing: 'easeOutQuart' },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              title: { display: true, text: 'Win Rate (%)', color: '#94a3b8' },
+              ticks: { color: '#64748b', callback: v => v + '%' },
+              grid: { color: 'rgba(255,255,255,0.05)' }
+            },
+            x: {
+              ticks: { color: '#94a3b8', font: { size: 14, weight: 'bold' } },
+              grid: { display: false }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (item) => {
+                  const count = item.dataIndex === 0 ? stayWins : switchWins;
+                  return `${item.raw}% (${count.toLocaleString()} / ${n.toLocaleString()})`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Init
+    initGame();
+  </script>
+</body>
+</html>

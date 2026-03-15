@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collatz Conjecture</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <style>
+    body { background: linear-gradient(135deg, #0f172a 0%, #0c4a6e 50%, #134e4a 100%); }
+  </style>
+</head>
+<body class="min-h-screen text-white">
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <header class="mb-8">
+      <a href="/projects/interactive-math-demos/" class="text-teal-300 hover:text-teal-100 text-sm mb-2 inline-block">&larr; Back to Project</a>
+      <h1 class="text-3xl font-bold">Collatz Conjecture</h1>
+      <p class="text-slate-300 mt-2">Pick any positive integer. If it's even, divide by 2. If it's odd, multiply by 3 and add 1. Repeat. Does the sequence always reach 1?</p>
+    </header>
+
+    <!-- Input -->
+    <div class="mb-6">
+      <div class="flex gap-3">
+        <input type="number" id="number-input" min="2" max="10000000" value="27"
+          class="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-400 text-lg"
+          placeholder="Enter a positive integer (2 - 10,000,000)">
+        <button id="plot-btn"
+          class="px-6 py-3 bg-gradient-to-r from-teal-500 to-blue-500 rounded-lg font-semibold hover:from-teal-400 hover:to-blue-400 transition-all shadow-lg shadow-teal-500/25">
+          Plot
+        </button>
+      </div>
+    </div>
+
+    <!-- Try These -->
+    <div class="mb-8 flex flex-wrap gap-2">
+      <span class="text-sm text-slate-400 self-center mr-1">Try these:</span>
+      <button class="preset px-3 py-1 rounded-full bg-white/10 text-sm text-slate-300 hover:bg-white/20 transition" data-value="7">7 (short)</button>
+      <button class="preset px-3 py-1 rounded-full bg-white/10 text-sm text-slate-300 hover:bg-white/20 transition" data-value="27">27 (111 steps!)</button>
+      <button class="preset px-3 py-1 rounded-full bg-white/10 text-sm text-slate-300 hover:bg-white/20 transition" data-value="871">871 (peaks high)</button>
+      <button class="preset px-3 py-1 rounded-full bg-white/10 text-sm text-slate-300 hover:bg-white/20 transition" data-value="6171">6171 (261 steps)</button>
+      <button class="preset px-3 py-1 rounded-full bg-white/10 text-sm text-slate-300 hover:bg-white/20 transition" data-value="77031">77031 (350 steps)</button>
+    </div>
+
+    <!-- Chart -->
+    <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 mb-6">
+      <canvas id="collatz-chart" height="300"></canvas>
+    </div>
+
+    <!-- Stats -->
+    <div id="stats" class="hidden grid grid-cols-3 gap-4 mb-8">
+      <div class="bg-white/5 border border-white/10 rounded-lg p-4 text-center">
+        <div class="text-sm text-slate-400">Starting Number</div>
+        <div id="stat-start" class="text-2xl font-bold text-teal-300 mt-1"></div>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-lg p-4 text-center">
+        <div class="text-sm text-slate-400">Steps to Reach 1</div>
+        <div id="stat-steps" class="text-2xl font-bold text-blue-300 mt-1"></div>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-lg p-4 text-center">
+        <div class="text-sm text-slate-400">Peak Value</div>
+        <div id="stat-peak" class="text-2xl font-bold text-purple-300 mt-1"></div>
+      </div>
+    </div>
+
+    <footer class="mt-12 pt-6 border-t border-white/10 text-center text-sm text-slate-400">
+      <p>The <a href="https://en.wikipedia.org/wiki/Collatz_conjecture" target="_blank" class="text-teal-300 hover:underline">Collatz conjecture</a> states that this sequence always reaches 1, no matter the starting number. It remains unproven.</p>
+    </footer>
+  </div>
+
+  <script>
+    const input = document.getElementById('number-input');
+    const plotBtn = document.getElementById('plot-btn');
+    const statsDiv = document.getElementById('stats');
+    let chart = null;
+
+    function collatzSequence(n) {
+      const seq = [n];
+      while (n !== 1) {
+        n = n % 2 === 0 ? n / 2 : 3 * n + 1;
+        seq.push(n);
+      }
+      return seq;
+    }
+
+    function plotSequence(startNum) {
+      const seq = collatzSequence(startNum);
+
+      // Update stats
+      document.getElementById('stat-start').textContent = startNum.toLocaleString();
+      document.getElementById('stat-steps').textContent = (seq.length - 1).toLocaleString();
+      document.getElementById('stat-peak').textContent = Math.max(...seq).toLocaleString();
+      statsDiv.classList.remove('hidden');
+
+      // Destroy old chart
+      if (chart) chart.destroy();
+
+      // Create new chart with animation
+      const ctx = document.getElementById('collatz-chart').getContext('2d');
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: seq.map((_, i) => i),
+          datasets: [{
+            label: 'Value',
+            data: seq,
+            borderColor: '#2dd4bf',
+            backgroundColor: 'rgba(45, 212, 191, 0.1)',
+            borderWidth: 2,
+            pointRadius: seq.length > 100 ? 0 : 3,
+            pointBackgroundColor: '#2dd4bf',
+            fill: true,
+            tension: 0.1
+          }]
+        },
+        options: {
+          responsive: true,
+          animation: {
+            duration: Math.min(2000, seq.length * 15),
+            easing: 'easeOutQuart'
+          },
+          scales: {
+            x: {
+              title: { display: true, text: 'Step', color: '#94a3b8' },
+              ticks: { color: '#64748b' },
+              grid: { color: 'rgba(255,255,255,0.05)' }
+            },
+            y: {
+              title: { display: true, text: 'Value', color: '#94a3b8' },
+              ticks: { color: '#64748b' },
+              grid: { color: 'rgba(255,255,255,0.05)' }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                title: (items) => `Step ${items[0].label}`,
+                label: (item) => `Value: ${Number(item.raw).toLocaleString()}`
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function handlePlot() {
+      const val = parseInt(input.value);
+      if (isNaN(val) || val < 2 || val > 10000000) {
+        input.classList.add('ring-2', 'ring-red-400');
+        setTimeout(() => input.classList.remove('ring-2', 'ring-red-400'), 1500);
+        return;
+      }
+      plotSequence(val);
+    }
+
+    plotBtn.addEventListener('click', handlePlot);
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handlePlot(); });
+
+    document.querySelectorAll('.preset').forEach(btn => {
+      btn.addEventListener('click', () => {
+        input.value = btn.dataset.value;
+        handlePlot();
+      });
+    });
+
+    // Plot default on load
+    handlePlot();
+  </script>
+</body>
+</html>
