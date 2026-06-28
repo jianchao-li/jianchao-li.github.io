@@ -1,2 +1,4 @@
 shortcode:
   recent_articles: "Posts"
+recent:
+  show_more: "Read more"

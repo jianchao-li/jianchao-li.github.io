@@ -17,7 +17,7 @@ showScrollToTop = true
   showRecentItems = 6
   cardView = true
   cardViewScreenWidth = false
-  showMoreLink = false
+  showMoreLink = true
   showMoreLinkDest = "/posts/"
 
 [article]
