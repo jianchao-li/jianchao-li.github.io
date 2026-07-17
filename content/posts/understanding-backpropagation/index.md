@@ -4,7 +4,7 @@ summary: "I will explain how to understand and implement backpropagation, the me
 tags: ["deep-learning", "artificial-intelligence"]
 description: "An explanation of backpropagation using examples, intuitions, and computational graphs."
 date: 2026-06-13T15:31:22+02:00
-lastmod: 2026-06-13
+lastmod: 2026-07-17
 draft: false
 ---
 {{< katex >}}
@@ -29,7 +29,7 @@ In higher dimensions, e.g., 2D, the derivative becomes gradient, which is a vect
 
 If you wonder why we care about derivatives or gradeints, it is because they are needed to train AI models. The training usually boils down to a minimization problem: you define some *loss functions* and you train your models by tweaking their parameters to minimize the loss functions. And derivatives/gradients tell us how to tweak the parameters.
 
-Let's take a look at a toy example. Suppose our loss function is \(f\left(x\right) = x^2\) in which \(x\) is the only model parameter, and let's assume \(x\) is randomly initialized to be 2. Now, if we want to minimize \(f\) (we know \(f\) has its minimum 0 when \(x = 0\)), we first compute its derivative with respect to \(x\), which gives us \(2x\). When \(x=2\), the derivatite is 4. Now, if we subtract from \(x\) the derivative multiplied by a small amount (*learning rate*) like 0.001, it gives us \(2-0.001\cdot4=1.996\). As you can see, 1.996 is smaller than 2, which means we have performed one step in minimizing it. If we repeat this step multiple times, eventually \(x\) should converge to the minimum (which is \(0\) in this case). You can verify this for yourself using the following code: after 1000 times, \(x\) gets closer to 0. For what it's worth, this process is what we call *gradient descent*.
+Let's take a look at a toy example. Suppose our loss function is \(f\left(x\right) = x^2\) in which \(x\) is the only model parameter, and let's assume \(x\) is randomly initialized to be 2. Now, if we want to minimize \(f\) (we know \(f\) has its minimum 0 when \(x = 0\)), we first compute its derivative with respect to \(x\), which gives us \(2x\). When \(x=2\), the derivatite is 4. Now, if we subtract from \(x\) the derivative multiplied by a small amount (*learning rate*) like 0.001, it gives us \(2-0.001\cdot4=1.996\). As you can see, \(1.996^2\) is smaller than \(2^2\), which means we have performed one step in minimizing it. If we repeat this step multiple times, eventually \(x\) should converge to the minimum (which is \(0\) in this case). You can verify this for yourself using the following code: after 1000 times, \(x\) gets closer to 0. For what it's worth, this process is what we call *gradient descent*.
 
 ```python
 f = lambda x: x ** 2
@@ -53,35 +53,32 @@ A computational graph is a graphic representation of the computations by breakin
 
 **Figure 4.** The computational graph of \(f = \frac{ab + c}{d}\). Green nodes are inputs, blue nodes are operators, and red nodes are outputs.
 
-If we go through this graph from outputs to inputs (backwards, or more formally the reveres topological order), the computations can be written using the following expressions, where \(\spadesuit\) and \(\heartsuit\) denote some variables.
+If we go through this graph from outputs to inputs (backwards, or more formally the reverse topological order), the computations can be written using the following expressions, where \(\spadesuit\) and \(\heartsuit\) denote some variables.
 
 $$
 f = \frac{\spadesuit}{d} \\
 \spadesuit = \heartsuit + c \\
-\heartsuit = ab \\
+\heartsuit = ab
 $$
 
 The benefit of thinking of the computations in this way is that we can then easily compute all derivatives backwards (this is why the name "backprop"). To make the explanations easier, let's give those intermediate variables names.
 
 $$
-\begin{equation}
-f = \frac{u}{d}\\
-u = v + c\\
+f = \frac{u}{d} \\
+u = v + c \\
 v = ab
-\end{equation}
 $$
 
 If we want to compute \(\frac{df}{dd}\), since \(f=\frac{u}{d}\), we know that \(\frac{df}{dd}=-\frac{u}{d^2}\). By rewriting \(u\) using inputs, \(\frac{df}{dd}=-\frac{a*b+c}{d^2}\). Note that when we compute the derivatives with respect to \(d\), all \(a\), \(b\) and \(c\) are treated as constants.
 
-Now let's compute \(\frac{df}{dc}\). Looking at the first two expressions in (1), we know that \(f\) is related to \(c\) via \(u\). This case is nicely described by the [chain rule](https://en.wikipedia.org/wiki/Chain_rule), that is \(\frac{df}{dc}=\frac{df}{du}\cdot\frac{du}{dc}\). Since \(f=\frac{u}{d}\), we know that \(\frac{df}{du}=\frac{1}{d}\) (note that now \(d\) is treated as a constant); and since \(u=v+c\), we have \(\frac{du}{dc}=1\). By multiplying them together, we get \(\frac{df}{dc}=\frac{1}{d}\).
+Now let's compute \(\frac{df}{dc}\). Looking at the first two expressions above, we know that \(f\) is related to \(c\) via \(u\). This case is nicely described by the [chain rule](https://en.wikipedia.org/wiki/Chain_rule), that is \(\frac{df}{dc}=\frac{df}{du}\cdot\frac{du}{dc}\). Since \(f=\frac{u}{d}\), we know that \(\frac{df}{du}=\frac{1}{d}\) (note that now \(d\) is treated as a constant); and since \(u=v+c\), we have \(\frac{du}{dc}=1\). By multiplying them together, we get \(\frac{df}{dc}=\frac{1}{d}\).
 
-The beauty of the chain rule is that it breaks down a "global" derivative into a chain of multiplication of "local" derivatives. Let's look at \(\frac{df}{dc}=\frac{df}{du}\cdot\frac{du}{dc}\) again: when we compute \(\frac{df}{du}\), we only need to care about the division operator (\(f=\frac{u}{d}\)), and when we compute \(\frac{du}{dc}\), we only need to care about the addition operator (\(u=v+c\).
+The beauty of the chain rule is that it breaks down a "global" derivative into a chain of multiplication of "local" derivatives. Let's look at \(\frac{df}{dc}=\frac{df}{du}\cdot\frac{du}{dc}\) again: when we compute \(\frac{df}{du}\), we only need to care about the division operator (\(f=\frac{u}{d}\)), and when we compute \(\frac{du}{dc}\), we only need to care about the addition operator (\(u=v+c\)).
 
 Following the chain rule, we can simily compute the remaining derivatives.
 
 $$
-\frac{df}{db} = \frac{df}{du}\cdot\frac{du}{dv}\cdot\frac{dv}{db} = \frac{1}{d}\cdot1\cdot a=\frac{a}{d}
-
+\frac{df}{db} = \frac{df}{du}\cdot\frac{du}{dv}\cdot\frac{dv}{db} = \frac{1}{d}\cdot1\cdot a=\frac{a}{d} \\
 \frac{df}{da} = \frac{df}{du}\cdot\frac{du}{dv}\cdot\frac{dv}{da} = \frac{1}{d}\cdot1\cdot b=\frac{b}{d}
 $$
 
@@ -121,34 +118,34 @@ y = xW + b
 \end{equation}
 $$
 
-In (2), the shape of each matrix/vector is as follows:
+In (1), the shape of each matrix/vector is as follows:
 * \(W\) is of shape (D, C)
 * \(x\) is of shape (N, D)
 * \(b\) is of shape (C); we can add (N, C) and (C) in Python thanks to [broadcasting](https://numpy.org/doc/stable/user/basics.broadcasting.html)
 * \(y\) is of shape (N, C)
 
-Let's suppose a scalar loss\(L\) has been computed from \(y\).
+Let's suppose a scalar loss \(L\) has been computed from \(y\).
 
 When we implement backward pass for this linear model, we usually assume that we already have the *upstream gradient* \(\frac{dL}{dy}\), which is of the same shape as \(y\), that is, (N, C). And now we want to backprop to compute gradients \(\frac{dL}{dW}\) and \(\frac{dL}{db}\).
 
-First of all, \(\frac{dL}{dW}\) should have the same shape as \(W\), which is (D, C), and \(\frac{dL}{db}\) should have the same shape as \(b\), which is (C). If we take a look at equation (2), \(y\) is related to \(W\) via the matrix \(x\). If they are scalars, then \(\frac{dy}{dW}=x\). Even they are now matrices/vectors, this intuition still holds: the gradients of \(y\) with respect to \(W\) is some form of \(x\). And after applying the chain rule, \(\frac{dL}{dw}=\frac{dL}{dy}\cdot\frac{dy}{dW}\), we should get a matrix of shape (D, C).
+First of all, \(\frac{dL}{dW}\) should have the same shape as \(W\), which is (D, C), and \(\frac{dL}{db}\) should have the same shape as \(b\), which is (C). If we take a look at equation (1), \(y\) is related to \(W\) via the matrix \(x\). If they are scalars, then \(\frac{dy}{dW}=x\). Even they are now matrices/vectors, this intuition still holds: the gradients of \(y\) with respect to \(W\) is some form of \(x\). And after applying the chain rule, \(\frac{dL}{dW}=\frac{dL}{dy}\cdot\frac{dy}{dW}\), we should get a matrix of shape (D, C).
 
-Since \(\frac{dL}{dy}\) is of shape (N, C), \(\frac{dy}{dW}\) is some form of \(x\), and when they are multiplied together, they should give a matrix of shape (D, C). By intuition, this some form of \(x\) needs to have a shape of \(D, N\) such that when we multiply (D, N) by (N, C), we get (D, C). And the form of \(x\) that would be of shape (D, N) is \(x^T\). So we can *guess* that \(\frac{dL}{dW}=x^T\cdot\frac{dL}{dy}\). Remember that \(\frac{dL}{dy}\) is the known upstream gradient with a shape of (N, C). We will later verify it.
+Since \(\frac{dL}{dy}\) is of shape (N, C), \(\frac{dy}{dW}\) is some form of \(x\), and when they are multiplied together, they should give a matrix of shape (D, C). By intuition, this some form of \(x\) needs to have a shape of (D, N) such that when we multiply (D, N) by (N, C), we get (D, C). And the form of \(x\) that would be of shape (D, N) is \(x^T\). So we can *guess* that \(\frac{dL}{dW}=x^T\cdot\frac{dL}{dy}\). Remember that \(\frac{dL}{dy}\) is the known upstream gradient with a shape of (N, C). We will later verify it.
 
-Now let's compute \(\frac{dL}{db}\). Similarly, it should have a shape of (C). Then let's look at equation (2) again, if they are all scalars, then \(\frac{dL}{db}=\frac{dL}{dy}\frac{dy}{db}=\frac{dL}{dy}\cdot1=\frac{dL}{dy}\). So, \(\frac{dL}{db}\) should be some form of \(\frac{dL}{dy}\). So, what form of a matrix of shape (N, C) would give us a vector of shape (C)? The answer is to sum over its first dimension. In `numpy`, it can be written as follows (note that in all codes, I will omit the \(dL\) part in naming for brevity).
+Now let's compute \(\frac{dL}{db}\). Similarly, it should have a shape of (C). Then let's look at equation (1) again, if they are all scalars, then \(\frac{dL}{db}=\frac{dL}{dy}\frac{dy}{db}=\frac{dL}{dy}\cdot1=\frac{dL}{dy}\). So, \(\frac{dL}{db}\) should be some form of \(\frac{dL}{dy}\). So, what form of a matrix of shape (N, C) would give us a vector of shape (C)? The answer is to sum over its first dimension. In `numpy`, it can be written as follows (note that in all codes, I will omit the \(dL\) part in naming for brevity).
 
 ```python
 # dy is upstream gradient of shape (N, C)
 db = np.sum(dy, axis=0)
 ```
 
-To understand why it is a sum, think of how \(b\) is added to \(xW\) to get \(y\). This is the addition of a (N, C) matrix and a (C) vector and it happens by element-wise addition of each row vecotr of the matrix \(xW\) and the vector \(b\). This means \(b[0]\) is added to the 0-th element of each row of \(xW\) and that means in the forward pass, there are black arrows from the 0-th elememnt of \(b\) to the 0-th element of each row of \(y\). So, in the backward pass, there are red arrows from all 0-th elements of \(y\) to the 0-the element of \(b\). So, all the 0-th element of each row of \(\frac{dL}{dy}\) flow to the 0th-element \(\frac{dL}{db}\). When you have multiple gradeints flow into a variable, you sum them up. This is illustrated in Figure 6.
+To understand why it is a sum, think of how \(b\) is added to \(xW\) to get \(y\). This is the addition of a (N, C) matrix and a (C) vector and it happens by element-wise addition of each row vector of the matrix \(xW\) and the vector \(b\). This means \(b[0]\) is added to the 0-th element of each row of \(xW\) and that means in the forward pass, there are black arrows from the 0-th elememnt of \(b\) to the 0-th element of each row of \(y\). So, in the backward pass, there are red arrows from all 0-th elements of each row of \(y\) to the 0-the element of \(b\). So, all the 0-th elements of each row of \(\frac{dL}{dy}\) flow to the 0th-element of \(\frac{dL}{db}\). When you have multiple gradients flow into a variable, you sum them up. This is illustrated in Figure 6.
 
 <img src="linear_model.png"/>
 
-**Figure 6.** To understand why we sum \(\frac{dL}{dy}\) to get \(\frac{dL}{db}\), this of how \(b\) and \(y\) are connected in the forward and backwarda passes.
+**Figure 6.** To understand why we sum \(\frac{dL}{dy}\) to get \(\frac{dL}{db}\), think of how \(b\) and \(y\) are connected in the forward and backwarda passes.
 
-To understand why we need to sum gradients up, let's look at a scalar example \(y=ax+\frac{b}{x}\), which is shown in the following computational graph: we can compute the derivative of \(y\) with resepct to \(x\) in one backward path via \(u\) by applying the chain rule \(\frac{dy}{dx}_{1}=\frac{dy}{du}\frac{du}{dx}\), and similarly via \(v\) by \(\frac{dy}{dx}_{2}=\frac{dy}{dv}\frac{dv}{dx}\). At the end \(\{dy}{dx}\) should be a sum of \(\frac{dy}{dx}_{1}\) and \(\frac{dy}{dx}_{2}\). And this would give us the correct result \(\frac{dy}{dx}=a-\frac{b}{x^2}\).
+To understand why we need to sum gradients up, let's look at a scalar example \(y=ax+\frac{b}{x}\), which is shown in the following computational graph: we can compute the derivative of \(y\) with resepct to \(x\) in one backward path via \(u\) by applying the chain rule \(\frac{dy}{dx}_{1}=\frac{dy}{du}\frac{du}{dx}\), and similarly via \(v\) by \(\frac{dy}{dx}_{2}=\frac{dy}{dv}\frac{dv}{dx}\). At the end \(\frac{dy}{dx}\) should be a sum of \(\frac{dy}{dx}_{1}\) and \(\frac{dy}{dx}_{2}\). And this would give us the correct result \(\frac{dy}{dx}=a-\frac{b}{x^2}\).
 
 <img src="gradient_accumulation.png" width="50%"/>
 
@@ -194,7 +191,7 @@ def backward(dout, cache):
     return dW, db
 ```
 
-To verify the correctness, the idea is to compute gradients using the definition of derivative: the derivative of \(f\left(x\right)\) with respect to \(x\) is defined as follows. In practice, the way to simulate \(\Delta\rightarrow0\) is to just set \(\Delta\) it to be a very small number like 0.001. This idea is usually called "numerical gradient checking".
+To verify the correctness, the idea is to compute gradients using the definition of derivative: the derivative of \(f\left(x\right)\) with respect to \(x\) is defined as follows. In practice, the way to simulate \(\Delta\rightarrow0\) is to just set \(\Delta\) to be a very small number like 0.0001. This idea is usually called "numerical gradient checking".
 
 $$
 \frac{df}{dx}=\lim_{\Delta\rightarrow0}\frac{f\left(x+\Delta\right)-f\left(x\right)}{\Delta}
@@ -216,7 +213,7 @@ def gradient_check_dW(x, W, b, dW, dout, i, j):
     assert math.isclose(grad, dW[i][j])
 ```
 
-The interesting part is the line `grad = np.sum(((out2 - out1) / delta) * dout)`: `(out2 - out1) / delta` is basically the numerical approximation to the derivative definition, `* delta` is to multiply with upstream gradients (chain rule), and `np.sum` is to accumulate all gradients that flow to `W[i][j]`.
+The interesting part is the line `grad = np.sum(((out2 - out1) / delta) * dout)`: `(out2 - out1) / delta` is basically the numerical approximation to the derivative definition, `* dout` is to multiply with upstream gradients (chain rule), and `np.sum` is to accumulate all gradients that flow to `W[i][j]`.
 
 Similarly, we can compute a function that helps us check \(\frac{dL}{db}\).
 
@@ -242,7 +239,7 @@ x = np.random.randn(N, D)
 W = np.random.randn(D, C)
 b = np.random.randn(C)
 out, cache = forward(x, W, b)
-print(out.shape)
+print(out.shape)  # (32, 10)
 
 dout = np.random.randn(N, C)
 dW, db = backward(dout, cache)
