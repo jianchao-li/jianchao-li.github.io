@@ -18,7 +18,7 @@ showComments: false
     </div>
     <div class="timeline-content">
       <h3>Senior Software Engineer at Meta</h3>
-      <span class="timeline-date">January 2021 - Present</span>
+      <span class="timeline-date">January 2021 - June 2026</span>
       <span class="timeline-location">Zurich, Switzerland</span>
     </div>
   </div>
