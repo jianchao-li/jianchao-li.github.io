@@ -14,6 +14,17 @@ showComments: false
 <div class="timeline">
   <div class="timeline-item">
     <div class="timeline-marker">
+      <a href="https://www.mistral.ai/" target="_blank"><img class="nozoom" src="mistral.png" alt="Mistral AI"></a>
+    </div>
+    <div class="timeline-content">
+      <h3>Research Engineer at Mistral AI</h3>
+      <span class="timeline-date">September 2026 - Present</span>
+      <span class="timeline-location">Zurich, Switzerland</span>
+    </div>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-marker">
       <a href="https://www.meta.com/" target="_blank"><img class="nozoom" src="meta.png" alt="Meta"></a>
     </div>
     <div class="timeline-content">
