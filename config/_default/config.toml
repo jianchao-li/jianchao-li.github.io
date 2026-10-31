@@ -1,7 +1,5 @@
 baseURL = "https://www.jianchao.xyz/"
 title = "Jianchao Li"
-languageCode = "en"
-defaultContentLanguage = "en"
 theme = "blowfish"
 
 enableEmoji = true

@@ -1,6 +1,6 @@
 # Personal Website Builder
 
-Source repository for [jiaochao.xyz](https://jianchao.xyz) — the personal website and blog of Jianchao Li.
+Source repository for [jianchao.xyz](https://www.jianchao.xyz) — the personal website and blog of Jianchao Li.
 
 ## Tech Stack
 
@@ -15,8 +15,6 @@ Source repository for [jiaochao.xyz](https://jianchao.xyz) — the personal webs
 
 ```bash
 # Start development server
-./view.sh
-# Or manually:
 hugo server --printI18nWarnings
 
 # Visit http://localhost:1313
@@ -29,7 +27,7 @@ Pushes to the `master` branch automatically trigger a [GitHub Actions workflow](
 ## Repository Structure
 
 ```
-website-builder/
+jianchao-li.github.io/
 ├── .github/workflows/   # GitHub Actions deployment workflow
 ├── assets/
 │   ├── css/custom.css   # Custom style overrides
@@ -37,10 +35,11 @@ website-builder/
 ├── config/_default/     # Hugo configuration (site, params, menus, languages)
 ├── content/
 │   ├── about/           # About page with professional timeline
-│   ├── post/            # Blog posts
+│   ├── posts/           # Blog posts
 │   └── projects/        # Project showcases
 ├── layouts/
-│   ├── partials/        # Custom partials (analytics, comments)
+│   ├── _default/        # Single-page layout and math render hooks
+│   ├── partials/        # Custom partials (analytics, comments, home profile)
 │   ├── 404.html         # Custom 404 page
 │   └── robots.txt       # robots.txt template
 ├── static/              # Favicons and static assets

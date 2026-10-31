@@ -26,7 +26,6 @@ showScrollToTop = true
   showDateUpdated = true
   showAuthor = true
   showReadingTime = true
-  showTableOfContents = true
   showTaxonomies = true
   showWordCount = false
   showComments = true
