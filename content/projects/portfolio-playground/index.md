@@ -1,7 +1,8 @@
 ---
 title: "Portfolio Playground"
 summary: "A web app for building custom investment portfolios, visualizing historical performance, and comparing risk/return metrics."
-tags: ["Next.js", "FastAPI", "yfinance"]
+description: "Portfolio Playground is a web app for building percentage-weighted portfolios from Yahoo Finance data and comparing their historical returns and risk."
+tags: ["next.js", "fastapi", "yfinance"]
 weight: 1
 showDate: false
 showReadingTime: false
@@ -48,17 +49,25 @@ showComments: false
 
 **Performance Chart.** All portfolios are plotted on a normalized $100-start line chart with a configurable date range. The normalization makes comparison fair regardless of actual share prices. Interactive tooltips and hover highlighting let you drill into specific dates and portfolios.
 
-{{< figure src="performance.png" caption="Performance chart comparing multiple portfolios, normalized to a $100 starting value." >}}
+{{< figure src="performance.png" alt="Line chart of several portfolios growing from a common $100 starting value over time" caption="Performance chart comparing multiple portfolios, normalized to a $100 starting value." >}}
 
 **Statistics Table.** A side-by-side comparison of Total Return, Annualized Return, Volatility, Sharpe Ratio, and Max Drawdown. Each metric has a tooltip explaining what it measures.
 
-{{< figure src="statistics.png" caption="Statistics table showing key risk and return metrics for each portfolio." >}}
+{{< figure src="statistics.png" alt="Table comparing total return, annualized return, volatility, Sharpe ratio, and max drawdown across portfolios" caption="Statistics table showing key risk and return metrics for each portfolio." >}}
 
 **Multi-Currency Support.** You can view all results in any of 40 currencies — from major ones like USD, EUR, GBP, JPY, and CHF to emerging-market currencies like BRL, CNY, INR, and KRW. The app fetches real exchange rates and applies the conversion, so you can see how your portfolio performs in the currency you actually spend.
 
 **Asset Allocation View.** Hover over any portfolio chip to see a donut chart breakdown of its holdings and weights. It's a small detail, but it makes it much easier to remember what's inside each portfolio when you're comparing several at once.
 
-{{< figure src="donut.png" caption="Asset allocation donut chart showing portfolio holdings and weights on hover." >}}
+{{< figure src="donut.png" alt="Donut chart showing the holdings and percentage weights of one portfolio" caption="Asset allocation donut chart showing portfolio holdings and weights on hover." >}}
+
+## Methodology
+
+- Prices are daily adjusted closes from Yahoo Finance (via yfinance), so dividends and splits are reflected.
+- Each portfolio is buy-and-hold with no rebalancing: weights are set on the start date and then drift with market movements.
+- Calculations are done in USD, and assets are assumed to be USD-priced; other currencies are applied as a conversion of the USD result.
+- Annualized figures assume 252 trading days per year. The Sharpe ratio uses the average 3-month US T-bill yield as the risk-free rate, regardless of the display currency.
+- A portfolio's history is limited by its youngest asset, so recently launched tickers (e.g. IBIT, launched in 2024) give short histories.
 
 ## Disclaimers
 
