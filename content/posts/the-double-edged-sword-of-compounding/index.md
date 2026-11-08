@@ -97,7 +97,7 @@ options: {
 
 ## The magic of Compound Interest
 
-> "Compound interest is the eighth wonder of the world. He who understands it, earns it... he who doesn't... pays it." - Albert Einstein
+> "Compound interest is the eighth wonder of the world. He who understands it, earns it... he who doesn't... pays it." — often attributed to Albert Einstein, though there is no evidence he said it
 
 Looking at the chart above, you might realize the magic of compound interest: starting with $100 in principal, earning 10% interests per year, by the beginning of the 9th year, you have doubled your money. If this doesn't amaze you, let's explore two more calculations to help you fully appreciate it.
 
@@ -191,7 +191,7 @@ Now, let's consider the non-compounding case, where the annual interest payment 
 
 The snowball effect of compound interest described above is known as [exponential growth](https://en.wikipedia.org/wiki/Exponential_growth), or more dramatically, [exponential explosion](https://www.stewartmath.com/dp_fops_samples/dp7.html). This is the essence of the magic of compound interest — over time, the amount of your money grows exponentially to a "formidable" sum (though not so dramatic in the example above, largely due to the small $100 principal).
 
-If we chart the results of compounding versus non-compounding over 50 years, the "explosion" or magic of compound interest becomes much more evident. After 50 years, your initial $100 principal grows to around $11,739! And remember, this 117-fold growth comes from a "modest" 10% compound interest rate. Take a moment to think about it: a 117-times increase from just 0.1, and you will start to appreciate the magic of compound interest. By comparison, in the non-compounding case, it would take 1,164 years to grow to $11,739!
+If we chart the results of compounding versus non-compounding over 50 years, the "explosion" or magic of compound interest becomes much more evident. After 50 years, your initial $100 principal grows to around $11,739! And remember, this 117-fold growth comes from a "modest" 10% compound interest rate. Take a moment to think about it: a 117-times increase from a rate of just 10%, and you will start to appreciate the magic of compound interest. By comparison, in the non-compounding case, it would take 1,164 years to grow to $11,739!
 
 {{< chart >}}
 type: 'line',
@@ -276,7 +276,7 @@ From the discussions above, I hope you now appreciate the magic of compounding i
 
 In the real world, investing is not free. While the market might generate an annualized return of 10%, you don't get to keep all of it. A portion is deducted as investment costs. A common example of such costs is the [total expense ratio](https://en.wikipedia.org/wiki/Total_expense_ratio) (TER) of investment funds, where you pay a percentage of your money to the fund providers each year. When it comes to costs, compounding works against you.
 
-Let’s revisit the compound interest example of 10% and consider a principal of $10,000. Suppose the TER is 1%. After one year, your gross amount would grow to $11,000 ($10,000 x 10%). However, you would pay $100 ($10,000 x 1%) in fees to the fund providers, leaving you with a net amount of $10,900. Effectively, your net compound interest rate is 9%. This leads to the following simple and clean formula:
+Let’s revisit the compound interest example of 10% and consider a principal of $10,000. Suppose the TER is 1%. After one year, your gross amount would grow to $11,000 ($10,000 x (1 + 10%)). However, you would pay $100 ($10,000 x 1%) in fees to the fund providers, leaving you with a net amount of $10,900. Effectively, your net compound interest rate is 9%. This leads to the following simple and clean formula:
 
 Net annualized rate of return = Gross annualized rate of return - Total expense ratio
 
@@ -451,7 +451,7 @@ Let’s consider a simple example where the market drops by 10% in the first yea
 
 #### Using Variable Actual Returns
 
-| Year | Market Value ($) | Investment Value ($) |
+| Year | Value Before Fee ($) | Investment Value ($) |
 | ------- | ------- | ------- |
 | 1 | 900 | 890 |
 | 2 | 1,068 | 1,059.1|
@@ -463,7 +463,7 @@ Let’s consider a simple example where the market drops by 10% in the first yea
 
 #### Using Annualized Rate of Return
 
-| Year | Market Value ($) | Investment Value ($) |
+| Year | Value Before Fee ($) | Investment Value ($) |
 | ------- | ------- | ------- |
 | 1 | 1039.2 | 1029.2 |
 | 2 | 1069.54 | 1059.25|
@@ -472,7 +472,7 @@ Let’s consider a simple example where the market drops by 10% in the first yea
 
 * Here, we apply the annualized rate of return (3.92%), reduced by the TER of 1%, resulting in a net return of 2.92%. The calculations follow the same logic as the fixed compound interest example.
 
-As shown in the tables above, the final values are very similar (up to rounding differences), regardless of whether we use the variable actual returns and the fixed annualized rate of return. This demonstrates that using the annualized rate still accurately reflects the impact of costs while simplifying the calculations.
+As shown in the tables above, the final values are very close ($1,059.10 versus $1,059.25), regardless of whether we use the variable actual returns or the fixed annualized rate of return. They are not exactly equal, as subtracting the TER from the annualized rate is an approximation when returns vary, but the difference is small. This demonstrates that using the annualized rate still closely reflects the impact of costs while simplifying the calculations.
 
 ### Caveat 3: Costs Based on Final Value
 
@@ -487,7 +487,7 @@ data: {
   datasets: [
     {
       label: 'Cost on Initial Value',
-      data: [23694.28, 55580.49, 130377.06, 305829.94, 717395.74],
+      data: [23673.64, 56044.11, 132676.78, 314094.20, 743575.20],
       borderColor: 'rgb(34, 139, 34)',
       backgroundColor: 'rgba(34, 139, 34, 0.1)',
       borderWidth: 2,
@@ -546,7 +546,7 @@ options: {
 
 <small>**Figure 6.** Costs deducted based on final value ($10,000 principal, 10% return, 1% TER)</small>
 
-In this scenario, the net rate of return drops to approximately 8.9% (you can verify it using [this calculator](https://www.buyupside.com/calculators/annualizedreturn.htm)), which is slightly lower than (but similar to) the 9% achieved when costs are calculated based on the initial value.
+In this scenario, the net rate of return drops to exactly 8.9% (each year your money is multiplied by 1.10 x 0.99 = 1.089), which is slightly lower than (but similar to) the 9% achieved when costs are calculated based on the initial value.
 
 ### How to Avoid the Double-Edged Sword
 
