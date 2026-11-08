@@ -1,36 +1,38 @@
 ---
 title: "Rate Limiters"
-summary: "I will explain five algorithms for rate limiters with example Python implementation: token bucket, leaky bucket, fixed window counter, sliding window log and sliding window counter."
+summary: "I will explain five algorithms for rate limiters with example Python implementations: token bucket, leaky bucket, fixed window counter, sliding window log, and sliding window counter."
 tags: ["software-engineering", "system-design", "rate-limiting"]
-description: "An explanation of five rate limiting algorithms."
+description: "Five rate limiting algorithms (token bucket, leaky bucket, fixed window, sliding window log and counter) explained with minimal Python implementations."
 date: 2026-06-19T14:45:22+02:00
-lastmod: 2026-07-17
+lastmod: 2026-11-08
+showTableOfContents: true
 draft: false
 ---
 
-I recently read about [rate limiting](https://en.wikipedia.org/wiki/Rate_limiting) in Alex Xu's [System Design Interview - An Insider's Guide](https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF) (you can find a copy [here](https://bytes.usc.edu/~saty/courses/docs/data/SystemDesignInterview.pdf)). The book provides a nice illustration of five rate-limiting algorithms: token bucket, leaky bucket, fixed window counter, sliding window log, and sliding window counter.
+I recently read about [rate limiting](https://en.wikipedia.org/wiki/Rate_limiting) in Alex Xu's [System Design Interview - An Insider's Guide](https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF) (the rate limiter chapter is also available on the [publisher's site](https://bytebytego.com/courses/system-design-interview/design-a-rate-limiter)). The book provides a nice illustration of five rate-limiting algorithms: token bucket, leaky bucket, fixed window counter, sliding window log, and sliding window counter.
 
 Reading about a concept from a great book can easily give me the illusion that I understand it. So, I decided to implement the five algorithms myself to verify whether I have truly grasped the nitty-gritty details.
 
-**Disclaimer**: I won't go into the algorithms in detail in this post. You can read about them on pages 54 to 62 in the copy above. Moreover, all the implementations that follow are based on my own understanding and are intended to explain the algorithms rather than replicate what production implementations look like in real-world systems.
+**Disclaimer**: I won't go into the algorithms in detail in this post. You can read about them in the rate limiter chapter of the book. Moreover, all the implementations that follow are based on my own understanding and are intended to explain the algorithms rather than replicate what production implementations look like in real-world systems.
 
-# Interface
+## Interface
 
 For rate limiters, the core interface boils down to the following: it takes a `request` containing a `timestamp` and decides whether to accept or reject it.
 
 ```python
+from collections import deque
 from dataclasses import dataclass
 
 @dataclass
 class Request:
-	timestamp: int
+    timestamp: float  # In seconds
 
 class RateLimiter:
-	def accept(self, request: Request) -> bool:
-	    pass
+    def accept(self, request: Request) -> bool:
+        pass
 ```
 
-# Token bucket
+## Token bucket
 
 In the token bucket algorithm, you have a bucket that contains a specified number of tokens (`bucket_size`; note that these are unrelated to the tokens in LLMs). When a request arrives, it consumes one token and is processed. Tokens are refilled at a specified rate (`refill_rate`). **In the following implementations, all rates are defined per minute.**
 
@@ -50,14 +52,14 @@ class TokenBucket:
             self.last = request.timestamp
             self.tokens -= 1
             return True
-		 
+
         # Compute how many tokens are refilled
         delta = request.timestamp - self.last
         self.tokens = min(
             self.bucket_size,
             self.tokens + self.refill_rate * delta * SECONDS_TO_MINUTES,
         )
-        
+
         self.last = request.timestamp
 
         if self.tokens < 1:
@@ -67,7 +69,7 @@ class TokenBucket:
         return True
 ```
 
-# Leaky bucket
+## Leaky bucket
 
 The leaky bucket algorithm is similar to the token bucket algorithm. You have a bucket with a specified size (`bucket_size`), and it leaks at a specified rate (`leak_rate`). You can think of it as a fixed-size queue where incoming requests are added and then processed and dequeued at a certain rate. The code is very similar to that of the token bucket implementation.
 
@@ -97,7 +99,7 @@ class LeakyBucket:
         return True
 ```
 
-# Fixed window counter
+## Fixed window counter
 
 The fixed window counter algorithm divides time into fixed-size windows (**we use 60-second windows for all the following algorithms**). A counter (`count`) tracks how many requests have been accepted within each window. A request is accepted only if the counter does not exceed the limit (`limit`).
 
@@ -106,7 +108,7 @@ class FixedWindowCounter:
     def __init__(self, limit: int, window: int = 60) -> None:
         self.limit = limit
         self.window = window
-        self.start = None  # The stating timestamp of the current window
+        self.start = None  # Index of the current fixed window
         self.count = 0
 
     def accept(self, request: Request) -> bool:
@@ -123,7 +125,7 @@ class FixedWindowCounter:
         return True
 ```
 
-# Sliding window log
+## Sliding window log
 
 The fixed window counter has the problem of accepting too many requests when there is a burst of requests near the window boundaries. The sliding window log algorithm fixes this by using a sliding window: when a request arrives, we treat its timestamp as the end of the window and check whether the number of accepted requests within this window has exceeded the limit.
 
@@ -135,7 +137,7 @@ class SlidingWindowLog:
         self.q = deque()
 
     def accept(self, request: Request) -> bool:
-        cutoff = req.timestamp - self.window
+        cutoff = request.timestamp - self.window
 
         # Remove requests that fall outside the window ending at the current timestamp
         while self.q and self.q[0] <= cutoff:
@@ -146,17 +148,17 @@ class SlidingWindowLog:
 
         self.q.append(request.timestamp)
         return True
-``` 
+```
 
-# Sliding window counter
+## Sliding window counter
 
 The sliding window counter algorithm is a combination of the fixed window counter and sliding window log algorithms. It calculates the number of accepted requests in the sliding window as the sum of the number of requests in the current fixed window and the number of requests in the previous fixed window multiplied by the overlap percentage between the sliding window and the previous fixed window.
 
-If this explanation is difficult to follow, Figure 4-11 in the copy of Alex's book should make it clear.
+If this explanation is difficult to follow, Figure 4-11 in Alex's book should make it clear.
 
 ```python
 class SlidingWindowCounter:
-    def __init__(self, limit: int, window: int = 60) -> bool:
+    def __init__(self, limit: int, window: int = 60) -> None:
         self.limit = limit
         self.window = window
         self.curr_start = None  # Index of the current fixed window
@@ -168,7 +170,7 @@ class SlidingWindowCounter:
         return int(t // self.window)
 
     def accept(self, request: Request) -> bool:
-        w = self._start(req.timestamp)
+        w = self._start(request.timestamp)
 
         if self.curr_start is None:
             # First request
@@ -192,7 +194,7 @@ class SlidingWindowCounter:
         return True
 ```
 
-# Simulation: burst of traffic near window boundaries
+## Simulation: burst of traffic near window boundaries
 
 An interesting case to simulate is a burst of traffic near window boundaries. This should reveal the weakness of the fixed window counter algorithm. The simulation is performed as follows.
 
@@ -233,7 +235,7 @@ if __name__ == "__main__":
     run()
 ```
 
-The following is the result we obtain. As can be seen, the fixed window counter allows all 200 requests, while all other algorithms allow rougly 100 requests as intended.
+The following is the result we obtain. As can be seen, the fixed window counter allows all 200 requests, while all other algorithms allow roughly 100 requests as intended.
 
 ```
 token          : 100
