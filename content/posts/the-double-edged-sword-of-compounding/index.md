@@ -1,11 +1,12 @@
 ---
 title: "The Double-Edged Sword of Compounding"
 summary: "While many investors understand the power of compound returns, they may not fully grasp that compounding can also result in a significant downside. This post explores this double-edged sword."
-description: "Understanding how compound returns work both for and against investors — the mathematical reality behind compounding gains and losses."
+description: "Worked examples of how compounding grows returns over decades, and how an annual fund fee such as a 1% TER compounds into large losses."
 tags: ["investing", "finance"]
 date: 2025-01-03T22:08:00+01:00
-lastmod: 2025-01-03T22:08:00+01:00
+lastmod: 2026-11-08
 draft: false
+showTableOfContents: true
 ---
 Starting with this post, I want to venture into a new area — investing — distinct from my usual topics of computer vision, deep learning, etc. Investing has become my latest hobby, and after diving into it, I have found it both fascinating and inspiring.
 
@@ -99,7 +100,7 @@ options: {
 
 > "Compound interest is the eighth wonder of the world. He who understands it, earns it... he who doesn't... pays it." — often attributed to Albert Einstein, though there is no evidence he said it
 
-Looking at the chart above, you might realize the magic of compound interest: starting with $100 in principal, earning 10% interests per year, by the beginning of the 9th year, you have doubled your money. If this doesn't amaze you, let's explore two more calculations to help you fully appreciate it.
+Looking at the chart above, you might realize the magic of compound interest: starting with $100 in principal, earning 10% interest per year, by the beginning of the 9th year, you have doubled your money. If this doesn't amaze you, let's explore two more calculations to help you fully appreciate it.
 
 ### Compounding Over 30 Years
 
@@ -189,7 +190,7 @@ Now, let's consider the non-compounding case, where the annual interest payment 
 
 ### Exponential Explosion
 
-The snowball effect of compound interest described above is known as [exponential growth](https://en.wikipedia.org/wiki/Exponential_growth), or more dramatically, [exponential explosion](https://www.stewartmath.com/dp_fops_samples/dp7.html). This is the essence of the magic of compound interest — over time, the amount of your money grows exponentially to a "formidable" sum (though not so dramatic in the example above, largely due to the small $100 principal).
+The snowball effect of compound interest described above is known as [exponential growth](https://en.wikipedia.org/wiki/Exponential_growth), or more dramatically, [exponential explosion](https://www.stewartmath.com/dp_fops_samples/dp7.html). This is the essence of the magic of compound interest — over time, the amount of your money grows exponentially to a "formidable" sum (though not so dramatic in the example above, because 30 years is still early on an exponential curve; the growth multiple depends on the rate and time, not the size of the principal).
 
 If we chart the results of compounding versus non-compounding over 50 years, the "explosion" or magic of compound interest becomes much more evident. After 50 years, your initial $100 principal grows to around $11,739! And remember, this 117-fold growth comes from a "modest" 10% compound interest rate. Take a moment to think about it: a 117-times increase from a rate of just 10%, and you will start to appreciate the magic of compound interest. By comparison, in the non-compounding case, it would take 1,164 years to grow to $11,739!
 
@@ -262,11 +263,11 @@ For what it's worth, the non-compounding case is also known as [simple interest]
 
 ## Why Care About Compound Interest
 
-Now that we understand compound interest, why is it important to investing? The answer is simple: it measures your return on investment. If you are familiar with investing, you have likely heard terms like "the annualized rate of return is X% over the past Y years". This "annualized rate of return" is similar (but not identical) to the compound interest rate we discussed earlier. As we have seen, compound interest has the magic to grow your money into a formidable sum over time.
+Now that we understand compound interest, why is it important to investing? The answer is simple: investment returns are usually expressed as an equivalent compound rate. If you are familiar with investing, you have likely heard terms like "the annualized rate of return is X% over the past Y years". This "annualized rate of return" is similar (but not identical) to the compound interest rate we discussed earlier. As we have seen, compound interest has the magic to grow your money into a formidable sum over time.
 
 ### Misconceptions
 
-While the "annualized rate of return" is similar to the compound interest rate in our example, there is a crucial difference that often leads to misconceptions. In our compound interest example, the 10% interest rate is fixed every year. However, in real-world investing, the rate is almost never fixed. For instance, an annualized rate of return of 10% does NOT mean you are guaranteed to earn 10% each year! Instead, the annualized rate of return is calculated by comparing the starting and ending values of an investment over a given time period and determining the *equivalent* compound interest rate. If you are interested in how it is computated, you can play with it using [this calculator](https://www.buyupside.com/calculators/annualizedreturn.htm).
+While the "annualized rate of return" is similar to the compound interest rate in our example, there is a crucial difference that often leads to misconceptions. In our compound interest example, the 10% interest rate is fixed every year. However, in real-world investing, the rate is almost never fixed. For instance, an annualized rate of return of 10% does NOT mean you are guaranteed to earn 10% each year! Instead, the annualized rate of return is calculated by comparing the starting and ending values of an investment over a given time period and determining the *equivalent* compound interest rate. If you are interested in how it is computed, you can play with it using [this calculator](https://www.buyupside.com/calculators/annualizedreturn.htm). Note that the annualized return is also lower than the simple average of yearly returns whenever returns vary: a −10% year followed by a +20% year averages 5%, but the annualized return is only about 3.92% (√(0.9 × 1.2) − 1).
 
 It is crucial for all investors to dispel this misconception and set realistic expectations.
 
@@ -274,7 +275,7 @@ It is crucial for all investors to dispel this misconception and set realistic e
 
 From the discussions above, I hope you now appreciate the magic of compounding in investing. However, it is equally important to understand why compounding can become a double-edged sword. The reason is simple: while compounding can work wonders, it can also work against you.
 
-In the real world, investing is not free. While the market might generate an annualized return of 10%, you don't get to keep all of it. A portion is deducted as investment costs. A common example of such costs is the [total expense ratio](https://en.wikipedia.org/wiki/Total_expense_ratio) (TER) of investment funds, where you pay a percentage of your money to the fund providers each year. When it comes to costs, compounding works against you.
+In the real world, investing is not free. While the market might generate an annualized return of 10% (roughly the long-run nominal return of US stocks, before inflation and taxes), you don't get to keep all of it. A portion is deducted as investment costs. A common example of such costs is the [total expense ratio](https://en.wikipedia.org/wiki/Total_expense_ratio) (TER) of investment funds, where you pay a percentage of your money to the fund providers each year. When it comes to costs, compounding works against you.
 
 Let’s revisit the compound interest example of 10% and consider a principal of $10,000. Suppose the TER is 1%. After one year, your gross amount would grow to $11,000 ($10,000 x (1 + 10%)). However, you would pay $100 ($10,000 x 1%) in fees to the fund providers, leaving you with a net amount of $10,900. Effectively, your net compound interest rate is 9%. This leads to the following simple and clean formula:
 
@@ -435,7 +436,7 @@ options: {
 
 <small>**Figure 5.** Value lost to 1% TER fees over 50 years ($10,000 principal)</small>
 
-As shown in the chart, over 50 years, you lose a staggering $430,333 to fees — more than 43 times your initial $10,000 principal! Once again, this immense loss results from a seemingly "small" 1% annual fee.
+As shown in the chart, over 50 years, you lose $430,333 to fees — more than 43 times your initial $10,000 principal! Once again, this immense loss results from a seemingly "small" 1% annual fee.
 
 By now, it should be clear: costs also compound, and over time, they can amount to a formidable loss. This is why compounding can be a double-edged sword.
 
@@ -445,7 +446,7 @@ It is important to clarify that while the loss is caused by fees, the loss itsel
 
 ### Caveat 2: Variable Actual Returns
 
-It is important to note that, for simplicity, we use the annualized rate of return similar to a fixed compound interest rate to illustrate how costs impact returns. However, the math demonstrating the effect of costs remains valid even when applied to variable actual returns.
+It is important to note that, for simplicity, we use the annualized rate of return similar to a fixed compound interest rate to illustrate how costs impact returns. However, the math demonstrating the effect of costs remains approximately valid even when applied to variable actual returns.
 
 Let’s consider a simple example where the market drops by 10% in the first year and grows by 20% in the second year. This results in an annualized rate of return of approximately 3.92% over two years (you can verify it using [this calculator](https://www.buyupside.com/calculators/annualizedreturn.htm)). Assuming a TER of 1%, we will calculate the end value using both the variable actual returns and the annualized rate of return in the following tables.
 
@@ -546,7 +547,7 @@ options: {
 
 <small>**Figure 6.** Costs deducted based on final value ($10,000 principal, 10% return, 1% TER)</small>
 
-In this scenario, the net rate of return drops to exactly 8.9% (each year your money is multiplied by 1.10 x 0.99 = 1.089), which is slightly lower than (but similar to) the 9% achieved when costs are calculated based on the initial value.
+In this scenario, the net rate of return drops to exactly 8.9% (each year your money is multiplied by 1.10 x 0.99 = 1.089), which is slightly lower than (but similar to) the 9% achieved when costs are calculated based on the initial value. This model is also closer to how real funds charge their TER, which accrues daily on the current value of your investment rather than on the value at the start of the year.
 
 ### How to Avoid the Double-Edged Sword
 
