@@ -38,7 +38,7 @@ showComments: false
   <a href="https://github.com/jianchao-li/portfolio-playground" target="_blank" class="project-btn">Source Code</a>
 </div>
 
-{{< video src="demo.mov" autoplay="true" loop="true" muted="true" >}}
+{{< video src="demo.mp4" autoplay="true" loop="true" muted="true" >}}
 
 [Portfolio Playground](https://portfolio-playground-frontend.vercel.app/) lets you build custom investment portfolios from real market data, visualize their historical performance, and compare key risk/return metrics side by side. Here's what it can do.
 

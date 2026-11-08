@@ -18,9 +18,9 @@ Before committing to a portfolio, I wanted to see how different strategies have 
 
 The common tools didn't quite fit. [Google Finance](https://www.google.com/finance/) and [Yahoo Finance](https://finance.yahoo.com/) both require entering a specific number of shares for each asset — but when designing a portfolio, the natural unit is percentages ("60% stocks, 40% bonds"), not share counts. [Portfolio Visualizer](https://www.portfoliovisualizer.com/) looked more promising, but it's behind a paywall. I wanted something I could freely tinker with.
 
-{{< figure src="gfinance.png" caption="**Figure 1.** Google Finance asks for the number of shares when adding an asset to a portfolio." >}}
+{{< figure src="gfinance.jpg" caption="**Figure 1.** Google Finance asks for the number of shares when adding an asset to a portfolio." >}}
 
-{{< figure src="yfinance.png" caption="**Figure 2.** Yahoo Finance also requires specifying the number of shares purchased." >}}
+{{< figure src="yfinance.jpg" caption="**Figure 2.** Yahoo Finance also requires specifying the number of shares purchased." >}}
 
 Since I'm a software engineer, the obvious next thought was: why not build it myself? With the promise of [vibe coding](https://x.com/karpathy/status/1886192184808149383), I gave it a try this weekend and built **[Portfolio Playground](https://portfolio-playground-frontend.vercel.app/)**, a web application for building custom investment portfolios from real market data, visualizing their historical performance, and comparing key risk/return metrics side by side. For a full walkthrough of the features, see the [project page](/projects/portfolio-playground/).
 

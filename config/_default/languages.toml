@@ -5,7 +5,7 @@
 
   [en.params]
     mainSections = ["posts"]
-    description = "Senior Software Engineer exploring AI, deep learning, computer vision, and investing"
+    description = "Research Engineer at Mistral AI, writing about AI, deep learning, computer vision, and investing"
 
   [en.params.author]
     name = "Jianchao Li"

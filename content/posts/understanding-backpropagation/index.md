@@ -17,13 +17,13 @@ However, I believe it is still useful to understand backprop, and Andrej Karpath
 
 Backprop is a gradient computation method. So, what is gradient? Loosely speaking, gradient is the high-dimensional generalization of "derivative". For example, for a 1D function \(f\), its derivative at \(x\) measures the speed of change of \(f\) with respect to \(x\), i.e., how much \(f\) changes when \(x\) changes by a *tiny amount*. And in 1D case, derivative is simply the slope of the tangent line at \(x\), as in Figure 1.
 
-<img src="Tangent_to_a_curve.svg"/>
+<img src="Tangent_to_a_curve.svg" alt="A curve in black with a red tangent line touching it at one point" loading="lazy"/>
 
 **Figure 1.** A function drawn in black, and a tangent line in red. The slope of the tangent line is equal to the derivative of the function at the marked point. [Image credit](https://en.wikipedia.org/wiki/Derivative#/media/File:Tangent_to_a_curve.svg).
 
 In higher dimensions, e.g., 2D, the derivative becomes gradient, which is a vector made up of partial derivatives for each dimension. For example, if function \(f\) has two inputs \(x\) and \(y\), then its gradient is made up of the partial derivatives of \(f\) with respect to \(x\) and \(y\). An example is shown in Figure 2.
 
-<img src="3d-gradient-cos.svg.png" width="50%"/>
+<img src="3d-gradient-cos.svg.png" width="50%" alt="3D surface of a 2D function with its gradient shown as a vector field on the bottom plane" loading="lazy"/>
 
 **Figure 2.** A 2D function and its gradient visualized as a vector field projected onto the bottom plane. [Image credit](https://en.wikipedia.org/wiki/Gradient#/media/File:3d-gradient-cos.svg).
 
@@ -49,7 +49,7 @@ If you are familar with [common derivatives](https://tutorial.math.lamar.edu/pdf
 
 A computational graph is a graphic representation of the computations by breaking them down into variables (e.g., inputs/outputs) and operators. The computations of \(f\) in the above example can be shown in the following computational graph.
 
-<img src="example_computational_graph.png" width="50%"/>
+<img src="example_computational_graph.png" width="50%" alt="Computational graph of f = (ab + c) / d with input, operator, and output nodes" loading="lazy"/>
 
 **Figure 4.** The computational graph of \(f = \frac{ab + c}{d}\). Green nodes are inputs, blue nodes are operators, and red nodes are outputs.
 
@@ -84,7 +84,7 @@ $$
 
 Now we re-draw the above computational graph as follows, in which black arrows show the forward output computation, and red arrows show the backward derivative computation. If we look at each operator, e.g., the divison operator /, which takes \(u\) and \(d\) to compute \(f\), when we compute the derivatives of \(\frac{df}{du}\) and \(\frac{df}{dd}\), they can be done by only focusing on the division operator (local derivatives).
 
-<img src="example_backprop.png" width="50%"/>
+<img src="example_backprop.png" width="50%" alt="Computational graph with black forward-pass arrows and red backward-pass arrows" loading="lazy"/>
 
 **Figure 5.** When we follow the black arrows, it is the forward pass and will compute the output. When we follow the red arrows, it is the backward pass and will compute the derivatives.
 
@@ -141,13 +141,13 @@ db = np.sum(dy, axis=0)
 
 To understand why it is a sum, think of how \(b\) is added to \(xW\) to get \(y\). This is the addition of a (N, C) matrix and a (C) vector and it happens by element-wise addition of each row vector of the matrix \(xW\) and the vector \(b\). This means \(b[0]\) is added to the 0-th element of each row of \(xW\) and that means in the forward pass, there are black arrows from the 0-th elememnt of \(b\) to the 0-th element of each row of \(y\). So, in the backward pass, there are red arrows from all 0-th elements of each row of \(y\) to the 0-the element of \(b\). So, all the 0-th elements of each row of \(\frac{dL}{dy}\) flow to the 0th-element of \(\frac{dL}{db}\). When you have multiple gradients flow into a variable, you sum them up. This is illustrated in Figure 6.
 
-<img src="linear_model.png"/>
+<img src="linear_model.png" alt="Diagram of how the bias b connects to each row of y in the forward and backward passes of a linear layer" loading="lazy"/>
 
 **Figure 6.** To understand why we sum \(\frac{dL}{dy}\) to get \(\frac{dL}{db}\), think of how \(b\) and \(y\) are connected in the forward and backwarda passes.
 
 To understand why we need to sum gradients up, let's look at a scalar example \(y=ax+\frac{b}{x}\), which is shown in the following computational graph: we can compute the derivative of \(y\) with resepct to \(x\) in one backward path via \(u\) by applying the chain rule \(\frac{dy}{dx}_{1}=\frac{dy}{du}\frac{du}{dx}\), and similarly via \(v\) by \(\frac{dy}{dx}_{2}=\frac{dy}{dv}\frac{dv}{dx}\). At the end \(\frac{dy}{dx}\) should be a sum of \(\frac{dy}{dx}_{1}\) and \(\frac{dy}{dx}_{2}\). And this would give us the correct result \(\frac{dy}{dx}=a-\frac{b}{x^2}\).
 
-<img src="gradient_accumulation.png" width="50%"/>
+<img src="gradient_accumulation.png" width="50%" alt="Computational graph of y = ax + b/x showing two backward paths from y to x through u and v" loading="lazy"/>
 
 **Figure 7.** The derivative of \(y\) with respect to \(x\) is accumulated via two backward paths: \(y\rightarrow u\rightarrow x\) and \(y\rightarrow v\rightarrow x\). Note that for the division operator, it is \(\frac{b}{x}\).
 
