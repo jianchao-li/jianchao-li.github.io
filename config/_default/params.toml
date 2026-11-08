@@ -2,6 +2,9 @@ colorScheme = "ocean"
 defaultAppearance = "light"
 autoSwitchAppearance = true
 
+# Used for og:image / twitter:image on pages without a featured image
+defaultSocialImage = "img/social.jpg"
+
 enableSearch = true
 enableCodeCopy = true
 
