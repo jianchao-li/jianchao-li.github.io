@@ -1,15 +1,15 @@
 ---
 title: "Why Every Software Engineer Should Use AI"
-summary: "This post shares my perspectives on why every software engineer should use AI — a cultural shift as significant as any we've experienced."
-tags: ["AI", "software engineering", "productivity"]
-description: "Why every software engineer should embrace AI tools — the productivity gains and the industry-wide cultural shift driving adoption."
+summary: "This post shares my perspectives on why every software engineer should use AI: the productivity gains it enables and the shift it is driving across the industry."
+tags: ["ai", "software-engineering", "productivity"]
+description: "An argument for AI adoption in software engineering, covering multi-tasking, knowledge sharing, resilience, cognitive offload, and the coder-to-orchestrator shift."
 date: 2026-02-04T10:00:00+01:00
-lastmod: 2026-02-08
+lastmod: 2026-11-08
 draft: false
 ---
-The past few months have witnessed rapid and transformative advancements in AI. Large language models have become remarkably capable at understanding and generating code. AI agents can now autonomously complete complex multi-step tasks. Tools like [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [OpenAI Codex](https://openai.com/index/openai-codex/), and [GitHub Copilot](https://github.com/features/copilot) have fundamentally changed how developers write software.
+The past few months have witnessed rapid and transformative advancements in AI. Large language models have become remarkably capable at understanding and generating code. AI agents can now autonomously complete complex multi-step tasks. Tools like [Claude Code](https://code.claude.com/docs), [OpenAI Codex](https://openai.com/codex/), and [GitHub Copilot](https://github.com/features/copilot) have fundamentally changed how developers write software.
 
-Given these advancements, I deeply believe that every software engineer should use AI. In my view, there are two compelling reasons: **productivity boosts** and **industrial shift**.
+Given these advancements, I deeply believe that every software engineer should use AI. In my view, there are two compelling reasons: **productivity boosts** and **industry shift**.
 
 ## Productivity Boosts
 
@@ -19,11 +19,11 @@ Many people have demonstrated how AI boosts their productivity. I want to focus 
 
 Multi-tasking has always been a [challenge](https://calnewport.com/our-brains-are-not-multi-threaded/) for human beings. No matter how many tasks we juggle, no matter how fast we work, at any single point in time, we can only do one thing. This feels natural, but it's actually a massive bottleneck.
 
-Because of this constraint, if a person wants to accomplish more, he/she typically needs to work longer hours. If a team wants more output, it needs to hire more people. In both cases, it comes with [diminishing marginal utility](https://en.wikipedia.org/wiki/Marginal_utility).
+Because of this constraint, if people want to accomplish more, they typically need to work longer hours. If a team wants more output, it needs to hire more people. In both cases, it comes with [diminishing marginal returns](https://en.wikipedia.org/wiki/Diminishing_returns).
 
 AI changes this equation. With agents, multi-tasking becomes genuinely possible. We can delegate tasks to multiple agents running in parallel while we focus on what requires human judgement. This creates the potential for everyone to become a multiple of themselves — not by working harder, but by orchestrating more.
 
-{{< figure src="orchestrating.jpg" alt="Orchestrating" caption="**Figure 1.** AI enables multi-tasking by orchestrating multiple agents in parallel." >}}
+{{< figure src="orchestrating.jpg" alt="Illustration of one engineer orchestrating several AI agents working on tasks in parallel" caption="**Figure 1.** AI enables multi-tasking by orchestrating multiple agents in parallel." >}}
 
 ### Knowledge Sharing
 
@@ -33,7 +33,7 @@ AI shifts this dynamic. I've observed much higher motivation for people to write
 
 The result is an AI that has acquired knowledge that would take any individual much longer to learn on their own.
 
-{{< figure src="knowledge.jpg" alt="Knowledge Sharing" caption="**Figure 2.** AI closes the knowledge sharing incentive loop." >}}
+{{< figure src="knowledge.jpg" alt="Illustration of the knowledge-sharing loop: people document knowledge, AI uses it, and the authors benefit" caption="**Figure 2.** AI closes the knowledge sharing incentive loop." >}}
 
 ### Resilience
 
@@ -41,17 +41,17 @@ Human productivity is variable. We have good days and bad days — our energy, f
 
 AI adds resilience to this system. When we're not at our best, we can lean more heavily on AI to maintain output while we recover. When we hit a wall on a problem, AI can offer alternative angles. When context slips from memory, AI can reconstruct it. The effect compounds: our floor rises, and we recover faster from setbacks.
 
-{{< figure src="resilience.jpg" alt="Resilience" caption="**Figure 3.** AI adds resilience to human productivity fluctuations." >}}
+{{< figure src="resilience.jpg" alt="Illustration of AI keeping output steady while human energy and focus fluctuate" caption="**Figure 3.** AI adds resilience to human productivity fluctuations." >}}
 
 ### Cognitive Offload
 
 Some of the draining parts of engineering are mechanical: [reading through unfamiliar code](https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/), tracing dependencies, holding context in your head, typing out implementations. These tasks all consume cognitive bandwidth.
 
-AI excels here. It can read and comprehend a large codebase in seconds. It can produce code that would take a human minutes to type in moments. By offloading this mechanical work, AI frees our mental capacity for what actually requires human judgement: understanding the real problem, making design tradeoffs, and evaluating whether solutions fit the broader system.
+AI excels here. It can search and read through a large codebase far faster than a human. It can produce in moments code that would take a human minutes to type. By offloading this mechanical work, AI frees our mental capacity for what actually requires human judgement: understanding the real problem, making design tradeoffs, and evaluating whether solutions fit the broader system.
 
-{{< figure src="offload.jpg" alt="Cognitive Offload" caption="**Figure 4.** AI offloads mechanical cognitive work, freeing mental capacity for higher-level thinking." >}}
+{{< figure src="offload.jpg" alt="Illustration of AI taking over mechanical work such as reading code and typing implementations" caption="**Figure 4.** AI offloads mechanical cognitive work, freeing mental capacity for higher-level thinking." >}}
 
-## Industrial Shift
+## Industry Shift
 
 Beyond productivity boosts, there's a more urgent reason to embrace AI: the industry itself is shifting, and we need to adapt.
 
@@ -61,7 +61,7 @@ The implication is clear: the ability to write code alone is no longer enough to
 
 The role of the software engineer is fundamentally transforming — from "coder" to "orchestrator". This means spending more time understanding the systems, decomposing problems into components AI can handle, reviewing and refining AI-generated solutions, and collaborating with both AI and humans.
 
-{{< figure src="shift.jpg" alt="Industrial Shift" caption="**Figure 5.** The role of software engineers is shifting from coder to orchestrator." >}}
+{{< figure src="shift.jpg" alt="Illustration of the software engineer role moving from coder to orchestrator" caption="**Figure 5.** The role of software engineers is shifting from coder to orchestrator." >}}
 
 ## Conclusion
 
