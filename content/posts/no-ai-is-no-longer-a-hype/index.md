@@ -1,16 +1,16 @@
 ---
-title: "No, AI Is No Longer a Hype"
-summary: "Some people still dismiss AI as a hype that can only handle simple tasks. I disagree. Here's how AI has fundamentally changed the way I write, learn, and build."
-tags: ["AI", "software engineering", "productivity"]
-description: "Why AI is no longer a hype — personal experiences with AI in writing, learning, and software engineering that demonstrate its real, compounding impact."
+title: "No, AI Is No Longer Hype"
+summary: "Some people still dismiss AI as hype that can only handle simple tasks. I disagree. Here's how AI has fundamentally changed the way I write, learn, and build."
+tags: ["ai", "software-engineering", "productivity"]
+description: "A personal account of how AI tools changed the author's writing, language learning, and software engineering, and why the \"hype\" label persists."
 date: 2026-02-11T10:00:00+01:00
-lastmod: 2026-02-11T10:00:00+01:00
+lastmod: 2026-11-08
 draft: false
 ---
 
-"AI is just a hype." I still hear this occasionally. The argument usually goes something like: sure, AI can do some simple tasks, but it's not really useful for anything serious, and it will fade once the novelty wears off.
+"AI is just hype." I still hear this occasionally. The argument usually goes something like: sure, AI can do some simple tasks, but it's not really useful for anything serious, and it will fade once the novelty wears off.
 
-I used to be more sympathetic to this view. But after living with AI tools for the past couple of years, I've come to a different opinion: AI is no longer a hype. It has quietly and fundamentally changed how I work, how I learn, and how I build things. The shift didn't happen overnight — rather, it crept in one workflow at a time, until I looked back and realized that many things no longer work the same way they used to.
+I used to be more sympathetic to this view. But after living with AI tools for the past couple of years, I've come to a different opinion: AI is no longer hype. It has quietly and fundamentally changed how I work, how I learn, and how I build things. The shift didn't happen overnight — rather, it crept in one workflow at a time, until I looked back and realized that many things no longer work the same way they used to.
 
 ## AI Changed How I Write
 
@@ -30,9 +30,9 @@ The same applies to technical learning. When I need to pick up an unfamiliar tec
 
 ## AI Changed How I Build
 
-This is the most profound shift. In my [previous post](/posts/why-every-software-engineer-should-use-ai/), I wrote about software engineers transitioning from coders to orchestrators, which is how I work every day.
+This is the most profound shift. In an [earlier post](/posts/why-every-software-engineer-should-use-ai/), I wrote about software engineers transitioning from coders to orchestrators, which is how I work every day.
 
-With coding agents like [Claude Code](https://docs.anthropic.com/en/docs/claude-code), I no longer start a task by reading through the codebase myself, tracing dependencies, and writing code line by line. Instead, I describe what I want to achieve, and the agent reads the code, understands the context, and produces a solution. My role is to review its work, provide direction when it's off track, and make the judgment calls that require understanding the bigger picture.
+With coding agents like [Claude Code](https://code.claude.com/docs), I no longer start a task by reading through the codebase myself, tracing dependencies, and writing code line by line. Instead, I describe what I want to achieve, and the agent reads the code, understands the context, and produces a solution. My role is to review its work, provide direction when it's off track, and make the judgment calls that require understanding the bigger picture.
 
 Most of the time, it does a genuinely good job. Sometimes it gets into a dead end — looping on an approach that isn't working, or misunderstanding a subtle requirement. When that happens, I clear the context and ask it to retry with a bit more guidance. This simple loop — delegate, review, course-correct — is remarkably effective.
 
@@ -40,7 +40,7 @@ Most of the time, it does a genuinely good job. Sometimes it gets into a dead en
 
 AI has helped me build side projects at a pace I couldn't have imagined before. [Portfolio Playground](/posts/vibe-coding-portfolio-playground/), for example, went from idea to deployed product in a single weekend — built entirely through [vibe coding](https://x.com/karpathy/status/1886192184808149383), with 100% AI-generated code. The technologies involved — Next.js, TypeScript, FastAPI — were things I had never worked with, yet that didn't matter. I focused on what the product should do, and AI handled the implementation. The result was a product I'm genuinely happy with, more feature-rich than I originally planned.
 
-### Debugging Unfamiliar Codebase
+### Debugging Unfamiliar Codebases
 
 AI has also become my go-to for debugging in unfamiliar codebases. Previously, when I hit an issue in code I didn't write, I'd spend a lot of time reading through it or, more often, ask a colleague who knew the codebase better. That dependency — needing someone else's time and knowledge — was a bottleneck.
 
@@ -54,7 +54,7 @@ AI has none of these costs. It is patient, it is helpful, it never gets annoyed,
 
 ## Why the "Hype" Label Persists
 
-If AI is this useful, why do some people still call it a hype? I think there are a few reasons.
+If AI is this useful, why do some people still call it hype? I think there are a few reasons.
 
 **Some haven't tried it seriously.** Many have used AI once or twice — asked it a question, got an imperfect answer, and concluded it's not useful. But AI's value compounds with consistent use. You learn what it's good at, how to prompt it effectively, and how to integrate it into your workflow. A single interaction doesn't capture this.
 
@@ -62,10 +62,10 @@ If AI is this useful, why do some people still call it a hype? I think there are
 
 **Some compare it to the wrong benchmark.** The right comparison isn't "AI vs. expert human doing this specific task." It's "me with AI vs. me without AI." When I frame it this way, the improvement is undeniable.
 
-**Some are naturally cautious about new technologies.** This is understandable — and not new. When trains first appeared, people [feared](https://en.wikipedia.org/wiki/Railway_mania) they would cause all sorts of harm. Electricity was first met with [deep suspicion](https://www.smithsonianmag.com/smart-news/people-had-to-be-convinced-of-the-usefulness-of-electricity-21221094/). Early aviation was widely dismissed as [impractical](https://paleofuture.com/blog/2016/6/30/doubts-about-the-airplane-in-1909-emotion-has-run-away-with-reason). In each case, skepticism eventually gave way to adoption as the technology proved its value in everyday life. AI is following the same pattern.
+**Some are naturally cautious about new technologies.** This is understandable — and not new. When trains first appeared, people feared they would cause all sorts of harm. Electricity was first met with [deep suspicion](https://www.smithsonianmag.com/smart-news/people-had-to-be-convinced-of-the-usefulness-of-electricity-21221094/). Early aviation was widely dismissed as [impractical](https://paleofuture.com/blog/2016/6/30/doubts-about-the-airplane-in-1909-emotion-has-run-away-with-reason). In each case, skepticism eventually gave way to adoption as the technology proved its value in everyday life. AI is following the same pattern.
 
 ## Final Thoughts
 
-AI is no longer a hype. It is a practical reality that is already reshaping how people live and work. For me, the evidence is simply my daily experience: AI changed how I write, how I learn, and how I build — and as an introvert, it has become a great partner that fits my working style.
+AI is no longer hype. It is a practical reality that is already reshaping how people live and work. For me, the evidence is simply my daily experience: AI changed how I write, how I learn, and how I build — and as an introvert, it has become a great partner that fits my working style.
 
-Unlike many technology trends that come and go, this one compounds — the more you use it, the more you learn how to use it, and the more effective it becomes. That's not the trajectory of a hype. That's the trajectory of a fundamental shift.
+Unlike many technology trends that come and go, this one compounds — the more you use it, the more you learn how to use it, and the more effective it becomes. That's not the trajectory of hype. That's the trajectory of a fundamental shift.
