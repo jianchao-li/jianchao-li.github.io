@@ -1,11 +1,12 @@
 ---
 title: "Understanding Fully Convolutional Networks"
-summary: "I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great details. Moreover, I will analyze the MXNet implementation of FCNs."
+summary: "I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great detail. Moreover, I will analyze the MXNet implementation of FCNs."
 tags: ["deep-learning", "computer-vision"]
-description: "A detailed walkthrough of Fully Convolutional Networks (FCN) for semantic segmentation, including architecture, implementation in PyTorch, and training on PASCAL VOC."
+description: "A walkthrough of fully convolutional networks for semantic segmentation: transposed convolution, the voc-fcn32s architecture in Caffe, and crop offsets."
 date: 2018-09-15T19:29:22+08:00
-lastmod: 2026-02-08
+lastmod: 2026-11-08
 draft: false
+showTableOfContents: true
 ---
 {{< katex >}}
 > **Disclaimer:** This post was written in 2018. While the fundamental concepts remain educational, some tools and approaches described here have been superseded by newer alternatives.
@@ -30,7 +31,7 @@ Back in 2015, convolutional neural networks (CNNs) have achieved tremendous succ
 
 However, in semantic segmentation, we need pixel-wise dense predictions instead of just a single label. For example, for a 256x128 image, the segmentation mask is also of size 256x128. We need to use CNNs to generate a predicted mask and then compute the loss between it and the ground truth one.
 
-I was working on object segmentation at the end of 2014. Object segmentation is arguably much simpler than semantic segmentation in that it only classifies the pixels into two classes: the backround and the foreground (a specific object, like pedestrian, horse, bird etc.). The following are some examples taken from [Caltech-UCSD Birds-200-2011](http://www.vision.caltech.edu/visipedia/CUB-200-2011.html) with the object masks shown below the images.
+I was working on object segmentation at the end of 2014. Object segmentation is arguably much simpler than semantic segmentation in that it only classifies the pixels into two classes: the background and the foreground (a specific object, like pedestrian, horse, bird etc.). The following are some examples taken from [Caltech-UCSD Birds-200-2011](http://www.vision.caltech.edu/visipedia/CUB-200-2011.html) with the object masks shown below the images.
 
 {{< figure src="cub200.png" alt="CUB-200-2011 bird dataset examples showing four bird photographs in the top row with their corresponding binary foreground-background segmentation masks below, where white silhouettes represent the bird regions against a black background" caption="**Figure 3.** CUB-200-2011 bird dataset examples with binary foreground-background segmentation masks." >}}
 
@@ -84,7 +85,7 @@ Now you know how to design a deconvolutional layer to upsample an input size to 
 
 ## VGG
 
-Before introducing FCNs, I would like to talk about [VGG](https://arxiv.org/pdf/1409.1556.pdf), which is the backbone network for the FCN example that will be presented in the next section. It was used by [Karen Simonyan](http://www.robots.ox.ac.uk/~karen/) and [Andrew Zisserman](https://www.robots.ox.ac.uk/~az/) in ILSVRC 2015 and won the second-place in the image classification task.
+Before introducing FCNs, I would like to talk about [VGG](https://arxiv.org/pdf/1409.1556.pdf), which is the backbone network for the FCN example that will be presented in the next section. It was used by [Karen Simonyan](http://www.robots.ox.ac.uk/~karen/) and [Andrew Zisserman](https://www.robots.ox.ac.uk/~az/) in ILSVRC 2014 and won second place in the image classification task.
 
 Specifically, I will use the [16-layer VGG](https://gist.github.com/ksimonyan/211839e770f7b538e2d8#file-vgg_ilsvrc_16_layers_deploy-prototxt) as an example. The following table is a breakdown of the network layer by layer. Note that the stride and padding is 1 and 0 by default if not specified. And the last softmax layer for loss computation is ignored. By **Size**, we mean the shape of the output blobs, which is computed using equations (1) and (2).
 
@@ -386,7 +387,7 @@ H_0 &= \left(S_1S_2 \dots S_n\right)\left(H_0 + 2T\right) \\
 \end{aligned}
 \end{equation}\tag{22}$$
 
-Typically we design the network to make \(S_1S_2 \dots S_n = 1\). Let's take voc-fcn8s as an example to verify this point. In this network, we have the following general convolutional layers (both pooling and deconvolutional layers are also counted as convolutional layers).
+Typically we design the network to make \(S_1S_2 \dots S_n = 1\). Let's take voc-fcn32s as an example to verify this point. In this network, we have the following general convolutional layers (both pooling and deconvolutional layers are also counted as convolutional layers).
 
 | Name | Type | Old parameterization (\(K, S, P\)) | Reparameterization (\(S, P^\prime\)) |
 | ---- | ---- | --------------: | ------------------------------: |
@@ -438,17 +439,17 @@ T = -\big( & S_1S_2 \dots S_{n - 1}P^\prime_n + S_1S_2 \dots S_{n - 2}P^\prime_{
 I computed \(T\) for voc-fcn32s using the following Python codes according to equation (24) and the result is 19.0, which is exactly the offset of the Crop layer.
 
 ```python
->>> S = [1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1]
+>>> S = [1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 1 / 32]
 >>> P = [-99, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, -0.5]
 >>> N = 22
->>> sum = 0
+>>> total = 0
 >>> for i in range(N):
-...     prod = p[i]
+...     prod = P[i]
 ...     for j in range(i):
-...         prod *= s[j]
-...     sum += prod
+...         prod *= S[j]
+...     total += prod
 ...
->>> T = -sum
+>>> T = -total
 >>> print(T)
 19.0
 ```
@@ -456,6 +457,8 @@ I computed \(T\) for voc-fcn32s using the following Python codes according to eq
 ## How MXNet computes the offset
 
 Now you know one way to compute \(T\). I would like to tell you one more, which is used in [MXNet](https://github.com/apache/incubator-mxnet/blob/master/example/fcn-xs/symbol_fcnxs.py).
+
+> **Note:** Apache MXNet was retired to the [Apache Attic](https://attic.apache.org/projects/mxnet.html) in 2023. The links to its source code below may point to an archived repository.
 
 From equation (19), we can write down the equations of \(H_0\) expressed in \(H_i\) for all \(i = 1, 2, \dots, n\).
 
@@ -565,7 +568,7 @@ For [voc-fcn16s](https://github.com/shelhamer/fcn.berkeleyvision.org/blob/master
 
 As can be seen, the finer details from the intermediate resolution in `pool4` are incorporated into later feature maps, which will produce finer outputs than those of fcn-voc32s. Actually, fcn-voc16s utilizes two resolutions of a factor of 16 and a factor of 32.
 
-We may combine more resolutions in the same way. In fcn-voc8s, we generate one more set of outputs from `pool3` and combine it with later feature maps. The network architecture is similarly shown in the figure below with the process broken down in the following table.
+We may combine more resolutions in the same way. In voc-fcn8s, we generate one more set of outputs from `pool3` and combine it with later feature maps. The network architecture is similarly shown in the figure below with the process broken down in the following table.
 
 {{< figure src="fcn-voc8s.png" alt="FCN-8s network architecture diagram showing three parallel paths: from pool3 through score_pool3, from pool4 through score_pool4 fused with upscore2 from score_fr, and the combined result upsampled again and fused with pool3 features before a final 8x upsampling and crop to produce the score" caption="**Figure 8.** FCN-8s architecture incorporating features from pool3, pool4, and score predictions." >}}
 
@@ -585,7 +588,7 @@ We may combine more resolutions in the same way. In fcn-voc8s, we generate one m
 | `upscore8` | Deconvolution | 21 16x16 kernels, stride 8 | \(21 \times \left(H + 62\right) \times \left(W + 62\right)\) |
 | `score` | Crop | axis 2, offset 31 | \(21 \times H \times W\)|
 
-In fcn-voc8s, one more intermediate resolution `pool3` are incorporated. From fcn-voc32s, fcn-voc16s to fcn-voc8s, more intermediate resolutions are incorporated and the results will contain more details, as shown below (taken from the [FCN paper](https://arxiv.org/pdf/1411.4038.pdf)).
+In voc-fcn8s, one more intermediate resolution `pool3` is incorporated. From voc-fcn32s, voc-fcn16s to voc-fcn8s, more intermediate resolutions are incorporated and the results will contain more details, as shown below (taken from the [FCN paper](https://arxiv.org/pdf/1411.4038.pdf)).
 
 {{< figure src="details.png" alt="Comparison of segmentation results from FCN-32s, FCN-16s, FCN-8s, and ground truth, showing progressively finer detail and sharper boundaries as more intermediate resolutions are incorporated, with the FCN-8s output most closely matching the ground truth" caption="**Figure 9.** Segmentation results from FCN-32s, FCN-16s, and FCN-8s compared to ground truth." >}}
 
