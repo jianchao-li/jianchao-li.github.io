@@ -4,7 +4,7 @@ Source repository for [jianchao.xyz](https://www.jianchao.xyz) — the personal 
 
 ## Tech Stack
 
-- **Static Site Generator**: [Hugo](https://gohugo.io/) v0.155.1
+- **Static Site Generator**: [Hugo](https://gohugo.io/) v0.155.1 (pinned in CI). Blowfish declares support for Hugo up to 0.154.5, so builds print a harmless module-compatibility warning.
 - **Theme**: [Blowfish](https://github.com/nunocoracao/blowfish)
 - **Styling**: Tailwind CSS (via Blowfish)
 - **Deployment**: GitHub Pages via GitHub Actions
@@ -36,13 +36,20 @@ jianchao-li.github.io/
 ├── content/
 │   ├── about/           # About page with professional timeline
 │   ├── posts/           # Blog posts
-│   └── projects/        # Project showcases
+│   ├── projects/        # Project showcases
+│   └── tags/            # Tag display titles and aliases
 ├── layouts/
-│   ├── _default/        # Single-page layout and math render hooks
-│   ├── partials/        # Custom partials (analytics, comments, home profile)
+│   ├── _default/_markup/  # Math passthrough render hooks (KaTeX)
+│   ├── partials/
+│   │   ├── _funcs/get-page-images.html  # Social images (og:image) served at 1200x630
+│   │   ├── comments.html                # Giscus comments
+│   │   └── home/profile.html            # Homepage profile with projects grid
 │   ├── 404.html         # Custom 404 page
+│   ├── home.rss.xml     # Home RSS feed: posts only
 │   └── robots.txt       # robots.txt template
-├── static/              # Favicons and static assets
+├── static/
+│   ├── demos/           # Standalone interactive demos (math, browser ML)
+│   └── ...              # Favicons, CNAME
 └── themes/blowfish/     # Blowfish theme (git submodule)
 ```
 
