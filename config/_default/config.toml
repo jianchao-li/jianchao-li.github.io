@@ -10,8 +10,6 @@ enableRobotsTXT = true
 
 [taxonomies]
   tag = "tags"
-  category = "categories"
-  author = "authors"
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
