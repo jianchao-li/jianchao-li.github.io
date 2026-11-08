@@ -1,10 +1,10 @@
 ---
 title: "Debugging Hidden GPU Processes in PyTorch"
-summary: "When nvidia-smi shows free GPUs but PyTorch throws OOM errors, here's how to find and kill zombie processes holding GPU memory."
+summary: "When nvidia-smi shows free GPUs but PyTorch throws OOM errors, here's how to find and kill orphaned processes still holding the GPUs."
 tags: ["debugging", "pytorch", "gpu"]
-description: "Debugging GPU memory issues when nvidia-smi fails to reveal zombie processes — practical diagnostic tools and techniques."
+description: "How to find orphaned PyTorch and DataLoader processes that hold GPUs after a killed training job when nvidia-smi shows no running processes."
 date: 2018-11-02T14:58:10+08:00
-lastmod: 2026-02-20
+lastmod: 2026-11-08
 draft: false
 ---
 
@@ -14,13 +14,13 @@ draft: false
 
 I was working on semantic segmentation, which is far more memory-intensive than classification—instead of outputting class probabilities, you output dense per-pixel predictions. This means smaller batch sizes per GPU.
 
-The problem is that batch normalization needs a reasonable batch size to compute accurate statistics. With only 2 images per GPU, the mean and standard deviation become unreliable. The solution is synchronized batch normalization, which computes statistics across all GPUs. Combined with PyTorch's multi-worker DataLoader for data loading, this means many subprocesses running alongside your main training script—and that's where the trouble began.
+The problem is that batch normalization needs a reasonable batch size to compute accurate statistics. With only 2 images per GPU, the mean and standard deviation become unreliable. The solution is synchronized batch normalization, which computes statistics across all GPUs. Combined with PyTorch's multi-worker DataLoader for data loading, this means many subprocesses running alongside your main training script—and that's where the trouble began. (Today, PyTorch ships this as [`torch.nn.SyncBatchNorm`](https://pytorch.org/docs/stable/generated/torch.nn.SyncBatchNorm.html).)
 
 ## The Problem
 
 I was running this setup on a cloud GPU cluster with 8 Tesla V100s in a Docker container. After killing my training script (via the cloud GUI), subsequent runs would fail with OOM errors—even though `nvidia-smi` showed all GPUs were free:
 
-```bash
+```text
 +-----------------------------------------------------------------------------+
 | NVIDIA-SMI 390.46                 Driver Version: 390.46                    |
 |-------------------------------+----------------------+----------------------+
@@ -62,7 +62,7 @@ I was running this setup on a cloud GPU cluster with 8 Tesla V100s in a Docker c
 
 But when I tried to start a new training job, I got an OOM error:
 
-```bash
+```text
 RuntimeError: CUDA error (2): out of memory
 ```
 
@@ -122,8 +122,8 @@ if __name__ == '__main__':
             torch.cuda.set_device(gpu_id)
             torch.randn(1, device='cuda')
             print('GPU {} is good'.format(gpu_id))
-        except Exception as exec:
-            print('GPU {} is bad: {}'.format(gpu_id, exec))
+        except Exception as e:
+            print('GPU {} is bad: {}'.format(gpu_id, e))
 ```
 
 This revealed the issue:
@@ -149,7 +149,9 @@ After searching online, I found [@smth](https://discuss.pytorch.org/u/smth/summa
 
 > We found that there's actually a bug in python multiprocessing that might keep the child process hanging around, as zombie processes. It is not even visible to `nvidia-smi`.
 
-This explained why `nvidia-smi` failed to reveal the issue. The suggested `killall python` didn't work for me, but it pointed me in the right direction: look for processes using the GPU device files directly. The command `fuser -v /dev/nvidia*` lists all processes with handles to the NVIDIA device files:
+Strictly speaking, these were not zombies in the Unix sense: a true zombie (a `<defunct>` entry in `ps`) has already exited, holds no resources, and cannot be killed. What I had were orphaned, hung processes that were still alive. Another likely reason `nvidia-smi` showed nothing is that it was running inside a Docker container, where it cannot map GPU processes in other PID namespaces.
+
+The suggested `killall python` didn't work for me, but it pointed me in the right direction: look for processes using the GPU device files directly. The command `fuser -v /dev/nvidia*` lists all processes with handles to the NVIDIA device files:
 
 ```bash
 $ fuser -v /dev/nvidia*
@@ -163,15 +165,15 @@ $ fuser -v /dev/nvidia*
                      ...
 ```
 
-There they were—zombie Python processes still holding GPU device handles. The main process (PID 5284) and 16 DataLoader worker subprocesses (PIDs 5416-5431) had survived the termination signal and were invisibly occupying the GPUs.
+There they were—orphaned Python processes still holding GPU device handles. The main process (PID 5284) and 16 DataLoader worker subprocesses (PIDs 5416-5431) had survived the termination signal and were invisibly occupying the GPUs.
 
 ## The Fix
 
-Once identified, the fix was straightforward—kill the zombie processes:
+Once identified, the fix was straightforward—kill the orphaned processes. Try `SIGTERM` first so they get a chance to clean up, and fall back to `SIGKILL` only for processes that ignore it:
 
 ```bash
-$ for pid in {5416..5431}; do kill -9 $pid; done  # kill workers first
-$ kill -9 5284                                      # then main process
+$ kill 5284 {5416..5431}      # SIGTERM: ask them to exit
+$ kill -9 5284 {5416..5431}   # SIGKILL: only if some are still alive
 ```
 
 After this, `check.py` confirmed all GPUs were truly available:
@@ -194,27 +196,23 @@ If the above solution doesn't work, here's a hacky but reliable alternative: add
 
 ```python
 import os
-import torch
+import sys
 
 # Add this check inside your training loop
 if os.path.isfile('kill.me'):
-    num_gpus = torch.cuda.device_count()
-    for gpu_id in range(num_gpus):
-        torch.cuda.set_device(gpu_id)
-        torch.cuda.empty_cache()
-    exit(0)
+    sys.exit(0)
 ```
 
-When you want to stop training, just run `touch kill.me` in the training directory. The script will clear all GPU caches and exit cleanly on the next iteration. This lets Python handle the cleanup properly instead of relying on external termination signals.
+When you want to stop training, just run `touch kill.me` in the training directory. The script will exit cleanly on the next iteration. This lets Python shut down the DataLoader workers properly instead of relying on external termination signals. There is no need to call `torch.cuda.empty_cache()` first: all GPU memory held by a process is released by the driver when the process exits.
 
 ## Key Takeaways
 
-**1. `nvidia-smi` doesn't show everything.** Zombie processes can hold GPU device handles without showing memory usage in `nvidia-smi`. Always verify at the level where the problem manifests.
+**1. `nvidia-smi` doesn't show everything.** Orphaned processes can hold GPU device handles without showing memory usage in `nvidia-smi`. Always verify at the level where the problem manifests.
 
 **2. Test at multiple layers.** When debugging resource issues, test at different levels of abstraction: OS tools → CUDA APIs → framework-specific code. This narrows down where the problem actually occurs.
 
 **3. Use `fuser` for device file diagnostics.** The command `fuser -v /dev/nvidia*` reveals processes holding GPU device handles that other tools miss.
 
-**4. Kill child processes first.** When terminating multi-process applications, kill worker processes before the main process for proper cleanup.
+**4. Terminate gracefully first.** Send `SIGTERM` before `SIGKILL`, so processes get a chance to clean up; with `SIGKILL`, the order in which you kill them does not matter.
 
 Hope this helps if you run into similar issues.
