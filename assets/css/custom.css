@@ -23,6 +23,18 @@ article > section:not(:has(.toc)) .article-content {
   text-align: center;
 }
 
+/* Figures marked class="w-1/2": half width from 640px up, full width on small screens.
+   (The theme's precompiled Tailwind only ships sm:w-1/2, not w-1/2.) */
+.article-content figure img.w-1\/2 {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .article-content figure img.w-1\/2 {
+    width: 50%;
+  }
+}
+
 /* ---------- Project demo cards ---------- */
 
 .demo-grid {
@@ -153,8 +165,10 @@ a.demo-card:hover .demo-btn {
   box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
 }
 
+/* Logo tiles stay white in dark mode so dark/navy logos remain visible. */
 .dark .timeline-marker {
-  background: rgb(var(--color-neutral-800));
+  border: 1px solid rgb(var(--color-neutral-600));
+  box-shadow: none;
 }
 
 .timeline-marker a {
