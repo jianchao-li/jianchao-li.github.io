@@ -1,6 +1,7 @@
 ---
-title: "About"
-description: "Career and education of Jianchao Li, Research Engineer at Mistral AI, previously at Meta, ViSenze, ByteDance, and Indeed."
+title: "About Jianchao Li"
+lastmod: 2026-11-08
+description: "Jianchao Li is a Research Engineer at Mistral AI in Zurich, previously at Meta, ViSenze, ByteDance, and Indeed. Career, education, and interests."
 layout: "simple"
 showDate: false
 showAuthor: false
@@ -8,12 +9,14 @@ showReadingTime: false
 showComments: false
 ---
 
+I'm Jianchao Li, a Research Engineer at Mistral AI in Zurich. Before that, I worked as a software and research engineer at Meta, ViSenze, ByteDance, and Indeed.
+
 ## Career
 
 <div class="timeline">
   <div class="timeline-item">
     <div class="timeline-marker">
-      <a href="https://www.mistral.ai/" target="_blank"><img class="nozoom" src="mistral.png" alt="Mistral AI"></a>
+      <a href="https://www.mistral.ai/" target="_blank"><img class="nozoom" src="mistral.png" alt="Mistral AI" width="100" height="100" loading="lazy" decoding="async"></a>
     </div>
     <div class="timeline-content">
       <h3>Research Engineer at Mistral AI</h3>
@@ -24,7 +27,7 @@ showComments: false
 
   <div class="timeline-item">
     <div class="timeline-marker">
-      <a href="https://www.meta.com/" target="_blank"><img class="nozoom" src="meta.png" alt="Meta"></a>
+      <a href="https://www.meta.com/" target="_blank"><img class="nozoom" src="meta.png" alt="Meta" width="100" height="100" loading="lazy" decoding="async"></a>
     </div>
     <div class="timeline-content">
       <h3>Senior Software Engineer at Meta</h3>
@@ -35,7 +38,7 @@ showComments: false
 
   <div class="timeline-item">
     <div class="timeline-marker">
-      <a href="https://www.visenze.com/" target="_blank"><img class="nozoom" src="visenze.png" alt="ViSenze"></a>
+      <a href="https://www.visenze.com/" target="_blank"><img class="nozoom" src="visenze.png" alt="ViSenze" width="100" height="100" loading="lazy" decoding="async"></a>
     </div>
     <div class="timeline-content">
       <h3>Research Engineer at ViSenze</h3>
@@ -46,7 +49,7 @@ showComments: false
 
   <div class="timeline-item">
     <div class="timeline-marker">
-      <a href="https://www.bytedance.com/" target="_blank"><img class="nozoom" src="bytedance.png" alt="ByteDance"></a>
+      <a href="https://www.bytedance.com/" target="_blank"><img class="nozoom" src="bytedance.png" alt="ByteDance" width="100" height="100" loading="lazy" decoding="async"></a>
     </div>
     <div class="timeline-content">
       <h3>Algorithm Engineer at ByteDance</h3>
@@ -57,7 +60,7 @@ showComments: false
 
   <div class="timeline-item">
     <div class="timeline-marker">
-      <a href="https://www.indeed.com/" target="_blank"><img class="nozoom" src="indeed.png" alt="Indeed"></a>
+      <a href="https://www.indeed.com/" target="_blank"><img class="nozoom" src="indeed.png" alt="Indeed" width="100" height="100" loading="lazy" decoding="async"></a>
     </div>
     <div class="timeline-content">
       <h3>Software Engineer at Indeed</h3>
@@ -72,7 +75,7 @@ showComments: false
 <div class="timeline">
   <div class="timeline-item">
     <div class="timeline-marker">
-      <a href="https://english.ucas.ac.cn/" target="_blank"><img class="nozoom" src="ucas.png" alt="UCAS"></a>
+      <a href="https://english.ucas.ac.cn/" target="_blank"><img class="nozoom" src="ucas.png" alt="UCAS" width="100" height="100" loading="lazy" decoding="async"></a>
     </div>
     <div class="timeline-content">
       <h3>M.S. in Computer Applied Technology</h3>
@@ -83,7 +86,7 @@ showComments: false
 
   <div class="timeline-item">
     <div class="timeline-marker">
-      <a href="https://en.ustb.edu.cn/" target="_blank"><img class="nozoom" src="ustb.png" alt="USTB"></a>
+      <a href="https://en.ustb.edu.cn/" target="_blank"><img class="nozoom" src="ustb.png" alt="USTB" width="100" height="100" loading="lazy" decoding="async"></a>
     </div>
     <div class="timeline-content">
       <h3>B.S. in Communication Engineering</h3>

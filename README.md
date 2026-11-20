@@ -1,6 +1,6 @@
 # Personal Website Builder
 
-Source repository for [jianchao.xyz](https://www.jianchao.xyz) — the personal website and blog of Jianchao Li.
+Source repository for [jianchao.xyz](https://jianchao.xyz) — the personal website and blog of Jianchao Li.
 
 ## Tech Stack
 
@@ -42,7 +42,10 @@ jianchao-li.github.io/
 │   ├── _default/_markup/  # Math passthrough render hooks (KaTeX)
 │   ├── partials/
 │   │   ├── _funcs/get-page-images.html  # Social images (og:image) served at 1200x630
-│   │   ├── comments.html                # Giscus comments
+│   │   ├── comments.html                # Giscus comments (lazy-loaded)
+│   │   ├── head.html                    # Blowfish head + SEO fixes (description, noindex, rel=me)
+│   │   ├── schema.html                  # JSON-LD @graph: WebSite, Person, ProfilePage, BlogPosting, breadcrumbs
+│   │   ├── vendor.html                  # Blowfish vendor scripts; jQuery only with the gallery shortcode
 │   │   └── home/profile.html            # Homepage profile with projects grid
 │   ├── 404.html         # Custom 404 page
 │   ├── home.rss.xml     # Home RSS feed: posts only
@@ -52,6 +55,14 @@ jianchao-li.github.io/
 │   └── ...              # Favicons, CNAME
 └── themes/blowfish/     # Blowfish theme (git submodule)
 ```
+
+## SEO Notes
+
+- `description` in front matter drives the meta description, og:description and JSON-LD; `summary` is only the list-card text. Keep descriptions under about 160 characters.
+- The author's Person facts (job, employer, schools, `sameAs` profiles) live in `[en.params.author]` in `config/_default/languages.toml`. Keep them consistent with `content/about/index.md`.
+- Tag pages are `noindex, follow` unless their `_index.md` sets `robots: "index, follow"` (the AI, Deep Learning, Software Engineering and Investing hubs do).
+- `head.html`, `schema.html` and `vendor.html` override Blowfish v2.97.0. Re-diff them against the theme when updating the submodule.
+- The static demo pages under `static/demos/` hard-code their canonical URL host.
 
 ## License
 

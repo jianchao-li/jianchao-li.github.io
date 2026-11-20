@@ -1,5 +1,6 @@
 ---
 title: "Browser ML Demos"
+lastmod: 2026-11-08
 summary: "Interactive machine learning demos that run entirely in your browser using Transformers.js. No server required — all inference happens locally on your device."
 description: "Two Transformers.js demos, visual question answering with Moondream2 and image captioning with ViT-GPT2, that run model inference locally in the browser."
 tags: ["transformers.js", "machine-learning", "computer-vision"]

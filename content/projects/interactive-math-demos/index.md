@@ -1,5 +1,6 @@
 ---
 title: "Interactive Math Demos"
+lastmod: 2026-11-08
 summary: "Explore fascinating mathematical concepts through interactive visualizations and simulations — right in your browser."
 description: "Three interactive browser demos, the Collatz conjecture, the Monty Hall problem and a Galton board, that visualize sequences and probability."
 tags: ["math", "visualization", "interactive"]

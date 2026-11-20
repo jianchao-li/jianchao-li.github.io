@@ -1,8 +1,9 @@
 ---
 title: "Portfolio Playground"
+lastmod: 2026-11-08
 summary: "A web app for building custom investment portfolios, visualizing historical performance, and comparing risk/return metrics."
-description: "Portfolio Playground is a web app for building percentage-weighted portfolios from Yahoo Finance data and comparing their historical returns and risk."
-tags: ["next.js", "fastapi", "yfinance"]
+description: "Portfolio Playground: a free web app to build weighted portfolios from Yahoo Finance data and backtest returns, volatility, Sharpe ratio, and drawdown."
+tags: ["investing", "next.js", "fastapi", "yfinance"]
 weight: 1
 showDate: false
 showReadingTime: false
@@ -60,6 +61,8 @@ showComments: false
 **Asset Allocation View.** Hover over any portfolio chip to see a donut chart breakdown of its holdings and weights. It's a small detail, but it makes it much easier to remember what's inside each portfolio when you're comparing several at once.
 
 {{< figure src="donut.png" alt="Donut chart showing the holdings and percentage weights of one portfolio" caption="Asset allocation donut chart showing portfolio holdings and weights on hover." >}}
+
+For the story of how I built it with 100% AI-written code, see [Vibe Coding Portfolio Playground](/posts/vibe-coding-portfolio-playground/).
 
 ## Methodology
 

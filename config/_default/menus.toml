@@ -36,9 +36,3 @@
   pre = "rss"
   url = "/index.xml"
   weight = 37
-
-[[main]]
-  identifier = "appearance"
-  weight = 40
-  [main.params]
-    action = "appearance"

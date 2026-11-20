@@ -202,7 +202,7 @@ a.demo-card:hover .demo-btn {
 
 .timeline-date {
   display: block;
-  color: rgb(var(--color-primary-500));
+  color: rgb(var(--color-primary-700)); /* primary-500 was 3.7:1 on white, below WCAG AA */
   font-weight: 500;
   font-size: 0.8rem;
 }

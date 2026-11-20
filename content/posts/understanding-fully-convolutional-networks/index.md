@@ -2,7 +2,7 @@
 title: "Understanding Fully Convolutional Networks"
 summary: "I will start from the problem of semantic segmentation, introduce how to use CNNs to solve it, and talk about fully convolutional networks, a widely used framework for semantic segmentation, in great detail. Moreover, I will analyze the MXNet implementation of FCNs."
 tags: ["deep-learning", "computer-vision"]
-description: "A walkthrough of fully convolutional networks for semantic segmentation: transposed convolution, the voc-fcn32s architecture in Caffe, and crop offsets."
+description: "Fully convolutional networks (FCN) for semantic segmentation explained: fully connected to conv layers, transposed convolution, FCN-32s/16s/8s, crop offsets."
 date: 2018-09-15T19:29:22+08:00
 lastmod: 2026-11-08
 draft: false
@@ -600,3 +600,5 @@ We cover fully convolutional networks in great detail. To summarize, we have lea
 * The key to generate outputs with the same size as the input in FCNs is to use deconvolution layers, which are just convolutional layers with input and output swapped.
 * The offset parameter in the Crop layers of FCNs can be computed by breaking down the network layer by layer or using an analytic equation.
 * Outputs with higher resolutions from intermediate layers of the network can be incorporated to enhance the details in the segmentation results.
+
+For how gradients flow backward through networks like these during training, see [Understanding Backpropagation](/posts/understanding-backpropagation/).

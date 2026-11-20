@@ -1,8 +1,8 @@
 ---
-title: "Rate Limiters"
+title: "Rate Limiters: Five Algorithms in Python"
 summary: "I will explain five algorithms for rate limiters with example Python implementations: token bucket, leaky bucket, fixed window counter, sliding window log, and sliding window counter."
 tags: ["software-engineering", "system-design", "rate-limiting"]
-description: "Five rate limiting algorithms (token bucket, leaky bucket, fixed window, sliding window log and counter) explained with minimal Python implementations."
+description: "Five rate limiting algorithms explained with Python code: token bucket, leaky bucket, fixed window counter, sliding window log, and sliding window counter."
 date: 2026-06-19T14:45:22+02:00
 lastmod: 2026-11-08
 showTableOfContents: true

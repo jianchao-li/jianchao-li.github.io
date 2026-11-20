@@ -2,7 +2,7 @@
 title: "No, AI Is No Longer Hype"
 summary: "Some people still dismiss AI as hype that can only handle simple tasks. I disagree. Here's how AI has fundamentally changed the way I write, learn, and build."
 tags: ["ai", "software-engineering", "productivity"]
-description: "A personal account of how AI tools changed the author's writing, language learning, and software engineering, and why the \"hype\" label persists."
+description: "AI is no longer hype: how AI tools changed the way I write, learn languages, build software, and debug unfamiliar code, and why the label persists."
 date: 2026-02-11T10:00:00+01:00
 lastmod: 2026-11-08
 draft: false

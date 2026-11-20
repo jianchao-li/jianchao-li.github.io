@@ -2,7 +2,7 @@
 title: "Debugging Hidden GPU Processes in PyTorch"
 summary: "When nvidia-smi shows free GPUs but PyTorch throws OOM errors, here's how to find and kill orphaned processes still holding the GPUs."
 tags: ["debugging", "pytorch", "gpu"]
-description: "How to find orphaned PyTorch and DataLoader processes that hold GPUs after a killed training job when nvidia-smi shows no running processes."
+description: "nvidia-smi shows free GPUs but PyTorch runs out of memory? How to find and kill orphaned DataLoader and training processes still holding GPU memory."
 date: 2018-11-02T14:58:10+08:00
 lastmod: 2026-11-08
 draft: false
@@ -12,7 +12,7 @@ draft: false
 
 ## Background
 
-I was working on semantic segmentation, which is far more memory-intensive than classification—instead of outputting class probabilities, you output dense per-pixel predictions. This means smaller batch sizes per GPU.
+I was working on [semantic segmentation](/posts/understanding-fully-convolutional-networks/), which is far more memory-intensive than classification—instead of outputting class probabilities, you output dense per-pixel predictions. This means smaller batch sizes per GPU.
 
 The problem is that batch normalization needs a reasonable batch size to compute accurate statistics. With only 2 images per GPU, the mean and standard deviation become unreliable. The solution is synchronized batch normalization, which computes statistics across all GPUs. Combined with PyTorch's multi-worker DataLoader for data loading, this means many subprocesses running alongside your main training script—and that's where the trouble began. (Today, PyTorch ships this as [`torch.nn.SyncBatchNorm`](https://pytorch.org/docs/stable/generated/torch.nn.SyncBatchNorm.html).)
 

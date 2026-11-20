@@ -1,0 +1,110 @@
+{{- /*
+  Override of Blowfish's partials/schema.html. Emits one schema.org @graph per
+  page, built with dict/jsonify so titles with quotes cannot break the JSON.
+
+  - Every page: WebSite (#website) and Person (#person, the site author).
+    The Person's facts come from [en.params.author] in config/_default/languages.toml.
+  - Home: WebSite + Person.
+  - /about/: ProfilePage whose mainEntity is the Person.
+  - Posts: BlogPosting with image, author/publisher -> #person, readable keywords.
+  - Projects: CreativeWork attributed to #person.
+  - Sections and taxonomy pages: CollectionPage (no fake dates or word counts).
+  - Non-home pages: BreadcrumbList matching the visible breadcrumbs.
+*/ -}}
+{{- $home := site.Home.Permalink -}}
+{{- $iso := "2006-01-02T15:04:05-07:00" -}}
+{{- $author := site.Params.author -}}
+{{- $websiteID := printf "%s#website" $home -}}
+{{- $personID := printf "%s#person" $home -}}
+{{- $personRef := dict "@id" $personID -}}
+{{- $aboutURL := (site.GetPage "/about").Permalink | default $home -}}
+
+{{- /* Person */ -}}
+{{- $person := dict "@type" "Person" "@id" $personID "name" $author.name "url" $aboutURL -}}
+{{- with $author.image }}{{ with resources.Get . }}
+  {{- $person = merge $person (dict "image" .Permalink) -}}
+{{- end }}{{ end -}}
+{{- with $author.jobTitle }}{{ $person = merge $person (dict "jobTitle" .) }}{{ end -}}
+{{- with $author.bio }}{{ $person = merge $person (dict "description" .) }}{{ end -}}
+{{- with $author.worksFor }}
+  {{- $person = merge $person (dict "worksFor" (dict "@type" "Organization" "name" .name "url" .url)) -}}
+{{- end -}}
+{{- with $author.location }}
+  {{- $person = merge $person (dict "workLocation" (dict "@type" "Place" "name" .)) -}}
+{{- end -}}
+{{- with $author.alumniOf }}
+  {{- $schools := slice -}}
+  {{- range . }}{{ $schools = $schools | append (dict "@type" "CollegeOrUniversity" "name" .name "url" .url) }}{{ end -}}
+  {{- $person = merge $person (dict "alumniOf" $schools) -}}
+{{- end -}}
+{{- with $author.knowsAbout }}{{ $person = merge $person (dict "knowsAbout" .) }}{{ end -}}
+{{- with $author.sameAs }}{{ $person = merge $person (dict "sameAs" .) }}{{ end -}}
+
+{{- /* WebSite */ -}}
+{{- $website := dict "@type" "WebSite" "@id" $websiteID "url" $home "name" site.Title "inLanguage" site.LanguageCode "publisher" $personRef -}}
+{{- with site.Params.description }}{{ $website = merge $website (dict "description" .) }}{{ end -}}
+
+{{- $graph := slice $website $person -}}
+
+{{- /* Page image: featured image (as used for og:image), else the default social image */ -}}
+{{- $image := "" -}}
+{{- with partial "_funcs/get-page-images" . }}{{ with index . 0 }}{{ $image = .Permalink }}{{ end }}{{ end -}}
+{{- if not $image }}{{ with site.Params.defaultSocialImage }}{{ with resources.Get . }}{{ $image = .Permalink }}{{ end }}{{ end }}{{ end -}}
+
+{{- $description := .Description | default .Params.summary | default site.Params.description | plainify -}}
+{{- $pageID := printf "%s#webpage" .Permalink -}}
+
+{{- if not .IsHome -}}
+  {{- if eq .RelPermalink $aboutURL | or (eq .Permalink $aboutURL) -}}
+    {{- $profile := dict "@type" "ProfilePage" "@id" $pageID "url" .Permalink "name" .Title "description" $description "isPartOf" (dict "@id" $websiteID) "mainEntity" $personRef "inLanguage" site.LanguageCode -}}
+    {{- with .Lastmod }}{{ if not .IsZero }}{{ $profile = merge $profile (dict "dateModified" (.Format $iso)) }}{{ end }}{{ end -}}
+    {{- $graph = $graph | append $profile -}}
+
+  {{- else if and .IsPage (eq .Section "posts") -}}
+    {{- $keywords := slice -}}
+    {{- range .GetTerms "tags" }}{{ $keywords = $keywords | append .LinkTitle }}{{ end -}}
+    {{- $post := dict
+      "@type" "BlogPosting"
+      "@id" (printf "%s#article" .Permalink)
+      "headline" .Title
+      "description" $description
+      "url" .Permalink
+      "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
+      "isPartOf" (dict "@id" $websiteID)
+      "author" (dict "@id" $personID "@type" "Person" "name" $author.name "url" $aboutURL)
+      "publisher" $personRef
+      "inLanguage" site.LanguageCode
+      "wordCount" .WordCount
+      "datePublished" (.PublishDate.Format $iso)
+    -}}
+    {{- $modified := .PublishDate -}}
+    {{- if .Lastmod.After .PublishDate }}{{ $modified = .Lastmod }}{{ end -}}
+    {{- $post = merge $post (dict "dateModified" ($modified.Format $iso)) -}}
+    {{- with $image }}{{ $post = merge $post (dict "image" (slice .)) }}{{ end -}}
+    {{- with $keywords }}{{ $post = merge $post (dict "keywords" (delimit . ", ")) }}{{ end -}}
+    {{- $graph = $graph | append $post -}}
+
+  {{- else if .IsPage -}}
+    {{- $work := dict "@type" "CreativeWork" "@id" (printf "%s#work" .Permalink) "name" .Title "headline" .Title "description" $description "url" .Permalink "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink) "isPartOf" (dict "@id" $websiteID) "author" $personRef "inLanguage" site.LanguageCode -}}
+    {{- with $image }}{{ $work = merge $work (dict "image" .) }}{{ end -}}
+    {{- with .Params.externalUrl }}{{ $work = merge $work (dict "sameAs" .) }}{{ end -}}
+    {{- $graph = $graph | append $work -}}
+
+  {{- else if ne .Kind "404" -}}
+    {{- $graph = $graph | append (dict "@type" "CollectionPage" "@id" $pageID "url" .Permalink "name" .Title "description" $description "isPartOf" (dict "@id" $websiteID) "inLanguage" site.LanguageCode) -}}
+  {{- end -}}
+
+  {{- /* Breadcrumbs */ -}}
+  {{- if ne .Kind "404" -}}
+    {{- $items := slice (dict "@type" "ListItem" "position" 1 "name" "Home" "item" $home) -}}
+    {{- range .Ancestors.Reverse -}}
+      {{- if not .IsHome -}}
+        {{- $items = $items | append (dict "@type" "ListItem" "position" (add (len $items) 1) "name" .LinkTitle "item" .Permalink) -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $items = $items | append (dict "@type" "ListItem" "position" (add (len $items) 1) "name" .LinkTitle "item" .Permalink) -}}
+    {{- $graph = $graph | append (dict "@type" "BreadcrumbList" "@id" (printf "%s#breadcrumb" .Permalink) "itemListElement" $items) -}}
+  {{- end -}}
+{{- end -}}
+
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@graph" $graph | jsonify | safeJS }}</script>

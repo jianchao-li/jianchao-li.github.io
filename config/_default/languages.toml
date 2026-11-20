@@ -1,14 +1,29 @@
 [en]
-  languageCode = "en"
+  languageCode = "en-US"
   languageName = "English"
   weight = 1
 
   [en.params]
     mainSections = ["posts"]
-    description = "Research Engineer at Mistral AI, writing about AI, deep learning, computer vision, and investing"
+    description = "Jianchao Li is a Research Engineer at Mistral AI in Zurich, writing about deep learning, computer vision, software engineering, AI, and investing."
 
   [en.params.author]
     name = "Jianchao Li"
     image = "img/author.jpg"
     headline = "Research Engineer at Mistral AI"
     bio = "Research engineer in Zurich. I write about deep learning, computer vision, software engineering, and investing."
+    # Used by layouts/partials/schema.html (Person JSON-LD) and head.html (rel="me").
+    # Keep these in sync with content/about/index.md: Google cross-checks visible facts.
+    jobTitle = "Research Engineer"
+    location = "Zurich, Switzerland"
+    worksFor = { name = "Mistral AI", url = "https://mistral.ai/" }
+    alumniOf = [
+      { name = "University of Chinese Academy of Sciences", url = "https://english.ucas.ac.cn/" },
+      { name = "University of Science and Technology Beijing", url = "https://en.ustb.edu.cn/" },
+    ]
+    knowsAbout = ["Deep learning", "Computer vision", "Machine learning", "Software engineering", "Index investing"]
+    sameAs = [
+      "https://github.com/jianchao-li",
+      "https://www.linkedin.com/in/jianchao-li/",
+      "https://x.com/jianchao2017",
+    ]

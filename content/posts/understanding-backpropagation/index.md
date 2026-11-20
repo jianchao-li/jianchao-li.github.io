@@ -259,3 +259,5 @@ for _ in range(100):
 ## Final words
 
 Even though few of us implement backprop in practice, it is still useful and fun to understand and implement it. If you want to get your hands dirty with implementing more backprops, you can take a look at the [assignments of the Stanford cs231n course](https://cs231n.stanford.edu/assignments.html) (my solutions can be found [here](https://github.com/jianchao-li/cs231n)), which has many exercises that involve implementing backprop. It also has code snippets that help you do gradient check, which are implemented in a more general way than the above examples.
+
+For a deep learning architecture trained this way end to end, see my walkthrough of [fully convolutional networks for semantic segmentation](/posts/understanding-fully-convolutional-networks/).

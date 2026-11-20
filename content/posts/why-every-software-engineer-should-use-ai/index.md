@@ -66,3 +66,5 @@ The role of the software engineer is fundamentally transforming — from "coder"
 ## Conclusion
 
 It is a new era of software engineering. The engineers who thrive will be those who embrace AI as a partner: delegating where it excels, focusing where humans add unique value, and continuously improving how to orchestrate the two effectively.
+
+For how AI has changed my own writing, learning, and building, see [No, AI Is No Longer Hype](/posts/no-ai-is-no-longer-a-hype/).
