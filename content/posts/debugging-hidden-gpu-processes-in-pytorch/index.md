@@ -1,5 +1,6 @@
 ---
 title: "Debugging Hidden GPU Processes in PyTorch"
+aliases: ["/post/killing-pytorch-multi-gpu-training-the-safe-way/", "/posts/killing-pytorch-multi-gpu-training-the-safe-way/"]
 summary: "When nvidia-smi shows free GPUs but PyTorch throws OOM errors, here's how to find and kill orphaned processes still holding the GPUs."
 tags: ["debugging", "pytorch", "gpu"]
 description: "nvidia-smi shows free GPUs but PyTorch runs out of memory? How to find and kill orphaned DataLoader and training processes still holding GPU memory."

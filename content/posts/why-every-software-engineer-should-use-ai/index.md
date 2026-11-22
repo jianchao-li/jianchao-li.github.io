@@ -1,5 +1,6 @@
 ---
 title: "Why Every Software Engineer Should Use AI"
+aliases: ["/post/why-every-software-engineer-should-use-ai/"]
 summary: "This post shares my perspectives on why every software engineer should use AI: the productivity gains it enables and the shift it is driving across the industry."
 tags: ["ai", "software-engineering", "productivity"]
 description: "An argument for AI adoption in software engineering, covering multi-tasking, knowledge sharing, resilience, cognitive offload, and the coder-to-orchestrator shift."

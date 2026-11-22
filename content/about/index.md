@@ -1,5 +1,6 @@
 ---
 title: "About Jianchao Li"
+aliases: ["/authors/", "/authors/admin/", "/publication/", "/publication/icip-15/", "/publication_types/", "/talk/"]
 lastmod: 2026-11-08
 description: "Jianchao Li is a Research Engineer at Mistral AI in Zurich, previously at Meta, ViSenze, ByteDance, and Indeed. Career, education, and interests."
 layout: "simple"

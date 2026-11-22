@@ -1,5 +1,6 @@
 ---
 title: "Vibe Coding Portfolio Playground"
+aliases: ["/post/vibe-coding-portfolio-playground/"]
 summary: "I built a portfolio analysis tool entirely through vibe coding — 100% of the code was written by AI. Here's what I made and what I learned."
 tags: ["ai", "vibe-coding", "investing", "side-project"]
 description: "How I built Portfolio Playground, a portfolio backtesting web app (Next.js, FastAPI, yfinance), in a weekend with 100% AI-written code, and what I learned."

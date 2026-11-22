@@ -1,5 +1,6 @@
 ---
 title: "The Double-Edged Sword of Compounding"
+aliases: ["/post/the-double-edged-sword-of-compounding/"]
 summary: "While many investors understand the power of compound returns, they may not fully grasp that compounding can also result in a significant downside. This post explores this double-edged sword."
 description: "Worked examples of how compounding grows returns over decades, and how an annual fund fee such as a 1% TER compounds into large losses."
 tags: ["investing", "finance"]
