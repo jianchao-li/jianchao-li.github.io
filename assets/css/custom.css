@@ -287,3 +287,12 @@ a.demo-card:hover .demo-btn {
   background: rgb(var(--color-primary-500));
   color: rgb(var(--color-neutral));
 }
+
+/* ---------- Light/dark featured images ---------- */
+
+/* Posts can ship light-mode.jpg next to featured.jpg (drawn on a dark background).
+   Templates render both; show the one matching the current appearance. */
+html.dark .featured-light,
+html:not(.dark) .featured-dark {
+  display: none !important;
+}
