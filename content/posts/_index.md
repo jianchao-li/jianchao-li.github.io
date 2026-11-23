@@ -1,7 +1,7 @@
 ---
 title: "Posts"
 aliases: ["/post/"]
-description: "Posts by Jianchao Li on deep learning, computer vision, system design, AI-assisted software engineering, and evidence-based index investing."
+description: "Posts by Jianchao Li on AI, software engineering, and investing."
 ---
 
-Writing on deep learning, computer vision, system design, AI-assisted software engineering, and index investing.
+Writing on AI, software engineering, and investing.
